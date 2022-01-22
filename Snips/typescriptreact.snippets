@@ -1,0 +1,15 @@
+snippet com "Standard functional React component" b
+import React from "react";
+
+interface Props {
+}
+
+const ${1:`!v expand('%:t:r')`} = (props: Props): React.ReactElement => {
+  return (
+    <div>
+    </div>
+  );
+};
+
+export default ${1:`!v expand('%:t:r')`};
+endsnippet
