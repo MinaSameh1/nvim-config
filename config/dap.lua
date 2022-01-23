@@ -2,11 +2,26 @@
 -- mfussenegger/nvim-dap
 local dap = require('dap')
 
+
+-- Firefox adaptor config, works
+dap.adapters.firefox = {
+  type = 'executable',
+  command = 'node',
+  justMyCode = true,
+  args = {
+    vim.fn.stdpath("data") .. '/dapinstall/firefox/vscode-firefox-debug/dist/adapter.bundle.js'
+  },
+}
+
+-- Node adaptor Config
 dap.adapters.node2 = {
   type = 'executable',
   command = 'node',
-  args = {os.getenv('HOME') .. '/Downloads/work/vscode-node-debug2/out/src/nodeDebug.js'},
+  args = {
+    vim.fn.stdpath("data") .. '/dapinstall/jsnode/vscode-node-debug2/out/src/nodeDebug.js',
+  },
 }
+-- JS/node config
 dap.configurations.javascript = {
   {
     name = 'Launch',
@@ -26,6 +41,36 @@ dap.configurations.javascript = {
     processId = require'dap.utils'.pick_process,
   },
 }
+
+-- Firefox config for firefox
+-- dap.configurations.javascript = {{
+--   name = 'Debug with Firefox',
+--   type = 'firefox',
+--   request = 'launch',
+--   justMyCode = true,
+--   reAttach = true,
+--   url = 'http://localhost:3000',
+--   webRoot = '${workspaceFolder}',
+--   firefoxExecutable = '/usr/bin/firefox-developer-edition'
+-- }
+-- }
+
+-- jsreact config using firefox
+dap.configurations.javascriptreact = {{
+  name = 'Debug with Firefox',
+  type = 'firefox',
+  request = 'launch',
+  justMyCode = true,
+  reAttach = true,
+  url = 'http://localhost:3000',
+  webRoot = '${workspaceFolder}',
+  firefoxExecutable = '/usr/bin/firefox-developer-edition'
+}
+}
+-- use same config as jsreact
+dap.configurations.typescriptreact = dap.configurations.javascriptreact
+-- use same config as js
+dap.configurations.typescript = dap.configurations.javascript
 
 -- Dap Python plugin
 require('dap-python').setup('/home/mina/.pyenv/shims/python')
@@ -122,56 +167,6 @@ dap.configurations.haskell = {
   },
 }
 
-dap.adapters.firefox = {
-  type = 'executable',
-  command = 'node',
-  args = {
-    vim.fn.stdpath("data") .. '/dapinstall/firefox/vscode-firefox-debug/dist/adapter.bundle.js'
-  },
-}
-
-dap.configurations.javascript = {{
-  name = 'Debug with Firefox',
-  type = 'firefox',
-  request = 'launch',
-  reAttach = true,
-  url = 'http://localhost:3000',
-  webRoot = '${workspaceFolder}',
-  firefoxExecutable = '/usr/bin/firefox'
-}
-}
-
-dap.configurations.javascriptreact = {{
-  name = 'Debug with Firefox',
-  type = 'firefox',
-  request = 'launch',
-  reAttach = true,
-  url = 'http://localhost:3000',
-  webRoot = '${workspaceFolder}',
-  firefoxExecutable = '/usr/bin/firefox'
-}
-}
-
-dap.configurations.typescriptreact = {{
-  name = 'Debug with Firefox',
-  type = 'firefox',
-  request = 'launch',
-  reAttach = true,
-  url = 'http://localhost:3000',
-  webRoot = '${workspaceFolder}',
-  firefoxExecutable = '/usr/bin/firefox'
-}
-}
-
-dap.configurations.typescript = {
-  name = 'Debug with Firefox',
-  type = 'firefox',
-  request = 'launch',
-  reAttach = true,
-  url = 'http://localhost:3000',
-  webRoot = '${workspaceFolder}',
-  firefoxExecutable = '/usr/bin/firefox'
-}
 
 -- note: chrome has to be started with a remote debugging port google-chrome-stable --remote-debugging-port=9222
 -- dap.adapters.chrome = {
@@ -316,7 +311,7 @@ map('n', '<leader>dn', ':lua require"dap".run_to_cursor()<CR>')
 map('n', '<leader>dk', ':lua require"dap".up()<CR>')
 map('n', '<leader>dj', ':lua require"dap".down()<CR>')
 map('n', '<leader>dC', ':lua require"dap".terminate()<CR>')
-map('n', '<leader>dr', ':lua require"dap".repl.toggle({}, "vsplit")<CR><C-w>l')
+map('n', '<leader>dr', ':lua require"dap".repl.toggle({}, "8 split")<CR><C-w>l')
 map('n', '<leader>de', ':lua require"dap".set_exception_breakpoints({"all"})<CR>')
 map('n', '<leader>da', ':lua require"debugHelper".attach()<CR>')
 map('n', '<leader>dA', ':lua require"debugHelper".attachToRemote()<CR>')

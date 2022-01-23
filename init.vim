@@ -237,8 +237,10 @@ let g:dashboard_custom_shortcut={
 let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<c-j>"
 let g:UltiSnipsJumpBackwardTrigger="<c-k>"
+
 " If you want :UltiSnipsEdit to split your window.
 "let g:UltiSnipsEditSplit="vertical"
+
 " Location of snips
 let g:UltiSnipsSnippetDirectories = ['~/.config/nvim/Snips', 'Snips']
 let g:UltiSnipsSnippetsDir="~/.config/nvim/Snips"

@@ -1,15 +1,12 @@
-snippet com "Standard functional React component" b
-import React from "react";
+priority -50
+extends javascript_react
+extends typescript
 
-interface Props {
-}
+priority -49
+snippet rfc "react functional component"
+import React, { FC } from "react"
 
-const ${1:`!v expand('%:t:r')`} = (props: Props): React.ReactElement => {
-  return (
-    <div>
-    </div>
-  );
-};
+interface ${1:function_name}Props {${4:props_types}}
 
-export default ${1:`!v expand('%:t:r')`};
+export const ${1:function_name}: FC<${1:function_name}Props> = (${2:props}) => ${3:function_body}
 endsnippet
