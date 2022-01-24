@@ -1,10 +1,22 @@
 local fn = vim.fn
 local install_path = fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
 if fn.empty(fn.glob(install_path)) > 0 then
-    PACKER_BOOTSTRAP = fn.system({'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path})
+    PACKER_BOOTSTRAP = fn.system({
+        'git',
+        'clone',
+        '--depth',
+        '1',
+        'https://github.com/wbthomason/packer.nvim',
+        install_path})
 end
 
-return require('packer').startup(function(use)
+local status_ok, packer = pcall(require, "packer")
+    if not status_ok then
+        print("Something went wrong with Packer!")
+        return
+    end
+
+return packer.startup(function(use)
     -- LUAA
     use 'nvim-lua/plenary.nvim'
     -- Dashboard
@@ -46,7 +58,9 @@ return require('packer').startup(function(use)
     -- Bar
     use {
         'akinsho/bufferline.nvim',
-        config = function() require'bufferline'.setup{} end
+        config = function() require'bufferline'.setup{
+            diagnostics = "nvim_lsp"
+        } end
         }
     -- TAG BAR
     use 'preservim/tagbar'
@@ -98,7 +112,10 @@ return require('packer').startup(function(use)
         }
     use 'tpope/vim-fugitive'
     -- Latex stuff
-    use 'lervag/vimtex'
+    use {
+        'lervag/vimtex',
+        ft = {'tex','latex'}
+    }
     -- Syntax and languages
     -- Syntax highlighting
     use {
