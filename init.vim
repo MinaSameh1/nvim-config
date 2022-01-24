@@ -5,7 +5,6 @@ endif
 
 syntax on
 
-set guicursor=
 set noshowmatch
 set relativenumber
 " Shows a + on the cursor
@@ -35,10 +34,8 @@ set undodir=~/.config/nvim/undodir
 set undofile
 set undolevels=5000
 set termguicolors
-"set termsize=10x0 
 set scrolloff=8
 set noshowmode
-set ttyfast
 set mouse=a
 set smarttab
 set ruler

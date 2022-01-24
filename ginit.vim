@@ -84,14 +84,11 @@ if exists('g:fvim_loaded')
 endif
 
 if exists('neovide')
+  set NEOVIDE_MULTIGRID 
   set guifont=iMWritingMonoS\ Nerd\ Font:h12
-  "set guifont=Consolata:h12
+  let g:neovide_cursor_vfx_mode = "sonicboom"
   let g:neovide_cursor_vfx_mode = "railgun"
-  " Right Click Context Menu (Copy-Cut-Paste)
-  nnoremap <silent><RightMouse> :call GuiShowContextMenu()<CR>
-  inoremap <silent><RightMouse> <Esc>:call GuiShowContextMenu()<CR>
-  xnoremap <silent><RightMouse> :call GuiShowContextMenu()<CR>gv
-  snoremap <silent><RightMouse> <C-G>:call GuiShowContextMenu()<CR
-  nnoremap <silent> <C-ScrollWheelUp> :set guifont=+<CR>
-  nnoremap <silent> <C-ScrollWheelDown> :set guifont=-<CR>" FVimToggleFullScreen
+  let g:neovide_refresh_rate=72
+  let g:neovide_refresh_rate=140
+  set guicursor=a:blinkon100
 endif
