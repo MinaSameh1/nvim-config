@@ -133,10 +133,6 @@ dap.configurations.dart = {
 require('dap').set_log_level('INFO')
 dap.defaults.fallback.terminal_win_cmd = '80vsplit new'
 
-vim.fn.sign_define('DapBreakpoint', {text='🟥', texthl='', linehl='', numhl=''})
-vim.fn.sign_define('DapBreakpointRejected', {text='🟦', texthl='', linehl='', numhl=''})
-vim.fn.sign_define('DapStopped', {text='⭐️', texthl='', linehl='', numhl=''})
-
 local function map(mode, lhs, rhs, opts)
   local options = {noremap = true}
   if opts then options = vim.tbl_extend('force', options, opts) end
@@ -296,6 +292,10 @@ require("nvim-dap-virtual-text").setup {
                                         -- e.g. 80 to position at column 80, see `:h nvim_buf_set_extmark()`
 }
 
+vim.fn.sign_define('DapBreakpoint', {text='🟥', texthl='', linehl='', numhl=''})
+vim.fn.sign_define('DapBreakpointRejected', {text='🟦', texthl='', linehl='', numhl=''})
+vim.fn.sign_define('DapStopped', {text='⭐️', texthl='', linehl='', numhl=''})
+
 map('n', '<leader>ds', ':Telescope dap frames<CR>')
 -- map('n', '<leader>dc', ':Telescope dap commands<CR>')
 map('n', '<leader>db', ':Telescope dap list_breakpoints<CR>')
@@ -318,7 +318,7 @@ map('n', '<leader>dA', ':lua require"debugHelper".attachToRemote()<CR>')
 map('n', '<leader>dI', ':lua require"dap.ui.widgets".hover()<CR>')
 map('n', '<leader>dv', ':lua require("dapui").eval()<CR>')
 map('n', '<leader>d?', ':lua local widgets=require"dap.ui.widgets";widgets.centered_float(widgets.scopes)<CR>')
-map('n', '<leader>dK', '<Cmd>lua require("dapui").eval()<CR>')
+map('v', '<leader>dK', '<Cmd>lua require("dapui").eval()<CR>')
 -- Jester test
 map('n', '<leader>jn', '<Cmd>lua require"jester".run_file()<CR>')
 map('n', '<leader>jj', '<Cmd>lua require"jester".run()<CR>')
