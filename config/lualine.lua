@@ -2,14 +2,20 @@ require'lualine'.setup {
   options = {
     icons_enabled = true,
     theme = 'auto',
-    component_separators = { left = '', right = ''},
-    section_separators = { left = '', right = ''},
-    disabled_filetypes = {},
+    -- component_separators = { left = '', right = ''},
+    -- section_separators = { left = '', right = ''},
+    section_separators = { left = '', right = '' },
+    component_separators = { left = '', right = '' },
+    disabled_filetypes = {}, -- NONE
     always_divide_middle = true,
   },
   sections = {
     lualine_a = {'mode'},
-    lualine_b = {'branch', 'diff', 'diagnostics'},
+    lualine_b = {'branch', 'diff', {'diagnostics',
+      sources = { 'nvim_lsp' },
+      -- Displays diagnostics for the defined severity types
+      sections = { 'error', 'warn', 'info', 'hint' },
+    }},
     lualine_c = {'filename'},
     lualine_x = {'encoding', 'fileformat', 'filetype'},
     lualine_y = {'progress'},
@@ -25,6 +31,8 @@ require'lualine'.setup {
   },
   tabline = {},
   extensions = {
-    'fugitive'
+    'fugitive',
+    'nvim-tree',
+    'toggleterm'
   }
 }

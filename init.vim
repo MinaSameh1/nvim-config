@@ -134,7 +134,10 @@ map <F10> :setlocal spell! <CR>
 "Save file
 map <Leader>w :w<CR>
 " stop highlighting
-map <silent> <Leader>/ :noh <CR>
+map <silent> <leader>/ :noh <CR>
+" cd to current file Location
+nnoremap <leader>cd <Cmd>cd %:h<CR>
+
 
 " open splits more naturally
 set splitbelow
@@ -218,6 +221,8 @@ nnoremap <silent>]B :BufferLineMovePrev<CR>
 nnoremap <silent>be :BufferLineSortByExtension<CR>
 nnoremap <silent>bd :BufferLineSortByDirectory<CR>
 
+" Pick buffer
+nnoremap <silent><leader>gb :BufferLinePick<CR>
 "" Settings for Easy Align "
 " Start interactive EasyAlign in visual mode (e.g. vipga)
 xmap ga <Plug>(EasyAlign)

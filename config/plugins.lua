@@ -27,7 +27,10 @@ return packer.startup(function(use)
     -- Repeats plugins with . as well
     use 'tpope/vim-repeat'
     -- Status line
-    use 'nvim-lualine/lualine.nvim'
+    use {
+        'nvim-lualine/lualine.nvim',
+          requires = { 'kyazdani42/nvim-web-devicons', opt = true }
+    }
     --use 'feline-nvim/feline.nvim'
     -- Smooth scrolling
     use {
@@ -59,7 +62,9 @@ return packer.startup(function(use)
     use {
         'akinsho/bufferline.nvim',
         config = function() require'bufferline'.setup{
-            diagnostics = "nvim_lsp"
+            numbers = "buffer_id",
+            diagnostics = "nvim_lsp",
+            right_mouse_command = "vertical sbuffer %d"
         } end
         }
     -- TAG BAR
@@ -164,6 +169,7 @@ return packer.startup(function(use)
     use 'dracula/vim'
     use 'folke/tokyonight.nvim'
     use 'shaunsingh/nord.nvim'
+    use { 'catppuccin/nvim' }
     -- Colors
     use {
         'tjdevries/colorbuddy.vim',
