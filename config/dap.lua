@@ -318,7 +318,7 @@ map('n', '<leader>dA', ':lua require"debugHelper".attachToRemote()<CR>')
 map('n', '<leader>dI', ':lua require"dap.ui.widgets".hover()<CR>')
 map('n', '<leader>dv', ':lua require("dapui").eval()<CR>')
 map('n', '<leader>d?', ':lua local widgets=require"dap.ui.widgets";widgets.centered_float(widgets.scopes)<CR>')
-map('v', '<leader>dK', '<Cmd>lua require("dapui").eval()<CR>')
+map('v', '<leader>dV', '<Cmd>lua require("dapui").eval()<CR>')
 -- Jester test
 map('n', '<leader>jn', '<Cmd>lua require"jester".run_file()<CR>')
 map('n', '<leader>jj', '<Cmd>lua require"jester".run()<CR>')
