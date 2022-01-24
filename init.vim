@@ -15,6 +15,13 @@ set nohlsearch
 set incsearch
 set ignorecase
 set smartcase
+" cursor shape
+let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
+" Enable blinking together with different cursor shapes for insert/command mode, and cursor highlighting:
+" set guicursor=n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50
+"       \,a:blinkwait3000-blinkoff400-blinkon3250-Cursor/lCursor
+"       \,sm:block-blinkwait675-blinkoff150-blinkon375
+
 set hidden
 set noerrorbells
 set tabstop=2 softtabstop=4
