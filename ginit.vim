@@ -1,21 +1,9 @@
+"" Mappings for all of them
 " Fix key mapping issues for GUI
 inoremap <silent> <S-Insert>  <C-R>+
 cnoremap <S-Insert> <C-R>+
 nnoremap <silent> <C-6> <C-^>
 
-" Increases the font size with `amount`
-function! Zoom(amount) abort
-  call ZoomSet(matchstr(&guifont, '\d\+$') + a:amount)
-endfunc
-
-" Sets the font size to `font_size`
-function ZoomSet(font_size) abort
-  let &guifont = substitute(&guifont, '\d\+$', a:font_size, '')
-endfunc
-
-noremap <silent> <C-+> :call Zoom(v:count1)<CR>
-noremap <silent> <C--> :call Zoom(-v:count1)<CR>
-noremap <silent> <C-0> :call ZoomSet(11)<CR>
 
 " To check if neovim-qt is running, use `exists('g:GuiLoaded')`,
 " see https://github.com/equalsraf/neovim-qt/issues/219
@@ -33,8 +21,22 @@ if exists('g:GuiLoaded')
   inoremap <silent><RightMouse> <Esc>:call GuiShowContextMenu()<CR>
   xnoremap <silent><RightMouse> :call GuiShowContextMenu()<CR>gv
   snoremap <silent><RightMouse> <C-G>:call GuiShowContextMenu()<CR
+
+  " Increases the font size with `amount`
+  function! Zoom(amount) abort
+    call ZoomSet(matchstr(&guifont, '\d\+$') + a:amount)
+  endfunc
+
+  " Sets the font size to `font_size`
+  function ZoomSet(font_size) abort
+    let &guifont = substitute(&guifont, '\d\+$', a:font_size, '')
+  endfunc
+
+  noremap <silent> <C-+> :call Zoom(v:count1)<CR>
+  noremap <silent> <C--> :call Zoom(-v:count1)<CR>
+  noremap <silent> <C-0> :call ZoomSet(11)<CR>
   nnoremap <silent> <C-ScrollWheelUp> :set guifont=+<CR>
-  nnoremap <silent> <C-ScrollWheelDown> :set guifont=-<CR>" FVimToggleFullScreen
+  nnoremap <silent> <C-ScrollWheelDown> :set guifont=-<CR>
 endif
 
 if exists('g:fvim_loaded')
@@ -81,19 +83,44 @@ if exists('g:fvim_loaded')
   FVimFontBoldWeight 700
 
   FVimUIPopupMenu v:true
+
+  " Increases the font size with `amount`
+  function! Zoom(amount) abort
+    call ZoomSet(matchstr(&guifont, '\d\+$') + a:amount)
+  endfunc
+
+  " Sets the font size to `font_size`
+  function ZoomSet(font_size) abort
+    let &guifont = substitute(&guifont, '\d\+$', a:font_size, '')
+  endfunc
+
+  noremap <silent> <C-+> :call Zoom(v:count1)<CR>
+  noremap <silent> <C--> :call Zoom(-v:count1)<CR>
+  noremap <silent> <C-0> :call ZoomSet(11)<CR>
 endif
 
 if exists('neovide')
   " NOTE: check out multigrid its been removed cuz of issues for now 
   
-  " FONT: 
-  set guifont=iMWritingMonoS\ Nerd\ Font:h12
+  " FONT:  Main: Hack
+
+  set guifont=Hack\ Nerd\ Font:h12
+  "set guifont=Inconsolata Nerd Font:h12
 
    " effects (sonicboom, ripple, railgun, torepedo)
   let g:neovide_cursor_vfx_mode = "railgun"
   let g:neovide_cursor_antialiasing=v:true " Cursor antialiasing
   let g:neovide_refresh_rate=72  " Refresh rate
   
+  " Always redraw 
+  let g:neovide_no_idle=v:true
+
+  noremap <silent> <C-+> :call Zoom(v:count1)<CR>
+  noremap <silent> <C--> :call Zoom(-v:count1)<CR>
+  noremap <silent> <C-0> :call ZoomSet(10)<CR>
+  nnoremap <silent> <C-ScrollWheelUp> :call Zoom(v:count1)<CR>
+  nnoremap <silent> <C-ScrollWheelDown> :call Zoom(-v:count1)-<CR>
+
   " Toggles fullscreen
   nnoremap <leader>GF :call NeovideToggleFullScreen()<CR>
   function NeovideToggleFullScreen()
@@ -104,4 +131,13 @@ if exists('neovide')
     endif
   endfunc
 
+  " Increases the font size with `amount`
+  function! Zoom(amount) abort
+    call ZoomSet(matchstr(&guifont, '\d\+$') + a:amount)
+  endfunc
+
+  " Sets the font size to `font_size`
+  function ZoomSet(font_size) abort
+    let &guifont = substitute(&guifont, '\d\+$', a:font_size, '')
+  endfunc
 endif
