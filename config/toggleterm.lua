@@ -29,7 +29,7 @@ toggleterm.setup({
 
 function _G.set_terminal_keymaps()
   local opts = {noremap = true}
-  vim.api.nvim_buf_set_keymap(0, 't', '<esc>', [[<C-\><C-n>]], opts)
+  vim.api.nvim_buf_set_keymap(0, 'n', '<esc>', [[<C-\><C-n>]], opts)
   vim.api.nvim_buf_set_keymap(0, 't', 'jk', [[<C-\><C-n>]], opts)
   vim.api.nvim_buf_set_keymap(0, 't', '<C-h>', [[<C-\><C-n><C-W>h]], opts)
   vim.api.nvim_buf_set_keymap(0, 't', '<C-j>', [[<C-\><C-n><C-W>j]], opts)
@@ -70,6 +70,12 @@ function _PYTHON_TOGGLE()
 	python:toggle()
 end
 
+local docker = Terminal:new({ cmd = "lazydocker", hidden = true })
+
+function _DOCKER_TOGGLE()
+	docker:toggle()
+end
+
 -- Key maps
 local Key = vim.api.nvim_set_keymap
 local Opts = { noremap = true, silent = true }
@@ -78,3 +84,4 @@ Key("n", "<leader>th", "<Cmd>lua _HTOP_TOGGLE()<CR>", Opts)
 Key("n", "<leader>tp", "<Cmd>lua _PYTHON_TOGGLE()<CR>", Opts)
 Key("n", "<leader>tn", "<Cmd>lua _NODE_TOGGLE()<CR>", Opts)
 Key("n", "<leader>tN", "<Cmd>lua _NCDU_TOGGLE()<CR>", Opts)
+Key("n", "<leader>td", "<Cmd>lua _DOCKER_TOGGLE()<CR>", Opts)
