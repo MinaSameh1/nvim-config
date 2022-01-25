@@ -56,8 +56,8 @@ return packer.startup(function(use)
         'nvim-telescope/telescope.nvim',
         requires = { {'nvim-lua/plenary.nvim'} }
         }
-    -- Emmeet for html
-    use 'mattn/emmet-vim'
+    -- Emmet for html
+    use { 'mattn/emmet-vim' }
     -- Bar
     use {
         'akinsho/bufferline.nvim',
@@ -127,7 +127,7 @@ return packer.startup(function(use)
         'nvim-treesitter/nvim-treesitter',
         run = ':TSUpdate',
         }
-    use 'sheerun/vim-polyglot'
+    -- use 'sheerun/vim-polyglot' # Replaced with treesitter and other plugins
     -- comments
     use 'JoosepAlviste/nvim-ts-context-commentstring'
     use {
@@ -142,6 +142,13 @@ return packer.startup(function(use)
     use 'yggdroot/indentline'
     -- pretty messages
     use 'folke/trouble.nvim'
+    use {
+        'simrat39/rust-tools.nvim',
+        ft = 'rust',
+        config = function()
+            require('rust-tools').setup()
+        end
+    }
     -- Snippets
     use 'SirVer/ultisnips'
     use 'quangnguyen30192/cmp-nvim-ultisnips'
