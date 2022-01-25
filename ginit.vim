@@ -14,7 +14,7 @@ if exists('g:GuiLoaded')
   GuiLinespace 2
   "GuiFont! Inconsolata\ Nerd\ Font:h13:l
   "GuiFont! iMWritingMonoS\ Nerd\ Font:h12
-  GuiFont! Hack:h9
+  GuiFont! Hack:h11
   
   " Right Click Context Menu (Copy-Cut-Paste)
   nnoremap <silent><RightMouse> :call GuiShowContextMenu()<CR>
@@ -104,7 +104,7 @@ if exists('neovide')
   
   " FONT:  Main: Hack
 
-  set guifont=Hack\ Nerd\ Font:h12
+  set guifont=Hack\ Nerd\ Font:h11
   "set guifont=Inconsolata Nerd Font:h12
 
    " effects (sonicboom, ripple, railgun, torepedo)
