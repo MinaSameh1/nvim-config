@@ -49,7 +49,10 @@ return packer.startup(function(use)
     -- Aligns things easly using gaip=
     use 'junegunn/vim-easy-align'
     -- Vim MultiCurosr, use cgn instead :)
-    --use 'mg979/vim-visual-multi', {'branch': 'master'}
+    use {
+        'mg979/vim-visual-multi',
+        disable = true
+    }
     -- Search, and fuzzy stuff, far for replace
     use 'brooth/far.vim'
     use {
@@ -110,7 +113,9 @@ return packer.startup(function(use)
     -- Installs dap debuggers
     use "Pocco81/DAPInstall.nvim"
     -- Jest Tests debugging
-    use 'David-Kunz/jester'
+    use {
+      'David-Kunz/jester'
+    }
     -- Git integration
     use {
         'lewis6991/gitsigns.nvim',
@@ -149,6 +154,13 @@ return packer.startup(function(use)
             require('rust-tools').setup()
         end
     }
+    -- Shows LSP progress
+    use {
+        'j-hui/fidget.nvim',
+        config = function ()
+            require'fidget'.setup{}
+        end
+    }
     -- Snippets
     use 'SirVer/ultisnips'
     use 'quangnguyen30192/cmp-nvim-ultisnips'
@@ -158,7 +170,7 @@ return packer.startup(function(use)
         'kyazdani42/nvim-web-devicons',
         config = function() require'nvim-web-devicons'.setup() end
         }
-    -- ICons for auto complete, you can never have enough
+    -- Icons for auto complete, you can never have enough
     use { 'onsails/lspkind-nvim',
         requires = { { 'hrsh7th/nvim-cmp' } }
     }
