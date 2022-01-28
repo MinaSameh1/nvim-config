@@ -31,7 +31,12 @@ return packer.startup(function(use)
         'nvim-lualine/lualine.nvim',
           requires = { 'kyazdani42/nvim-web-devicons', opt = true }
     }
-    --use 'feline-nvim/feline.nvim'
+  use {
+    "beauwilliams/focus.nvim",
+    config = function()
+      require("focus").setup()
+    end
+  }
     -- Smooth scrolling
     use {
         'karb94/neoscroll.nvim',
