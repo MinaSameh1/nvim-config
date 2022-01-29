@@ -197,8 +197,7 @@ luafile ~/.config/nvim/config/autopairs.lua
 "source ~/.config/nvim/config/ocaml.vim
 source ~/.config/nvim/config/fugitive.vim 
 
-" Colorscheme
-colorscheme tokyonight
+lua require('init')
 
 " open our tagbar
 nmap <F3> :TagbarToggle<CR>
