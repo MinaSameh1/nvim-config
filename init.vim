@@ -16,7 +16,7 @@ set incsearch
 set ignorecase
 set smartcase
 " cursor shape
-let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
+
 " Enable blinking together with different cursor shapes for insert/command mode, and cursor highlighting:
 " set guicursor=n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50
 "       \,a:blinkwait3000-blinkoff400-blinkon3250-Cursor/lCursor
@@ -179,21 +179,6 @@ endif
 " TODO: Look into other git clients than fugitive, its super helpful tho
 " Plugins and their configs
 
-luafile ~/.config/nvim/config/lualine.lua
-luafile ~/.config/nvim/config/NeovimLSP.lua
-luafile ~/.config/nvim/config/cmp.lua
-luafile ~/.config/nvim/config/dap.lua
-luafile ~/.config/nvim/config/toggleterm.lua
-luafile ~/.config/nvim/config/nvimtree.lua
-luafile ~/.config/nvim/config/comments.lua
-luafile ~/.config/nvim/config/gitsigns.lua
-luafile ~/.config/nvim/config/treesitter.lua
-luafile ~/.config/nvim/config/telescope.lua
-luafile ~/.config/nvim/config/autopairs.lua
-"source ~/.config/nvim/config/coc.vim -- Replaced with builtin lsp
-"source ~/.config/nvim/config/ale.vim -- Replaced 
-"source ~/.config/nvim/config/neomake.vim
-"source ~/.config/nvim/config/ocaml.vim
 source ~/.config/nvim/config/fugitive.vim 
 
 lua require('init')

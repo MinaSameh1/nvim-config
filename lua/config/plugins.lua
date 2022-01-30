@@ -13,12 +13,12 @@ if fn.empty(fn.glob(install_path)) > 0 then
 end
 
 -- Autocommand that reloads neovim whenever you save the plugins.lua file
-vim.cmd [[
-  augroup packer_user_config
-    autocmd!
-    autocmd BufWritePost plugins.lua source <afile> | PackerSync
-  augroup end
-]]
+-- vim.cmd [[
+--   augroup packer_user_config
+--     autocmd!
+--     autocmd BufWritePost plugins.lua source <afile> | PackerSync
+--   augroup end
+-- ]]
 
 local status_ok, packer = pcall(require, "packer")
     if not status_ok then
@@ -41,12 +41,20 @@ return packer.startup(function(use)
   use { 'nvim-lua/plenary.nvim' }
   use { 'nvim-lua/popup.nvim' } -- Allows us to implement easy popups
   use { 'glepnir/dashboard-nvim' } -- Main screen
-  use { 'windwp/nvim-autopairs' } -- pairs and autocloses and can surrond stuff too!
+  use {
+    'windwp/nvim-autopairs',
+    config = function()
+      require'config.autopairs'
+    end
+  } -- pairs and autocloses and can surrond stuff too!
   use { 'tpope/vim-surround' } -- use ysiw for example i guess
   use { 'tpope/vim-repeat' } -- Repeats plugins with . as well
   use {
     'nvim-lualine/lualine.nvim', -- Status line
-    requires = { 'kyazdani42/nvim-web-devicons', opt = true }
+    requires = { 'kyazdani42/nvim-web-devicons', opt = true },
+    config = function()
+      require'config.lualine'
+    end
     }
   use { -- Split screen management
     "beauwilliams/focus.nvim",
@@ -60,9 +68,15 @@ return packer.startup(function(use)
     }
   use { -- Terminal
     'akinsho/toggleterm.nvim',
+    config = function()
+      require'config.toggleterm'
+    end
     }
   use {
     'kyazdani42/nvim-tree.lua',
+    config = function()
+      require'config.nvimtree'
+    end
     }
   -- Aligns things easly using gaip=
   use { 'junegunn/vim-easy-align' }
@@ -75,7 +89,10 @@ return packer.startup(function(use)
   use 'brooth/far.vim'
   use {
     'nvim-telescope/telescope.nvim',
-    requires = { {'nvim-lua/plenary.nvim'} }
+    requires = { {'nvim-lua/plenary.nvim'} },
+    config = function()
+      require'config.telescope'
+    end
     }
   -- Emmet for html
   use { 'mattn/emmet-vim' }
@@ -92,12 +109,25 @@ return packer.startup(function(use)
   use 'preservim/tagbar'
   -- Linting among other things
   -- LSP
-  use 'neovim/nvim-lspconfig'
-  use 'williamboman/nvim-lsp-installer'
+  use {
+    'neovim/nvim-lspconfig',
+    config = function()
+      require'config.NeovimLSP'
+    end
+  }
+  use {
+    'williamboman/nvim-lsp-installer',
+    requires = { {'neovim/nvim-lspconfig'} },
+  }
   -- Show lightblub on code action
   use {'kosayoda/nvim-lightbulb' }
   -- AutoCompletetion
-  use 'hrsh7th/nvim-cmp'
+  use {
+    'hrsh7th/nvim-cmp',
+    config = function()
+      require'cmp'
+    end
+  }
   use {
     'hrsh7th/cmp-nvim-lsp',
     requires = { { 'hrsh7th/nvim-cmp' } }
@@ -112,7 +142,12 @@ return packer.startup(function(use)
     requires = { { 'hrsh7th/nvim-cmp' } }
     }
   -- Debugger
-  use 'mfussenegger/nvim-dap'
+  use {
+    'mfussenegger/nvim-dap',
+    config = function()
+      require'dap'
+    end
+  }
   -- use 'jbyuki/one-small-step-for-vimkind' -- For nvim lua
   -- Meh java xd, cant get it work for some reason ah well
   -- use 'mfussenegger/nvim-jdtls', { 'do':'source ~/.config/nvim/config/jdtls.lua'}
@@ -137,6 +172,9 @@ return packer.startup(function(use)
   -- Git integration
   use {
     'lewis6991/gitsigns.nvim',
+    config = function()
+      require'config.gitsigns'
+    end
     }
   use 'tpope/vim-fugitive'
   -- Latex stuff
@@ -149,10 +187,19 @@ return packer.startup(function(use)
   use {
     'nvim-treesitter/nvim-treesitter',
     run = ':TSUpdate',
+    config = function()
+      require'config.treesitter'
+    end
     }
   -- use 'sheerun/vim-polyglot' # Replaced with treesitter and other plugins
   -- comments
-  use 'JoosepAlviste/nvim-ts-context-commentstring'
+  use {
+    'JoosepAlviste/nvim-ts-context-commentstring',
+    requires = { {'numToStr/Comment.nvim'} },
+    config = function()
+      require'config.comments'
+    end
+  }
   use {
     'numToStr/Comment.nvim',
     config = function()

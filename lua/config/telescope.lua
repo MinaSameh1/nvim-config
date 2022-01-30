@@ -1,3 +1,8 @@
+local status_ok, packer = pcall(require, "telescope")
+    if not status_ok then
+        print("Something went wrong with Packer!")
+        return
+    end
 
 local actions = require'telescope.actions'
 

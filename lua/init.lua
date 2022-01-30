@@ -1,2 +1,2 @@
-require('colorscheme')
-require('plugins')
+require('config.plugins')
+require('config.colorscheme')
