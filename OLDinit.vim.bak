@@ -100,8 +100,6 @@ nmap <leader>bq :bp <BAR> bd #<CR>
 nmap <leader>bl :ls<CR>
 " Open terminal below all splits
 cabbrev bterm bo term
-" Open terminal
-nmap <leader>` :term<CR>
 
 "Map F5 for compiling except Tex files as that button is already mapped
 autocmd BufNewFile,BufRead *.hla map <F5> :!hla % && ./%:r<CR>
