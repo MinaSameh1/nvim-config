@@ -14,6 +14,7 @@ local vnoremap = utils.vnoremap
 vim.opt.background = 'dark'
 vim.opt.splitbelow = true
 vim.opt.splitright = true
+vim.opt.hidden = true
 vim.opt.termguicolors = true
 vim.opt.modeline = true
 vim.opt.modelines = 5
@@ -53,7 +54,7 @@ vim.cmd [[
   " To make saving write protected files easier, make sure to set SUDO_ASKPASS!
   com -bar W exe 'w !sudo tee >/dev/null %:p:S' | setl nomod
   " Edit config files
-  cmap c!! e ~/.config/nvim/init.vim<CR>
+  cmap c!! e ~/.config/nvim/init.lua<CR>
   cmap cg!! e ~/.config/nvim/ginit.vim<CR>
 
   set nobackup
