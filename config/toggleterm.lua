@@ -40,10 +40,12 @@ end
 vim.cmd('autocmd! TermOpen term://* lua set_terminal_keymaps()')
 
 local Terminal = require("toggleterm.terminal").Terminal
-local lazygit = Terminal:new({ cmd = "lazygit", hidden = true })
 
-function _LAZYGIT_TOGGLE()
-	lazygit:toggle()
+-- Custom terminals :P
+local bashtop = Terminal:new({ cmd = "bashtop", hidden = true })
+
+function _BASHTOP_TOGGLE()
+	bashtop:toggle()
 end
 
 local node = Terminal:new({ cmd = "node", hidden = true })
@@ -70,10 +72,10 @@ function _PYTHON_TOGGLE()
 	python:toggle()
 end
 
-local docker = Terminal:new({ cmd = "lazydocker", hidden = true })
+local lazydocker = Terminal:new({ cmd = "lazydocker", hidden = true })
 
 function _DOCKER_TOGGLE()
-	docker:toggle()
+	lazydocker:toggle()
 end
 
 -- Key maps
@@ -84,4 +86,5 @@ Key("n", "<leader>th", "<Cmd>lua _HTOP_TOGGLE()<CR>", Opts)
 Key("n", "<leader>tp", "<Cmd>lua _PYTHON_TOGGLE()<CR>", Opts)
 Key("n", "<leader>tn", "<Cmd>lua _NODE_TOGGLE()<CR>", Opts)
 Key("n", "<leader>tN", "<Cmd>lua _NCDU_TOGGLE()<CR>", Opts)
+Key("n", "<leader>tH", "<Cmd>lua _BASHTOP_TOGGLE()<CR>", Opts)
 Key("n", "<leader>td", "<Cmd>lua _DOCKER_TOGGLE()<CR>", Opts)

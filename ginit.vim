@@ -131,6 +131,7 @@ if exists('neovide')
     endif
   endfunc
 
+  let g:transparent_enabled = v:false
   " Increases the font size with `amount`
   function! Zoom(amount) abort
     call ZoomSet(matchstr(&guifont, '\d\+$') + a:amount)

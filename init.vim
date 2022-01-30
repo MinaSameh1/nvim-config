@@ -179,7 +179,6 @@ endif
 " TODO: Look into other git clients than fugitive, its super helpful tho
 " Plugins and their configs
 
-luafile ~/.config/nvim/config/plugins.lua
 luafile ~/.config/nvim/config/lualine.lua
 luafile ~/.config/nvim/config/NeovimLSP.lua
 luafile ~/.config/nvim/config/cmp.lua
