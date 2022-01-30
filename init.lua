@@ -12,26 +12,36 @@ local inoremap = utils.inoremap
 local vnoremap = utils.vnoremap
 
 vim.opt.background = 'dark'
+
 vim.opt.splitbelow = true
 vim.opt.splitright = true
+
 vim.opt.hidden = true
+
 vim.opt.termguicolors = true
+
 vim.opt.modeline = true
 vim.opt.modelines = 5
+
 vim.opt.updatetime = 300
-vim.opt.cmdheight = 2
+
+vim.opt.cmdheight = 1
+
 vim.opt.smartindent = true
 vim.opt.smartcase = true
 vim.opt.ignorecase = true
 vim.opt.incsearch = true
-vim.opt.relativenumber = true
+
 vim.opt.expandtab = true
 vim.opt.shiftwidth = 2
 vim.opt.tabstop = 2
 vim.opt.softtabstop = 2
+
 vim.opt.undodir =  vim.fn.stdpath('config') .. '/undodir'
 vim.opt.undofile = true
 vim.opt.undolevels = 5000
+
+vim.opt.relativenumber = true
 vim.opt.scrolloff = 8
 vim.opt.mouse = 'a'
 vim.opt.cc = '80'
@@ -87,6 +97,7 @@ vim.cmd [[
 -- Plugins
 require('init')
 
+vim.g.did_load_filetypes = 1 -- Stop file types from loading, load them using filetypes.nvim
 vim.g.transparent_enabled = false
 -- Plugins keybindings
 nnoremap('<leader>gg','<Cmd>Git<CR>')

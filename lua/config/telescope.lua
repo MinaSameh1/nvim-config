@@ -6,7 +6,7 @@ end
 
 local actions = require'telescope.actions'
 
-telescope.setup {
+local default = {
   defaults = {
     vimgrep_arguments ={
       "rg",
@@ -115,10 +115,10 @@ telescope.setup {
 
       ["?"] = actions.which_key,
     },
-    },
+  },
   pickers = {
     find_files = {
-      theme = 'dropdown'
+      theme = 'ivy'
     }
   },
   extensions = {
@@ -132,6 +132,9 @@ telescope.setup {
     -- please take a look at the readme of the extension you want to configure
   },
 }
+
+telescope.setup(default)
+telescope.load_extension('dap')
 
 local Key = vim.api.nvim_set_keymap
 local Opts = { noremap = true, silent = true }
