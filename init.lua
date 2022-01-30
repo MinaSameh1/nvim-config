@@ -56,7 +56,10 @@ vim.cmd [[
   cmap c!! e ~/.config/nvim/init.vim<CR>
   cmap cg!! e ~/.config/nvim/ginit.vim<CR>
 
-  source ~/.config/nvim/config/theme.vim
+  set nobackup
+  set nowritebackup
+  set noswapfile
+  set nowrap
 
 " For more checkout https://github.com/glepnir/dashboard-nvim/wiki/Ascii-Header-Text
   let g:dashboard_custom_header = [
@@ -67,6 +70,17 @@ vim.cmd [[
   \ ' ██║ ╚████║ ███████╗╚██████╔╝  ╚████╔╝  ██║ ██║ ╚═╝ ██║',
   \ ' ╚═╝  ╚═══╝ ╚══════╝ ╚═════╝    ╚═══╝   ╚═╝ ╚═╝     ╚═╝',
   \]
+
+" Dashboard
+  let g:dashboard_custom_shortcut={
+  \ 'last_session'       : 'leader s l',
+  \ 'find_history'       : 'leader f h',
+  \ 'find_file'          : 'leader f f',
+  \ 'new_file'           : 'leader c n',
+  \ 'change_colorscheme' : 'leader t c',
+  \ 'find_word'          : 'leader f a',
+  \ 'book_marks'         : 'leader f B',
+  \ }
 ]]
 
 -- Plugins
