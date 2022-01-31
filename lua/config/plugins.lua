@@ -167,7 +167,8 @@ return packer.startup(function(use)
   use "Pocco81/DAPInstall.nvim"
   -- Jest Tests debugging
   use {
-    'David-Kunz/jester'
+    'David-Kunz/jester',
+    ft = {'js', 'ts'}
     }
   -- Git integration
   use {
@@ -176,7 +177,7 @@ return packer.startup(function(use)
       require'config.gitsigns'
     end
     }
-  use 'tpope/vim-fugitive'
+  use { 'tpope/vim-fugitive' }
   -- Latex stuff
   use {
     'lervag/vimtex',
@@ -195,18 +196,18 @@ return packer.startup(function(use)
   -- use 'sheerun/vim-polyglot' # Replaced with treesitter and other plugins
   -- comments
   use {
+    'numToStr/Comment.nvim',
+    config = function()
+      require('Comment').setup()
+    end
+    }
+  use {
     'JoosepAlviste/nvim-ts-context-commentstring',
     requires = { {'numToStr/Comment.nvim'} },
     config = function()
       require'config.comments'
     end
   }
-  use {
-    'numToStr/Comment.nvim',
-    config = function()
-      require('Comment').setup()
-    end
-    }
   -- use { 'windwp/nvim-ts-autotag' } -- Auto close tags
   use { 'yggdroot/indentline' } -- Shows tabs and spaces
   use { 'folke/trouble.nvim' } -- pretty messages
@@ -224,9 +225,9 @@ return packer.startup(function(use)
     end
     }
   -- Snippets
-  use 'SirVer/ultisnips'
-  use 'quangnguyen30192/cmp-nvim-ultisnips'
-  use 'honza/vim-snippets'
+  use { 'SirVer/ultisnips' }
+  use { 'quangnguyen30192/cmp-nvim-ultisnips' }
+  use { 'honza/vim-snippets' }
   -- Icons
   use {
     'kyazdani42/nvim-web-devicons',

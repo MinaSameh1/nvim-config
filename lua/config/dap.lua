@@ -220,8 +220,6 @@ dap.configurations.lua = {
 dap.adapters.nlua = function(callback, config)
   callback({ type = 'server', host = config.host, port = config.port })
 end
--- nvim-telescope/telescope-dap.nvim
-require('telescope').load_extension('dap')
 
 -- Dap ui
 require("dapui").setup({

@@ -28,6 +28,7 @@ vim.opt.updatetime = 300
 vim.opt.cmdheight = 1
 
 vim.opt.smartindent = true
+
 vim.opt.smartcase = true
 vim.opt.ignorecase = true
 vim.opt.incsearch = true
@@ -153,6 +154,7 @@ vim.cmd [[
   set nowritebackup
   set noswapfile
   set nowrap
+  set nohlsearch
 
   colorscheme NeoSolarized
 " For more checkout https://github.com/glepnir/dashboard-nvim/wiki/Ascii-Header-Text
