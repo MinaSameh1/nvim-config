@@ -130,7 +130,7 @@ dap.configurations.dart = {
   }
 }
 
-require('dap').set_log_level('INFO')
+dap.set_log_level('INFO')
 dap.defaults.fallback.terminal_win_cmd = '80vsplit new'
 
 local function map(mode, lhs, rhs, opts)
