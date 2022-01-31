@@ -188,6 +188,7 @@ return packer.startup(function(use)
     'nvim-treesitter/nvim-treesitter',
     run = ':TSUpdate',
     config = function()
+      require 'nvim-treesitter.install'.compilers = { "clang" }
       require'config.treesitter'
     end
     }
