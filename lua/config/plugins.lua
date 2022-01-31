@@ -145,7 +145,7 @@ return packer.startup(function(use)
   use {
     'mfussenegger/nvim-dap',
     config = function()
-      require'dap'
+      require('config.dap')
     end
   }
   -- use 'jbyuki/one-small-step-for-vimkind' -- For nvim lua
@@ -259,6 +259,7 @@ return packer.startup(function(use)
   use { 'overcache/NeoSolarized' }
   use { -- adds transpancy toggles
     'xiyaowong/nvim-transparent',
+    disable = true,
     config = function()
       require("transparent").setup({
         enable = true, -- boolean: enable transparent
