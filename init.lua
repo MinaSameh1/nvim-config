@@ -60,45 +60,12 @@ nmap('<leader>h',':bprevious<CR>') -- Move to the previous buffer
 nmap('<leader>bq',':bp <BAR> bd #<CR>')-- Close the current buffer and move to the previous one
 nmap('<leader>bl',':ls<CR>')-- Show all open buffers and their status
 
-vim.cmd [[
-  " To make saving write protected files easier, make sure to set SUDO_ASKPASS!
-  com -bar W exe 'w !sudo tee >/dev/null %:p:S' | setl nomod
-  " Edit config files
-  cmap c!! e ~/.config/nvim/init.lua<CR>
-  cmap cg!! e ~/.config/nvim/ginit.vim<CR>
-
-  set nobackup
-  set nowritebackup
-  set noswapfile
-  set nowrap
-
-" For more checkout https://github.com/glepnir/dashboard-nvim/wiki/Ascii-Header-Text
-  let g:dashboard_custom_header = [
-  \ ' ███╗   ██╗ ███████╗ ██████╗  ██╗   ██╗ ██╗ ███╗   ███╗',
-  \ ' ████╗  ██║ ██╔════╝██╔═══██╗ ██║   ██║ ██║ ████╗ ████║',
-  \ ' ██╔██╗ ██║ █████╗  ██║   ██║ ██║   ██║ ██║ ██╔████╔██║',
-  \ ' ██║╚██╗██║ ██╔══╝  ██║   ██║ ╚██╗ ██╔╝ ██║ ██║╚██╔╝██║',
-  \ ' ██║ ╚████║ ███████╗╚██████╔╝  ╚████╔╝  ██║ ██║ ╚═╝ ██║',
-  \ ' ╚═╝  ╚═══╝ ╚══════╝ ╚═════╝    ╚═══╝   ╚═╝ ╚═╝     ╚═╝',
-  \]
-
-" Dashboard
-  let g:dashboard_custom_shortcut={
-  \ 'last_session'       : 'leader s l',
-  \ 'find_history'       : 'leader f h',
-  \ 'find_file'          : 'leader f f',
-  \ 'new_file'           : 'leader c n',
-  \ 'change_colorscheme' : 'leader t c',
-  \ 'find_word'          : 'leader f a',
-  \ 'book_marks'         : 'leader f B',
-  \ }
-]]
 
 -- Plugins
 require('init')
 
 vim.g.did_load_filetypes = 1 -- Stop file types from loading, load them using filetypes.nvim
-vim.g.transparent_enabled = false
+-- vim.g.transparent_enabled = false
 -- Plugins keybindings
 nnoremap('<leader>gg','<Cmd>Git<CR>')
 nnoremap('<leader>gc','<Cmd>Git commit<CR>')
@@ -174,3 +141,38 @@ vim.g.indentLine_leadingSpaceEnabled = 1
 
 
 -- Test emote support: should be white skull 💀
+
+vim.cmd [[
+  " To make saving write protected files easier, make sure to set SUDO_ASKPASS!
+  com -bar W exe 'w !sudo tee >/dev/null %:p:S' | setl nomod
+  " Edit config files
+  cmap c!! e ~/.config/nvim/init.lua<CR>
+  cmap cg!! e ~/.config/nvim/ginit.vim<CR>
+
+  set nobackup
+  set nowritebackup
+  set noswapfile
+  set nowrap
+
+  colorscheme NeoSolarized
+" For more checkout https://github.com/glepnir/dashboard-nvim/wiki/Ascii-Header-Text
+  let g:dashboard_custom_header = [
+  \ ' ███╗   ██╗ ███████╗ ██████╗  ██╗   ██╗ ██╗ ███╗   ███╗',
+  \ ' ████╗  ██║ ██╔════╝██╔═══██╗ ██║   ██║ ██║ ████╗ ████║',
+  \ ' ██╔██╗ ██║ █████╗  ██║   ██║ ██║   ██║ ██║ ██╔████╔██║',
+  \ ' ██║╚██╗██║ ██╔══╝  ██║   ██║ ╚██╗ ██╔╝ ██║ ██║╚██╔╝██║',
+  \ ' ██║ ╚████║ ███████╗╚██████╔╝  ╚████╔╝  ██║ ██║ ╚═╝ ██║',
+  \ ' ╚═╝  ╚═══╝ ╚══════╝ ╚═════╝    ╚═══╝   ╚═╝ ╚═╝     ╚═╝',
+  \]
+
+" Dashboard
+  let g:dashboard_custom_shortcut={
+  \ 'last_session'       : 'leader s l',
+  \ 'find_history'       : 'leader f h',
+  \ 'find_file'          : 'leader f f',
+  \ 'new_file'           : 'leader c n',
+  \ 'change_colorscheme' : 'leader t c',
+  \ 'find_word'          : 'leader f a',
+  \ 'book_marks'         : 'leader f B',
+  \ }
+]]
