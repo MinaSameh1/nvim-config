@@ -7,6 +7,3 @@ vim.g.tokyonight_sidebars = {
 
 -- Change the "hint" color to the "orange" color, and make the "error" color bright red
 vim.g.tokyonight_colors = { hint = "orange", error = "#ff0000" }
-
--- Normally I use tokyonight but decided to change it to solarized
-vim.cmd[[colorscheme NeoSolarized]]
