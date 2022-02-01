@@ -220,7 +220,6 @@ return packer.startup(function(use)
   use { 'folke/trouble.nvim' } -- pretty messages
   use {
     'simrat39/rust-tools.nvim',
-    ft = 'rust',
     }
   use { -- Shows LSP progress
     'j-hui/fidget.nvim',
