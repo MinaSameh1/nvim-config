@@ -74,31 +74,35 @@ nnoremap('<leader>gc','<Cmd>Git commit<CR>')
 -- open our tagbar
 nnoremap('<F3>',':TagbarToggle<CR>')
 
--- These commands will navigate through buffers in order regardless of which mode you are using
+-- BufferLine: These commands will navigate through buffers in order regardless of which mode you are using
 -- e.g. if you change the order of buffers :bnext and :bprevious will not respect the custom ordering
 nnoremap('[b',':BufferLineCycleNext<CR>')
 nnoremap(']b',':BufferLineCyclePrev<CR>')
-
 -- These commands will move the current buffer backwards or forwards in the bufferline
 nnoremap( '[B',':BufferLineMoveNext<CR>')
 nnoremap( ']B',':BufferLineMovePrev<CR>')
-
-
 -- These commands will sort buffers by directory, language, or a custom criteria
 nnoremap('be',':BufferLineSortByExtension<CR>')
 nnoremap('bd',':BufferLineSortByDirectory<CR>')
-
 -- Pick buffer
 nnoremap('<leader>gb', ':BufferLinePick<CR>')
---  Settings for Easy Align "
+
+--  Settings for Easy Align
 -- Start interactive EasyAlign in visual mode (e.g. vipga)
 xmap('ga','<Plug>(EasyAlign)')
 -- Start interactive EasyAlign for a motion/text object (e.g. gaip)
--- nnoremap( 'ga','<Plug>(EasyAlign)' )
+nnoremap('ga','<Plug>(EasyAlign)')
 
-vim.g.UltiSnipsExpandTrigger="<tab>"
-vim.g.UltiSnipsJumpForwardTrigger="<c-j>"
-vim.g.UltiSnipsJumpBackwardTrigger="<c-k>"
+-- Dasaboard
+nmap     ( '<Leader>cn', ':<C-u>DashboardNewFile<CR>')
+nnoremap ( 'Leader>ss',  ':<C-u>SessionSave<CR>')
+nnoremap ( '<Leader>sl', ':<C-u>SessionLoad<CR>')
+
+-- Autocomplete using cmp
+vim.opt.completeopt = { 'menu', 'menuone', 'noselect' }
+-- vim.g.UltiSnipsExpandTrigger="<tab>"
+-- vim.g.UltiSnipsJumpForwardTrigger="<c-j>"
+-- vim.g.UltiSnipsJumpBackwardTrigger="<c-k>"
 
 -- If you want :UltiSnipsEdit to split your window.
 --vim.g:UltiSnipsEditSplit="vertical"
@@ -151,6 +155,8 @@ vim.cmd [[
   cmap cg!! e ~/.config/nvim/ginit.vim<CR>
 
   set nobackup
+  set noshowmode
+  set noerrorbells
   set nowritebackup
   set noswapfile
   set nowrap
