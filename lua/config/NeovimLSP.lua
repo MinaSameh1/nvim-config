@@ -6,11 +6,11 @@ local function lsp_highlight_document(client)
     vim.api.nvim_exec(
       [[
       augroup lsp_document_highlight
-        autocmd! * <buffer>
-        autocmd CursorHold <buffer> lua vim.lsp.buf.document_highlight()
-        autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
+      autocmd! * <buffer>
+      autocmd CursorHold <buffer> lua vim.lsp.buf.document_highlight()
+      autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
       augroup END
-    ]],
+      ]],
       false
     )
   end
@@ -25,7 +25,7 @@ local on_attach = function(client, bufnr)
   local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
 
   -- Mappings.
-   -- See `:help vim.lsp.*` for documentation on any of the below functions
+  -- See `:help vim.lsp.*` for documentation on any of the below functions
   buf_set_keymap('n', 'gD',         '<cmd>lua vim.lsp.buf.declaration()<CR>',                                mapOpts)
   buf_set_keymap('n', 'gd',         '<cmd>lua vim.lsp.buf.definition()<CR>',                                 mapOpts)
   buf_set_keymap('n', 'K',          '<cmd>lua vim.lsp.buf.hover()<CR>',                                      mapOpts)
@@ -87,6 +87,7 @@ lsp_installer.on_server_ready(function(server)
   -- }
 
   local opts = {
+    autoSetHints = true,
     noremap = true,
     silent = true,
     on_attach = on_attach,
@@ -121,7 +122,7 @@ lsp_installer.on_server_ready(function(server)
     opts.on_attach = function(client, _)
       client.resolved_capabilities.document_formatting = true
     end
-      opts.settings = {
+    opts.settings = {
       codeAction = {
         disableRuleComment = {
           location = "separateLine"
@@ -132,8 +133,19 @@ lsp_installer.on_server_ready(function(server)
         format = { enable = true },
       }
     }
+  elseif server.name == "rust_analyzer" then
+    -- Initialize the LSP via rust-tools instead
+    require("rust-tools").setup {
+      -- The "server" property provided in rust-tools setup function are the
+      -- settings rust-tools will provide to lspconfig during init.            --
+      -- We merge the necessary settings from nvim-lsp-installer (server:get_default_options())
+      -- with the user's own settings (opts).
+      server = vim.tbl_deep_extend("force", server:get_default_options(), opts),
+    }
+    server:attach_buffers()
+  else
+    server:setup(opts)
   end
-  server:setup(opts)
 end)
 
 -- for debugging

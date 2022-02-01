@@ -125,16 +125,18 @@ local default = {
     -- Your extension configuration goes here:
     dap = {
 
-    }
-    -- extension_name = {
-    --   extension_config_key = value,
-    -- }
-    -- please take a look at the readme of the extension you want to configure
+    },
+    ["ui-select"] = {
+      require("telescope.themes").get_dropdown {
+        -- Opts
+      },
+    },
   },
 }
 
 telescope.setup(default)
 telescope.load_extension('dap')
+telescope.load_extension('ui-select')
 
 local Key = vim.api.nvim_set_keymap
 local Opts = { noremap = true, silent = true }

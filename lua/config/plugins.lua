@@ -94,6 +94,10 @@ return packer.startup(function(use)
       require('config.telescope')
     end
     }
+  use {
+    'nvim-telescope/telescope-ui-select.nvim',
+    requires = { {'nvim-telescope/telescope.nvim'} }
+  }
   -- Emmet for html
   use { 'mattn/emmet-vim' }
   -- Bar
@@ -217,9 +221,6 @@ return packer.startup(function(use)
   use {
     'simrat39/rust-tools.nvim',
     ft = 'rust',
-    config = function()
-      require('rust-tools').setup()
-    end
     }
   use { -- Shows LSP progress
     'j-hui/fidget.nvim',
