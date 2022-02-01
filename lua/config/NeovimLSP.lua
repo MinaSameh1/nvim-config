@@ -38,6 +38,7 @@ local on_attach = function(client, bufnr)
   buf_set_keymap('n', '<leader>rn', '<cmd>lua vim.lsp.buf.rename()<CR>',                                     mapOpts)
   buf_set_keymap('n', '<leader>ca', '<cmd>Telescope lsp_code_actions theme=cursor<CR>',                      mapOpts)
   buf_set_keymap('v', '<leader>ca', '<cmd>\'<,\'>lua vim.lsp.buf.range_code_action()<CR>',                   mapOpts)
+  buf_set_keymap('n', '<leader>I', 'require(\'nvim-lsp-installer.extras.tsserver\').organize_imports(bufname)',                   mapOpts)
   buf_set_keymap('n', 'gr',         '<cmd>lua vim.lsp.buf.references()<CR>',                                 mapOpts)
   buf_set_keymap('n', '<leader>e',  '<cmd>lua vim.diagnostic.open_float()<CR>',                              mapOpts)
   buf_set_keymap('n', '[c',         '<cmd>lua vim.diagnostic.goto_prev({ border = "rounded" })<CR>',         mapOpts)
@@ -117,14 +118,18 @@ lsp_installer.on_server_ready(function(server)
   lsp_installer.capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
 
   if server.name == "eslintls" then
-    opts.settings = {
+    opts.on_attach = function(client, _)
+      client.resolved_capabilities.document_formatting = true
+    end
+      opts.settings = {
       codeAction = {
         disableRuleComment = {
           location = "separateLine"
         },
         showDocumentation = {
           enable = true
-        }
+        },
+        format = { enable = true },
       }
     }
   end
