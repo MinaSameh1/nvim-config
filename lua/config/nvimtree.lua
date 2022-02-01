@@ -11,6 +11,16 @@ if not config_status_ok then
   return
 end
 
+vim.g.nvim_tree_window_picker_exclude = {
+   filetype = { "fugitive", "packer", "qf" },
+   buftype = { "terminal" },
+}
+
+vim.g.nvim_tree_highlight_opened_files = 1 --0 by default, will enable folder and file icon highlight for opened files/directories.
+
+vim.g.lua_tree_indent_markers = 0
+vim.g.nvim_tree_root_folder_modifier = table.concat { ":t:gs?$?/..", string.rep(" ", 1000), "?:gs?^??" }
+
 vim.g.nvim_tree_icons = {
   default = "",
   symlink = "",
@@ -24,27 +34,27 @@ vim.g.nvim_tree_icons = {
     ignored = "◌",
   },
   folder = {
-    arrow_open = " ",
-    arrow_closed = "",
+    arrow_open = "",
+    arrow_closed = "",
     default = "",
     open = "",
     empty = "",
     empty_open = "",
     symlink = "",
-    symlink_open = "",
+    symlink_open = "",
   },
 }
 
 local tree_cb = nvim_tree_config.nvim_tree_callback
 
-nvim_tree.setup {
+local defaut = {
   disable_netrw = true,
   hijack_netrw = true,
   open_on_setup = false,
   ignore_ft_on_setup = {
     "startify",
     "dashboard",
-    "alpha",
+    "fugitive",
   },
   auto_close = true,
   open_on_tab = false,
@@ -71,7 +81,7 @@ nvim_tree.setup {
   update_focused_file = {
     enable = true,
     update_cwd = true,
-    ignore_list = {},
+    ignore_list = { '.git', 'node_modules', '.cache' },
   },
   system_open = {
     cmd = nil,
@@ -87,6 +97,7 @@ nvim_tree.setup {
     timeout = 500,
   },
   view = {
+    allow_resize = true,
     width = 30,
     height = 30,
     hide_root_folder = false,
@@ -98,6 +109,8 @@ nvim_tree.setup {
         { key = { "l", "<CR>", "o" }, cb = tree_cb "edit" },
         { key = "h", cb = tree_cb "close_node" },
         { key = "v", cb = tree_cb "vsplit" },
+        { key = "<C-s>", cb = tree_cb("split") },
+        { key = "!", cb = tree_cb("toggle_ignored") },
       },
     },
     number = false,
@@ -125,3 +138,5 @@ vim.api.nvim_set_keymap( 'n',
     '<F2>', '<Cmd>NvimTreeToggle<CR>',
     { noremap = true, silent = true }
 )
+
+nvim_tree.setup(defaut)

@@ -126,11 +126,6 @@ nnoremap('<leader>cn','<C-u>DashboardNewFile<CR>')
 nnoremap('<leader>ss','<C-u>SessionSave<CR>')
 nnoremap('<leader>sl','<C-u>SessionSave<CR>')
 
-vim.g.indentLine_fileTypeExclude = { 'dashboard', 'NvimTree' }
-vim.g.indentLine_char_list = {'|', '¦', '┆', '┊'}
-vim.g.indentLine_leadingSpaceEnabled = 1
-
-
 -- Test emote support: should be white skull 💀
 
 vim.cmd [[

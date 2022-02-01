@@ -105,8 +105,6 @@ return packer.startup(function(use)
     right_mouse_command = "vertical sbuffer %d"
     } end
     }
-  -- TAG BAR
-  use 'preservim/tagbar'
   -- Linting among other things
   -- LSP
   use {
@@ -209,7 +207,12 @@ return packer.startup(function(use)
     end
   }
   -- use { 'windwp/nvim-ts-autotag' } -- Auto close tags
-  use { 'yggdroot/indentline' } -- Shows tabs and spaces
+  use {
+    "lukas-reineke/indent-blankline.nvim",
+    config = function ()
+      require('config.indentLines')
+    end
+  }
   use { 'folke/trouble.nvim' } -- pretty messages
   use {
     'simrat39/rust-tools.nvim',
