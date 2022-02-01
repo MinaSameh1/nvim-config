@@ -16,7 +16,7 @@ vim.g.nvim_tree_icons = {
   symlink = "",
   git = {
     unstaged = "",
-    staged = "S",
+    staged = "✓",
     unmerged = "",
     renamed = "➜",
     deleted = "",
@@ -24,13 +24,14 @@ vim.g.nvim_tree_icons = {
     ignored = "◌",
   },
   folder = {
-    -- arrow_open = " ",
-    -- arrow_closed = "",
+    arrow_open = " ",
+    arrow_closed = "",
     default = "",
     open = "",
     empty = "",
     empty_open = "",
     symlink = "",
+    symlink_open = "",
   },
 }
 

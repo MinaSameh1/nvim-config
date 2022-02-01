@@ -41,12 +41,12 @@ return packer.startup(function(use)
   use { 'nvim-lua/plenary.nvim' }
   use { 'nvim-lua/popup.nvim' } -- Allows us to implement easy popups
   use { 'glepnir/dashboard-nvim' } -- Main screen
-  use {
+  use { -- pairs and autocloses and can surrond stuff too!
     'windwp/nvim-autopairs',
     config = function()
-      require'config.autopairs'
+      require('config.autopairs')
     end
-  } -- pairs and autocloses and can surrond stuff too!
+  }
   use { 'tpope/vim-surround' } -- use ysiw for example i guess
   use { 'tpope/vim-repeat' } -- Repeats plugins with . as well
   use {
@@ -75,7 +75,7 @@ return packer.startup(function(use)
   use {
     'kyazdani42/nvim-tree.lua',
     config = function()
-      require'config.nvimtree'
+      require('config.nvimtree')
     end
     }
   -- Aligns things easly using gaip=
@@ -125,7 +125,7 @@ return packer.startup(function(use)
   use {
     'hrsh7th/nvim-cmp',
     config = function()
-      require'cmp'
+      require('config.cmp')
     end
   }
   use {
@@ -189,8 +189,8 @@ return packer.startup(function(use)
     'nvim-treesitter/nvim-treesitter',
     run = ':TSUpdate',
     config = function()
-      require 'nvim-treesitter.install'.compilers = { "clang" }
-      require'config.treesitter'
+      require('nvim-treesitter.install').compilers = { "clang" }
+      require('config.treesitter')
     end
     }
   -- use 'sheerun/vim-polyglot' # Replaced with treesitter and other plugins

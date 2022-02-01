@@ -3,9 +3,8 @@ local api = vim.api
 local fn = vim.fn
 local utils = {}
 
--- thanks to
+-- taken from
 -- https://github.com/akinsho/dotfiles/blob/main/.config/nvim/lua/as/globals.lua
--- for inspiration
 local function make_keymap_fn(mode, o)
   -- copy the opts table as extends will mutate opts
   local parent_opts = vim.deepcopy(o)
