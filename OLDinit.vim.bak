@@ -1,3 +1,4 @@
+" vim:ft=vim
 " When started as "evim", bail out.
 if v:progname =~? "evim"
   finish
