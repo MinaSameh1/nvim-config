@@ -27,7 +27,7 @@ local default = {
   layout_strategy = "horizontal",
   layout_config = {
     horizontal = {
-      prompt_position = 'top',
+      prompt_position = "top",
       preview_width = 0.55,
       results_width = 0.8,
     },
@@ -118,7 +118,8 @@ local default = {
   },
   pickers = {
     find_files = {
-      theme = 'ivy'
+      preview = true,
+      layout = 'vertical'
     }
   },
   extensions = {
@@ -128,15 +129,22 @@ local default = {
     },
     ["ui-select"] = {
       require("telescope.themes").get_dropdown {
-        -- Opts
+        previewer = false,
+        layout_strategy = 'horizontal',
       },
     },
   },
 }
 
 telescope.setup(default)
-telescope.load_extension('dap')
-telescope.load_extension('ui-select')
+local extension = {
+  'dap',
+  'ui-select'
+}
+
+for _,ext in ipairs(extension) do
+  telescope.load_extension(ext)
+end
 
 local Key = vim.api.nvim_set_keymap
 local Opts = { noremap = true, silent = true }

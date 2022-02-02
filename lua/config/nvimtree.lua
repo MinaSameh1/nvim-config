@@ -16,9 +16,11 @@ vim.g.nvim_tree_window_picker_exclude = {
    buftype = { "terminal" },
 }
 
-vim.g.nvim_tree_highlight_opened_files = 1 --0 by default, will enable folder and file icon highlight for opened files/directories.
 
-vim.g.lua_tree_indent_markers = 0
+vim.g.nvim_tree_indent_markers = 1
+-- vim.g.nvim_tree_disable_window_picker = 1
+vim.g.nvim_tree_show_icons = { git = 1, folder_arrows = 1, folders = 1, files = 1 }
+vim.g.nvim_tree_highlight_opened_files = 2 --0 by default, will enable folder and file icon highlight for opened files/directories.
 vim.g.nvim_tree_root_folder_modifier = table.concat { ":t:gs?$?/..", string.rep(" ", 1000), "?:gs?^??" }
 
 vim.g.nvim_tree_icons = {

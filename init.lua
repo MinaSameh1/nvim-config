@@ -7,17 +7,19 @@
 ╚═╝  ╚═══╝  ╚═══╝  ╚═╝╚═╝     ╚═╝
 ]]
 
--- Mapping function to make things easier
+-- Mapping functions to make things easier
 local utils = require('config.utils')
 local nmap = utils.nmap
 local vmap = utils.vmap
 local imap = utils.imap
 local xmap = utils.xmap
 local omap = utils.omap
+local cmap = utils.cmap
 local nnoremap = utils.nnoremap
 local inoremap = utils.inoremap
 local vnoremap = utils.vnoremap
 
+-- Vim options
 vim.opt.background = 'dark'
 
 vim.opt.splitbelow = true
@@ -68,56 +70,64 @@ nmap('<leader>h',':bprevious<CR>') -- Move to the previous buffer
 nmap('<leader>bq',':bp <BAR> bd #<CR>')-- Close the current buffer and move to the previous one
 nmap('<leader>bl',':ls<CR>')-- Show all open buffers and their status
 
+nmap('gx',':!open <c-r><c-a><CR>') -- Opens anything under cursor (url or file)
+
+-- Edit config files
+cmap('c!!','e ~/.config/nvim/init.lua<CR>')
+cmap('cg!!','e ~/.config/nvim/ginit.vim<CR>')
+cmap('p!!','e ~/.config/nvim/lua/config/plugins.lua<CR>')
 
 -- Plugins
 require('init')
 
+-- Some plugins settings
 vim.g.did_load_filetypes = 1 -- Stop file types from loading, load them using filetypes.nvim
+
+-- Transparency setting if you use nvim transparent toggle
 -- vim.g.transparent_enabled = false
+
 -- Plugins keybindings
 nnoremap('<leader>gg','<Cmd>Git<CR>')
 nnoremap('<leader>gc','<Cmd>Git commit<CR>')
 
--- open our tagbar
-nnoremap('<F3>',':TagbarToggle<CR>')
-
--- BufferLine: These commands will navigate through buffers in order regardless of which mode you are using
+---- BufferLine: These commands will navigate through buffers in order regardless of which mode you are using
 -- e.g. if you change the order of buffers :bnext and :bprevious will not respect the custom ordering
-nnoremap('[b',':BufferLineCycleNext<CR>')
-nnoremap(']b',':BufferLineCyclePrev<CR>')
+nnoremap(']b',':BufferLineCycleNext<CR>')
+nnoremap('[b',':BufferLineCyclePrev<CR>')
 -- These commands will move the current buffer backwards or forwards in the bufferline
-nnoremap( '[B',':BufferLineMoveNext<CR>')
-nnoremap( ']B',':BufferLineMovePrev<CR>')
+nnoremap( ']B',':BufferLineMoveNext<CR>')
+nnoremap( '[B',':BufferLineMovePrev<CR>')
 -- These commands will sort buffers by directory, language, or a custom criteria
 nnoremap('be',':BufferLineSortByExtension<CR>')
 nnoremap('bd',':BufferLineSortByDirectory<CR>')
 -- Pick buffer
 nnoremap('<leader>gb', ':BufferLinePick<CR>')
 
---  Settings for Easy Align
+----  Easy Align
 -- Start interactive EasyAlign in visual mode (e.g. vipga)
 xmap('ga','<Plug>(EasyAlign)')
 -- Start interactive EasyAlign for a motion/text object (e.g. gaip)
 nnoremap('ga','<Plug>(EasyAlign)')
 
--- Dasaboard
-nmap     ( '<Leader>cn', ':<C-u>DashboardNewFile<CR>')
-nnoremap ( 'Leader>ss',  ':<C-u>SessionSave<CR>')
-nnoremap ( '<Leader>sl', ':<C-u>SessionLoad<CR>')
-
--- Autocomplete using cmp
+---- Autocomplete using cmp
 vim.opt.completeopt = { 'menu', 'menuone', 'noselect' }
--- vim.g.UltiSnipsExpandTrigger="<tab>"
--- vim.g.UltiSnipsJumpForwardTrigger="<c-j>"
--- vim.g.UltiSnipsJumpBackwardTrigger="<c-k>"
+
+---- Utlisnips settings
+vim.g.UltiSnipsExpandTrigger="<tab>"
+vim.g.UltiSnipsJumpForwardTrigger="<c-j>"
+vim.g.UltiSnipsJumpBackwardTrigger="<c-k>"
 
 -- If you want :UltiSnipsEdit to split your window.
---vim.g:UltiSnipsEditSplit="vertical"
+vim.g.UltiSnipsEditSplit="vertical"
 
 -- Location of snips
 vim.g.UltiSnipsSnippetDirectories = {'~/.config/nvim/Snips', 'Snips'}
 vim.g.UltiSnipsSnippetsDir = "~/.config/nvim/Snips"
 
+---- Dasaboard
+nmap     ( '<Leader>cn', ':<C-u>DashboardNewFile<CR>')
+nnoremap ( 'Leader>ss',  ':<C-u>SessionSave<CR>')
+nnoremap ( '<Leader>sl', ':<C-u>SessionLoad<CR>')
 
 vim.g.dashboard_default_executive ='telescope'
 nnoremap('<leader>cn','<C-u>DashboardNewFile<CR>')
@@ -131,9 +141,6 @@ nnoremap('<leader>sl','<C-u>SessionSave<CR>')
 vim.cmd [[
   " To make saving write protected files easier, make sure to set SUDO_ASKPASS!
   com -bar W exe 'w !sudo tee >/dev/null %:p:S' | setl nomod
-  " Edit config files
-  cmap c!! e ~/.config/nvim/init.lua<CR>
-  cmap cg!! e ~/.config/nvim/ginit.vim<CR>
 
   set nobackup
   set noshowmode
@@ -143,7 +150,7 @@ vim.cmd [[
   set nowrap
   set nohlsearch
 
-  colorscheme NeoSolarized
+  colorscheme tokyonight
 " For more checkout https://github.com/glepnir/dashboard-nvim/wiki/Ascii-Header-Text
 " Dashboard
   let g:dashboard_custom_shortcut={

@@ -4,7 +4,7 @@ vim.opt.list = true
 -- vim.opt.listchars:append("eol:↴")
 vim.g.indentLine_fileTypeExclude = {
   'dashboard', 'packer', 'lspinfo',
-  'toggleterm'
+  'toggleterm', 'lsp-installer'
 }
 -- vim.g.indentLine_char_list = {'|', '¦', '┆', '┊'}
 -- vim.g.indent_blankline_context_char_list = {'┃', '║', '╬', '█'}

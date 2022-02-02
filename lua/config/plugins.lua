@@ -256,6 +256,10 @@ return packer.startup(function(use)
   use 'folke/tokyonight.nvim'
   use 'shaunsingh/nord.nvim'
   use { 'catppuccin/nvim' }
+  use {
+    'AlphaTechnolog/pywal.nvim',
+    disable = true
+  }
   use { -- Colors
     'tjdevries/colorbuddy.vim',
     config = function() require'colorbuddy'.setup() end
