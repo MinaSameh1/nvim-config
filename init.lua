@@ -72,6 +72,9 @@ nmap('<leader>bl',':ls<CR>')-- Show all open buffers and their status
 
 nmap('gx',':!open <c-r><c-a><CR>') -- Opens anything under cursor (url or file)
 
+nmap('cg*','*Ncgn')
+nnoremap('g.','/\\V<C-r>"<CR>cgn<C-a><Esc>') -- Chained with cgn, replaces the searched word with the edited one.
+
 -- Edit config files
 cmap('c!!','e ~/.config/nvim/init.lua<CR>')
 cmap('cg!!','e ~/.config/nvim/ginit.vim<CR>')

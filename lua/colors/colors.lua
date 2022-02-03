@@ -79,3 +79,7 @@ bg("TelescopeNormal", background)
 
 fg_bg("TelescopePreviewTitle", foreground, color0)
 fg_bg("TelescopeResultsTitle", foreground, color0)
+
+
+-- Telescope
+fg_bg("TelescopePromptNormal", foreground, background)

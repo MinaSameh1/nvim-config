@@ -46,7 +46,16 @@ local on_attach = function(client, bufnr)
   buf_set_keymap('n', '<leader>q',  '<cmd>lua vim.diagnostic.setloclist()<CR>',                              mapOpts)
   buf_set_keymap('n', '<leader>f',  '<cmd>lua vim.lsp.buf.formatting()<CR>',                                 mapOpts)
   buf_set_keymap('n', '<leader>so', [[<cmd>lua require('telescope.builtin').lsp_document_symbols()<CR>]],    mapOpts)
-
+  vim.cmd [[
+  " Lightblub for code action
+  autocmd CursorHold,CursorHoldI * lua require'nvim-lightbulb'.update_lightbulb()
+  autocmd CursorHold,CursorHoldI * lua vim.diagnostic.open_float(nil, {focus=false, scope="cursor"})
+  " Show line diagnostics automatically in hover window
+  " autocmd CursorHold,CursorHoldI * lua vim.diagnostic.open_float(nil, {focus=false})
+  " For diagnostics for specific cursor position
+  command! LspCodeAction execute 'lua vim.lsp.buf.code_action()'
+  command! LspFormat execute 'lua vim.lsp.buf.formatting()' 
+  ]]
   -- Enable completion triggered by <c-x><c-o>
   buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
   -- Highlight used words
@@ -151,17 +160,6 @@ end)
 -- for debugging
 -- vim.lsp.set_log_level("debug")
 
-
-vim.cmd [[
-  " Lightblub for code action
-  autocmd CursorHold,CursorHoldI * lua require'nvim-lightbulb'.update_lightbulb()
-  autocmd CursorHold,CursorHoldI * lua vim.diagnostic.open_float(nil, {focus=false, scope="cursor"})
-  " Show line diagnostics automatically in hover window
-  " autocmd CursorHold,CursorHoldI * lua vim.diagnostic.open_float(nil, {focus=false})
-  " For diagnostics for specific cursor position
-  command! LspCodeAction execute 'lua vim.lsp.buf.code_action()'
-  command! LspFormat execute 'lua vim.lsp.buf.formatting()' 
-  ]]
 local Key = vim.api.nvim_set_keymap
 
 -- Mappings for Trouble
