@@ -69,7 +69,7 @@ vim.opt.writebackup = false -- make a backup before overwriting a file
 vim.opt.swapfile = false -- whether to use a swapfile for a buffer
 vim.opt.hlsearch = false --  highlight matches with last search pattern
 
-vim.opt.guifont='Hack Nerd Font:h11' -- Font that will be used in GUI vim
+vim.opt.guifont='FiraCode Nerd Font:h11' -- Font that will be used in GUI vim
 
 -- Keybindings
 nnoremap('<leader>fF', ':!prettier --write %<CR>') -- Format
