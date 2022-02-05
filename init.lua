@@ -39,7 +39,6 @@ vim.opt.updatetime = 300 -- after this many milliseconds flush swap file
 
 vim.opt.cmdheight = 1 -- number of lines to use for the command-line
 
-vim.opt.smartindent = true -- smart autoindenting for C programs
 
 vim.opt.smartcase = true -- no ignore case when pattern has uppercase
 vim.opt.ignorecase = true -- ignore case in search patterns
@@ -49,6 +48,8 @@ vim.opt.expandtab = true -- use spaces when <Tab> is inserted
 vim.opt.shiftwidth = 2 -- number of spaces to use for (auto)indent step
 vim.opt.tabstop = 2 -- number of spaces that <Tab> in file uses
 vim.opt.softtabstop = 2 -- number of spaces that <Tab> uses while editing
+vim.opt.smartindent = true -- smart autoindenting for C programs
+vim.opt.wrap = false -- lines wrap and continue on the next line
 
 vim.opt.undodir =  vim.fn.stdpath('config') .. '/undodir' -- where to store undo files
 vim.opt.undofile = true -- save undo information in a file
@@ -66,10 +67,9 @@ vim.opt.backup = false -- keep backup file after overwriting a file
 vim.opt.errorbells = false -- ring the bell for error messages
 vim.opt.writebackup = false -- make a backup before overwriting a file
 vim.opt.swapfile = false -- whether to use a swapfile for a buffer
-vim.opt.wrap = false -- lines wrap and continue on the next line
 vim.opt.hlsearch = false --  highlight matches with last search pattern
 
-vim.opt.guifont='Hack Nerd Font:h11'
+vim.opt.guifont='Hack Nerd Font:h11' -- Font that will be used in GUI vim
 
 -- Keybindings
 nnoremap('<leader>fF', ':!prettier --write %<CR>') -- Format
@@ -145,10 +145,11 @@ vim.opt.completeopt = { 'menu', 'menuone', 'noselect' }
 -- vim.g.UltiSnipsJumpForwardTrigger="<c-j>"
 -- vim.g.UltiSnipsJumpBackwardTrigger="<c-k>"
 
-vim.g.UltiSnipsEditSplit="vertical" -- If you want :UltiSnipsEdit to split your window.
+vim.g.UltiSnipsEditSplit='vertical' -- If you want :UltiSnipsEdit to split your window.
 
--- vim.g.UltiSnipsSnippetDirectories = {'~/.config/nvim/Snips', 'Snips'}
+vim.g.UltiSnipsSnippetDirectories = {'~/.config/nvim/Snips', 'Snips'}
 vim.g.UltiSnipsSnippetsDir = "~/.config/nvim/Snips"  -- Location of snips
+vim.g.UltiSnipsListSnippets = '<C-Space>'
 
 -- ******************************
 -- *         DASHBOARD          *
