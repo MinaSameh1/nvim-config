@@ -69,7 +69,7 @@ vim.opt.swapfile = false -- whether to use a swapfile for a buffer
 vim.opt.wrap = false -- lines wrap and continue on the next line
 vim.opt.hlsearch = false --  highlight matches with last search pattern
 
-vim.g.guifont='Hack\\ Nerd\\ Font:h11'
+vim.opt.guifont='Hack Nerd Font:h11'
 
 -- Keybindings
 nnoremap('<leader>fF', ':!prettier --write %<CR>') -- Format
