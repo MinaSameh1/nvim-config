@@ -163,7 +163,7 @@ end)
 local Key = vim.api.nvim_set_keymap
 
 -- Mappings for Trouble
-Key("n", "<leader>xx", "<cmd>Trouble<cr>",                       mapOpts)
+Key("n", "<leader>xx", "<cmd>TroubleToggle<cr>",                       mapOpts)
 Key("n", "<leader>xw", "<cmd>Trouble workspace_diagnostics<cr>", mapOpts)
 Key("n", "<leader>xd", "<cmd>Trouble document_diagnostics<cr>",  mapOpts)
 Key("n", "<leader>xl", "<cmd>Trouble loclist<cr>",               mapOpts)

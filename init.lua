@@ -5,58 +5,69 @@
 ██║╚██╗██║╚██╗ ██╔╝██║██║╚██╔╝██║
 ██║ ╚████║ ╚████╔╝ ██║██║ ╚═╝ ██║
 ╚═╝  ╚═══╝  ╚═══╝  ╚═╝╚═╝     ╚═╝
+
 ]]
 
 -- Mapping functions to make things easier
 local utils = require('config.utils')
 local nmap = utils.nmap
-local vmap = utils.vmap
-local imap = utils.imap
+-- local vmap = utils.vmap
+-- local imap = utils.imap
 local xmap = utils.xmap
-local omap = utils.omap
+-- local omap = utils.omap
 local cmap = utils.cmap
 local nnoremap = utils.nnoremap
-local inoremap = utils.inoremap
-local vnoremap = utils.vnoremap
+-- local inoremap = utils.inoremap
+-- local vnoremap = utils.vnoremap
+
+-- Test emote support: should be white skull 💀
 
 -- Vim options
-vim.opt.background = 'dark'
+vim.opt.background = 'dark' -- "\"dark\" or \"light\", used for highlight colors"
 
-vim.opt.splitbelow = true
-vim.opt.splitright = true
+vim.opt.splitbelow = true -- new window from split is below the current one
+vim.opt.splitright = true -- new window is put right of the current one
 
-vim.opt.hidden = true
+vim.opt.hidden = true -- don't unload buffer when it is |abandon|ed
 
-vim.opt.termguicolors = true
+vim.opt.termguicolors = true -- Terminal true color support
 
-vim.opt.modeline = true
-vim.opt.modelines = 5
+vim.opt.modeline = true -- recognize modelines at start or end of file
+vim.opt.modelines = 5 -- number of lines checked for modelines
 
-vim.opt.updatetime = 300
+vim.opt.updatetime = 300 -- after this many milliseconds flush swap file
 
-vim.opt.cmdheight = 1
+vim.opt.cmdheight = 1 -- number of lines to use for the command-line
 
-vim.opt.smartindent = true
+vim.opt.smartindent = true -- smart autoindenting for C programs
 
-vim.opt.smartcase = true
-vim.opt.ignorecase = true
-vim.opt.incsearch = true
+vim.opt.smartcase = true -- no ignore case when pattern has uppercase
+vim.opt.ignorecase = true -- ignore case in search patterns
+vim.opt.incsearch = true -- highlight match while typing search pattern
 
-vim.opt.expandtab = true
-vim.opt.shiftwidth = 2
-vim.opt.tabstop = 2
-vim.opt.softtabstop = 2
+vim.opt.expandtab = true -- use spaces when <Tab> is inserted
+vim.opt.shiftwidth = 2 -- number of spaces to use for (auto)indent step
+vim.opt.tabstop = 2 -- number of spaces that <Tab> in file uses
+vim.opt.softtabstop = 2 -- number of spaces that <Tab> uses while editing
 
-vim.opt.undodir =  vim.fn.stdpath('config') .. '/undodir'
-vim.opt.undofile = true
-vim.opt.undolevels = 5000
+vim.opt.undodir =  vim.fn.stdpath('config') .. '/undodir' -- where to store undo files
+vim.opt.undofile = true -- save undo information in a file
+vim.opt.undolevels = 5000 -- maximum number of changes that can be undone
 
-vim.opt.lazyredraw = true
+vim.opt.lazyredraw = true -- don't redraw while executing macros
 
-vim.opt.relativenumber = true
-vim.opt.scrolloff = 8
-vim.opt.mouse = 'a'
-vim.opt.cc = '80'
+vim.opt.relativenumber = true -- show relative line number in front of each line
+vim.opt.scrolloff = 8 -- minimum nr. of lines above and below cursor
+vim.opt.mouse = 'a' -- the use of mouse clicks
+vim.opt.colorcolumn = '80' -- columns to highlight
+
+vim.opt.showmode = false -- message on status line to show current mode
+vim.opt.backup = false -- keep backup file after overwriting a file
+vim.opt.errorbells = false -- ring the bell for error messages
+vim.opt.writebackup = false -- make a backup before overwriting a file
+vim.opt.swapfile = false -- whether to use a swapfile for a buffer
+vim.opt.wrap = false -- lines wrap and continue on the next line
+vim.opt.hlsearch = false --  highlight matches with last search pattern
 
 -- Keybindings
 nnoremap('<leader>fF', ':!prettier --write %<CR>') -- Format
@@ -78,85 +89,84 @@ nmap('cg*','*Ncgn')
 nnoremap('g.','/\\V<C-r>"<CR>cgn<C-a><Esc>') -- Chained with cgn, replaces the searched word with the edited one.
 
 -- Edit config files
-cmap('c!!','e ~/.config/nvim/init.lua<CR>')
-cmap('cg!!','e ~/.config/nvim/ginit.vim<CR>')
-cmap('p!!','e ~/.config/nvim/lua/config/plugins.lua<CR>')
+cmap('c!!','e ~/.config/nvim/init.lua<CR>') -- Edit this file
+cmap('cg!!','e ~/.config/nvim/ginit.vim<CR>') -- Edit the gui file
+cmap('p!!','e ~/.config/nvim/lua/config/plugins.lua<CR>') -- the Plugins file using packer
 
--- Plugins
+--[[
+-- ****************************
+-- *         Plugins          *
+-- ****************************
+--]]
 require('init')
 
--- Some plugins settings
-vim.g.did_load_filetypes = 1 -- Stop file types from loading, load them using filetypes.nvim
 
--- Transparency setting if you use nvim transparent toggle
--- vim.g.transparent_enabled = false
+--[[
+-- ****************************************
+-- *         Plugins Keybindings          *
+-- ****************************************
+--]]
 
--- Plugins keybindings
-nnoremap('<leader>gg','<Cmd>Git<CR>')
-nnoremap('<leader>gc','<Cmd>Git commit<CR>')
+-- *****************************
+-- *         fugitive          *
+-- *****************************
+nnoremap('<leader>gg','<Cmd>Git<CR>') -- fugitive Git window
+nnoremap('<leader>gc','<Cmd>Git commit<CR>') -- Commit
 
----- BufferLine: These commands will navigate through buffers in order regardless of which mode you are using
--- e.g. if you change the order of buffers :bnext and :bprevious will not respect the custom ordering
-nnoremap(']b',':BufferLineCycleNext<CR>')
-nnoremap('[b',':BufferLineCyclePrev<CR>')
--- These commands will move the current buffer backwards or forwards in the bufferline
-nnoremap( ']B',':BufferLineMoveNext<CR>')
-nnoremap( '[B',':BufferLineMovePrev<CR>')
--- These commands will sort buffers by directory, language, or a custom criteria
-nnoremap('be',':BufferLineSortByExtension<CR>')
-nnoremap('bd',':BufferLineSortByDirectory<CR>')
--- Pick buffer
-nnoremap('<leader>gb', ':BufferLinePick<CR>')
+-- *******************************
+-- *         BufferLine          *
+-- *******************************
+nnoremap(']b',':BufferLineCycleNext<CR>') -- Go right
+nnoremap('[b',':BufferLineCyclePrev<CR>') -- Go left
+nnoremap( ']B',':BufferLineMoveNext<CR>') -- Move the buffer to the right
+nnoremap( '[B',':BufferLineMovePrev<CR>') -- Move the buffer to the left
+nnoremap('be',':BufferLineSortByExtension<CR>') -- Sort buffer by Extension
+nnoremap('bd',':BufferLineSortByDirectory<CR>') -- Sort buffer by Directory
+nnoremap('<leader>gb', ':BufferLinePick<CR>') -- Pick buffer
 
-----  Easy Align
--- Start interactive EasyAlign in visual mode (e.g. vipga)
-xmap('ga','<Plug>(EasyAlign)')
--- Start interactive EasyAlign for a motion/text object (e.g. gaip)
-nnoremap('ga','<Plug>(EasyAlign)')
+-- *******************************
+-- *         EasyAlign           *
+-- *******************************
+xmap('ga','<Plug>(EasyAlign)') -- Start interactive EasyAlign in visual mode (e.g. vipga)
+nnoremap('ga','<Plug>(EasyAlign)') -- Start interactive EasyAlign for a motion/text object (e.g. gaip)
 
----- Autocomplete using cmp
+-- *******************************
+-- *      CMP autocomplete       *
+-- *******************************
 vim.opt.completeopt = { 'menu', 'menuone', 'noselect' }
 
----- Utlisnips settings
-vim.g.UltiSnipsExpandTrigger="<tab>"
-vim.g.UltiSnipsJumpForwardTrigger="<c-j>"
-vim.g.UltiSnipsJumpBackwardTrigger="<c-k>"
+-- *******************************
+-- *         UltiSnips           *
+-- *******************************
+-- These keybindings are useless since I use cmp
+-- vim.g.UltiSnipsExpandTrigger="<tab>"
+-- vim.g.UltiSnipsJumpForwardTrigger="<c-j>"
+-- vim.g.UltiSnipsJumpBackwardTrigger="<c-k>"
 
--- If you want :UltiSnipsEdit to split your window.
-vim.g.UltiSnipsEditSplit="vertical"
+vim.g.UltiSnipsEditSplit="vertical" -- If you want :UltiSnipsEdit to split your window.
 
--- Location of snips
-vim.g.UltiSnipsSnippetDirectories = {'~/.config/nvim/Snips', 'Snips'}
-vim.g.UltiSnipsSnippetsDir = "~/.config/nvim/Snips"
+-- vim.g.UltiSnipsSnippetDirectories = {'~/.config/nvim/Snips', 'Snips'}
+vim.g.UltiSnipsSnippetsDir = "~/.config/nvim/Snips"  -- Location of snips
 
----- Dasaboard
-nmap     ( '<Leader>cn', ':<C-u>DashboardNewFile<CR>')
-nnoremap ( 'Leader>ss',  ':<C-u>SessionSave<CR>')
-nnoremap ( '<Leader>sl', ':<C-u>SessionLoad<CR>')
-
-vim.g.dashboard_default_executive ='telescope'
-nnoremap('<leader>N','<Cmd>DashboardNewFile<CR>')
-
+-- ******************************
+-- *         DASHBOARD          *
+-- ******************************
+nmap     ( '<Leader>cn', ':<C-u>DashboardNewFile<CR>') -- Open new file
 -- Dasaboard Sessions
-nnoremap('<leader>ss','<C-u>SessionSave<CR>')
-nnoremap('<leader>sl','<C-u>SessionSave<CR>')
+nnoremap ( 'Leader>ss',  ':<C-u>SessionSave<CR>') -- Save Session
+nnoremap ( '<Leader>sl', ':<C-u>SessionLoad<CR>') -- Load Session
 
--- Test emote support: should be white skull 💀
+vim.g.dashboard_default_executive ='telescope' -- Use telescope
 
+-- **********************************
+-- *         Vim Commands           *
+-- **********************************
 vim.cmd [[
   " To make saving write protected files easier, make sure to set SUDO_ASKPASS!
   com -bar W exe 'w !sudo tee >/dev/null %:p:S' | setl nomod
 
-  set nobackup
-  set noshowmode
-  set noerrorbells
-  set nowritebackup
-  set noswapfile
-  set nowrap
-  set nohlsearch
-
   colorscheme tokyonight
-" For more checkout https://github.com/glepnir/dashboard-nvim/wiki/Ascii-Header-Text
+
 " Dashboard
   let g:dashboard_custom_shortcut={
   \ 'last_session'       : 'leader s l',
@@ -167,5 +177,4 @@ vim.cmd [[
   \ 'find_word'          : 'leader f a',
   \ 'book_marks'         : 'leader f B',
   \ }
-
 ]]

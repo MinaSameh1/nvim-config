@@ -270,7 +270,12 @@ return packer.startup(function(use)
     'norcalli/nvim-colorizer.lua',
     config = function() require'colorizer'.setup() end
     }
-  use("nathom/filetype.nvim")
+  use{
+    "nathom/filetype.nvim",
+    config = function()
+      vim.g.did_load_filetypes = 1 -- Stop file types from loading, load them using filetypes.nvim
+    end
+  }
   -- Themes
   use 'rktjmp/lush.nvim' -- used to create colorschemes
   use 'nanotech/jellybeans.vim'
@@ -290,7 +295,7 @@ return packer.startup(function(use)
   use { 'overcache/NeoSolarized' }
   use { -- adds transpancy toggles
     'xiyaowong/nvim-transparent',
-    disable = true,
+    disable = true, -- Disable the plugin
     config = function()
       require("transparent").setup({
         enable = true, -- boolean: enable transparent
