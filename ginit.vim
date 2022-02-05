@@ -14,7 +14,7 @@ if exists('g:GuiLoaded')
   GuiLinespace 2
   "GuiFont! Inconsolata\ Nerd\ Font:h13:l
   "GuiFont! iMWritingMonoS\ Nerd\ Font:h12
-  " GuiFont! Hack:h11
+  GuiFont! Fira\ Code:h11
   
   " Right Click Context Menu (Copy-Cut-Paste)
   nnoremap <silent><RightMouse> :call GuiShowContextMenu()<CR>
