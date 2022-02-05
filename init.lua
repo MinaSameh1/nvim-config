@@ -69,6 +69,8 @@ vim.opt.swapfile = false -- whether to use a swapfile for a buffer
 vim.opt.wrap = false -- lines wrap and continue on the next line
 vim.opt.hlsearch = false --  highlight matches with last search pattern
 
+vim.g.guifont='Hack\\ Nerd\\ Font:h11'
+
 -- Keybindings
 nnoremap('<leader>fF', ':!prettier --write %<CR>') -- Format
 nnoremap('<F6>',':!zathura %:r.pdf > /dev/null 2>&1 & <CR>') -- open file.pdf
