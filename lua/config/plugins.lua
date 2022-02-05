@@ -153,12 +153,21 @@ return packer.startup(function(use)
   -- use 'jbyuki/one-small-step-for-vimkind' -- For nvim lua
   -- Meh java xd, cant get it work for some reason ah well
   -- use 'mfussenegger/nvim-jdtls', { 'do':'source ~/.config/nvim/config/jdtls.lua'}
-  use 'mfussenegger/nvim-dap-python'
+  use {
+    'mfussenegger/nvim-dap-python',
+    requires = { {'mfussenegger/nvim-dap'}}
+  }
   -- Debugger UI
-  use 'rcarriga/nvim-dap-ui'
+  use {
+    'rcarriga/nvim-dap-ui',
+    requires = { {'mfussenegger/nvim-dap'}}
+  }
   use {
     'nvim-telescope/telescope-dap.nvim',
-    requires = { { 'nvim-telescope/telescope.nvim' } }
+    requires = {
+    { 'nvim-telescope/telescope.nvim' },
+    {'mfussenegger/nvim-dap'}
+    }
     }
   -- Shows variables and their values when debugging
   use {
@@ -166,9 +175,23 @@ return packer.startup(function(use)
     requires = { { 'mfussenegger/nvim-dap' } }
     }
   -- Installs dap debuggers
-  use "Pocco81/DAPInstall.nvim"
+  use {
+    'Pocco81/DAPInstall.nvim',
+    requires = { { 'mfussenegger/nvim-dap' } }
+  }
+
+  use { 'vim-test/vim-test' }
+  use {
+    "rcarriga/vim-ultest",
+    requires = {"vim-test/vim-test"},
+    config = function()
+      require('config.ultest')
+    end,
+    run = ":UpdateRemotePlugins"
+  }
   -- Jest Tests debugging
   use {
+    disable = true,
     'David-Kunz/jester',
     ft = {'js', 'ts'}
     }

@@ -73,12 +73,12 @@ local fg_bg = function(group, fgcol, bgcol)
 end
 
 -- Telescope
-fg("TelescopeSelection", color1)
+fg_bg("TelescopeSelection", color1, cursorColor)
 
 bg("TelescopeNormal", background)
 
-fg_bg("TelescopePreviewTitle", foreground, color0)
-fg_bg("TelescopeResultsTitle", foreground, color0)
+fg_bg("TelescopePreviewTitle", color4, color0)
+fg_bg("TelescopeResultsTitle", color4, color0)
 
 
 -- Telescope

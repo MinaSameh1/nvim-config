@@ -51,6 +51,8 @@ vim.opt.undodir =  vim.fn.stdpath('config') .. '/undodir'
 vim.opt.undofile = true
 vim.opt.undolevels = 5000
 
+vim.opt.lazyredraw = true
+
 vim.opt.relativenumber = true
 vim.opt.scrolloff = 8
 vim.opt.mouse = 'a'
@@ -133,7 +135,7 @@ nnoremap ( 'Leader>ss',  ':<C-u>SessionSave<CR>')
 nnoremap ( '<Leader>sl', ':<C-u>SessionLoad<CR>')
 
 vim.g.dashboard_default_executive ='telescope'
-nnoremap('<leader>cn','<C-u>DashboardNewFile<CR>')
+nnoremap('<leader>N','<Cmd>DashboardNewFile<CR>')
 
 -- Dasaboard Sessions
 nnoremap('<leader>ss','<C-u>SessionSave<CR>')
