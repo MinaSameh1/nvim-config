@@ -9,6 +9,6 @@ null_ls.setup({
       filetypes = { "html", "json", "yaml", "markdown" },
     }),
     null_ls.builtins.diagnostics.write_good,
-    null_ls.builtins.code_actions.gitsigns,
+    -- null_ls.builtins.code_actions.gitsigns,
   },
 })
