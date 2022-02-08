@@ -289,6 +289,10 @@ return packer.startup(function(use)
 			vim.g.did_load_filetypes = 1 -- Stop file types from loading, load them using filetypes.nvim
 		end,
 	})
+	-- Dims lights xd
+	use({
+		"https://github.com/folke/twilight.nvim",
+	})
 	-- Themes
 	use("rktjmp/lush.nvim") -- used to create colorschemes
 	use("nanotech/jellybeans.vim")

@@ -1,28 +1,27 @@
-require('config.plugins')
-require('config.colorscheme')
-require('colors.colors')
-
+require("config.plugins")
+require("config.colorscheme")
+require("colors.colors")
 
 -- vimtex
-vim.g.vimtex_view_method = 'zathura'
-vim.g.tex_flavor = 'latex'
+vim.g.vimtex_view_method = "zathura"
+vim.g.tex_flavor = "latex"
 vim.opt.conceallevel = 1
 
 -- DashBoard
 
 -- For more checkout https://github.com/glepnir/dashboard-nvim/wiki/Ascii-Header-Text
 vim.g.dashboard_custom_header = {
-    [[      ___                                    ___     ]],
-    [[     /__/\          ___        ___          /__/\    ]],
-    [[     \  \:\        /__/\      /  /\        |  |::\   ]],
-    [[      \  \:\       \  \:\    /  /:/        |  |:|:\  ]],
-    [[  _____\__\:\       \  \:\  /__/::\      __|__|:|\:\ ]],
-    [[ /__/::::::::\  ___  \__\:\ \__\/\:\__  /__/::::| \:\]],
-    [[ \  \:\~~\~~\/ /__/\ |  |:|    \  \:\/\ \  \:\~~\__\/]],
-    [[  \  \:\  ~~~  \  \:\|  |:|     \__\::/  \  \:\      ]],
-    [[   \  \:\       \  \:\__|:|     /__/:/    \  \:\     ]],
-    [[    \  \:\       \__\::::/      \__\/      \  \:\    ]],
-    [[     \__\/           ~~~~                   \__\/    ]]
+	[[      ___                                    ___     ]],
+	[[     /__/\          ___        ___          /__/\    ]],
+	[[     \  \:\        /__/\      /  /\        |  |::\   ]],
+	[[      \  \:\       \  \:\    /  /:/        |  |:|:\  ]],
+	[[  _____\__\:\       \  \:\  /__/::\      __|__|:|\:\ ]],
+	[[ /__/::::::::\  ___  \__\:\ \__\/\:\__  /__/::::| \:\]],
+	[[ \  \:\~~\~~\/ /__/\ |  |:|    \  \:\/\ \  \:\~~\__\/]],
+	[[  \  \:\  ~~~  \  \:\|  |:|     \__\::/  \  \:\      ]],
+	[[   \  \:\       \  \:\__|:|     /__/:/    \  \:\     ]],
+	[[    \  \:\       \__\::::/      \__\/      \  \:\    ]],
+	[[     \__\/           ~~~~                   \__\/    ]],
 }
 
 -- vim.g.dashboard_custom_header = {
@@ -70,4 +69,3 @@ vim.g.dashboard_custom_header = {
 -- [[ ⠀⠀⠀⠐⢤⣀⣀⢀⣀⣠⣴⣿⣿⠿⠋⠙⠿⣿⣿⣦⣄⣀⠀⠀⣀⡠⠂⠀⠀⠀]],
 -- [[ ⠀⠀⠀⠀⠀⠈⠉⠛⠛⠛⠛⠉⠀⠀⠀⠀⠀⠈⠉⠛⠛⠛⠛⠋⠁⠀⠀⠀⠀⠀]],
 -- }
-
