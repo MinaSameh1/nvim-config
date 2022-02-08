@@ -157,6 +157,10 @@ lsp_installer.on_server_ready(function(server)
 			server = vim.tbl_deep_extend("force", server:get_default_options(), opts),
 		})
 		server:attach_buffers()
+  elseif server.name == "clangd" then
+		server:setup(opts)
+    capabilities.offsetEncoding = { "utf-16" }
+    require('lspconfig').clangd.setup({capabilities = capabilities})
 	else
 		server:setup(opts)
 	end
