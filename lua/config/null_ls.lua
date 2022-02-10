@@ -41,9 +41,9 @@ null_ls.setup({
 		null_ls.builtins.diagnostics.write_good.with({
 			filetypes = { "markdown", "latex" },
 		}),
-		-- null_ls.builtins.diagnostics.yamllint,
+		null_ls.builtins.diagnostics.yamllint,
 		-- null_ls.builtins.diagnostics.php,
-		-- null_ls.builtins.code_actions.refactoring,
+		null_ls.builtins.code_actions.refactoring,
 
 		null_ls.builtins.completion.spell,
 		-- null_ls.builtins.code_actions.gitsigns,
