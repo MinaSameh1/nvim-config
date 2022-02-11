@@ -23,26 +23,26 @@ local config = {
 		"--add-opens",
 		"java.base/java.lang=ALL-UNNAMED",
 
-		-- D
+    -- 💀
 		"-jar",
-		"/home/mina/Downloads/work/jdt-language-server-1.7.0/plugins/org.eclipse.equinox.launcher_1.6.400.v20210924-0641.jar",
+		"/home/mina/.local/share/nvim/lsp_servers/jdtls/plugins/jdt-language-server-1.7.0/plugins/org.eclipse.equinox.launcher_1.6.400.v20210924-0641.jar",
 		-- ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^                                       ^^^^^^^^^^^^^^
 		-- Must point to the                                                     Change this to
 		-- eclipse.jdt.ls installation                                           the actual version
 
-		-- D
+    -- 💀
 		"-configuration",
-		"/home/mina/Downloads/work/jdt-language-server-1.7.0/config_linux",
+		"/home/mina/.local/share/nvim/lsp_servers/jdtls/config_linux",
 		-- ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^        ^^^^^^
 		-- Must point to the                      Change to one of `linux`, `win` or `mac`
 		-- eclipse.jdt.ls installation            Depending on your system.
 
-		-- D
+    -- 💀
 		-- See `data directory configuration` section in the README
 		-- '-data', project_name
 	},
 
-	-- D
+    -- 💀
 	-- This is the default if not provided, you can remove it. Or adjust as needed.
 	-- One dedicated LSP server & client will be started per unique root_dir
 	root_dir = require("jdtls.setup").find_root({ ".git", "mvnw", "gradlew" }),

@@ -159,8 +159,15 @@ return packer.startup(function(use)
 		end,
 	})
 	-- use 'jbyuki/one-small-step-for-vimkind' -- For nvim lua
-	-- Meh java xd, cant get it work for some reason ah well
-	-- use 'mfussenegger/nvim-jdtls', { 'do':'source ~/.config/nvim/config/jdtls.lua'}
+	-- use({ -- For java
+	-- 	"mfussenegger/nvim-jdtls",
+	-- 	ft= { 'java' },
+	-- 	requires = { { "williamboman/nvim-lsp-installer" } },
+	-- 	config = function ()
+	-- 		require("config.jdtls")
+	-- 	end
+	-- })
+
 	use({
 		"mfussenegger/nvim-dap-python",
 		requires = { { "mfussenegger/nvim-dap" } },
