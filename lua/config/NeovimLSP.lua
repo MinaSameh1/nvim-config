@@ -18,9 +18,6 @@ end
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
 local on_attach = function(client, bufnr)
-	if client.name == "tsserver" then
-		client.resolved_capabilities.document_formatting = false
-	end
 	local function buf_set_keymap(...)
 		vim.api.nvim_buf_set_keymap(bufnr, ...)
 	end
@@ -28,6 +25,15 @@ local on_attach = function(client, bufnr)
 		vim.api.nvim_buf_set_option(bufnr, ...)
 	end
 
+	if client.name == "tsserver" then
+		client.resolved_capabilities.document_formatting = false -- I use prettier for now :)
+		buf_set_keymap(
+			"n",
+			"<leader>si",
+			"require'nvim-lsp-installer.extras.tsserver'.organize_imports(bufname)",
+			mapOpts
+		)
+	end
 	-- Mappings.
 	-- See `:help vim.lsp.*` for documentation on any of the below functions
 	buf_set_keymap("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", mapOpts)
@@ -61,6 +67,15 @@ local on_attach = function(client, bufnr)
   command! LspCodeAction execute 'lua vim.lsp.buf.code_action()'
   command! LspFormat execute 'lua vim.lsp.buf.formatting()' 
   ]])
+	-- AutoFormat
+	if client.resolved_capabilities.document_formatting then
+		vim.cmd([[
+			augroup lsp_format_on_save
+			autocmd! * <buffer>
+			autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync()
+			augroup END
+			]])
+	end
 
 	-- Enable completion triggered by <c-x><c-o>
 	buf_set_option("omnifunc", "v:lua.vim.lsp.omnifunc")
@@ -123,19 +138,16 @@ lsp_installer.on_server_ready(function(server)
 				},
 			},
 		},
+		capabilities = vim.lsp.protocol.make_client_capabilities(),
 	}
 
 	for _, sign in ipairs(signs) do
 		vim.fn.sign_define(sign.name, { texthl = sign.name, text = sign.text, numhl = "" })
 	end
 
-	local capabilities = vim.lsp.protocol.make_client_capabilities()
-	lsp_installer.capabilities = require("cmp_nvim_lsp").update_capabilities(capabilities)
+	lsp_installer.capabilities = require("cmp_nvim_lsp").update_capabilities(opts.capabilities)
 
 	if server.name == "eslintls" then
-		opts.on_attach = function(client, _)
-			client.resolved_capabilities.document_formatting = true
-		end
 		opts.settings = {
 			codeAction = {
 				disableRuleComment = {
@@ -144,7 +156,7 @@ lsp_installer.on_server_ready(function(server)
 				showDocumentation = {
 					enable = true,
 				},
-				format = { enable = true },
+				format = { enable = false }, -- Use Prettier from null-ls
 			},
 		}
 	elseif server.name == "rust_analyzer" then
@@ -157,13 +169,10 @@ lsp_installer.on_server_ready(function(server)
 			server = vim.tbl_deep_extend("force", server:get_default_options(), opts),
 		})
 		server:attach_buffers()
-  elseif server.name == "clangd" then
-		server:setup(opts)
-    capabilities.offsetEncoding = { "utf-16" }
-    require('lspconfig').clangd.setup({capabilities = capabilities})
-	else
-		server:setup(opts)
+	elseif server.name == "clangd" or server.name == "ccls" then
+		opts.capabilities.offsetEncoding = { "utf-16" }
 	end
+	server:setup(opts)
 end)
 
 -- for debugging

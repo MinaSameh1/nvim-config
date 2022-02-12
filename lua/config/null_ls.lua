@@ -5,7 +5,7 @@ null_ls.setup({
 
 		---- Lua
 		null_ls.builtins.formatting.stylua,
-		null_ls.builtins.diagnostics.selene,
+		-- null_ls.builtins.diagnostics.selene,
 		-- null_ls.builtins.diagnostics.luacheck, -- Slow
 
 		---- Python
@@ -17,7 +17,6 @@ null_ls.setup({
 		}),
 
 		---- C / Cpp
-		null_ls.builtins.formatting.clang_format,
 		null_ls.builtins.diagnostics.cppcheck,
 
 		---- Typescript/Javascript
