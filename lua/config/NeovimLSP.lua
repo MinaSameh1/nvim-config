@@ -147,6 +147,7 @@ lsp_installer.on_server_ready(function(server)
 
 	lsp_installer.capabilities = require("cmp_nvim_lsp").update_capabilities(opts.capabilities)
 
+	-- If the server is eslint override the settings
 	if server.name == "eslintls" then
 		opts.settings = {
 			codeAction = {
@@ -156,9 +157,10 @@ lsp_installer.on_server_ready(function(server)
 				showDocumentation = {
 					enable = true,
 				},
-				format = { enable = false }, -- Use Prettier from null-ls
+				format = { enable = false }, -- Use Prettier using null-ls
 			},
 		}
+		-- If the server is Rust analyzer use the plugin
 	elseif server.name == "rust_analyzer" then
 		-- Initialize the LSP via rust-tools instead
 		require("rust-tools").setup({
@@ -169,8 +171,9 @@ lsp_installer.on_server_ready(function(server)
 			server = vim.tbl_deep_extend("force", server:get_default_options(), opts),
 		})
 		server:attach_buffers()
+		return
 	elseif server.name == "clangd" or server.name == "ccls" then
-		opts.capabilities.offsetEncoding = { "utf-16" }
+		opts.capabilities.offsetEncoding = { "utf-16" } -- Fixes problem with clang
 	end
 	server:setup(opts)
 end)
