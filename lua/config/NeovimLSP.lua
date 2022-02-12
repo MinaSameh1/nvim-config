@@ -34,6 +34,9 @@ local on_attach = function(client, bufnr)
 			mapOpts
 		)
 	end
+	if client.name == "stylelint_lsp" then
+		client.resolved_capabilities.document_formatting = false -- I use prettier for now :)
+	end
 	-- Mappings.
 	-- See `:help vim.lsp.*` for documentation on any of the below functions
 	buf_set_keymap("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", mapOpts)
