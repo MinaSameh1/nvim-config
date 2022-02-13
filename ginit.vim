@@ -14,7 +14,7 @@ if exists('g:GuiLoaded')
   GuiLinespace 2
   "GuiFont! Inconsolata\ Nerd\ Font:h13:l
   "GuiFont! iMWritingMonoS\ Nerd\ Font:h12
-  GuiFont! Fira\ Code:h11
+  GuiFont! FiraCode NF:h9
   
   " Right Click Context Menu (Copy-Cut-Paste)
   nnoremap <silent><RightMouse> :call GuiShowContextMenu()<CR>
@@ -106,6 +106,8 @@ if exists('neovide')
 
   " set guifont=Hack\ Nerd\ Font:h11
   "set guifont=Inconsolata Nerd Font:h12
+	set guifont = "FiraCode Nerd Font:h11" -- Font that will be used in GUI vim
+
 
    " effects (sonicboom, ripple, railgun, torepedo)
   let g:neovide_cursor_vfx_mode = "railgun"
