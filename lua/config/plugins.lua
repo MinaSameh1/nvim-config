@@ -272,7 +272,13 @@ return packer.startup(function(use)
 	use({ -- Shows LSP progress
 		"j-hui/fidget.nvim",
 		config = function()
-			require("fidget").setup({})
+			require("fidget").setup({
+				sources = {
+					["null-ls"] = {
+						ignore = true,
+					},
+				},
+			})
 		end,
 	})
 
