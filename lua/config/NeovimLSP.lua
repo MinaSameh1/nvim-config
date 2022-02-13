@@ -63,22 +63,23 @@ local on_attach = function(client, bufnr)
 	vim.cmd([[
   " Lightblub for code action
   autocmd CursorHold,CursorHoldI * lua require'nvim-lightbulb'.update_lightbulb()
-  autocmd CursorHold,CursorHoldI * lua vim.diagnostic.open_float(nil, {focus=false, scope="cursor"})
   " Show line diagnostics automatically in hover window
   " autocmd CursorHold,CursorHoldI * lua vim.diagnostic.open_float(nil, {focus=false})
   " For diagnostics for specific cursor position
+  autocmd CursorHold,CursorHoldI * lua vim.diagnostic.open_float(nil, {focus=false, scope="cursor"})
+	" Adds the commands to nvim
   command! LspCodeAction execute 'lua vim.lsp.buf.code_action()'
   command! LspFormat execute 'lua vim.lsp.buf.formatting()' 
   ]])
 	-- AutoFormat
-	if client.resolved_capabilities.document_formatting then
-		vim.cmd([[
-			augroup lsp_format_on_save
-			autocmd! * <buffer>
-			autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync()
-			augroup END
-			]])
-	end
+	-- if client.resolved_capabilities.document_formatting then
+	-- 	vim.cmd([[
+	-- 		augroup lsp_format_on_save
+	-- 		autocmd! * <buffer>
+	-- 		autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync()
+	-- 		augroup END
+	-- 		]])
+	-- end
 
 	-- Enable completion triggered by <c-x><c-o>
 	buf_set_option("omnifunc", "v:lua.vim.lsp.omnifunc")
