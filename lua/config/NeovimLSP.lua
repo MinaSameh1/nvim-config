@@ -70,6 +70,8 @@ local on_attach = function(client, bufnr)
 	" Adds the commands to nvim
   command! LspCodeAction execute 'lua vim.lsp.buf.code_action()'
   command! LspFormat execute 'lua vim.lsp.buf.formatting()' 
+	" Auto sort imports on save
+	autocmd BufWritePre <buffer> call execute('LspCodeActionSync source.organizeImports')
   ]])
 	-- AutoFormat
 	-- if client.resolved_capabilities.document_formatting then

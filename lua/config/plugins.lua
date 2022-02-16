@@ -75,12 +75,14 @@ return packer.startup(function(use)
 			require("config.toggleterm")
 		end,
 	})
+
 	use({
 		"kyazdani42/nvim-tree.lua",
 		config = function()
 			require("config.nvimtree")
 		end,
 	})
+
 	-- Aligns things easly using gaip=
 	use({ "junegunn/vim-easy-align" })
 	-- Vim MultiCurosr, use cgn instead :)
@@ -131,13 +133,13 @@ return packer.startup(function(use)
 		end,
 	})
 
-	use({
-		"ThePrimeagen/refactoring.nvim",
-		requires = {
-			{ "nvim-lua/plenary.nvim" },
-			{ "nvim-treesitter/nvim-treesitter" },
-		},
-	})
+	-- use({
+	-- 	"ThePrimeagen/refactoring.nvim",
+	-- 	requires = {
+	-- 		{ "nvim-lua/plenary.nvim" },
+	-- 		{ "nvim-treesitter/nvim-treesitter" },
+	-- 	},
+	-- })
 
 	use({
 		"williamboman/nvim-lsp-installer",
