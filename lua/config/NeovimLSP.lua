@@ -27,12 +27,7 @@ local on_attach = function(client, bufnr)
 
 	if client.name == "tsserver" then
 		client.resolved_capabilities.document_formatting = false -- I use prettier for now :)
-		buf_set_keymap(
-			"n",
-			"<leader>si",
-			"require'nvim-lsp-installer.extras.tsserver'.organize_imports(bufname)",
-			mapOpts
-		)
+		vim.cmd([[command tsserverOganizeImports require'nvim-lsp-installer.extras.tsserver'.organize_imports(bufname) ]])
 	end
 	if client.name == "stylelint_lsp" then
 		client.resolved_capabilities.document_formatting = false -- I use prettier for now :)
@@ -70,8 +65,6 @@ local on_attach = function(client, bufnr)
 	" Adds the commands to nvim
   command! LspCodeAction execute 'lua vim.lsp.buf.code_action()'
   command! LspFormat execute 'lua vim.lsp.buf.formatting()' 
-	" Auto sort imports on save
-	autocmd BufWritePre <buffer> call execute('LspCodeActionSync source.organizeImports')
   ]])
 	-- AutoFormat
 	-- if client.resolved_capabilities.document_formatting then
