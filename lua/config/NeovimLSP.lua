@@ -27,7 +27,7 @@ local on_attach = function(client, bufnr)
 
 	if client.name == "tsserver" then
 		client.resolved_capabilities.document_formatting = false -- I use prettier for now :)
-		vim.cmd([[command TSserverOganizeImports require'nvim-lsp-installer.extras.tsserver'.organize_imports(bufname) ]])
+		vim.cmd([[command TSserverOganizeImports execute 'lua require'nvim-lsp-installer.extras.tsserver'.organize_imports(bufname)' ]])
 	end
 	if client.name == "stylelint_lsp" then
 		client.resolved_capabilities.document_formatting = false -- I use prettier for now :)
