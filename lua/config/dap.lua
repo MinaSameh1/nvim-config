@@ -11,6 +11,13 @@ dap.adapters.firefox = {
 	},
 }
 
+-- note: chrome has to be started with a remote debugging port google-chrome-stable --remote-debugging-port=9222
+dap.adapters.chrome = {
+	type = "executable",
+	command = "node",
+	args = { os.getenv("HOME") .. "/path/to/vscode-chrome-debug/out/src/chromeDebug.js" }, -- TODO adjust
+}
+
 -- Node adaptor Config
 dap.adapters.node2 = {
 	type = "executable",
@@ -19,6 +26,7 @@ dap.adapters.node2 = {
 		vim.fn.stdpath("data") .. "/dapinstall/jsnode/vscode-node-debug2/out/src/nodeDebug.js",
 	},
 }
+
 -- JS/node config
 dap.configurations.javascript = {
 	{
@@ -38,20 +46,41 @@ dap.configurations.javascript = {
 		request = "attach",
 		processId = require("dap.utils").pick_process,
 	},
+	{
+		type = "node2",
+		name = "Debug ts-test",
+		request = "launch",
+		console = "integratedTerminal",
+		sourceMaps = true,
+		cwd = vim.fn.getcwd(),
+		protocol = "inspector",
+		env = {
+			DEBUG= "jest",
+			NODE_ENV="development"
+		},
+		args = {
+			"--inspect",
+			"${workspaceFolder}/node_modules/.bin/jest",
+			"--config",
+			"config/jest.config.js",
+			"--no-cache",
+			"--detectOpenHandles",
+			"--runInBand",
+			"--watchAll=false",
+		},
+	},
+	-- Firefox config for firefox
+	{
+		name = "Debug with Firefox",
+		type = "firefox",
+		request = "launch",
+		justMyCode = true,
+		reAttach = true,
+		url = "http://localhost:3000",
+		webRoot = "${workspaceFolder}",
+		firefoxExecutable = "/usr/bin/firefox-developer-edition",
+	},
 }
-
--- Firefox config for firefox
--- dap.configurations.javascript = {{
---   name = 'Debug with Firefox',
---   type = 'firefox',
---   request = 'launch',
---   justMyCode = true,
---   reAttach = true,
---   url = 'http://localhost:3000',
---   webRoot = '${workspaceFolder}',
---   firefoxExecutable = '/usr/bin/firefox-developer-edition'
--- }
--- }
 
 -- jsreact config using firefox
 dap.configurations.javascriptreact = {
@@ -64,6 +93,16 @@ dap.configurations.javascriptreact = {
 		url = "http://localhost:3000",
 		webRoot = "${workspaceFolder}",
 		firefoxExecutable = "/usr/bin/firefox-developer-edition",
+	},
+	{
+		type = "chrome",
+		request = "attach",
+		program = "${file}",
+		cwd = vim.fn.getcwd(),
+		sourceMaps = true,
+		protocol = "inspector",
+		port = 9222,
+		webRoot = "${workspaceFolder}",
 	},
 }
 -- use same config as jsreact
@@ -145,6 +184,7 @@ dap.adapters.haskell = {
 	command = "haskell-debug-adapter",
 	args = { "--hackage-version=0.0.33.0" },
 }
+
 dap.configurations.haskell = {
 	{
 		type = "haskell",
@@ -163,38 +203,6 @@ dap.configurations.haskell = {
 	},
 }
 
--- note: chrome has to be started with a remote debugging port google-chrome-stable --remote-debugging-port=9222
--- dap.adapters.chrome = {
---     type = "executable",
---     command = "node",
---     args = {os.getenv("HOME") .. "/path/to/vscode-chrome-debug/out/src/chromeDebug.js"} -- TODO adjust
--- }
---
--- dap.configurations.javascriptreact = { -- change this to javascript if needed
---     {
---         type = "chrome",
---         request = "attach",
---         program = "${file}",
---         cwd = vim.fn.getcwd(),
---         sourceMaps = true,
---         protocol = "inspector",
---         port = 9222,
---         webRoot = "${workspaceFolder}"
---     }
--- }
---
--- dap.configurations.typescriptreact = { -- change to typescript if needed
---     {
---         type = "chrome",
---         request = "attach",
---         program = "${file}",
---         cwd = vim.fn.getcwd(),
---         sourceMaps = true,
---         protocol = "inspector",
---         port = 9222,
---         webRoot = "${workspaceFolder}"
---     }
--- }
 -- nvim lua adaptor
 dap.configurations.lua = {
 	{
@@ -285,7 +293,7 @@ require("nvim-dap-virtual-text").setup({
 	virt_text_pos = "eol", -- position of virtual text, see `:h nvim_buf_set_extmark()`
 	all_frames = true, -- show virtual text for all stack frames not only current. Only works for debugpy on my machine.
 	virt_lines = false, -- show virtual lines instead of virtual text (will flicker!)
-	virt_text_win_col = nil,             -- position the virtual text at a fixed window column (starting from the first text column) ,
+	virt_text_win_col = nil, -- position the virtual text at a fixed window column (starting from the first text column) ,
 	-- e.g. 80 to position at column 80, see `:h nvim_buf_set_extmark()`
 })
 
