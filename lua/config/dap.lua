@@ -15,7 +15,7 @@ dap.adapters.firefox = {
 dap.adapters.chrome = {
 	type = "executable",
 	command = "node",
-	args = { os.getenv("HOME") .. "/path/to/vscode-chrome-debug/out/src/chromeDebug.js" }, -- TODO adjust
+	args = { os.getenv("data") .. "/dapinstall/chrome/vscode-chrome-debug/out/src/chromeDebug.js" }, -- TODO adjust
 }
 
 -- Node adaptor Config
@@ -51,6 +51,7 @@ dap.configurations.javascript = {
 		name = "Debug ts-test",
 		request = "launch",
 		console = "integratedTerminal",
+		justMyCode = true,
 		sourceMaps = true,
 		cwd = vim.fn.getcwd(),
 		protocol = "inspector",
