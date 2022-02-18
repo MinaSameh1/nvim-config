@@ -46,7 +46,7 @@ dap.configurations.javascript = {
 		request = "attach",
 		processId = require("dap.utils").pick_process,
 	},
-	{
+	{ -- Debug only this file
 		type = "node2",
 		name = "Debug current ts-test",
 		request = "launch",
@@ -73,7 +73,7 @@ dap.configurations.javascript = {
 		internalConsoleOptions = "neverOpen",
 		disableOptimisticBPs = true,
 	},
-	{
+	{ -- Debug all tests in the config
 		type = "node2",
 		name = "Debug all ts-test",
 		request = "launch",
@@ -99,8 +99,7 @@ dap.configurations.javascript = {
 		internalConsoleOptions = "neverOpen",
 		disableOptimisticBPs = true,
 	},
-	-- Firefox config for firefox
-	{
+	{ -- Firefox config for firefox
 		name = "Debug with Firefox",
 		type = "firefox",
 		request = "launch",
@@ -112,8 +111,8 @@ dap.configurations.javascript = {
 	},
 }
 
--- jsreact config using firefox
 dap.configurations.javascriptreact = {
+-- jsreact using firefox
 	{
 		name = "Debug with Firefox",
 		type = "firefox",
@@ -124,6 +123,7 @@ dap.configurations.javascriptreact = {
 		webRoot = "${workspaceFolder}",
 		firefoxExecutable = "/usr/bin/firefox-developer-edition",
 	},
+-- chrome using firefox
 	{
 		type = "chrome",
 		request = "attach",
