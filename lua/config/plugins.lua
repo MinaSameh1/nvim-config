@@ -206,6 +206,7 @@ return packer.startup(function(use)
 	})
 
 	use({ "vim-test/vim-test" })
+
 	use({
 		"rcarriga/vim-ultest",
 		requires = { "vim-test/vim-test" },
@@ -214,12 +215,14 @@ return packer.startup(function(use)
 		end,
 		run = ":UpdateRemotePlugins",
 	})
+
 	-- Jest Tests debugging
 	use({
 		disable = true,
 		"David-Kunz/jester",
 		ft = { "js", "ts" },
 	})
+
 	-- Git integration
 	use({
 		"lewis6991/gitsigns.nvim",
