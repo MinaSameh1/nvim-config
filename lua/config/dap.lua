@@ -68,6 +68,7 @@ dap.configurations.javascript = {
 			"--detectOpenHandles",
 			"--runInBand",
 			"--watchAll=false",
+			"${file}",
 		},
 		internalConsoleOptions = "neverOpen",
 		disableOptimisticBPs = true,
