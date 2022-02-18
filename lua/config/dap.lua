@@ -56,8 +56,8 @@ dap.configurations.javascript = {
 		cwd = vim.fn.getcwd(),
 		protocol = "inspector",
 		env = {
-			DEBUG= "jest",
-			NODE_ENV="development"
+			DEBUG = "jest",
+			NODE_ENV = "development",
 		},
 		args = {
 			"--inspect",
@@ -69,6 +69,8 @@ dap.configurations.javascript = {
 			"--runInBand",
 			"--watchAll=false",
 		},
+		internalConsoleOptions = "neverOpen",
+		disableOptimisticBPs = true,
 	},
 	-- Firefox config for firefox
 	{
