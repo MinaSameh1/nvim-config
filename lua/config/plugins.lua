@@ -85,13 +85,16 @@ return packer.startup(function(use)
 
 	-- Aligns things easly using gaip=
 	use({ "junegunn/vim-easy-align" })
+
 	-- Vim MultiCurosr, use cgn instead :)
 	use({
 		"mg979/vim-visual-multi",
 		disable = true,
 	})
+
 	-- Search, and fuzzy stuff, far for replace
 	use("brooth/far.vim")
+
 	use({
 		"nvim-telescope/telescope.nvim",
 		requires = { { "nvim-lua/plenary.nvim" } },
@@ -99,12 +102,15 @@ return packer.startup(function(use)
 			require("config.telescope")
 		end,
 	})
+
 	use({
 		"nvim-telescope/telescope-ui-select.nvim",
 		requires = { { "nvim-telescope/telescope.nvim" } },
 	})
+
 	-- Emmet for html
 	use({ "mattn/emmet-vim" })
+
 	-- Bar
 	use({
 		"akinsho/bufferline.nvim",
@@ -145,8 +151,10 @@ return packer.startup(function(use)
 		"williamboman/nvim-lsp-installer",
 		requires = { { "neovim/nvim-lspconfig" } },
 	})
+
 	-- Show lightblub on code action
 	use({ "kosayoda/nvim-lightbulb" })
+
 	-- AutoCompletetion
 	use({
 		"hrsh7th/nvim-cmp",
@@ -154,13 +162,18 @@ return packer.startup(function(use)
 			require("config.cmp")
 		end,
 	})
+
 	use({
 		"hrsh7th/cmp-nvim-lsp",
 		requires = { { "hrsh7th/nvim-cmp" } },
 	})
+
 	use({ "hrsh7th/cmp-buffer", requires = { { "hrsh7th/nvim-cmp" } } })
+
 	use({ "hrsh7th/cmp-path", requires = { { "hrsh7th/nvim-cmp" } } })
+
 	use({ "hrsh7th/cmp-cmdline", requires = { { "hrsh7th/nvim-cmp" } } })
+
 	-- Debugger
 	use({
 		"mfussenegger/nvim-dap",
@@ -168,7 +181,11 @@ return packer.startup(function(use)
 			require("config.dap")
 		end,
 	})
-	-- use 'jbyuki/one-small-step-for-vimkind' -- For nvim lua
+
+	use({ -- For nvim lua
+		"jbyuki/one-small-step-for-vimkind",
+	})
+
 	-- use({ -- For java
 	-- 	"mfussenegger/nvim-jdtls",
 	-- 	ft= { 'java' },
