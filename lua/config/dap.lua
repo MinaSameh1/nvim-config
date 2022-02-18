@@ -15,7 +15,7 @@ dap.adapters.firefox = {
 dap.adapters.chrome = {
 	type = "executable",
 	command = "node",
-	args = { os.getenv("data") .. "/dapinstall/chrome/vscode-chrome-debug/out/src/chromeDebug.js" }, -- TODO adjust
+	args = { vim.fn.stdpath("data") .. "/dapinstall/chrome/vscode-chrome-debug/out/src/chromeDebug.js" }, -- TODO adjust
 }
 
 -- Node adaptor Config
