@@ -304,13 +304,13 @@ return packer.startup(function(use)
 		end,
 	})
 
-	use({
-		"steelsojka/headwind.nvim",
-		ft = { "css", "typescriptreact" },
-		config = function()
-			require("headwind").setup({})
-		end,
-	})
+	-- use({ -- For now use prettier tailwind
+	-- 	"steelsojka/headwind.nvim",
+	-- 	ft = { "css", "typescriptreact" },
+	-- 	config = function()
+	-- 		require("headwind").setup({})
+	-- 	end,
+	-- })
 	-- Snippets
 	use({ "SirVer/ultisnips" })
 	use({ "quangnguyen30192/cmp-nvim-ultisnips" })
