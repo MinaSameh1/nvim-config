@@ -263,7 +263,6 @@ return packer.startup(function(use)
 			require("config.treesitter")
 		end,
 	})
-	-- use 'sheerun/vim-polyglot' # Replaced with treesitter and other plugins
 	-- comments
 	use({
 		"numToStr/Comment.nvim",
@@ -278,7 +277,7 @@ return packer.startup(function(use)
 			require("config.comments")
 		end,
 	})
-	-- use { 'windwp/nvim-ts-autotag' } -- Auto close tags
+	-- indentation highlight
 	use({
 		"lukas-reineke/indent-blankline.nvim",
 		config = function()
@@ -287,8 +286,9 @@ return packer.startup(function(use)
 	})
 	use({ "folke/trouble.nvim" }) -- pretty messages
 
-	use({
+	use({ -- for rust
 		"simrat39/rust-tools.nvim",
+		ft = { "rust" },
 	})
 
 	use({ -- Shows LSP progress
@@ -304,6 +304,13 @@ return packer.startup(function(use)
 		end,
 	})
 
+	use({
+		"steelsojka/headwind.nvim",
+		ft = { "css", "typescriptreact" },
+		config = function()
+			require("headwind").setup({})
+		end,
+	})
 	-- Snippets
 	use({ "SirVer/ultisnips" })
 	use({ "quangnguyen30192/cmp-nvim-ultisnips" })
