@@ -60,7 +60,11 @@ return packer.startup(function(use)
   use({ -- Split screen management
     'beauwilliams/focus.nvim',
     config = function()
-      require('focus').setup()
+      require('focus').setup({
+        excludeded_filetypes = { 'NvimTree', 'toggleterm' },
+        excludeded_buftypes = { 'help', 'nofile', 'prompt', 'popup' },
+        treewith = 30,
+      })
     end,
   })
   use({ -- Smooth scrolling

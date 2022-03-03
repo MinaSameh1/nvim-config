@@ -56,6 +56,7 @@ local tree_cb = nvim_tree_config.nvim_tree_callback
 local defaut = {
   disable_netrw = true,
   hijack_netrw = true,
+  hijack_cursor = true,
   open_on_setup = false,
   ignore_ft_on_setup = {
     'startify',
@@ -64,7 +65,6 @@ local defaut = {
   },
   auto_close = true,
   open_on_tab = false,
-  hijack_cursor = false,
   update_cwd = true,
   update_to_buf_dir = {
     enable = true,
