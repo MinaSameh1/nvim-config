@@ -108,6 +108,11 @@ return packer.startup(function(use)
     requires = { { 'nvim-telescope/telescope.nvim' } },
   })
 
+  use({
+    'nvim-telescope/telescope-media-files.nvim',
+    requires = { { 'nvim-telescope/telescope.nvim' } },
+  })
+
   -- Emmet for html
   use({ 'mattn/emmet-vim' })
 
