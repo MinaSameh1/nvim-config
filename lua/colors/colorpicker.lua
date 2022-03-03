@@ -17,56 +17,56 @@
 -- Modify the list of colors or uncomment the function that takes all possible colors
 
 ChooseColors = function()
-	local actions = require("telescope.actions")
-	local actions_state = require("telescope.actions.state")
-	local pickers = require("telescope.pickers")
-	local finders = require("telescope.finders")
-	local sorters = require("telescope.sorters")
-	local dropdown = require("telescope.themes").get_dropdown()
+  local actions = require('telescope.actions')
+  local actions_state = require('telescope.actions.state')
+  local pickers = require('telescope.pickers')
+  local finders = require('telescope.finders')
+  local sorters = require('telescope.sorters')
+  local dropdown = require('telescope.themes').get_dropdown()
 
-	function Enter(prompt_bufnr)
-		local selected = actions_state.get_selected_entry()
-		local cmd = "colorscheme " .. selected[1]
-		vim.cmd(cmd)
-		actions.close(prompt_bufnr)
-	end
+  function Enter(prompt_bufnr)
+    local selected = actions_state.get_selected_entry()
+    local cmd = 'colorscheme ' .. selected[1]
+    vim.cmd(cmd)
+    actions.close(prompt_bufnr)
+  end
 
-	function NextColor(prompt_bufnr)
-		actions.move_selection_next(prompt_bufnr)
-		local selected = actions_state.get_selected_entry()
-		local cmd = "colorscheme " .. selected[1]
-		vim.cmd(cmd)
-	end
+  function NextColor(prompt_bufnr)
+    actions.move_selection_next(prompt_bufnr)
+    local selected = actions_state.get_selected_entry()
+    local cmd = 'colorscheme ' .. selected[1]
+    vim.cmd(cmd)
+  end
 
-	function PrevColor(prompt_bufnr)
-		actions.move_selection_previous(prompt_bufnr)
-		local selected = actions_state.get_selected_entry()
-		local cmd = "colorscheme " .. selected[1]
-		vim.cmd(cmd)
-	end
+  function PrevColor(prompt_bufnr)
+    actions.move_selection_previous(prompt_bufnr)
+    local selected = actions_state.get_selected_entry()
+    local cmd = 'colorscheme ' .. selected[1]
+    vim.cmd(cmd)
+  end
 
-	local colors = vim.fn.getcompletion("", "color")
+  local colors = vim.fn.getcompletion('', 'color')
 
-	local opts = {
+  local opts = {
 
-		-- finder = finders.new_table({
-		-- 	"gruvbox", "dracula", "catppuccin", "NeoSolarized", "tokyonight"
-		-- }),
+    -- finder = finders.new_table({
+    -- 	"gruvbox", "dracula", "catppuccin", "NeoSolarized", "tokyonight"
+    -- }),
 
-		finder = finders.new_table(colors),
-		sorter = sorters.get_generic_fuzzy_sorter({}),
+    finder = finders.new_table(colors),
+    sorter = sorters.get_generic_fuzzy_sorter({}),
 
-		attach_mappings = function(_, map)
-			map("i", "<CR>", Enter)
-			map("i", "<C-j>", NextColor)
-			map("i", "<C-k>", PrevColor)
-			return true
-		end,
-	}
+    attach_mappings = function(_, map)
+      map('i', '<CR>', Enter)
+      map('i', '<C-j>', NextColor)
+      map('i', '<C-k>', PrevColor)
+      return true
+    end,
+  }
 
-	local colorPicker = pickers.new(dropdown, opts)
+  local colorPicker = pickers.new(dropdown, opts)
 
-	colorPicker:find()
+  colorPicker:find()
 end
 
 return ChooseColors
