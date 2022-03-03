@@ -28,3 +28,4 @@ jobs:
         with: 
           token: ${{ secrets.GITHUB_TOKEN }}
           args: "--config-path stylua.toml ."
+      - uses: stefanzweifel/git-auto-commit-action@v4
