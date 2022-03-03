@@ -136,10 +136,10 @@ local default = {
       layout = 'vertical',
     },
     oldfiles = {
-      theme = 'dropdown',
+      theme = 'ivy',
       layout_config = {
-        width = 0.50,
-        height = 0.60,
+        width = 0.80,
+        height = 0.75,
       },
       preview_width = 0.7,
     },
