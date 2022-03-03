@@ -263,6 +263,8 @@ return packer.startup(function(use)
 			require("config.treesitter")
 		end,
 	})
+	-- Auto close tags
+	use({ "windwp/nvim-ts-autotag" })
 	-- comments
 	use({
 		"numToStr/Comment.nvim",
