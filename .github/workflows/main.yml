@@ -26,4 +26,5 @@ jobs:
       - name: StyLua
         uses: JohnnyMorganz/stylua-action@1.0.0
         with: 
+          token: ${{ secrets.GITHUB_TOKEN }}
           args: "--config-path ."
