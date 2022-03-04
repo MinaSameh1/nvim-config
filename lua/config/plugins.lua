@@ -37,13 +37,21 @@ packer.init({
 })
 
 return packer.startup(function(use)
-  use({ 'wbthomason/packer.nvim' }) -- Have packer manage itself
+  use({ -- Have packer manage itself
+    'wbthomason/packer.nvim',
+    -- event = 'VimEnter',
+  })
+
   -- LUAA
   use({ 'nvim-lua/plenary.nvim' })
   use({ 'nvim-lua/popup.nvim' }) -- Allows us to implement easy popups
-  use({ 'glepnir/dashboard-nvim' }) -- Main screen
+  use({
+    'glepnir/dashboard-nvim',
+    event = { 'VimEnter', 'GuiEnter' },
+  })
   use({ -- pairs and autocloses and can surrond stuff too!
     'windwp/nvim-autopairs',
+    after = 'nvim-treesitter',
     config = function()
       require('config.autopairs')
     end,
@@ -52,6 +60,7 @@ return packer.startup(function(use)
   use({ 'tpope/vim-repeat' }) -- Repeats plugins with . as well
   use({
     'nvim-lualine/lualine.nvim', -- Status line
+    after = 'nvim-web-devicons',
     requires = { 'kyazdani42/nvim-web-devicons', opt = true },
     config = function()
       require('config.lualine.lualine_evil')
@@ -59,11 +68,21 @@ return packer.startup(function(use)
   })
   use({ -- Split screen management
     'beauwilliams/focus.nvim',
+    module = 'focus',
+    event = { 'BufRead', 'BufNewFile', 'WinEnter', 'BufWinEnter' },
     config = function()
       require('focus').setup({
-        excludeded_filetypes = { 'NvimTree', 'toggleterm' },
+        excludeded_filetypes = {
+          'NvimTree',
+          'toggleterm',
+          'term',
+          'fterm',
+          'diffviewfiles',
+          'dap-repl',
+        },
         excludeded_buftypes = { 'help', 'nofile', 'prompt', 'popup' },
         treewith = 30,
+        minwidth = 20,
       })
     end,
   })
@@ -82,6 +101,7 @@ return packer.startup(function(use)
 
   use({
     'kyazdani42/nvim-tree.lua',
+    -- cmd = { 'NvimTreeToggle' },
     config = function()
       require('config.nvimtree')
     end,
@@ -97,7 +117,11 @@ return packer.startup(function(use)
   })
 
   -- Search, and fuzzy stuff, far for replace
-  use('brooth/far.vim')
+  use({
+    'brooth/far.vim',
+    opt = true,
+    cmd = { 'F', 'Far', 'Fardo', 'Farundo' },
+  })
 
   use({
     'nvim-telescope/telescope.nvim',
@@ -118,11 +142,22 @@ return packer.startup(function(use)
   })
 
   -- Emmet for html
-  use({ 'mattn/emmet-vim' })
+  use({
+    'mattn/emmet-vim',
+    ft = {
+      'html',
+      'css',
+      'typescriptreact',
+      'javascriptreact',
+      'javascript',
+      'typescript',
+    },
+  })
 
   -- Bar
   use({
     'akinsho/bufferline.nvim',
+    after = 'nvim-web-devicons',
     config = function()
       require('bufferline').setup({
         numbers = 'buffer_id',
@@ -135,6 +170,9 @@ return packer.startup(function(use)
   -- LSP
   use({
     'neovim/nvim-lspconfig',
+    module = 'lspconfig',
+    event = { 'BufRead', 'BufNewFile' },
+    cmd = 'LspInfo',
     config = function()
       require('config.NeovimLSP')
     end,
@@ -142,6 +180,8 @@ return packer.startup(function(use)
 
   use({
     'jose-elias-alvarez/null-ls.nvim',
+    after = 'nvim-lspconfig',
+    module = 'lspconfig',
     requires = { { 'neovim/nvim-lspconfig' } },
     config = function()
       require('config.null_ls')
@@ -168,12 +208,13 @@ return packer.startup(function(use)
   use({
     'hrsh7th/nvim-cmp',
     config = function()
-      require('config.cmp')
+      require('config.cmp.cmp')
     end,
   })
 
   use({
     'hrsh7th/cmp-nvim-lsp',
+    event = 'BufRead',
     requires = { { 'hrsh7th/nvim-cmp' } },
   })
 
@@ -183,11 +224,20 @@ return packer.startup(function(use)
 
   use({ 'hrsh7th/cmp-cmdline', requires = { { 'hrsh7th/nvim-cmp' } } })
 
+  use({
+    'ray-x/lsp_signature.nvim',
+    after = 'nvim-lspconfig',
+    module = 'lspconfig',
+    config = function()
+      require('lsp_signature').setup({})
+    end,
+  })
+
   -- Debugger
   use({
     'mfussenegger/nvim-dap',
     config = function()
-      require('config.dap')
+      require('config.dap.dap')
     end,
   })
 
@@ -252,6 +302,7 @@ return packer.startup(function(use)
   -- Git integration
   use({
     'lewis6991/gitsigns.nvim',
+    opt = true,
     config = function()
       require('config.gitsigns')
     end,
@@ -266,6 +317,7 @@ return packer.startup(function(use)
   -- Syntax highlighting
   use({
     'nvim-treesitter/nvim-treesitter',
+    event = { 'BufRead', 'BufNewFile' },
     run = ':TSUpdate',
     config = function()
       require('nvim-treesitter.install').compilers = { 'clang' }
@@ -273,16 +325,21 @@ return packer.startup(function(use)
     end,
   })
   -- Auto close tags
-  use({ 'windwp/nvim-ts-autotag' })
+  use({
+    'windwp/nvim-ts-autotag',
+    after = 'nvim-treesitter',
+  })
   -- comments
   use({
     'numToStr/Comment.nvim',
+    after = 'nvim-treesitter',
     config = function()
       require('Comment').setup()
     end,
   })
   use({
     'JoosepAlviste/nvim-ts-context-commentstring',
+    after = 'nvim-treesitter',
     requires = { { 'numToStr/Comment.nvim' } },
     config = function()
       require('config.comments')
@@ -304,6 +361,8 @@ return packer.startup(function(use)
 
   use({ -- Shows LSP progress
     'j-hui/fidget.nvim',
+    after = 'nvim-lspconfig',
+    module = 'lspconfig',
     config = function()
       require('fidget').setup({
         sources = {
@@ -322,9 +381,13 @@ return packer.startup(function(use)
   -- 		require("headwind").setup({})
   -- 	end,
   -- })
+
   -- Snippets
   use({ 'SirVer/ultisnips' })
-  use({ 'quangnguyen30192/cmp-nvim-ultisnips' })
+  use({
+    'quangnguyen30192/cmp-nvim-ultisnips',
+    after = 'ultisnips',
+  })
   use({ 'honza/vim-snippets' })
   -- Icons
   use({
@@ -340,6 +403,7 @@ return packer.startup(function(use)
   -- heighlights Colors with their color xd
   use({
     'norcalli/nvim-colorizer.lua',
+    event = 'BufRead',
     config = function()
       require('colorizer').setup()
     end,

@@ -1,11 +1,12 @@
 vim.opt.list = true
 -- vim.opt.listchars:append("space:⋅")
 -- vim.opt.listchars:append("eol:↴")
-vim.g.indentLine_fileTypeExclude = {
+vim.g.indentLine_filetype_exclude = {
   'help',
   'dashboard',
   'TelescopePrompt',
   'TelescopeResults',
+  'checkhealth',
   'packer',
   'lspinfo',
   'toggleterm',
