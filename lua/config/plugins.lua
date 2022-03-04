@@ -402,6 +402,7 @@ return packer.startup(function(use)
     config = function()
       require('nvim-ts-autotag').setup({})
     end,
+    requires = { { 'nvim-treesitter' } },
   })
 
   use({ -- pairs and autocloses and can surrond stuff too!
