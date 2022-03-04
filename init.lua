@@ -148,16 +148,16 @@ vim.opt.completeopt = { 'menu', 'menuone', 'noselect' }
 -- *******************************
 -- *         UltiSnips           *
 -- *******************************
--- These keybindings are useless since I use cmp
+---- These keybindings are useless since I use cmp
 -- vim.g.UltiSnipsExpandTrigger="<tab>"
 -- vim.g.UltiSnipsJumpForwardTrigger="<c-j>"
 -- vim.g.UltiSnipsJumpBackwardTrigger="<c-k>"
-
-vim.g.UltiSnipsEditSplit = 'vertical' -- If you want :UltiSnipsEdit to split your window.
-
-vim.g.UltiSnipsSnippetDirectories = { '~/.config/nvim/Snips', 'Snips' }
-vim.g.UltiSnipsSnippetsDir = '~/.config/nvim/Snips' -- Location of snips
-vim.g.UltiSnipsListSnippets = '<C-Space>'
+--
+-- vim.g.UltiSnipsEditSplit = 'vertical' -- If you want :UltiSnipsEdit to split your window.
+--
+-- vim.g.UltiSnipsSnippetDirectories = { '~/.config/nvim/Snips', 'Snips' }
+-- vim.g.UltiSnipsSnippetsDir = '~/.config/nvim/Snips' -- Location of snips
+-- vim.g.UltiSnipsListSnippets = '<C-Space>'
 
 -- ******************************
 -- *         DASHBOARD          *

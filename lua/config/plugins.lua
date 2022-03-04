@@ -101,6 +101,7 @@ return packer.startup(function(use)
   })
   use({ -- Terminal
     'akinsho/toggleterm.nvim',
+    event = 'BufRead',
     config = function()
       require('config.toggleterm')
     end,
@@ -190,7 +191,6 @@ return packer.startup(function(use)
   use({
     'akinsho/bufferline.nvim',
     after = 'nvim-web-devicons',
-    module = 'nvim-web-devicons',
     config = function()
       require('bufferline').setup({
         numbers = 'buffer_id',
@@ -209,12 +209,18 @@ return packer.startup(function(use)
     config = function()
       require('config.NeovimLSP')
     end,
+    requires = {
+      -- WARN: Unfortunately we won't be able to lazy load this
+      {
+        'hrsh7th/cmp-nvim-lsp',
+      },
+    },
   })
 
   use({
     'jose-elias-alvarez/null-ls.nvim',
     after = 'nvim-lspconfig',
-    module = 'null_ls',
+    module = 'null-ls',
     event = 'BufRead',
     requires = { { 'neovim/nvim-lspconfig' } },
     config = function()
@@ -238,44 +244,41 @@ return packer.startup(function(use)
   -- Show lightblub on code action
   use({ 'kosayoda/nvim-lightbulb' })
 
-  -- AutoCompletetion
-  use({
-    'hrsh7th/nvim-cmp',
-    -- event = 'InsertEnter',
-    config = function()
-      require('config.cmp.cmp')
-    end,
-  })
+  -- AutoCompletetion and snippets
+  -- use(
+  --   { 'SirVer/ultisnips', after = 'nvim-cmp' },
+  --   { 'quangnguyen30192/cmp-nvim-ultisnips', after = 'ultisnips' },
+  --   { 'honza/vim-snippets', after = 'ultisnips' }
+  -- )
 
-  use({
-    'hrsh7th/cmp-buffer',
-    after = 'nvim-cmp',
-    requires = { { 'hrsh7th/nvim-cmp' } },
-  })
+  use(
+    {
+      'hrsh7th/nvim-cmp',
+      event = 'InsertEnter',
+      config = function()
+        require('config.cmp.cmp')
+      end,
+      requires = {
+        {
+          'L3MON4D3/LuaSnip',
+          event = 'CursorHold',
+          config = function()
+            require('config.luasnip')
+          end,
+          requires = { 'rafamadriz/friendly-snippets' },
+        },
+      },
+    },
+    { 'saadparwaiz1/cmp_luasnip', after = 'nvim-cmp' },
+    { 'hrsh7th/cmp-buffer', after = 'nvim-cmp' },
+    { 'hrsh7th/cmp-path', after = 'nvim-cmp' },
+    { 'hrsh7th/cmp-cmdline', after = 'cmp-path' }
+  )
 
-  use({
-    'hrsh7th/cmp-nvim-lsp',
-    event = 'BufRead',
-    after = 'cmp-buffer',
-    requires = { { 'hrsh7th/nvim-cmp' } },
-  })
-
-  use({
-    'hrsh7th/cmp-path',
-    after = 'cmp-buffer',
-    requires = { { 'hrsh7th/nvim-cmp' } },
-  })
-
-  use({
-    'hrsh7th/cmp-cmdline',
-    after = 'cmp-path',
-    requires = { { 'hrsh7th/nvim-cmp' } },
-  })
-
+  use({ 'onsails/lspkind-nvim', module = 'lspkind' }) -- Icons for autocomplete, you can never have enough.
   use({
     'ray-x/lsp_signature.nvim',
     after = 'nvim-lspconfig',
-    module = 'lspconfig',
     config = function()
       require('lsp_signature').setup({})
     end,
@@ -336,7 +339,7 @@ return packer.startup(function(use)
   use({
     'rcarriga/vim-ultest',
     requires = { 'vim-test/vim-test' },
-    cmd = { 'Ultet' },
+    cmd = { 'Ultest' },
     config = function()
       require('config.ultest')
     end,
@@ -368,37 +371,48 @@ return packer.startup(function(use)
   -- Syntax highlighting
   use({
     'nvim-treesitter/nvim-treesitter',
-    event = { 'BufRead', 'BufNewFile' },
+    event = 'CursorHold',
     run = ':TSUpdate',
     config = function()
-      require('nvim-treesitter.install').compilers = { 'clang' }
       require('config.treesitter')
     end,
-  }, { -- Auto close tags
-    'windwp/nvim-ts-autotag',
-    after = 'nvim-treesitter',
-    event = 'InsertCharPre',
-  }, { -- comments
+  })
+
+  use({ -- comments using gc
     'numToStr/Comment.nvim',
     after = 'nvim-treesitter',
     config = function()
       require('Comment').setup()
     end,
-  }, {
+  })
+
+  use({
     'JoosepAlviste/nvim-ts-context-commentstring',
     after = 'nvim-treesitter',
     requires = { { 'numToStr/Comment.nvim' } },
     config = function()
       require('config.comments')
     end,
-  }, { -- pairs and autocloses and can surrond stuff too!
-    'windwp/nvim-autopairs',
+  })
+
+  use({ -- Auto close tags
+    'windwp/nvim-ts-autotag',
     event = 'InsertCharPre',
     after = 'nvim-treesitter',
+    config = function()
+      require('nvim-ts-autotag').setup({})
+    end,
+  })
+
+  use({ -- pairs and autocloses and can surrond stuff too!
+    'windwp/nvim-autopairs',
+    after = 'nvim-cmp',
+    event = 'InsertCharPre',
     config = function()
       require('config.autopairs')
     end,
   })
+
   -- indentation highlight
   use({
     'lukas-reineke/indent-blankline.nvim',
@@ -418,7 +432,6 @@ return packer.startup(function(use)
   use({ -- Shows LSP progress
     'j-hui/fidget.nvim',
     after = 'nvim-lspconfig',
-    module = 'lspconfig',
     config = function()
       require('fidget').setup({
         sources = {
@@ -438,19 +451,6 @@ return packer.startup(function(use)
   -- 	end,
   -- })
 
-  -- Snippets
-  use({
-    'SirVer/ultisnips',
-    after = 'nvim-cmp',
-  })
-  use({
-    'quangnguyen30192/cmp-nvim-ultisnips',
-    after = 'ultisnips',
-    requires = { { 'hrsh7th/nvim-cmp' } },
-  })
-  use({
-    'honza/vim-snippets',
-  })
   -- Icons
   use({
     'kyazdani42/nvim-web-devicons',
@@ -458,10 +458,10 @@ return packer.startup(function(use)
       require('nvim-web-devicons').setup()
     end,
   })
-  -- Icons for auto complete, you can never have enough
-  use({ 'onsails/lspkind-nvim', requires = { { 'hrsh7th/nvim-cmp' } } })
   -- Automatically creates missing LSP diagnostics highlight groups
-  use({ 'folke/lsp-colors.nvim' })
+  use({
+    'folke/lsp-colors.nvim',
+  })
   -- heighlights Colors with their color xd
   use({
     'norcalli/nvim-colorizer.lua',

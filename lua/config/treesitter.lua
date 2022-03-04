@@ -3,6 +3,8 @@ if not status_ok then
   return
 end
 
+require('nvim-treesitter.install').compilers = { 'clang' }
+
 configs.setup({
   ensure_installed = 'maintained', -- one of "all", "maintained" (parsers with maintainers), or a list of languages
   sync_install = false, -- install languages synchronously (only applied to `ensure_installed`)

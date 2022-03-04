@@ -2,11 +2,26 @@ local null_ls = require('null-ls')
 
 null_ls.setup({
   sources = {
+    -- # FORMATTING #
+    null_ls.builtins.formatting.trim_whitespace.with({
+      filetypes = {
+        'text',
+        'sh',
+        'fish',
+        'zsh',
+        'toml',
+        'make',
+        'conf',
+        'tmux',
+      },
+    }),
 
     ---- Lua
     null_ls.builtins.formatting.stylua,
     -- null_ls.builtins.diagnostics.selene,
-    -- null_ls.builtins.diagnostics.luacheck, -- Slow
+    null_ls.builtins.diagnostics.luacheck.with({
+      extra_args = { '--globals', 'vim', '--std', 'luajit' },
+    }),
 
     ---- Python
     null_ls.builtins.formatting.black,
@@ -20,7 +35,7 @@ null_ls.setup({
     null_ls.builtins.diagnostics.cppcheck,
 
     ---- Typescript/Javascript
-    null_ls.builtins.formatting.prettier.with({
+    null_ls.builtins.formatting.prettierd.with({
       env = {
         PRETTIERD_DEFAULT_CONFIG = vim.fn.expand(
           '~/.config/nvim/utils/linter-config/.prettier.config.js'
@@ -28,6 +43,7 @@ null_ls.setup({
       },
       prefer_local = 'node_modules/.bin',
     }),
+    null_ls.builtins.formatting.eslint_d,
     null_ls.builtins.diagnostics.tsc,
     null_ls.builtins.diagnostics.eslint_d,
     null_ls.builtins.code_actions.eslint_d,
