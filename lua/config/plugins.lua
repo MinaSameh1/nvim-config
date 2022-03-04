@@ -54,7 +54,7 @@ return packer.startup(function(use)
     'nvim-lualine/lualine.nvim', -- Status line
     requires = { 'kyazdani42/nvim-web-devicons', opt = true },
     config = function()
-      require('config.lualine')
+      require('config.lualine.lualine_evil')
     end,
   })
   use({ -- Split screen management

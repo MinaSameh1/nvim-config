@@ -163,7 +163,7 @@ vim.g.dashboard_default_executive = 'telescope' -- Use telescope
 vim.cmd([[
   " To make saving write protected files easier, make sure to set SUDO_ASKPASS!
   com -bar W exe 'w !sudo tee >/dev/null %:p:S' | setl nomod
-  colorscheme tokyonight
+  colorscheme catppuccin
   let g:dashboard_custom_shortcut={
   \ 'last_session'       : 'leader s l',
   \ 'find_history'       : 'leader f h',
