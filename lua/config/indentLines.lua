@@ -2,11 +2,15 @@ vim.opt.list = true
 -- vim.opt.listchars:append("space:⋅")
 -- vim.opt.listchars:append("eol:↴")
 vim.g.indentLine_fileTypeExclude = {
+  'help',
   'dashboard',
+  'TelescopePrompt',
+  'TelescopeResults',
   'packer',
   'lspinfo',
   'toggleterm',
   'lsp-installer',
+  'terminal',
 }
 -- vim.g.indentLine_char_list = {'|', '¦', '┆', '┊'}
 -- vim.g.indent_blankline_context_char_list = {'┃', '║', '╬', '█'}
