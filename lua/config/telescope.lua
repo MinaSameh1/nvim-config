@@ -169,15 +169,6 @@ local default = {
 }
 
 telescope.setup(default)
-local extension = {
-  -- 'dap', -- lazy-loaded
-  'ui-select',
-  -- 'media_files', -- lazy-loaded
-}
-
-for _, ext in ipairs(extension) do
-  telescope.load_extension(ext)
-end
 
 local Key = vim.api.nvim_set_keymap
 local Opts = { noremap = true, silent = true }

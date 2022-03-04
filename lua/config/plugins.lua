@@ -43,21 +43,27 @@ return packer.startup(function(use)
   })
 
   -- LUAA
-  use({ 'nvim-lua/plenary.nvim' })
-  use({ 'nvim-lua/popup.nvim' }) -- Allows us to implement easy popups
+  use({
+    'nvim-lua/plenary.nvim',
+  })
+
+  use({ -- Allows us to implement easy popups
+    'nvim-lua/popup.nvim',
+    module = 'popup',
+  })
   use({
     'glepnir/dashboard-nvim',
     event = { 'VimEnter', 'GuiEnter' },
   })
-  use({ -- pairs and autocloses and can surrond stuff too!
-    'windwp/nvim-autopairs',
-    after = 'nvim-treesitter',
-    config = function()
-      require('config.autopairs')
-    end,
+  use({ -- use ysiw for example i guess
+    'tpope/vim-surround',
+    event = 'BufRead',
+    requires = { { 'tpope/vim-repeat', event = 'BufRead' } },
   })
-  use({ 'tpope/vim-surround' }) -- use ysiw for example i guess
-  use({ 'tpope/vim-repeat' }) -- Repeats plugins with . as well
+  use({ -- Repeats plugins with . as well
+    'tpope/vim-repeat',
+    event = 'BufRead',
+  })
   use({
     'nvim-lualine/lualine.nvim', -- Status line
     after = 'nvim-web-devicons',
@@ -88,6 +94,7 @@ return packer.startup(function(use)
   })
   use({ -- Smooth scrolling
     'karb94/neoscroll.nvim',
+    event = 'WinScrolled',
     config = function()
       require('neoscroll').setup()
     end,
@@ -108,7 +115,10 @@ return packer.startup(function(use)
   })
 
   -- Aligns things easly using gaip=
-  use({ 'junegunn/vim-easy-align' })
+  use({
+    'junegunn/vim-easy-align',
+    key = '<Plug>(EasyAlign)', -- Lazy load on keymap press
+  })
 
   -- Vim MultiCurosr, use cgn instead :)
   use({
@@ -125,20 +135,42 @@ return packer.startup(function(use)
 
   use({
     'nvim-telescope/telescope.nvim',
-    requires = { { 'nvim-lua/plenary.nvim' } },
+    module = 'telescope',
+    cmd = 'Telescope',
+    keys = {
+      { 'n', '<Leader>fg' },
+      { 'n', '<Leader>tc' },
+      { 'n', '<Leader>ff' },
+      { 'n', '<Leader>fh' },
+    },
+    requires = { { 'nvim-lua/plenary.nvim', opt = true } },
     config = function()
       require('config.telescope')
     end,
-  })
-
-  use({
+  }, {
     'nvim-telescope/telescope-ui-select.nvim',
-    requires = { { 'nvim-telescope/telescope.nvim' } },
-  })
-
-  use({
+    after = 'telescope.nvim',
+    config = function()
+      require('telescope').load_extension('ui-select')
+    end,
+    requires = { { 'nvim-telescope/telescope.nvim', opt = true } },
+  }, {
     'nvim-telescope/telescope-media-files.nvim',
-    requires = { { 'nvim-telescope/telescope.nvim' } },
+    after = 'telescope.nvim',
+    config = function()
+      require('telescope').load_extension('media_files')
+    end,
+    requires = { { 'nvim-telescope/telescope.nvim', opt = true } },
+  }, {
+    'nvim-telescope/telescope-dap.nvim',
+    after = 'telescope.nvim',
+    config = function()
+      require('telescope').load_extension('dap')
+    end,
+    requires = {
+      { 'nvim-telescope/telescope.nvim' },
+      { 'mfussenegger/nvim-dap', opt = true },
+    },
   })
 
   -- Emmet for html
@@ -158,6 +190,7 @@ return packer.startup(function(use)
   use({
     'akinsho/bufferline.nvim',
     after = 'nvim-web-devicons',
+    module = 'nvim-web-devicons',
     config = function()
       require('bufferline').setup({
         numbers = 'buffer_id',
@@ -181,7 +214,8 @@ return packer.startup(function(use)
   use({
     'jose-elias-alvarez/null-ls.nvim',
     after = 'nvim-lspconfig',
-    module = 'lspconfig',
+    module = 'null_ls',
+    event = 'BufRead',
     requires = { { 'neovim/nvim-lspconfig' } },
     config = function()
       require('config.null_ls')
@@ -207,22 +241,36 @@ return packer.startup(function(use)
   -- AutoCompletetion
   use({
     'hrsh7th/nvim-cmp',
+    -- event = 'InsertEnter',
     config = function()
       require('config.cmp.cmp')
     end,
   })
 
   use({
-    'hrsh7th/cmp-nvim-lsp',
-    event = 'BufRead',
+    'hrsh7th/cmp-buffer',
+    after = 'nvim-cmp',
     requires = { { 'hrsh7th/nvim-cmp' } },
   })
 
-  use({ 'hrsh7th/cmp-buffer', requires = { { 'hrsh7th/nvim-cmp' } } })
+  use({
+    'hrsh7th/cmp-nvim-lsp',
+    event = 'BufRead',
+    after = 'cmp-buffer',
+    requires = { { 'hrsh7th/nvim-cmp' } },
+  })
 
-  use({ 'hrsh7th/cmp-path', requires = { { 'hrsh7th/nvim-cmp' } } })
+  use({
+    'hrsh7th/cmp-path',
+    after = 'cmp-buffer',
+    requires = { { 'hrsh7th/nvim-cmp' } },
+  })
 
-  use({ 'hrsh7th/cmp-cmdline', requires = { { 'hrsh7th/nvim-cmp' } } })
+  use({
+    'hrsh7th/cmp-cmdline',
+    after = 'cmp-path',
+    requires = { { 'hrsh7th/nvim-cmp' } },
+  })
 
   use({
     'ray-x/lsp_signature.nvim',
@@ -236,6 +284,9 @@ return packer.startup(function(use)
   -- Debugger
   use({
     'mfussenegger/nvim-dap',
+    key = {
+      { 'n', '<leader>d' },
+    },
     config = function()
       require('config.dap.dap')
     end,
@@ -243,6 +294,7 @@ return packer.startup(function(use)
 
   use({ -- For nvim lua
     'jbyuki/one-small-step-for-vimkind',
+    requires = { { 'mfussenegger/nvim-dap', opt = true } },
   })
 
   -- use({ -- For java
@@ -256,28 +308,26 @@ return packer.startup(function(use)
 
   use({
     'mfussenegger/nvim-dap-python',
-    requires = { { 'mfussenegger/nvim-dap' } },
+    module = 'dap-python',
+    requires = { { 'mfussenegger/nvim-dap', opt = true } },
   })
   -- Debugger UI
   use({
     'rcarriga/nvim-dap-ui',
-    requires = { { 'mfussenegger/nvim-dap' } },
-  })
-  use({
-    'nvim-telescope/telescope-dap.nvim',
-    requires = {
-      { 'nvim-telescope/telescope.nvim' },
-      { 'mfussenegger/nvim-dap' },
-    },
+    module = 'dapui',
+    requires = { { 'mfussenegger/nvim-dap', opt = true } },
   })
   -- Shows variables and their values when debugging
   use({
     'theHamsta/nvim-dap-virtual-text',
     requires = { { 'mfussenegger/nvim-dap' } },
   })
+
   -- Installs dap debuggers
   use({
     'Pocco81/DAPInstall.nvim',
+    opt = true,
+    cmd = { 'DIInstall', 'DIList', 'DIUninstall' },
     requires = { { 'mfussenegger/nvim-dap' } },
   })
 
@@ -286,6 +336,7 @@ return packer.startup(function(use)
   use({
     'rcarriga/vim-ultest',
     requires = { 'vim-test/vim-test' },
+    cmd = { 'Ultet' },
     config = function()
       require('config.ultest')
     end,
@@ -302,7 +353,7 @@ return packer.startup(function(use)
   -- Git integration
   use({
     'lewis6991/gitsigns.nvim',
-    opt = true,
+    event = { 'BufRead' },
     config = function()
       require('config.gitsigns')
     end,
@@ -323,31 +374,36 @@ return packer.startup(function(use)
       require('nvim-treesitter.install').compilers = { 'clang' }
       require('config.treesitter')
     end,
-  })
-  -- Auto close tags
-  use({
+  }, { -- Auto close tags
     'windwp/nvim-ts-autotag',
     after = 'nvim-treesitter',
-  })
-  -- comments
-  use({
+    event = 'InsertCharPre',
+  }, { -- comments
     'numToStr/Comment.nvim',
     after = 'nvim-treesitter',
     config = function()
       require('Comment').setup()
     end,
-  })
-  use({
+  }, {
     'JoosepAlviste/nvim-ts-context-commentstring',
     after = 'nvim-treesitter',
     requires = { { 'numToStr/Comment.nvim' } },
     config = function()
       require('config.comments')
     end,
+  }, { -- pairs and autocloses and can surrond stuff too!
+    'windwp/nvim-autopairs',
+    event = 'InsertCharPre',
+    after = 'nvim-treesitter',
+    config = function()
+      require('config.autopairs')
+    end,
   })
   -- indentation highlight
   use({
     'lukas-reineke/indent-blankline.nvim',
+    event = 'BufRead',
+    after = { 'nvim-treesitter' },
     config = function()
       require('config.indentLines')
     end,
@@ -383,12 +439,18 @@ return packer.startup(function(use)
   -- })
 
   -- Snippets
-  use({ 'SirVer/ultisnips' })
+  use({
+    'SirVer/ultisnips',
+    after = 'nvim-cmp',
+  })
   use({
     'quangnguyen30192/cmp-nvim-ultisnips',
     after = 'ultisnips',
+    requires = { { 'hrsh7th/nvim-cmp' } },
   })
-  use({ 'honza/vim-snippets' })
+  use({
+    'honza/vim-snippets',
+  })
   -- Icons
   use({
     'kyazdani42/nvim-web-devicons',
@@ -416,7 +478,8 @@ return packer.startup(function(use)
   })
   -- Dims lights xd
   use({
-    'https://github.com/folke/twilight.nvim',
+    'folke/twilight.nvim',
+    cmd = 'Twilight',
   })
   -- Themes
   use('rktjmp/lush.nvim') -- used to create colorschemes
@@ -432,11 +495,16 @@ return packer.startup(function(use)
   })
   use({ -- Colors
     'tjdevries/colorbuddy.vim',
+    event = 'BufRead',
     config = function()
       require('colorbuddy').setup()
     end,
   })
   use({ 'overcache/NeoSolarized' })
+  use({ -- Startup time
+    'tweekmonster/startuptime.vim',
+    cmd = 'StartupTime',
+  })
   use({ -- adds transpancy toggles
     'xiyaowong/nvim-transparent',
     disable = true, -- Disable the plugin
