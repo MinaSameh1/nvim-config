@@ -170,9 +170,9 @@ local default = {
 
 telescope.setup(default)
 local extension = {
-  'dap',
+  -- 'dap', -- lazy-loaded
   'ui-select',
-  'media_files',
+  -- 'media_files', -- lazy-loaded
 }
 
 for _, ext in ipairs(extension) do
