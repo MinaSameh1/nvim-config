@@ -427,7 +427,7 @@ return packer.startup(function(use)
 
   use({ -- for rust
     'simrat39/rust-tools.nvim',
-		module = 'rust-tools',
+    module = 'rust-tools',
     ft = { 'rust' },
   })
 
