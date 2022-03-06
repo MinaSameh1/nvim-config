@@ -175,25 +175,31 @@ local signs = {
 -- Alternatively, you may also register handlers on specific server instances instead (see example below).
 lsp_installer.on_server_ready(function(server)
   local border = {
-    {"🭽", "FloatBorder"},
-    {"▔", "FloatBorder"},
-    {"🭾", "FloatBorder"},
-    {"▕", "FloatBorder"},
-    {"🭿", "FloatBorder"},
-    {"▁", "FloatBorder"},
-    {"🭼", "FloatBorder"},
-    {"▏", "FloatBorder"},
+    { '🭽', 'FloatBorder' },
+    { '▔', 'FloatBorder' },
+    { '🭾', 'FloatBorder' },
+    { '▕', 'FloatBorder' },
+    { '🭿', 'FloatBorder' },
+    { '▁', 'FloatBorder' },
+    { '🭼', 'FloatBorder' },
+    { '▏', 'FloatBorder' },
   }
   --
   -- -- LSP settings (for overriding per client)
-  local handlers =  {
-    ["textDocument/hover"] =  vim.lsp.with(vim.lsp.handlers.hover, {border = border}),
-    ["textDocument/signatureHelp"] =  vim.lsp.with(vim.lsp.handlers.signature_help, {border = border }),
+  local handlers = {
+    ['textDocument/hover'] = vim.lsp.with(
+      vim.lsp.handlers.hover,
+      { border = border }
+    ),
+    ['textDocument/signatureHelp'] = vim.lsp.with(
+      vim.lsp.handlers.signature_help,
+      { border = border }
+    ),
   }
 
   local opts = {
     autoSetHints = true,
-		handlers = handlers,
+    handlers = handlers,
     noremap = true,
     silent = true,
     on_attach = on_attach,
