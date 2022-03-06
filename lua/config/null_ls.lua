@@ -24,7 +24,9 @@ null_ls.setup({
     }),
 
     ---- Python
-    null_ls.builtins.formatting.black,
+    null_ls.builtins.formatting.black.with({
+      extra_args = { '--line-length', '80' },
+    }),
     -- null_ls.builtins.formatting.autopep8, Gonna try black
     null_ls.builtins.diagnostics.pydocstyle,
     null_ls.builtins.diagnostics.pylint.with({

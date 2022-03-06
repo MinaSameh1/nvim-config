@@ -141,7 +141,7 @@ local on_attach = function(client, bufnr)
   autocmd CursorHold,CursorHoldI * lua vim.diagnostic.open_float(nil, {focus=false, scope="cursor"})
 	" Adds the commands to nvim
   command! LspCodeAction execute 'lua vim.lsp.buf.code_action()'
-  command! LspFormat execute 'lua vim.lsp.buf.formatting()' 
+  command! LspFormat execute 'lua vim.lsp.buf.formatting()'
   ]])
   -- AutoFormat
   -- if client.resolved_capabilities.document_formatting then
@@ -174,25 +174,26 @@ local signs = {
 -- Register a handler that will be called for all installed servers.
 -- Alternatively, you may also register handlers on specific server instances instead (see example below).
 lsp_installer.on_server_ready(function(server)
-  -- local border = {
-  --   {"🭽", "FloatBorder"},
-  --   {"▔", "FloatBorder"},
-  --   {"🭾", "FloatBorder"},
-  --   {"▕", "FloatBorder"},
-  --   {"🭿", "FloatBorder"},
-  --   {"▁", "FloatBorder"},
-  --   {"🭼", "FloatBorder"},
-  --   {"▏", "FloatBorder"},
-  -- }
+  local border = {
+    {"🭽", "FloatBorder"},
+    {"▔", "FloatBorder"},
+    {"🭾", "FloatBorder"},
+    {"▕", "FloatBorder"},
+    {"🭿", "FloatBorder"},
+    {"▁", "FloatBorder"},
+    {"🭼", "FloatBorder"},
+    {"▏", "FloatBorder"},
+  }
   --
   -- -- LSP settings (for overriding per client)
-  -- local handlers =  {
-  --   ["textDocument/hover"] =  vim.lsp.with(vim.lsp.handlers.hover, {border = border}),
-  --   ["textDocument/signatureHelp"] =  vim.lsp.with(vim.lsp.handlers.signature_help, {border = border }),
-  -- }
+  local handlers =  {
+    ["textDocument/hover"] =  vim.lsp.with(vim.lsp.handlers.hover, {border = border}),
+    ["textDocument/signatureHelp"] =  vim.lsp.with(vim.lsp.handlers.signature_help, {border = border }),
+  }
 
   local opts = {
     autoSetHints = true,
+		handlers = handlers,
     noremap = true,
     silent = true,
     on_attach = on_attach,
