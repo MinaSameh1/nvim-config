@@ -37,7 +37,7 @@ null_ls.setup({
     null_ls.builtins.diagnostics.cppcheck,
 
     ---- Typescript/Javascript
-    null_ls.builtins.formatting.prettierd.with({
+    null_ls.builtins.formatting.prettier.with({
       env = {
         PRETTIERD_DEFAULT_CONFIG = vim.fn.expand(
           '~/.config/nvim/utils/linter-config/.prettier.config.js'
