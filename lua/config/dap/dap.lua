@@ -22,8 +22,7 @@ dap.adapters.chrome = {
   }, -- TODO adjust
 }
 
--- Node adaptor Config
-dap.adapters.node2 = {
+dap.adapters.node2 = { -- Node adaptor Config
   type = 'executable',
   command = 'node',
   args = {
@@ -32,8 +31,7 @@ dap.adapters.node2 = {
   },
 }
 
--- JS/node config
-dap.configurations.javascript = {
+dap.configurations.javascript = { -- JS/node config
   {
     name = 'Launch',
     type = 'node2',
@@ -44,12 +42,38 @@ dap.configurations.javascript = {
     protocol = 'inspector',
     console = 'integratedTerminal',
   },
-  {
-    -- For this to work you need to make sure the node process is started with the `--inspect` flag.
+  { -- For this to work you need to make sure the node process is started with the `--inspect` flag.
     name = 'Attach to process',
     type = 'node2',
     request = 'attach',
     processId = require('dap.utils').pick_process,
+  },
+  { -- Debug only this test file
+    type = 'node2',
+    name = 'Debug current ts-test (QuestionsApp Config)',
+    request = 'launch',
+    console = 'integratedTerminal',
+    justMyCode = true,
+    sourceMaps = true,
+    cwd = vim.fn.getcwd(),
+    protocol = 'inspector',
+    env = {
+      DEBUG = 'jest',
+      NODE_ENV = 'development',
+    },
+    args = {
+      '--inspect',
+      '${workspaceFolder}/node_modules/.bin/jest',
+      '--config',
+      'config/jest.config.js',
+      '--no-cache',
+      '--detectOpenHandles',
+      '--runInBand',
+      '--watchAll=false',
+      '${file}',
+    },
+    internalConsoleOptions = 'neverOpen',
+    disableOptimisticBPs = true,
   },
   { -- Debug only this file
     type = 'node2',
@@ -67,8 +91,6 @@ dap.configurations.javascript = {
     args = {
       '--inspect',
       '${workspaceFolder}/node_modules/.bin/jest',
-      '--config',
-      'config/jest.config.js',
       '--no-cache',
       '--detectOpenHandles',
       '--runInBand',
@@ -94,8 +116,6 @@ dap.configurations.javascript = {
     args = {
       '--inspect',
       '${workspaceFolder}/node_modules/.bin/jest',
-      '--config',
-      'config/jest.config.js',
       '--no-cache',
       '--detectOpenHandles',
       '--runInBand',
@@ -117,8 +137,7 @@ dap.configurations.javascript = {
 }
 
 dap.configurations.javascriptreact = {
-  -- jsreact using firefox
-  {
+  { -- jsreact using firefox
     name = 'Debug with Firefox',
     type = 'firefox',
     request = 'launch',
