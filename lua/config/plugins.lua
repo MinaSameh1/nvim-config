@@ -492,6 +492,15 @@ return packer.startup(function(use)
   use('shaunsingh/nord.nvim')
   use({ 'catppuccin/nvim' })
   use({
+    'rose-pine/neovim',
+    as = 'rose-pine',
+		config = function ()
+			require('rose-pine').setup({
+				dark_variant = 'moon'
+			})
+		end
+  })
+  use({
     'AlphaTechnolog/pywal.nvim',
     disable = true,
   })
