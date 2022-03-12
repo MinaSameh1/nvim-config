@@ -494,11 +494,11 @@ return packer.startup(function(use)
   use({
     'rose-pine/neovim',
     as = 'rose-pine',
-		config = function ()
-			require('rose-pine').setup({
-				dark_variant = 'moon'
-			})
-		end
+    config = function()
+      require('rose-pine').setup({
+        dark_variant = 'moon',
+      })
+    end,
   })
   use({
     'AlphaTechnolog/pywal.nvim',
