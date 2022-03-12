@@ -150,21 +150,18 @@ return packer.startup(function(use)
     end,
   }, {
     'nvim-telescope/telescope-ui-select.nvim',
-    after = 'telescope.nvim',
     config = function()
       require('telescope').load_extension('ui-select')
     end,
     requires = { { 'nvim-telescope/telescope.nvim', opt = true } },
   }, {
     'nvim-telescope/telescope-media-files.nvim',
-    after = 'telescope.nvim',
     config = function()
       require('telescope').load_extension('media_files')
     end,
     requires = { { 'nvim-telescope/telescope.nvim', opt = true } },
   }, {
     'nvim-telescope/telescope-dap.nvim',
-    after = 'telescope.nvim',
     config = function()
       require('telescope').load_extension('dap')
     end,
