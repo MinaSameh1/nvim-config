@@ -493,7 +493,7 @@ return packer.startup(function(use)
   use('dracula/vim')
   use('folke/tokyonight.nvim')
   use('shaunsingh/nord.nvim')
-  use({ 'catppuccin/nvim' })
+  use({ 'catppuccin/nvim', as = 'catppuccin' })
   use({
     'rose-pine/neovim',
     as = 'rose-pine',
