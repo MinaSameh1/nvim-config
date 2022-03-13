@@ -8,8 +8,10 @@ vim.g.vimtex_view_method = 'zathura'
 vim.g.tex_flavor = 'latex'
 vim.opt.conceallevel = 1
 
+vim.cmd[[
+colorscheme rose-pine
+]]
 -- DashBoard
-
 -- For more checkout https://github.com/glepnir/dashboard-nvim/wiki/Ascii-Header-Text
 vim.g.dashboard_custom_header = {
   [[      ___                                    ___     ]],
