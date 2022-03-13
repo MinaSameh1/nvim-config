@@ -120,6 +120,7 @@ return packer.startup(function(use)
     'andymass/vim-matchup',
     event = 'BufRead',
   })
+
   -- Aligns things easly using gaip=
   use({
     'junegunn/vim-easy-align',
