@@ -93,16 +93,16 @@ cmap('cg!!', 'e ~/.config/nvim/ginit.vim<CR>') -- Edit the gui file
 cmap('p!!', 'e ~/.config/nvim/lua/config/plugins.lua<CR>') -- the Plugins file using packer
 
 -- Disable these plugins for faster startup
--- vim.g.loaded_gzip         = 1
--- vim.g.loaded_tar          = 1
--- vim.g.loaded_tarPlugin    = 1
--- vim.g.loaded_zipPlugin    = 1
--- vim.g.loaded_2html_plugin = 1
--- vim.g.loaded_netrw        = 1
--- vim.g.loaded_netrwPlugin  = 1
--- vim.g.loaded_matchit      = 1
--- vim.g.loaded_matchparen   = 1
--- vim.g.loaded_spec         = 1
+vim.g.loaded_gzip         = 1
+vim.g.loaded_tar          = 1
+vim.g.loaded_tarPlugin    = 1
+vim.g.loaded_zipPlugin    = 1
+vim.g.loaded_2html_plugin = 1
+vim.g.loaded_netrw        = 1
+vim.g.loaded_netrwPlugin  = 1
+vim.g.loaded_matchit      = 1
+vim.g.loaded_matchparen   = 1
+vim.g.loaded_spec         = 1
 
 --[[
 -- ****************************
