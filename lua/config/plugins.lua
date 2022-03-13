@@ -69,7 +69,7 @@ return packer.startup(function(use)
     after = 'nvim-web-devicons',
     requires = { 'kyazdani42/nvim-web-devicons', opt = true },
     config = function()
-      require('config.lualine.lualine_evil')
+      require('config.lualine.lualine_slanted')
     end,
   })
   use({ -- Split screen management
@@ -115,6 +115,11 @@ return packer.startup(function(use)
     end,
   })
 
+	-- better matchit plug
+	use({
+		'andymass/vim-matchup',
+		event = 'BufRead'
+	})
   -- Aligns things easly using gaip=
   use({
     'junegunn/vim-easy-align',
