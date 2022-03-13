@@ -115,11 +115,11 @@ return packer.startup(function(use)
     end,
   })
 
-	-- better matchit plug
-	use({
-		'andymass/vim-matchup',
-		event = 'BufRead'
-	})
+  -- better matchit plug
+  use({
+    'andymass/vim-matchup',
+    event = 'BufRead',
+  })
   -- Aligns things easly using gaip=
   use({
     'junegunn/vim-easy-align',
