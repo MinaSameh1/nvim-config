@@ -108,6 +108,15 @@ return packer.startup(function(use)
   })
 
   use({
+    'jbyuki/venn.nvim',
+    key = {
+      { 'n', '<leader>v' },
+    },
+    config = function()
+      require('config.venn')
+    end,
+  })
+  use({
     'kyazdani42/nvim-tree.lua',
     -- cmd = { 'NvimTreeToggle' },
     config = function()
