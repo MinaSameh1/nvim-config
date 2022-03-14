@@ -265,7 +265,9 @@ return packer.startup(function(use)
           tab = false,
         },
         filetype_path = vim.fn.expand('~/.config/nvim/config/code_runner.json'),
-        project_path = vim.fn.expand('~/.config/nvim/config/project_manager.json'),
+        project_path = vim.fn.expand(
+          '~/.config/nvim/config/project_manager.json'
+        ),
       })
       require('config.code_runner')
     end,
