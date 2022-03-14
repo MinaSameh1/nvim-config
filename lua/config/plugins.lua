@@ -210,7 +210,7 @@ return packer.startup(function(use)
     event = { 'BufRead', 'BufNewFile' },
     cmd = 'LspInfo',
     config = function()
-      require('config.NeovimLSP')
+      require('config.lsp.NeovimLSP')
     end,
     requires = {
       -- WARN: Unfortunately we won't be able to lazy load this
@@ -227,7 +227,7 @@ return packer.startup(function(use)
     event = 'BufRead',
     requires = { { 'neovim/nvim-lspconfig' } },
     config = function()
-      require('config.null_ls')
+      require('config.lsp.null_ls')
     end,
   })
 
@@ -239,6 +239,11 @@ return packer.startup(function(use)
   -- 	},
   -- })
 
+  use({
+    'jose-elias-alvarez/nvim-lsp-ts-utils',
+    after = 'nvim-lspconfig',
+    event = 'BufRead',
+  })
   use({
     'williamboman/nvim-lsp-installer',
     requires = { { 'neovim/nvim-lspconfig' } },

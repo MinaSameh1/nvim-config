@@ -26,10 +26,9 @@ local on_attach = function(client, bufnr)
   end
 
   if client.name == 'tsserver' then
+    local ts_utils = require('config.lsp.tsutils')
+    ts_utils.setup_client(client)
     client.resolved_capabilities.document_formatting = false -- I use prettier for now :)
-    vim.cmd([[
-			command! TSserverOganizeImports execute 'lua require"nvim-lsp-installer.extras.tsserver".organize_imports(bufname)'
-			]])
   end
   if client.name == 'stylelint_lsp' then
     client.resolved_capabilities.document_formatting = false -- I use prettier for now :)
@@ -236,7 +235,8 @@ lsp_installer.on_server_ready(function(server)
   )
 
   -- If the server is eslint override the settings
-  if server.name == 'eslintls' then
+  if server.name == 'eslint' or server.name == 'tsserver' then
+    opts.init_options = require('nvim-lsp-ts-utils').init_options
     opts.settings = {
       codeAction = {
         disableRuleComment = {
