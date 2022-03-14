@@ -250,7 +250,7 @@ return packer.startup(function(use)
 
   use({
     'jose-elias-alvarez/nvim-lsp-ts-utils',
-		module = 'nvim-lsp-ts-utils'
+    module = 'nvim-lsp-ts-utils',
   })
 
   use({
