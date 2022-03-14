@@ -30,9 +30,6 @@ local on_attach = function(client, bufnr)
     ts_utils.setup_client(client)
     client.resolved_capabilities.document_formatting = false -- I use prettier for now :)
   end
-  if client.name == 'stylelint_lsp' then
-    client.resolved_capabilities.document_formatting = false -- I use prettier for now :)
-  end
   -- Mappings.
   -- See `:help vim.lsp.*` for documentation on any of the below functions
   buf_set_keymap('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', mapOpts)
@@ -173,32 +170,32 @@ local signs = {
 -- Register a handler that will be called for all installed servers.
 -- Alternatively, you may also register handlers on specific server instances instead (see example below).
 lsp_installer.on_server_ready(function(server)
-  local border = {
-    { '🭽', 'FloatBorder' },
-    { '▔', 'FloatBorder' },
-    { '🭾', 'FloatBorder' },
-    { '▕', 'FloatBorder' },
-    { '🭿', 'FloatBorder' },
-    { '▁', 'FloatBorder' },
-    { '🭼', 'FloatBorder' },
-    { '▏', 'FloatBorder' },
-  }
-  --
-  -- -- LSP settings (for overriding per client)
-  local handlers = {
-    ['textDocument/hover'] = vim.lsp.with(
-      vim.lsp.handlers.hover,
-      { border = border }
-    ),
-    ['textDocument/signatureHelp'] = vim.lsp.with(
-      vim.lsp.handlers.signature_help,
-      { border = border }
-    ),
-  }
+  -- local border = {
+  --   { '🭽', 'FloatBorder' },
+  --   { '▔', 'FloatBorder' },
+  --   { '🭾', 'FloatBorder' },
+  --   { '▕', 'FloatBorder' },
+  --   { '🭿', 'FloatBorder' },
+  --   { '▁', 'FloatBorder' },
+  --   { '🭼', 'FloatBorder' },
+  --   { '▏', 'FloatBorder' },
+  -- }
+  -- --
+  -- -- -- LSP settings (for overriding per client)
+  -- local handlers = {
+  --   ['textDocument/hover'] = vim.lsp.with(
+  --     vim.lsp.handlers.hover,
+  --     { border = border }
+  --   ),
+  --   ['textDocument/signatureHelp'] = vim.lsp.with(
+  --     vim.lsp.handlers.signature_help,
+  --     { border = border }
+  --   ),
+  -- }
 
   local opts = {
     autoSetHints = true,
-    handlers = handlers,
+    -- handlers = handlers,
     noremap = true,
     silent = true,
     on_attach = on_attach,

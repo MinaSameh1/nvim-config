@@ -250,8 +250,7 @@ return packer.startup(function(use)
 
   use({
     'jose-elias-alvarez/nvim-lsp-ts-utils',
-    after = 'nvim-lspconfig',
-    event = 'BufRead',
+		module = 'nvim-lsp-ts-utils'
   })
 
   use({
