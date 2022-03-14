@@ -253,6 +253,25 @@ return packer.startup(function(use)
     after = 'nvim-lspconfig',
     event = 'BufRead',
   })
+
+  use({
+    'CRAG666/code_runner.nvim',
+    config = function()
+      require('code_runner').setup({
+        term = {
+          position = 'belowright',
+          size = 8,
+          mode = 'startinsert',
+          tab = false,
+        },
+        filetype_path = vim.fn.expand('~/.config/nvim/config/code_runner.json'),
+        project_path = vim.fn.expand('~/.config/nvim/config/project_manager.json'),
+      })
+      require('config.code_runner')
+    end,
+    requires = 'nvim-lua/plenary.nvim',
+  })
+
   use({
     'williamboman/nvim-lsp-installer',
     requires = { { 'neovim/nvim-lspconfig' } },

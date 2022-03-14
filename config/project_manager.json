@@ -1,0 +1,8 @@
+{
+	"~/Documents/stuff/college/y4/FinalProject/finalproject-api": {
+		"name": "finalproject-api",
+		"description": "Typescript api",
+		"file_name": "src/index.ts",
+		"command": "npm run dev"
+	}
+}
