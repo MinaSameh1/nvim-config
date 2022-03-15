@@ -19,7 +19,7 @@ dap.adapters.chrome = {
   args = {
     vim.fn.stdpath('data')
       .. '/dapinstall/chrome/vscode-chrome-debug/out/src/chromeDebug.js',
-  }, -- TODO adjust
+  },
 }
 
 dap.adapters.node2 = { -- Node adaptor Config
@@ -48,36 +48,9 @@ dap.configurations.javascript = { -- JS/node config
     request = 'attach',
     processId = require('dap.utils').pick_process,
   },
-  { -- Debug only this test file
-    type = 'node2',
-    name = 'Debug current ts-test (QuestionsApp Config)',
-    request = 'launch',
-    console = 'integratedTerminal',
-    justMyCode = true,
-    sourceMaps = true,
-    cwd = vim.fn.getcwd(),
-    protocol = 'inspector',
-    env = {
-      DEBUG = 'jest',
-      NODE_ENV = 'development',
-    },
-    args = {
-      '--inspect',
-      '${workspaceFolder}/node_modules/.bin/jest',
-      '--config',
-      'config/jest.config.js',
-      '--no-cache',
-      '--detectOpenHandles',
-      '--runInBand',
-      '--watchAll=false',
-      '${file}',
-    },
-    internalConsoleOptions = 'neverOpen',
-    disableOptimisticBPs = true,
-  },
   { -- Debug only this file
     type = 'node2',
-    name = 'Debug current ts-test',
+    name = 'Debug current jest test',
     request = 'launch',
     console = 'integratedTerminal',
     justMyCode = true,
@@ -102,7 +75,7 @@ dap.configurations.javascript = { -- JS/node config
   },
   { -- Debug all tests in the config
     type = 'node2',
-    name = 'Debug all ts-test',
+    name = 'Debug all jest',
     request = 'launch',
     console = 'integratedTerminal',
     justMyCode = true,
@@ -147,7 +120,7 @@ dap.configurations.javascriptreact = {
     webRoot = '${workspaceFolder}',
     firefoxExecutable = '/usr/bin/firefox-developer-edition',
   },
-  -- chrome using firefox
+  -- chrome
   {
     type = 'chrome',
     request = 'attach',
@@ -169,7 +142,7 @@ require('dap-python').setup('/home/mina/.pyenv/shims/python')
 
 dap.adapters.lldb = {
   type = 'executable',
-  command = '/usr/bin/lldb-vscode', -- adjust as needed
+  command = '/usr/bin/lldb-vscode',
   name = 'lldb',
 }
 
@@ -289,6 +262,10 @@ dap.adapters.nlua = function(callback, config)
   callback({ type = 'server', host = config.host, port = config.port })
 end
 
+-- Load Specific workspace configs
+local local_config = require('config.dap.dap_workspace_config')
+local_config.init()
+
 -- Dap ui
 require('dapui').setup({
   icons = { expanded = '▾', collapsed = '▸' },
@@ -372,9 +349,10 @@ vim.fn.sign_define(
 )
 
 map('n', '<leader>ds', ':Telescope dap frames<CR>')
--- map('n', '<leader>dc', ':Telescope dap commands<CR>')
+map('n', '<leader>dc', ':Telescope dap commands<CR>')
 map('n', '<leader>db', ':Telescope dap list_breakpoints<CR>')
 map('n', '<leader>dlc', ':lua require"telescope".extensions.dap.commands{}<CR>')
+map('n', '<leader>dIc', '<Cmd>DapEditLocalConfig<CR>')
 map(
   'n',
   '<leader>dlv',

@@ -163,27 +163,27 @@ return packer.startup(function(use)
     config = function()
       require('config.telescope')
     end,
-  }, {
+  })
+  use({
     'nvim-telescope/telescope-ui-select.nvim',
     config = function()
       require('telescope').load_extension('ui-select')
     end,
     requires = { { 'nvim-telescope/telescope.nvim', opt = true } },
-  }, {
+  })
+  use({
     'nvim-telescope/telescope-media-files.nvim',
     config = function()
       require('telescope').load_extension('media_files')
     end,
     requires = { { 'nvim-telescope/telescope.nvim', opt = true } },
-  }, {
+  })
+  use({
     'nvim-telescope/telescope-dap.nvim',
     config = function()
       require('telescope').load_extension('dap')
     end,
-    requires = {
-      { 'nvim-telescope/telescope.nvim' },
-      { 'mfussenegger/nvim-dap', opt = true },
-    },
+    requires = { { 'nvim-telescope/telescope.nvim', opt = true } },
   })
 
   -- Emmet for html
@@ -194,8 +194,6 @@ return packer.startup(function(use)
       'css',
       'typescriptreact',
       'javascriptreact',
-      'javascript',
-      'typescript',
     },
   })
 
