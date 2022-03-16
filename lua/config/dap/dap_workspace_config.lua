@@ -14,6 +14,11 @@ function dap_workspace_config.loadLunchLua()
 end
 
 function dap_workspace_config.insert(dap_lang_tables, config_table)
+  if dap_lang_tables == nil then
+    dap_lang_tables = config_table
+    print('No config found for current debug, add a defualt config.')
+    return
+  end
   for _, tbl in ipairs(config_table) do
     for index, tbl_dap in ipairs(dap_lang_tables) do
       if tbl_dap.name == tbl.name then
@@ -72,13 +77,13 @@ function dap_workspace_config.config()
   --   -- group = au_group,
   --   desc = 'Auto reloads launch.lua file on bufwrite.',
   -- })
+  vim.api.nvim_command('write') -- Save it.
   vim.cmd([[
 	" This is set till I use nvim new autocmds api, which is not yet on arch as of the time writing this.
 	augroup local_dap_config
 		autocmd BufWritePost .nvim/launch.lua source .nvim/launch.lua
 	augroup END
 	]])
-  vim.api.nvim_command('write') -- Save it.
 end
 
 function dap_workspace_config.init()
