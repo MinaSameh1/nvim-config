@@ -57,6 +57,7 @@ vim.opt.undolevels = 5000 -- maximum number of changes that can be undone
 vim.opt.lazyredraw = true -- don't redraw while executing macros
 
 vim.opt.relativenumber = true -- show relative line number in front of each line
+vim.opt.number = true -- show relative line number in front of each line
 vim.opt.scrolloff = 8 -- minimum nr. of lines above and below cursor
 vim.opt.mouse = 'a' -- the use of mouse clicks
 vim.opt.colorcolumn = '80' -- columns to highlight
