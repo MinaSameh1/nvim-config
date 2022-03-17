@@ -88,9 +88,9 @@ nmap('cg*', '*Ncgn')
 nnoremap('g.', '/\\V<C-r>"<CR>cgn<C-a><Esc>') -- Chained with cgn, replaces the searched word with the edited one.
 
 -- Edit config files
-cmap('c!!', 'e $MYVIMRC<CR>') -- Edit this file
-cmap('cg!!', 'e ~/.config/nvim/ginit.vim<CR>') -- Edit the gui file
-cmap('p!!', 'e ~/.config/nvim/lua/config/plugins.lua<CR>') -- the Plugins file using packer
+cmap('c!!', 'e '.. vim.fn.stdpath('config') .. '/init.lua<CR>') -- Edit this file
+cmap('cg!!', 'e ' .. vim.fn.stdpath('config') .. '/ginit.vim<CR>') -- Edit the gui file
+cmap('p!!', 'e ' .. vim.fn.stdpath('config')  .. '/lua/config/plugins.lua<CR>') -- the Plugins file using packer
 
 -- Disable these plugins for faster startup
 vim.g.loaded_gzip = 1
