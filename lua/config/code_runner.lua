@@ -1,6 +1,20 @@
+local config_location = require('config.utils')
+
+require('code_runner').setup({
+  term = {
+    position = 'belowright',
+    size = 8,
+    mode = 'startinsert',
+    tab = false,
+  },
+  filetype_path = vim.fn.expand(config_location .. '/utils/code_runner.json'),
+  project_path = vim.fn.expand(
+    config_location .. '/utils/project_manager.json'
+  ),
+})
 vim.api.nvim_set_keymap(
   'n',
-  '<leader>r',
+  '<leader>R',
   ':RunCode<CR>',
   { noremap = true, silent = false }
 )

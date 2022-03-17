@@ -77,4 +77,6 @@ function utils.termcodes(str)
   return api.nvim_replace_termcodes(str, true, true, true)
 end
 
+utils.config_location = vim.fn.stdpath('config')
+
 return utils
