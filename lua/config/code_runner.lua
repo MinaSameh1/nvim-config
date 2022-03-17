@@ -1,4 +1,4 @@
-local config_location = require('config.utils')
+local config_location = require('config.utils').config_location
 
 require('code_runner').setup({
   term = {
