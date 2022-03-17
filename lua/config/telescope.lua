@@ -181,5 +181,9 @@ Key('n', '<leader>fH', '<Cmd>Telescope help_tags<CR>', Opts)
 Key('n', '<leader>fh', '<Cmd>Telescope oldfiles<CR>', Opts)
 Key('n', '<leader>fsh', '<Cmd>Telescope search_history<CR>', Opts)
 Key('n', '<leader>fc', '<Cmd>Telescope commands<CR>', Opts)
-Key('n', '<leader>tc', '<Cmd>lua require("colors.colorpicker").ChooseColors()<CR>', Opts)
-
+Key(
+  'n',
+  '<leader>tc',
+  '<Cmd>lua require("colors.colorpicker").ChooseColors()<CR>',
+  Opts
+)
