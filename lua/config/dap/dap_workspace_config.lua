@@ -42,7 +42,7 @@ local function get_config_filetype(filetype)
   local local_config = configurations[filetype][1]
   local_config.name = 'Debug (Custom Project Config)'
   for k, v in pairs(local_config) do
-    if type(v) == "string" then
+    if type(v) == 'string' then
       table.insert(local_table, '		' .. k .. ' = "' .. tostring(v) .. '",')
     else
       table.insert(local_table, '		' .. k .. ' = ' .. tostring(v) .. ',')
