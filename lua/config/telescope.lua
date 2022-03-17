@@ -20,7 +20,7 @@ local default = {
     prompt_prefix = ' ',
     selection_caret = ' ',
     path_display = { 'smart' },
-    initial_mode = 'insert',
+    initial_mode = 'normal',
     selection_strategy = 'reset',
     sorting_strategy = 'ascending',
     layout_strategy = 'horizontal',
@@ -181,4 +181,5 @@ Key('n', '<leader>fH', '<Cmd>Telescope help_tags<CR>', Opts)
 Key('n', '<leader>fh', '<Cmd>Telescope oldfiles<CR>', Opts)
 Key('n', '<leader>fsh', '<Cmd>Telescope search_history<CR>', Opts)
 Key('n', '<leader>fc', '<Cmd>Telescope commands<CR>', Opts)
-Key('n', '<leader>tc', '<Cmd>lua ChooseColors()<CR>', Opts)
+Key('n', '<leader>tc', '<Cmd>lua require("colors.colorpicker").ChooseColors()<CR>', Opts)
+

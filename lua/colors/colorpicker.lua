@@ -16,7 +16,9 @@
 --
 -- Modify the list of colors or uncomment the function that takes all possible colors
 
-ChooseColors = function()
+local colorPicker = {}
+
+function colorPicker.ChooseColors()
   local actions = require('telescope.actions')
   local actions_state = require('telescope.actions.state')
   local pickers = require('telescope.pickers')
@@ -24,21 +26,21 @@ ChooseColors = function()
   local sorters = require('telescope.sorters')
   local dropdown = require('telescope.themes').get_dropdown()
 
-  function Enter(prompt_bufnr)
+  local function Enter(prompt_bufnr)
     local selected = actions_state.get_selected_entry()
     local cmd = 'colorscheme ' .. selected[1]
     vim.cmd(cmd)
     actions.close(prompt_bufnr)
   end
 
-  function NextColor(prompt_bufnr)
+  local function NextColor(prompt_bufnr)
     actions.move_selection_next(prompt_bufnr)
     local selected = actions_state.get_selected_entry()
     local cmd = 'colorscheme ' .. selected[1]
     vim.cmd(cmd)
   end
 
-  function PrevColor(prompt_bufnr)
+  local function PrevColor(prompt_bufnr)
     actions.move_selection_previous(prompt_bufnr)
     local selected = actions_state.get_selected_entry()
     local cmd = 'colorscheme ' .. selected[1]
@@ -60,13 +62,16 @@ ChooseColors = function()
       map('i', '<CR>', Enter)
       map('i', '<C-j>', NextColor)
       map('i', '<C-k>', PrevColor)
+      map('n', '<CR>', Enter)
+      map('n', '<C-j>', NextColor)
+      map('n', '<C-k>', PrevColor)
       return true
     end,
   }
 
-  local colorPicker = pickers.new(dropdown, opts)
+  local telescopeColorPicker = pickers.new(dropdown, opts)
 
-  colorPicker:find()
+  telescopeColorPicker:find()
 end
 
-return ChooseColors
+return colorPicker

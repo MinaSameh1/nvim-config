@@ -1,7 +1,6 @@
 require('config.plugins')
 require('config.colorscheme')
 require('colors.colors')
-require('colors.colorpicker')
 
 -- vimtex
 vim.g.vimtex_view_method = 'zathura'
