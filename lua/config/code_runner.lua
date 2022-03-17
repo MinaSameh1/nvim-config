@@ -3,7 +3,7 @@ local config_location = require('config.utils').config_location
 require('code_runner').setup({
   term = {
     position = 'belowright',
-    size = 8,
+    size = 4,
     mode = 'startinsert',
     tab = false,
   },
@@ -14,7 +14,7 @@ require('code_runner').setup({
 })
 vim.api.nvim_set_keymap(
   'n',
-  '<leader>R',
+  '<leader>rc',
   ':RunCode<CR>',
   { noremap = true, silent = false }
 )
