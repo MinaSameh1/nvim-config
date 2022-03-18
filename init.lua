@@ -68,6 +68,7 @@ vim.opt.errorbells = false -- ring the bell for error messages
 vim.opt.writebackup = false -- make a backup before overwriting a file
 vim.opt.swapfile = false -- whether to use a swapfile for a buffer
 vim.opt.hlsearch = false --  highlight matches with last search pattern
+vim.opt.laststatus = 3 -- global status line
 
 -- Keybindings
 nnoremap('<leader>fF', ':!prettier --write %<CR>') -- Format
