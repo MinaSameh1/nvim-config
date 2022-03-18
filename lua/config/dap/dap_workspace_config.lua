@@ -92,15 +92,15 @@ function dap_workspace_config.config()
   local filetype = vim.bo.filetype -- Save file type before switching buffers
   vim.cmd('edit ' .. config_file) -- Open buffer
   if configurations[filetype] == nil then
-		-- at this stage assume the user knows what they are doing,
-		-- the file will still get sourced and
-		-- to prevent normal users from ruining their dap config bailout.
+    -- at this stage assume the user knows what they are doing,
+    -- the file will still get sourced and
+    -- to prevent normal users from ruining their dap config bailout.
     print('Warnning No default config found! Bailing out')
   else
     vim.api.nvim_buf_set_lines(0, 0, -1, 0, get_config_filetype(filetype))
     vim.api.nvim_command('write') -- Save it.
   end
-	--- TODO: Fix this ->
+  --- TODO: Fix this ->
   -- local au_group = vim.api.nvim_create_augroup(
   --   'local_dap_config',
   --   { clear = true }
