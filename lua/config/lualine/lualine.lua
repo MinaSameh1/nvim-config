@@ -1,5 +1,6 @@
 require('lualine').setup({
   options = {
+		globalstatus = true,
     icons_enabled = true,
     theme = 'auto',
     -- theme = 'pywal-nvim',
