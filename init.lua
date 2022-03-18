@@ -43,7 +43,7 @@ vim.opt.smartcase = true -- no ignore case when pattern has uppercase
 vim.opt.ignorecase = true -- ignore case in search patterns
 vim.opt.incsearch = true -- highlight match while typing search pattern
 
-vim.opt.expandtab = false -- use spaces when <Tab> is inserted
+vim.opt.expandtab = true -- use spaces when <Tab> is inserted
 vim.opt.shiftwidth = 2 -- number of spaces to use for (auto)indent step
 vim.opt.tabstop = 2 -- number of spaces that <Tab> in file uses
 vim.opt.softtabstop = 2 -- number of spaces that <Tab> uses while editing
