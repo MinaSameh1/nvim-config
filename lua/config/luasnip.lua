@@ -1,6 +1,8 @@
 local types = require('luasnip.util.types')
+local ls = require('luasnip')
+local p = require('luasnip.extras').partial
 
-require('luasnip').config.setup({
+ls.config.setup({
   ext_opts = {
     [types.choiceNode] = {
       active = {
@@ -15,6 +17,15 @@ require('luasnip').config.setup({
   },
 })
 
+ls.snippets = {
+  all = {
+    ls.s('date', p(os.date, '%Y-%m-%d')),
+  },
+  lua = {
+    ls.parser.parse_snippet('lf', 'local function ${1:name}(${2})\n  $0\nend'),
+    ls.parser.parse_snippet('mf', 'function ${1:M}.${2:name}(${3})\n  $0\nend'),
+  },
+}
 -- Loading any vscode snippets from plugins
 require('luasnip.loaders.from_vscode').lazy_load()
 
