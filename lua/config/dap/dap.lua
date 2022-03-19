@@ -140,6 +140,17 @@ dap.configurations.typescript = dap.configurations.javascript
 -- Dap Python plugin
 require('dap-python').setup('/home/mina/.pyenv/shims/python')
 
+table.insert(dap.configurations.python, {
+  type = 'python',
+  request = 'launch',
+  program = '${workspaceFolder}/${file}',
+  console = 'integratedTerminal',
+  name = 'Launch file with autoReload',
+  autoReload = {
+    enable = true,
+  },
+})
+
 dap.adapters.lldb = {
   type = 'executable',
   command = '/usr/bin/lldb-vscode',
@@ -180,6 +191,19 @@ dap.configurations.cpp = {
 dap.configurations.c = dap.configurations.cpp
 dap.configurations.rust = dap.configurations.cpp
 
+table.insert(dap.configurations.cpp, {
+  name = 'Attach to gdbserver :1234',
+  type = 'cppdbg',
+  request = 'launch',
+  MIMode = 'gdb',
+  miDebuggerServerAddress = 'localhost:1234',
+  miDebuggerPath = '/usr/bin/gdb',
+  cwd = '${workspaceFolder}',
+  program = function()
+    return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
+  end,
+})
+
 dap.adapters.dart = {
   type = 'executable',
   command = 'node',
@@ -201,6 +225,15 @@ dap.configurations.dart = {
   },
 }
 
+dap.configurations.java = {
+  {
+    type = 'java',
+    request = 'attach',
+    name = 'Debug (Attach) - Remote',
+    hostName = '127.0.0.1',
+    port = 5005,
+  },
+}
 dap.set_log_level('INFO')
 dap.defaults.fallback.terminal_win_cmd = '80vsplit new'
 
@@ -238,11 +271,22 @@ dap.configurations.haskell = {
 }
 
 -- nvim lua adaptor
+--
+-- dap.adapters.nlua = function(callback, config)
+--   callback({ type = 'server', host = config.host, port = config.port })
+-- end
+
 dap.configurations.lua = {
   {
     type = 'nlua',
     request = 'attach',
-    name = 'Attach to running Neovim instance',
+    name = 'Spawn and Attach to running Neovim instance',
+    port = 44444,
+  },
+  {
+    type = 'nlua',
+    request = 'attach',
+    name = 'Attach to Neovim instance with port',
     host = function()
       local value = vim.fn.input('Host [127.0.0.1]: ')
       if value ~= '' then
@@ -259,7 +303,29 @@ dap.configurations.lua = {
 }
 
 dap.adapters.nlua = function(callback, config)
-  callback({ type = 'server', host = config.host, port = config.port })
+  local port = config.port
+  local opts = {
+    args = {
+      '@',
+      'launch',
+      '--type=tab',
+      '--tab-title',
+      '"Debug nvim"',
+      '--keep-focus',
+      vim.v.progpath,
+      '-c',
+      string.format('lua require("osv").launch({port = %d})', port),
+    },
+  }
+  if port == 44444 then
+    vim.loop.spawn('kitty', opts)
+
+    -- doing a `client = new_tcp(); client:connect()` within vim.wait doesn't work
+    -- because an extra client connecting confuses `osv`, so sleep a bit instead
+    -- to wait until server is started
+    vim.cmd('sleep')
+  end
+  callback({ type = 'server', host = '127.0.0.1', port = port })
 end
 
 -- Load Specific workspace configs
@@ -311,11 +377,35 @@ require('dapui').setup({
 local dapui = require('dapui')
 dap.listeners.after.event_initialized['dapui_config'] = function()
   dapui.open()
+  vim.api.nvim_set_keymap(
+    'n',
+    '<down>',
+    "<cmd>lua require('dap').step_over()<CR>",
+    { noremap = true, silent = true }
+  )
+  vim.api.nvim_set_keymap(
+    'n',
+    '<left>',
+    "<cmd>lua require('dap').step_out()<CR>",
+    { noremap = true, silent = true }
+  )
+  vim.api.nvim_set_keymap(
+    'n',
+    '<right>',
+    "<cmd>lua require('dap').step_into()<CR>",
+    { noremap = true, silent = true }
+  )
 end
 dap.listeners.before.event_terminated['dapui_config'] = function()
+  vim.api.nvim_del_keymap('n', '<down>')
+  vim.api.nvim_del_keymap('n', '<left>')
+  vim.api.nvim_del_keymap('n', '<right>')
   dapui.close()
 end
 dap.listeners.before.event_exited['dapui_config'] = function()
+  vim.api.nvim_del_keymap('n', '<down>')
+  vim.api.nvim_del_keymap('n', '<left>')
+  vim.api.nvim_del_keymap('n', '<right>')
   dapui.close()
 end
 
@@ -337,15 +427,19 @@ require('nvim-dap-virtual-text').setup({
 
 vim.fn.sign_define(
   'DapBreakpoint',
-  { text = '🟥', texthl = '', linehl = '', numhl = '' }
-)
-vim.fn.sign_define(
-  'DapBreakpointRejected',
-  { text = '🟦', texthl = '', linehl = '', numhl = '' }
+  { text = '🛑', texthl = '', linehl = '', numhl = '' }
 )
 vim.fn.sign_define(
   'DapStopped',
-  { text = '⭐️', texthl = '', linehl = '', numhl = '' }
+  { text = '🟢', texthl = '', linehl = '', numhl = '' }
+)
+vim.fn.sign_define(
+  'DapBreakpointCondition',
+  { text = '🟡', texthl = '', linehl = '', numhl = '' }
+)
+vim.fn.sign_define(
+  'DapLogPoint',
+  { text = '🔵', texthl = '', linehl = '', numhl = '' }
 )
 
 map('n', '<leader>ds', ':Telescope dap frames<CR>')
@@ -373,6 +467,11 @@ map('n', '<leader>dk', ':lua require"dap".up()<CR>')
 map('n', '<leader>dj', ':lua require"dap".down()<CR>')
 map('n', '<leader>dC', ':lua require"dap".terminate()<CR>')
 map('n', '<leader>dr', ':lua require"dap".repl.toggle({}, "8 split")<CR><C-w>l')
+map(
+  'n',
+  '<Leader>dB',
+  '<Cmd>lua require("dap").set_breakpoint(nil, nul vim.fn.input("Log point message: "))<CR>'
+)
 map(
   'n',
   '<leader>de',
