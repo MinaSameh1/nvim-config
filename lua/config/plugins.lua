@@ -452,7 +452,23 @@ return packer.startup(function(use)
       require('config.indentLines')
     end,
   })
-  use({ 'folke/trouble.nvim' }) -- pretty messages
+  use({ 'folke/trouble.nvim', event = 'BufRead' }) -- pretty messages
+  use({
+    'folke/todo-comments.nvim',
+    requires = 'nvim-lua/plenary.nvim',
+    event = 'BufRead',
+    config = function()
+      require('todo-comments').setup({
+        keywords = {
+          FIX = {
+            alt = { 'FIXME', 'BUG', 'FIXIT', 'ISSUE' },
+          },
+          WARN = { alt = { 'WARNING', 'XXX' } },
+          NOTE = { alt = { 'INFO' } },
+        },
+      })
+    end,
+  })
 
   use({ -- for rust
     'simrat39/rust-tools.nvim',
