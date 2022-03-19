@@ -33,7 +33,13 @@ packer.init({
     open_fn = function()
       return require('packer.util').float({ border = 'rounded' })
     end,
+    prompt_border = 'single',
   },
+  git = {
+    clone_timeout = 6000, -- seconds
+  },
+  auto_clean = true,
+  compile_on_sync = true,
 })
 
 return packer.startup(function(use)
