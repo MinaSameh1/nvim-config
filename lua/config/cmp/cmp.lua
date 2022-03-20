@@ -56,10 +56,12 @@ cmp.setup({
   formatting = {
     format = lspkind.cmp_format({
       with_text = true, -- do not show text alongside icons
-      maxwidth = 30, -- prevent the popup from showing more than provided characters (e.g 50 will not show more than 50 characters)
+      -- prevent the popup from showing more than provided characters (e.g 50 will not show more than 50 characters)
+      maxwidth = 30,
 
       -- The function below will be called before any actual modifications from lspkind
-      -- so that you can provide more controls on popup customization. (See [#30](https://github.com/onsails/lspkind-nvim/pull/30))
+      -- so that you can provide more controls on popup customization.
+      -- (See [#30](https://github.com/onsails/lspkind-nvim/pull/30))
       before = function(_, vim_item)
         return vim_item
       end,

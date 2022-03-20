@@ -412,9 +412,13 @@ end
 -- More pretty stuff
 require('nvim-dap-virtual-text').setup({
   enabled = true, -- enable this plugin (the default)
-  enabled_commands = true, -- create commands DapVirtualTextEnable, DapVirtualTextDisable, DapVirtualTextToggle, (DapVirtualTextForceRefresh for refreshing when debug adapter did not notify its termination)
-  highlight_changed_variables = true, -- highlight changed values with NvimDapVirtualTextChanged, else always NvimDapVirtualText
-  highlight_new_as_changed = false, -- highlight new variables in the same way as changed variables (if highlight_changed_variables)
+  -- create commands DapVirtualTextEnable, DapVirtualTextDisable, DapVirtualTextToggle,
+  -- (DapVirtualTextForceRefresh for refreshing when debug adapter did not notify its termination)
+  enabled_commands = true,
+  -- highlight changed values with NvimDapVirtualTextChanged, else always NvimDapVirtualText
+  highlight_changed_variables = true,
+  -- highlight new variables in the same way as changed variables (if highlight_changed_variables)
+  highlight_new_as_changed = false,
   show_stop_reason = true, -- show stop reason when stopped for exceptions
   commented = false, -- prefix virtual text with comment string
   -- experimental features:
@@ -470,7 +474,7 @@ map('n', '<leader>dr', ':lua require"dap".repl.toggle({}, "8 split")<CR><C-w>l')
 map(
   'n',
   '<Leader>dB',
-  '<Cmd>lua require("dap").set_breakpoint(nil, nul vim.fn.input("Log point message: "))<CR>'
+  '<Cmd>lua require("dap").set_breakpoint(nil, vim.fn.input("Log point message: "))<CR>'
 )
 map(
   'n',
