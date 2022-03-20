@@ -25,6 +25,34 @@ local on_attach = function(client, bufnr)
     vim.api.nvim_buf_set_option(bufnr, ...)
   end
 
+  require('vim.lsp.protocol').CompletionItemKind = {
+    '', -- Text
+    '', -- Method
+    '', -- Function
+    '', -- Constructor
+    '', -- Field
+    '', -- Variable
+    '', -- Class
+    'ﰮ', -- Interface
+    '', -- Module
+    '', -- Property
+    '', -- Unit
+    '', -- Value
+    '', -- Enum
+    '', -- Keyword
+    '﬌', -- Snippet
+    '', -- Color
+    '', -- File
+    '', -- Reference
+    '', -- Folder
+    '', -- EnumMember
+    '', -- Constant
+    '', -- Struct
+    '', -- Event
+    'ﬦ', -- Operator
+    '', -- TypeParameter
+  }
+
   if client.name == 'tsserver' then
     local ts_utils = require('config.lsp.tsutils')
     ts_utils.setup_client(client)
@@ -139,15 +167,15 @@ local on_attach = function(client, bufnr)
   command! LspCodeAction execute 'lua vim.lsp.buf.code_action()'
   command! LspFormat execute 'lua vim.lsp.buf.formatting()'
   ]])
-  -- AutoFormat
-  -- if client.resolved_capabilities.document_formatting then
-  -- 	vim.cmd([[
-  -- 		augroup lsp_format_on_save
-  -- 		autocmd! * <buffer>
-  -- 		autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync()
-  -- 		augroup END
-  -- 		]])
-  -- end
+  -- AutoFormat on save
+  if client.resolved_capabilities.document_formatting then
+    vim.cmd([[
+      augroup lsp_format_on_save
+      autocmd! * <buffer>
+      autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_seq_sync()
+      augroup END
+      ]])
+  end
 
   -- Enable completion triggered by <c-x><c-o>
   buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
@@ -180,22 +208,33 @@ lsp_installer.on_server_ready(function(server)
   --   { '🭼', 'FloatBorder' },
   --   { '▏', 'FloatBorder' },
   -- }
-  -- --
-  -- -- -- LSP settings (for overriding per client)
-  -- local handlers = {
-  --   ['textDocument/hover'] = vim.lsp.with(
-  --     vim.lsp.handlers.hover,
-  --     { border = border }
-  --   ),
-  --   ['textDocument/signatureHelp'] = vim.lsp.with(
-  --     vim.lsp.handlers.signature_help,
-  --     { border = border }
-  --   ),
-  -- }
+  --
+  -- -- LSP settings (for overriding per client)
+  local handlers = {
+    -- ['textDocument/hover'] = vim.lsp.with(
+    --   vim.lsp.handlers.hover,
+    --   { border = border }
+    -- ),
+    -- ['textDocument/signatureHelp'] = vim.lsp.with(
+    --   vim.lsp.handlers.signature_help,
+    --   { border = border }
+    -- ),
+    ['textDocument/publishDiagnostics'] = vim.lsp.with(
+      vim.lsp.diagnostic.on_publish_diagnostics,
+      {
+        underline = true,
+        -- This sets the spacing and the prefix, obviously.
+        virtual_text = {
+          spacing = 2,
+          prefix = '',
+        },
+      }
+    ),
+  }
 
   local opts = {
     autoSetHints = true,
-    -- handlers = handlers,
+    handlers = handlers,
     noremap = true,
     silent = true,
     on_attach = on_attach,
