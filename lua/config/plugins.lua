@@ -273,7 +273,7 @@ return packer.startup(function(use)
   -- Show lightblub on code action
   use({ 'kosayoda/nvim-lightbulb' })
 
-  -- AutoCompletetion and snippets
+  -- AutoCompletetion and snippets, replaced with luasnip
   -- use(
   --   { 'SirVer/ultisnips', after = 'nvim-cmp' },
   --   { 'quangnguyen30192/cmp-nvim-ultisnips', after = 'ultisnips' },
