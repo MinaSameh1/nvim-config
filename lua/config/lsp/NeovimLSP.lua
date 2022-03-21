@@ -127,7 +127,7 @@ local on_attach = function(client, bufnr)
   buf_set_keymap(
     'n',
     '<leader>e',
-    '<cmd>lua vim.diagnostic.open_float()<CR>',
+    '<cmd>lua vim.diagnostic.open_float({ border = "rounded" })<CR>',
     mapOpts
   )
   buf_set_keymap(
@@ -136,7 +136,12 @@ local on_attach = function(client, bufnr)
     '<cmd>lua vim.diagnostic.goto_prev({ border = "rounded" })<CR>',
     mapOpts
   )
-  buf_set_keymap('n', ']c', '<cmd>lua vim.diagnostic.goto_next()<CR>', mapOpts)
+  buf_set_keymap(
+    'n',
+    ']c',
+    '<cmd>lua vim.diagnostic.goto_next({ border = "rounded" })<CR>',
+    mapOpts
+  )
   buf_set_keymap(
     'n',
     '<leader>q',
@@ -162,7 +167,7 @@ local on_attach = function(client, bufnr)
   " Show line diagnostics automatically in hover window
   " autocmd CursorHold,CursorHoldI * lua vim.diagnostic.open_float(nil, {focus=false})
   " For diagnostics for specific cursor position
-  autocmd CursorHold,CursorHoldI * lua vim.diagnostic.open_float(nil, {focus=false, scope="cursor"})
+  autocmd CursorHold,CursorHoldI * lua vim.diagnostic.open_float(nil, {focus=false, scope="cursor", border="rounded"})
 	" Adds the commands to nvim
   command! LspCodeAction execute 'lua vim.lsp.buf.code_action()'
   command! LspFormat execute 'lua vim.lsp.buf.formatting()'
@@ -195,30 +200,35 @@ local signs = {
   { name = 'DiagnosticSignInfo', text = '' },
 }
 
+vim.diagnostic.config({
+  float = {
+    source = 'always', -- Or "if_many"
+  },
+})
 -- Register a handler that will be called for all installed servers.
 -- Alternatively, you may also register handlers on specific server instances instead (see example below).
 lsp_installer.on_server_ready(function(server)
   -- local border = {
-  --   { '🭽', 'FloatBorder' },
-  --   { '▔', 'FloatBorder' },
-  --   { '🭾', 'FloatBorder' },
-  --   { '▕', 'FloatBorder' },
-  --   { '🭿', 'FloatBorder' },
-  --   { '▁', 'FloatBorder' },
-  --   { '🭼', 'FloatBorder' },
-  --   { '▏', 'FloatBorder' },
+  -- {"╭", "FloatBorder"},
+  -- {"─", "FloatBorder"},
+  -- {"╮", "FloatBorder"},
+  -- {"│", "FloatBorder"},
+  -- {"╯", "FloatBorder"},
+  -- {"─", "FloatBorder"},
+  -- {"╰", "FloatBorder"},
+  -- {"│", "FloatBorder"},
   -- }
-  --
+
   -- -- LSP settings (for overriding per client)
   local handlers = {
-    -- ['textDocument/hover'] = vim.lsp.with(
-    --   vim.lsp.handlers.hover,
-    --   { border = border }
-    -- ),
-    -- ['textDocument/signatureHelp'] = vim.lsp.with(
-    --   vim.lsp.handlers.signature_help,
-    --   { border = border }
-    -- ),
+    ['textDocument/hover'] = vim.lsp.with(
+      vim.lsp.handlers.hover,
+      { border = 'rounded' }
+    ),
+    ['textDocument/signatureHelp'] = vim.lsp.with(
+      vim.lsp.handlers.signature_help,
+      { border = 'rounded' }
+    ),
     ['textDocument/publishDiagnostics'] = vim.lsp.with(
       vim.lsp.diagnostic.on_publish_diagnostics,
       {

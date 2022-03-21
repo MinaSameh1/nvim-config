@@ -283,13 +283,13 @@ return packer.startup(function(use)
   use(
     {
       'hrsh7th/nvim-cmp',
-      event = 'InsertEnter',
       config = function()
         require('config.cmp.cmp')
       end,
       requires = {
         {
           'L3MON4D3/LuaSnip',
+          module = 'luasnip',
           event = 'CursorHold',
           config = function()
             require('config.luasnip')
@@ -298,11 +298,11 @@ return packer.startup(function(use)
         },
       },
     },
-    { 'saadparwaiz1/cmp_luasnip', after = 'nvim-cmp' },
-    { 'hrsh7th/cmp-buffer', after = 'nvim-cmp' },
-    { 'hrsh7th/cmp-path', after = 'nvim-cmp' },
-    { 'hrsh7th/cmp-cmdline', after = 'cmp-path' }
+    { 'hrsh7th/cmp-buffer' },
+    { 'hrsh7th/cmp-path' },
+    { 'hrsh7th/cmp-cmdline' }
   )
+  use({ 'saadparwaiz1/cmp_luasnip' })
 
   use({ 'onsails/lspkind-nvim', module = 'lspkind' }) -- Icons for autocomplete, you can never have enough.
   use({

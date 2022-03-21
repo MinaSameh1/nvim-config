@@ -13,7 +13,7 @@ cmp.setup({
   snippet = {
     -- REQUIRED - you must specify a snippet engine
     expand = function(args)
-      require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
+      luasnip.lsp_expand(args.body) -- For `luasnip` users.
       -- vim.fn["UltiSnips#Anon"](args.body) -- For `ultisnips` users.
     end,
   },
@@ -31,9 +31,7 @@ cmp.setup({
       select = true,
     }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
     ['<Tab>'] = function(fallback)
-      if cmp.visible() then
-        cmp.select_next_item()
-      elseif luasnip.expand_or_jumpable() then
+      if luasnip.expand_or_jumpable() then
         vim.fn.feedkeys(
           vim.api.nvim_replace_termcodes(
             '<Plug>luasnip-expand-or-jump',
@@ -43,14 +41,14 @@ cmp.setup({
           ),
           ''
         )
+      elseif cmp.visible() then
+        cmp.select_next_item()
       else
         fallback()
       end
     end,
     ['<S-Tab>'] = function(fallback)
-      if cmp.visible() then
-        cmp.select_prev_item()
-      elseif luasnip.jumpable(-1) then
+      if luasnip.jumpable(-1) then
         vim.fn.feedkeys(
           vim.api.nvim_replace_termcodes(
             '<Plug>luasnip-jump-prev',
@@ -60,6 +58,8 @@ cmp.setup({
           ),
           ''
         )
+      elseif cmp.visible() then
+        cmp.select_prev_item()
       else
         fallback()
       end
@@ -120,14 +120,3 @@ cmp.setup.cmdline(':', {
     { name = 'cmdline' },
   }),
 })
-
-vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(vim.lsp.handlers.hover, {
-  border = 'rounded',
-})
-
-vim.lsp.handlers['textDocument/signatureHelp'] = vim.lsp.with(
-  vim.lsp.handlers.signature_help,
-  {
-    border = 'rounded',
-  }
-)
