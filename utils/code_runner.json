@@ -1,6 +1,6 @@
 {
   "java": "cd $dir && javac $fileName && java $fileNameWithoutExt",
-  "python": "python -U",
+  "python": "python -u",
   "typescript": "tsc -w",
   "rust": "cd $dir && rustc $fileName && $dir/$fileNameWithoutExt",
   "javascript": "node $fileName"
