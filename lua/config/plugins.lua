@@ -563,7 +563,7 @@ return packer.startup(function(use)
   })
   use({ -- adds transpancy toggles
     'xiyaowong/nvim-transparent',
-    disable = true, -- Disable the plugin
+    cmd = { 'TransparentToggle', 'TransparentEnable', 'TransparentDisable' },
     config = function()
       require('transparent').setup({
         enable = true, -- boolean: enable transparent
