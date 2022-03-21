@@ -19,7 +19,6 @@ configs.setup({
     enable_autocmd = false,
   },
   indent = { enable = true, disable = { 'yaml' } },
-  autopairs = { enable = true },
   swap = {
     enable = true,
     swap_next = {
@@ -29,6 +28,7 @@ configs.setup({
       ['<leader>sS'] = '@parameter.inner',
     },
   },
+  autopairs = { enable = true },
   autotag = { enable = true },
   matchup = { enable = true },
   move = {
@@ -71,5 +71,5 @@ configs.setup({
 })
 
 -- Folding
-vim.o.foldmethod = 'expr'
-vim.o.foldexpr = 'nvim_treesitter#foldexpr()'
+-- vim.o.foldmethod = 'expr'
+-- vim.o.foldexpr = 'nvim_treesitter#foldexpr()'

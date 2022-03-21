@@ -207,6 +207,13 @@ vim.diagnostic.config({
   severity_sort = true,
 })
 
+local path = vim.fn.stdpath 'config' .. '/spell/en.utf-8.add'
+local words = {}
+
+for word in io.open(path, 'r'):lines() do
+  table.insert(words, word)
+end
+
 -- Register a handler that will be called for all installed servers.
 -- Alternatively, you may also register handlers on specific server instances instead (see example below).
 lsp_installer.on_server_ready(function(server)
@@ -264,6 +271,11 @@ lsp_installer.on_server_ready(function(server)
         diagnostics = {
           -- Get the language server to recognize the `vim` global
           globals = { 'vim' },
+        },
+        ltex = {
+          dictionary = {
+            ['en-US'] = words,
+          },
         },
       },
     },
