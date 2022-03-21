@@ -207,7 +207,7 @@ vim.diagnostic.config({
   severity_sort = true,
 })
 
-local path = vim.fn.stdpath 'config' .. '/spell/en.utf-8.add'
+local path = vim.fn.stdpath('config') .. '/spell/en.utf-8.add'
 local words = {}
 
 for word in io.open(path, 'r'):lines() do
