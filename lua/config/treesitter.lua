@@ -20,6 +20,15 @@ configs.setup({
   },
   indent = { enable = true, disable = { 'yaml' } },
   autopairs = { enable = true },
+  swap = {
+    enable = true,
+    swap_next = {
+      ['<leader>ss'] = '@parameter.inner',
+    },
+    swap_previous = {
+      ['<leader>sS'] = '@parameter.inner',
+    },
+  },
   autotag = { enable = true },
   matchup = { enable = true },
   move = {
@@ -42,4 +51,25 @@ configs.setup({
       ['[]'] = '@class.outer',
     },
   },
+  -- lsp_interop = {
+  --   enable = true,
+  --   border = 'single',
+  --   peek_definition_code = {
+  --     ['<leader>lg'] = '@block.outer',
+  --     -- ["<leader>lG"] = "@class.outer",
+  --   },
+  -- },
+  -- textsubjects = {
+  --   enable = true,
+  --   keymaps = {
+  --     ['<cr>'] = 'textsubjects-smart', -- works in visual mode
+  --   },
+  -- },
+  -- playground = {
+  --   enable = true,
+  -- },
 })
+
+-- Folding
+vim.o.foldmethod = 'expr'
+vim.o.foldexpr = 'nvim_treesitter#foldexpr()'

@@ -201,10 +201,12 @@ local signs = {
 }
 
 vim.diagnostic.config({
-  float = {
-    source = 'always', -- Or "if_many"
-  },
+    float = {source = 'always'},
+    underline = true,
+    signs = true,
+    severity_sort = true,
 })
+
 -- Register a handler that will be called for all installed servers.
 -- Alternatively, you may also register handlers on specific server instances instead (see example below).
 lsp_installer.on_server_ready(function(server)
@@ -233,7 +235,6 @@ lsp_installer.on_server_ready(function(server)
       vim.lsp.diagnostic.on_publish_diagnostics,
       {
         underline = true,
-        -- This sets the spacing and the prefix, obviously.
         virtual_text = {
           spacing = 2,
           prefix = '',

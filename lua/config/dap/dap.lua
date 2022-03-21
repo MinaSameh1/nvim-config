@@ -401,12 +401,14 @@ dap.listeners.before.event_terminated['dapui_config'] = function()
   vim.api.nvim_del_keymap('n', '<left>')
   vim.api.nvim_del_keymap('n', '<right>')
   dapui.close()
+  vim.cmd("bd! \\[dap-repl]")
 end
 dap.listeners.before.event_exited['dapui_config'] = function()
   vim.api.nvim_del_keymap('n', '<down>')
   vim.api.nvim_del_keymap('n', '<left>')
   vim.api.nvim_del_keymap('n', '<right>')
   dapui.close()
+  vim.cmd("bd! \\[dap-repl]")
 end
 
 -- More pretty stuff
@@ -442,15 +444,25 @@ vim.fn.sign_define(
   { text = '🟡', texthl = '', linehl = '', numhl = '' }
 )
 vim.fn.sign_define(
+  'DapBreakpointRejected',
+  { text = '🟡', texthl = 'DiagnosticError', linehl = '', numhl = '' }
+)
+vim.fn.sign_define(
   'DapLogPoint',
   { text = '🔵', texthl = '', linehl = '', numhl = '' }
 )
+
+vim.cmd([[
+command! DapReloadConfig lua require'dap'.configurations = {}; vim.cmd("luafile ~/.config/nvim/lua/config/dap/dap.lua"); require'dap.ext.vscode'.load_launchjs('.nvim/launch.json')
+command! DapClose lua require'dap'.terminate(); require'dapui'.close(); vim.cmd("bd! \\[dap-repl]")
+command! DapStart lua require'dap'.continue()
+]])
 
 map('n', '<leader>ds', ':Telescope dap frames<CR>')
 map('n', '<leader>dc', ':Telescope dap commands<CR>')
 map('n', '<leader>db', ':Telescope dap list_breakpoints<CR>')
 map('n', '<leader>dlc', ':lua require"telescope".extensions.dap.commands{}<CR>')
-map('n', '<leader>dIc', '<Cmd>DapEditLocalConfig<CR>')
+map('n', '<leader>dLC', '<Cmd>DapEditLocalConfig<CR>')
 map(
   'n',
   '<leader>dlv',
@@ -469,7 +481,7 @@ map('n', '<leader>dc', ':lua require"dap".continue()<CR>')
 map('n', '<leader>dn', ':lua require"dap".run_to_cursor()<CR>')
 map('n', '<leader>dk', ':lua require"dap".up()<CR>')
 map('n', '<leader>dj', ':lua require"dap".down()<CR>')
-map('n', '<leader>dC', ':lua require"dap".terminate()<CR>')
+map('n', '<leader>dC', '<Cmd>DapClose<CR>')
 map('n', '<leader>dr', ':lua require"dap".repl.toggle({}, "8 split")<CR><C-w>l')
 map(
   'n',

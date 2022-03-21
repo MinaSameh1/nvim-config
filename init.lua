@@ -48,6 +48,8 @@ vim.opt.shiftwidth = 2 -- number of spaces to use for (auto)indent step
 vim.opt.tabstop = 2 -- number of spaces that <Tab> in file uses
 vim.opt.softtabstop = 2 -- number of spaces that <Tab> uses while editing
 vim.opt.smartindent = true -- smart autoindenting for C programs
+vim.opt.autoindent = true
+vim.opt.copyindent = true
 vim.opt.wrap = false -- lines wrap and continue on the next line
 
 vim.opt.undodir = vim.fn.stdpath('config') .. '/undodir' -- where to store undo files
