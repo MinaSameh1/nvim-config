@@ -201,10 +201,10 @@ local signs = {
 }
 
 vim.diagnostic.config({
-    float = {source = 'always'},
-    underline = true,
-    signs = true,
-    severity_sort = true,
+  float = { source = 'always' },
+  underline = true,
+  signs = true,
+  severity_sort = true,
 })
 
 -- Register a handler that will be called for all installed servers.

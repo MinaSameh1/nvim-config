@@ -103,7 +103,8 @@ function dap_workspace_config.config()
     "au BufWritePost <buffer> lua require('dap.ext.vscode').load_launchjs('"
       .. config_file
       .. "', { "
-      .. configurations[filetype][1].type .. " = { '"
+      .. configurations[filetype][1].type
+      .. " = { '"
       .. filetype
       .. "' }})"
   )

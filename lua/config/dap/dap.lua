@@ -401,14 +401,14 @@ dap.listeners.before.event_terminated['dapui_config'] = function()
   vim.api.nvim_del_keymap('n', '<left>')
   vim.api.nvim_del_keymap('n', '<right>')
   dapui.close()
-  vim.cmd("bd! \\[dap-repl]")
+  vim.cmd('bd! \\[dap-repl]')
 end
 dap.listeners.before.event_exited['dapui_config'] = function()
   vim.api.nvim_del_keymap('n', '<down>')
   vim.api.nvim_del_keymap('n', '<left>')
   vim.api.nvim_del_keymap('n', '<right>')
   dapui.close()
-  vim.cmd("bd! \\[dap-repl]")
+  vim.cmd('bd! \\[dap-repl]')
 end
 
 -- More pretty stuff
