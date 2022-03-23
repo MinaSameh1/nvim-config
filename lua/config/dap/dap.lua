@@ -503,7 +503,7 @@ map(
   '<leader>d?',
   ':lua local widgets=require"dap.ui.widgets";widgets.centered_float(widgets.scopes)<CR>'
 )
-map('n', '<Leader>dIi', '<Cmd>lua require("dapui").toggle()<CR>')
+map('n', '<Leader>dui', '<Cmd>lua require("dapui").toggle()<CR>')
 -- -- Jester test
 -- map('n', '<leader>jn', '<Cmd>lua require"jester".run_file()<CR>')
 -- map('n', '<leader>jj', '<Cmd>lua require"jester".run()<CR>')

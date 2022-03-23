@@ -67,6 +67,7 @@ cmp.setup({
   },
   sources = cmp.config.sources({
     { name = 'nvim_lsp' },
+    { name = 'nvim_lsp_signature_help' },
     -- { name = 'vsnip' }, -- For vsnip users.
     { name = 'luasnip' }, -- For luasnip users.
     -- { name = 'ultisnips' }, -- For ultisnips users.
@@ -90,24 +91,39 @@ cmp.setup({
     prefix = '',
   },
   formatting = {
-    format = lspkind.cmp_format({
-      with_text = true, -- do not show text alongside icons
-      -- prevent the popup from showing more than provided characters (e.g 50 will not show more than 50 characters)
-      maxwidth = 30,
+    format = function(entry, vim_item)
+      lspkind.cmp_format({
+        with_text = true, -- do not show text alongside icons
+        -- prevent the popup from showing more than provided characters (e.g 50 will not show more than 50 characters)
+        maxwidth = 30,
+      })(entry, vim_item)
 
-      -- The function below will be called before any actual modifications from lspkind
-      -- so that you can provide more controls on popup customization.
-      -- (See [#30](https://github.com/onsails/lspkind-nvim/pull/30))
-      before = function(_, vim_item)
-        return vim_item
-      end,
-    }),
+      local alias = {
+        buffer = 'Buf',
+        path = 'Path',
+        nvim_lsp = 'LSP',
+        luasnip = 'LuaSnip',
+        ultisnips = 'UltiSnips',
+        nvim_lua = 'Lua',
+        tmux = 'tmux',
+        latex_symbols = 'Latex',
+        nvim_lsp_signature_help = 'LSP Signature',
+      }
+
+      if entry.source.name == 'nvim_lsp' then
+        vim_item.menu = entry.source.source.client.name
+      else
+        vim_item.menu = alias[entry.source.name] or entry.source.name
+      end
+      return vim_item
+    end,
   },
 })
 
 -- Use buffer source for `/` (if you enabled `native_menu`, this won't work anymore).
 cmp.setup.cmdline('/', {
   sources = {
+    { name = 'nvim_lsp_document_symbol' },
     { name = 'buffer' },
   },
 })
@@ -119,4 +135,16 @@ cmp.setup.cmdline(':', {
   }, {
     { name = 'cmdline' },
   }),
+})
+
+cmp.setup.filetype({ 'markdown', 'pandoc', 'text', 'latex' }, {
+  sources = {
+    { name = 'nvim_lsp_signature_help' },
+    { name = 'nvim_lsp' },
+    { name = 'luasnip' },
+    { name = 'path' },
+    { name = 'buffer' },
+    { name = 'dictionary', keyword_length = 2 },
+    { name = 'latex_symbols' },
+  },
 })

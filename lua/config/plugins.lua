@@ -170,6 +170,7 @@ return packer.startup(function(use)
       require('config.telescope')
     end,
   })
+
   use({
     'nvim-telescope/telescope-ui-select.nvim',
     config = function()
@@ -177,6 +178,7 @@ return packer.startup(function(use)
     end,
     requires = { { 'nvim-telescope/telescope.nvim', opt = true } },
   })
+
   use({
     'nvim-telescope/telescope-media-files.nvim',
     config = function()
@@ -184,6 +186,7 @@ return packer.startup(function(use)
     end,
     requires = { { 'nvim-telescope/telescope.nvim', opt = true } },
   })
+
   use({
     'nvim-telescope/telescope-dap.nvim',
     config = function()
@@ -229,6 +232,8 @@ return packer.startup(function(use)
       -- WARN: Unfortunately we won't be able to lazy load this
       {
         'hrsh7th/cmp-nvim-lsp',
+        'hrsh7th/cmp-nvim-lsp-signature-help',
+        'hrsh7th/cmp-nvim-lsp-document-symbol',
       },
     },
   })
@@ -244,13 +249,23 @@ return packer.startup(function(use)
     end,
   })
 
-  -- use({
-  -- 	"ThePrimeagen/refactoring.nvim",
-  -- 	requires = {
-  -- 		{ "nvim-lua/plenary.nvim" },
-  -- 		{ "nvim-treesitter/nvim-treesitter" },
-  -- 	},
-  -- })
+  use({
+    disable = true,
+    'ThePrimeagen/refactoring.nvim',
+    requires = {
+      { 'nvim-lua/plenary.nvim' },
+      { 'nvim-treesitter/nvim-treesitter' },
+    },
+  })
+
+  use({
+    'stevearc/aerial.nvim',
+    opt = true,
+    module = 'aerial',
+    config = function()
+      require('config.aerial')
+    end,
+  })
 
   use({
     'jose-elias-alvarez/nvim-lsp-ts-utils',
@@ -300,6 +315,8 @@ return packer.startup(function(use)
     },
     { 'hrsh7th/cmp-buffer' },
     { 'hrsh7th/cmp-path' },
+    { 'kdheepak/cmp-latex-symbols' },
+    { 'kdheepak/cmp-latex-symbols' },
     { 'hrsh7th/cmp-cmdline' }
   )
   use({ 'saadparwaiz1/cmp_luasnip' })

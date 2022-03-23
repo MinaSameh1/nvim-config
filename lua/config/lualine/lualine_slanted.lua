@@ -109,5 +109,6 @@ require('lualine').setup({
     'fugitive',
     'nvim-tree',
     'toggleterm',
+    'aerial',
   },
 })
