@@ -211,11 +211,7 @@ return packer.startup(function(use)
     'akinsho/bufferline.nvim',
     after = 'nvim-web-devicons',
     config = function()
-      require('bufferline').setup({
-        numbers = 'buffer_id',
-        diagnostics = 'nvim_lsp',
-        right_mouse_command = 'vertical sbuffer %d',
-      })
+      require('config.bufferline')
     end,
   })
   -- Linting among other things
@@ -326,7 +322,15 @@ return packer.startup(function(use)
     'ray-x/lsp_signature.nvim',
     after = 'nvim-lspconfig',
     config = function()
-      require('lsp_signature').setup({})
+      require('lsp_signature').setup({
+        bind = true,
+        handler_opts = {
+          border = 'rounded',
+        },
+        floating_window = true,
+        hint_enable = false, -- disable virtual text hint
+        hi_parameter = 'IncSearch', -- highlight group used to highlight the current parameter
+      })
     end,
   })
 

@@ -128,17 +128,6 @@ nnoremap('<leader>gg', '<Cmd>Git<CR>') -- fugitive Git window
 nnoremap('<leader>gc', '<Cmd>Git commit<CR>') -- Commit
 
 -- *******************************
--- *         BufferLine          *
--- *******************************
-nnoremap(']b', ':BufferLineCycleNext<CR>') -- Go right
-nnoremap('[b', ':BufferLineCyclePrev<CR>') -- Go left
-nnoremap(']B', ':BufferLineMoveNext<CR>') -- Move the buffer to the right
-nnoremap('[B', ':BufferLineMovePrev<CR>') -- Move the buffer to the left
-nnoremap('be', ':BufferLineSortByExtension<CR>') -- Sort buffer by Extension
-nnoremap('bd', ':BufferLineSortByDirectory<CR>') -- Sort buffer by Directory
-nnoremap('<leader>gb', ':BufferLinePick<CR>') -- Pick buffer
-
--- *******************************
 -- *         EasyAlign           *
 -- *******************************
 xmap('ga', '<Plug>(EasyAlign)') -- Start interactive EasyAlign in visual mode (e.g. vipga)
