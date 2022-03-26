@@ -90,7 +90,11 @@ function _G.edit_ft()
     -- selection aborted -> idx == nil
     if idx then
       vim.cmd(
-        'edit ' .. vim.fn.stdpath('config') .. '/lua/snippets/' .. item .. '.lua'
+        'edit '
+          .. vim.fn.stdpath('config')
+          .. '/lua/snippets/'
+          .. item
+          .. '.lua'
       )
     end
   end)
