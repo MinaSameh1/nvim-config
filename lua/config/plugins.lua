@@ -156,6 +156,12 @@ return packer.startup(function(use)
   })
 
   use({
+    'folke/which-key.nvim',
+    config = function()
+      require('which-key').setup({})
+    end,
+  })
+  use({
     'nvim-telescope/telescope.nvim',
     module = 'telescope',
     cmd = 'Telescope',
@@ -301,7 +307,6 @@ return packer.startup(function(use)
         {
           'L3MON4D3/LuaSnip',
           module = 'luasnip',
-          event = 'CursorHold',
           config = function()
             require('config.luasnip')
           end,

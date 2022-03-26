@@ -25,7 +25,7 @@ null_ls.setup({
 
     ---- Python
     null_ls.builtins.formatting.black.with({
-      extra_args = { '--line-length', '80' },
+      extra_args = { '--fast', '--line-length', '80' },
     }),
     -- null_ls.builtins.formatting.autopep8, Gonna try black
     null_ls.builtins.diagnostics.pydocstyle,
@@ -43,6 +43,7 @@ null_ls.setup({
           '~/.config/nvim/utils/linter-config/.prettier.config.js'
         ),
       },
+      extra_args = { '--no-semi', '--single-quote', '--jsx-single-quote' },
       prefer_local = 'node_modules/.bin',
     }),
     -- null_ls.builtins.formatting.eslint_d,
@@ -62,7 +63,7 @@ null_ls.setup({
 
     ---- General
     null_ls.builtins.diagnostics.write_good.with({
-      filetypes = { 'markdown', 'latex' },
+      filetypes = { 'markdown', 'latex', 'tex' },
     }),
     null_ls.builtins.diagnostics.yamllint,
     -- null_ls.builtins.diagnostics.php,
