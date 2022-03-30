@@ -61,6 +61,9 @@ null_ls.setup({
       -- diagnostics_format = "[#{c}] #{m} (#{s})",
     }),
 
+    ---- latex
+    null_ls.builtins.formatting.latexindent,
+
     ---- General
     null_ls.builtins.diagnostics.write_good.with({
       filetypes = { 'markdown', 'latex', 'tex' },
