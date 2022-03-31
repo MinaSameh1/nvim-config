@@ -1,5 +1,10 @@
-require('aerial').setup({
+-- aerial_ok, aerial = pcall(require, 'aerial')
+-- if aerial_ok then
+--   print('Aerial Error')
+--   return
+-- end
 
+require('aerial').setup({
   -- Mappings
   on_attach = function(bufnr)
     -- Toggle aerial window

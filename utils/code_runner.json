@@ -1,5 +1,6 @@
 {
   "java": "cd $dir && javac $fileName && java $fileNameWithoutExt",
+  "c": "gcc -o %:r -pedantic -Wall -O2 -g0 % && ./%:r",
   "python": "python -u",
   "tex": "pdflatex",
   "typescript": "tsc && node $dir/$fileNameWithoutExt.js",

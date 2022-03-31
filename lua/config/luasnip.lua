@@ -50,7 +50,7 @@ smap('<C-k>', '<CMD>lua require("luasnip").jump(-1)<CR>')
 -- Split up snippets by filetype, load on demand and reload after change
 -- Snippets for each filetype are saved as modules in ~/.config/nvim/lua/snippets/<filetype>.lua
 
--- Ref: https://github.com/L3MON4D3/LuaSnip/wiki/Nice-Configs#split-up-snippets-by-filetype-load-on-demand-and-reload-after-change-first-iteration
+-- -- Ref: https://github.com/L3MON4D3/LuaSnip/wiki/Nice-Configs#split-up-snippets-by-filetype-load-on-demand-and-reload-after-change-first-iteration
 function _G.snippets_load_files()
   for m, _ in pairs(ls.snippets) do
     package.loaded['snippets.' .. m] = nil
@@ -64,7 +64,7 @@ function _G.snippets_load_files()
       t[k] = ok and m or {}
 
       -- optionally load snippets from vscode- or snipmate-library:
-      -- require("luasnip.loaders.from_vscode").load({include={k}})
+      require("luasnip.loaders.from_vscode").load({include={k}})
       -- require("luasnip.loaders.from_snipmate").load({include={k}})
 
       return t[k]
