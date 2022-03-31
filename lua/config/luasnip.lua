@@ -64,7 +64,7 @@ function _G.snippets_load_files()
       t[k] = ok and m or {}
 
       -- optionally load snippets from vscode- or snipmate-library:
-      require("luasnip.loaders.from_vscode").load({include={k}})
+      require('luasnip.loaders.from_vscode').load({ include = { k } })
       -- require("luasnip.loaders.from_snipmate").load({include={k}})
 
       return t[k]
