@@ -22,4 +22,7 @@ Snip.fmta = require('luasnip.extras.fmt').fmta
 Snip.types = require('luasnip.util.types')
 Snip.conds = require('luasnip.extras.expand_conditions')
 
+function Snip.copy(args)
+  return args[1]
+end
 return Snip
