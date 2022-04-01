@@ -49,5 +49,9 @@ imap('<C-k>', '<CMD>lua require("luasnip").jump(-1)<CR>')
 smap('<C-k>', '<CMD>lua require("luasnip").jump(-1)<CR>')
 
 -- A command to edit the snippet file
-vim.cmd([[command! LuaSnipEdit :lua require("luasnip.loaders.from_lua").edit_snippet_files()]])
-require("luasnip.loaders.from_lua").lazy_load({paths = config .. '/lua/snippets' })
+vim.cmd(
+  [[command! LuaSnipEdit :lua require("luasnip.loaders.from_lua").edit_snippet_files()]]
+)
+require('luasnip.loaders.from_lua').lazy_load({
+  paths = config .. '/lua/snippets',
+})
