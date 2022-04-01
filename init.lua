@@ -18,7 +18,7 @@ local xmap = utils.xmap
 local cmap = utils.cmap
 local nnoremap = utils.nnoremap
 -- local inoremap = utils.inoremap
--- local vnoremap = utils.vnoremap
+local vnoremap = utils.vnoremap
 
 -- Test emote support: should be white skull 💀
 
@@ -72,9 +72,11 @@ vim.opt.swapfile = false -- whether to use a swapfile for a buffer
 vim.opt.hlsearch = false --  highlight matches with last search pattern
 vim.opt.laststatus = 3 -- global status line
 
--- Keybindings
+---- Keybindings
 nnoremap('<leader>fF', ':!prettier --write %<CR>') -- Format
 nnoremap('<F6>', ':!zathura %:r.pdf > /dev/null 2>&1 & <CR>') -- open file.pdf
+nnoremap('<leader>s', ':%s/') -- global substitute
+vnoremap('<leader>s', ':s/') -- global substitute
 nnoremap('<F10>', ':setlocal spell! <CR>') -- Toggles spell(Autocorrection)
 nnoremap('<Leader>w', ':w<CR>') -- Saves file
 nnoremap('<leader>/', ':noh <CR>') -- Stops highlighting
@@ -84,6 +86,7 @@ nnoremap('<leader>T', ':enew<CR>') -- open new buffer
 nmap('<leader>l', ':bnext<CR>') -- Move to the next buffer
 nmap('<leader>h', ':bprevious<CR>') -- Move to the previous buffer
 nmap('<leader>bq', ':bp <BAR> bd #<CR>') -- Close the current buffer and move to the previous one
+nmap('<leader>bQ', ':bp <BAR> bd! #<CR>') -- Close the current buffer and move to the previous one
 nmap('<leader>bl', ':ls<CR>') -- Show all open buffers and their status
 
 nmap('gx', ':!open <c-r><c-a><CR>') -- Opens anything under cursor (url or file)
