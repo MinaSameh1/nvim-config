@@ -38,7 +38,7 @@ return {
       date = s.f(function()
         return os.date('%D - %H:%M')
       end),
-      s.i(1)
+      s.i(1),
     })
   ),
 }
