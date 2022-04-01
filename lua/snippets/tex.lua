@@ -3,14 +3,14 @@ local Snip = require('snippets.shorthands')
 -- 'recursive' dynamic snippet. Expands to some text followed by itself.
 local rec_ls
 rec_ls = function()
-	return Snip.sn(
-		nil,
-		Snip.c(1, {
-			-- Order is important, sn(...) first would cause infinite loop of expansion.
-			Snip.t(""),
-			Snip.sn(nil, { t({ "", "\t\\item " }), i(1), d(2, rec_ls, {}) }),
-		})
-	)
+  return Snip.sn(
+    nil,
+    Snip.c(1, {
+      -- Order is important, sn(...) first would cause infinite loop of expansion.
+      Snip.t(''),
+      Snip.sn(nil, { t({ '', '\t\\item ' }), i(1), d(2, rec_ls, {}) }),
+    })
+  )
 end
 
 return {
