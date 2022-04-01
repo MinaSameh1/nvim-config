@@ -52,7 +52,7 @@ vim.opt.autoindent = true
 vim.opt.copyindent = true
 vim.opt.wrap = false -- lines wrap and continue on the next line
 
-vim.opt.undodir = vim.fn.stdpath('config') .. '/undodir' -- where to store undo files
+vim.opt.undodir = utils.config_location .. '/undodir' -- where to store undo files
 vim.opt.undofile = true -- save undo information in a file
 vim.opt.undolevels = 5000 -- maximum number of changes that can be undone
 
