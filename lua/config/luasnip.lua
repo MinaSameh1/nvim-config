@@ -1,6 +1,7 @@
 local types = require('luasnip.util.types')
 local ls = require('luasnip')
 local p = require('luasnip.extras').partial
+local config = require('config.utils').config_location
 
 ls.config.setup({
   history = true,
@@ -47,58 +48,6 @@ smap('<C-j>', '<CMD>lua require("luasnip").jump(1)<CR>')
 imap('<C-k>', '<CMD>lua require("luasnip").jump(-1)<CR>')
 smap('<C-k>', '<CMD>lua require("luasnip").jump(-1)<CR>')
 
--- Split up snippets by filetype, load on demand and reload after change
--- Snippets for each filetype are saved as modules in ~/.config/nvim/lua/snippets/<filetype>.lua
-
--- -- Ref: https://github.com/L3MON4D3/LuaSnip/wiki/Nice-Configs#split-up-snippets-by-filetype-load-on-demand-and-reload-after-change-first-iteration
-function _G.snippets_load_files()
-  for m, _ in pairs(ls.snippets) do
-    package.loaded['snippets.' .. m] = nil
-  end
-  ls.snippets = setmetatable({}, {
-    __index = function(t, k)
-      local ok, m = pcall(require, 'snippets.' .. k)
-      if not ok and not string.match(m, '^module.*not found:') then
-        error(m)
-      end
-      t[k] = ok and m or {}
-
-      -- optionally load snippets from vscode- or snipmate-library:
-      require('luasnip.loaders.from_vscode').load({ include = { k } })
-      -- require("luasnip.loaders.from_snipmate").load({include={k}})
-
-      return t[k]
-    end,
-  })
-end
-
-_G.snippets_load_files()
--- Reload after change
-vim.cmd([[
-  augroup snippets_clear
-  " autocmd!
-  autocmd BufWritePost ~/.config/nvim/lua/snippets/*.lua lua _G.snippets_load_files()
-  augroup END
-]])
-
-function _G.edit_ft()
-  -- returns table like {"lua", "all"}
-  local fts = require('luasnip.util.util').get_snippet_filetypes()
-  vim.ui.select(fts, {
-    prompt = 'Select which filetype to edit:',
-  }, function(item, idx)
-    -- selection aborted -> idx == nil
-    if idx then
-      vim.cmd(
-        'edit '
-          .. vim.fn.stdpath('config')
-          .. '/lua/snippets/'
-          .. item
-          .. '.lua'
-      )
-    end
-  end)
-end
-
 -- A command to edit the snippet file
-vim.cmd([[command! LuaSnipEdit :lua _G.edit_ft()]])
+vim.cmd([[command! LuaSnipEdit :lua require("luasnip.loaders.from_lua").edit_snippet_files()]])
+require("luasnip.loaders.from_lua").lazy_load({paths = config .. '/lua/snippets' })
