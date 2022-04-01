@@ -1,2 +1,2 @@
-local ls = require('snippets.shorthands').ls
+-- local L = require('snippets.shorthands')
 return {}

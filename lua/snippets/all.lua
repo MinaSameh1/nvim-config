@@ -1,4 +1,8 @@
-local ls = require('snippets.shorthands').ls
+local parse_snippet = require('snippets.shorthands').parse_snippet
 return {
-  ls.parser.parse_snippet('trig', 'loaded!!'),
+  parse_snippet('trig', 'loaded!!'),
+  parse_snippet(
+    { trig = 'ternary', wordTrig = false },
+    '${1:cond} ? ${2:true} : ${3:false}'
+  ),
 }

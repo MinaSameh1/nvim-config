@@ -2,6 +2,8 @@ local types = require('luasnip.util.types')
 local ls = require('luasnip')
 local p = require('luasnip.extras').partial
 local config = require('config.utils').config_location
+local smap = require('config.utils').imap
+local imap = require('config.utils').smap
 
 ls.config.setup({
   history = true,
@@ -40,13 +42,20 @@ ls.snippets = {
 require('luasnip.loaders.from_vscode').lazy_load()
 
 -- Mappins to move around inside snippets
-local smap = require('config.utils').imap
-local imap = require('config.utils').smap
-
 imap('<C-j>', '<CMD>lua require("luasnip").jump(1)<CR>')
 smap('<C-j>', '<CMD>lua require("luasnip").jump(1)<CR>')
 imap('<C-k>', '<CMD>lua require("luasnip").jump(-1)<CR>')
 smap('<C-k>', '<CMD>lua require("luasnip").jump(-1)<CR>')
+vim.keymap.set({ 'i', 's' }, '<C-l>', function()
+  if ls.choice_active() then
+    ls.change_choice(1)
+  end
+end)
+vim.keymap.set({ 'i', 's' }, '<C-h>', function()
+  if ls.choice_active() then
+    ls.change_choice(-1)
+  end
+end)
 
 -- A command to edit the snippet file
 vim.cmd(
