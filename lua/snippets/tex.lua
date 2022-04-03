@@ -1,30 +1,62 @@
-local Snip = require('snippets.shorthands')
+local s = require('snippets.shorthands')
 
 -- 'recursive' dynamic snippet. Expands to some text followed by itself.
-local rec_ls
+local rec_ls = {}
 rec_ls = function()
-  return Snip.sn(
+  return s.sn(
     nil,
-    Snip.c(1, {
+    s.c(1, {
       -- Order is important, sn(...) first would cause infinite loop of expansion.
-      Snip.t(''),
-      Snip.sn(nil, { t({ '', '\t\\item ' }), i(1), d(2, rec_ls, {}) }),
+      s.t(''),
+      s.sn(nil, { s.t({ '', '\t\\item ' }), s.i(1), s.d(2, rec_ls, {}) }),
     })
   )
 end
 
 return {
-  {
-    -- rec_ls is self-referencing. That makes this snippet 'infinite' eg. have as many
-    -- \item as necessary by utilizing a choiceNode.
-    Snip.s('ls', {
-      Snip.t({ '\\begin{itemize}', '\t\\item ' }),
-      Snip.i(1),
-      Snip.d(2, rec_ls, {}),
-      Snip.t({ '', '\\end{itemize}' }),
-    }),
-  },
-  {
-    key = 'tex',
-  },
+  -- rec_ls is self-referencing. That makes this snippet 'infinite' eg. have as many
+  -- \item as necessary by utilizing a choiceNode.
+  s.s('ls', {
+    s.t({ '\\begin{itemize}', '\t\\item ' }),
+    s.i(1),
+    s.d(2, rec_ls, {}),
+    s.t({ '', '\\end{itemize}' }),
+  }),
+  s.s(
+    'gather',
+    s.fmt(
+      [[
+    \begin{{gather*}}
+    {}
+    \end{{gather*}}
+    ]],
+      {
+        s.i(1),
+      }
+    )
+  ),
+  s.s(
+    'gather',
+    s.fmt(
+      [[
+    \begin{{bmatrix}}
+    {}
+    \end{{bmatrix}}
+    ]],
+      {
+        s.i(1),
+      }
+    )
+  ),
+  s.s('ff', {
+    s.t('\\frac{'),
+    s.i(1, 'first'),
+    s.t('}{'),
+    s.i(2, 'second'),
+    s.t('}'),
+  }, {
+    condition = function()
+      return vim.api.nvim_eval('vimtex#syntax#in_mathzone()') or 0
+    end,
+  }),
 }
