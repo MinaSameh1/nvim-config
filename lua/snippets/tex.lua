@@ -36,6 +36,29 @@ return {
     )
   ),
   s.s(
+    'hr',
+    s.fmt(
+      [[
+    \href{{{}}}{{{}}}
+    ]],
+      {
+        s.i(1, 'Link(Require hyperref package)'),
+        s.i(2, 'display name'),
+      }
+    )
+  ),
+  s.s(
+    'vskip',
+    s.fmt(
+      [[
+  \noalign{{\vskip{}pt}}
+  ]],
+      {
+        s.i(1, '10'),
+      }
+    )
+  ),
+  s.s(
     'gather',
     s.fmt(
       [[
@@ -56,7 +79,7 @@ return {
     s.t('}'),
   }, {
     condition = function()
-      return vim.api.nvim_eval('vimtex#syntax#in_mathzone()') or 0
+      return vim.api.nvim_eval('vimtex#syntax#in_mathzone()') == 1
     end,
   }),
 }
