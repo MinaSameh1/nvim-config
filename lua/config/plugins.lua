@@ -418,9 +418,8 @@ return packer.startup(function(use)
   })
   use({ 'tpope/vim-fugitive' })
   -- Latex stuff
-  use({
+  use({ -- NOTE: We don't need to lazy load this, it lazy loads itself.
     'lervag/vimtex',
-    ft = { 'tex', 'latex' },
   })
   -- Syntax and languages
   -- Syntax highlighting
