@@ -81,7 +81,7 @@ return packer.startup(function(use)
   use({ -- Split screen management
     'beauwilliams/focus.nvim',
     module = 'focus',
-    cmd = { "FocusSplitNicely", "FocusSplitCycle" },
+    cmd = { 'FocusSplitNicely', 'FocusSplitCycle' },
     -- event = { 'BufRead', 'BufNewFile', 'WinEnter', 'BufWinEnter' },
     config = function()
       require('focus').setup({

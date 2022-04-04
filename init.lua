@@ -168,7 +168,12 @@ vim.g.dashboard_default_executive = 'telescope' -- Use telescope
 -- ********************************
 -- *         Focus                *
 -- ********************************
-vim.api.nvim_set_keymap('n', '<leader>S', ":FocusSplitNicely<CR>", { silent = true })
+vim.api.nvim_set_keymap(
+  'n',
+  '<leader>S',
+  ':FocusSplitNicely<CR>',
+  { silent = true }
+)
 -- **********************************
 -- *         Vim Commands           *
 -- **********************************
