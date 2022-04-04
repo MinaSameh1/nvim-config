@@ -63,7 +63,7 @@ local defaut = {
     'dashboard',
     'fugitive',
   },
-  auto_close = true,
+  -- auto_close = true,  -- Deprecated.
   open_on_tab = false,
   update_cwd = true,
   update_to_buf_dir = {

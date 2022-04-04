@@ -81,7 +81,8 @@ return packer.startup(function(use)
   use({ -- Split screen management
     'beauwilliams/focus.nvim',
     module = 'focus',
-    event = { 'BufRead', 'BufNewFile', 'WinEnter', 'BufWinEnter' },
+    cmd = { "FocusSplitNicely", "FocusSplitCycle" },
+    -- event = { 'BufRead', 'BufNewFile', 'WinEnter', 'BufWinEnter' },
     config = function()
       require('focus').setup({
         excludeded_filetypes = {
@@ -93,6 +94,7 @@ return packer.startup(function(use)
           'dap-repl',
         },
         excludeded_buftypes = { 'help', 'nofile', 'prompt', 'popup' },
+        hybridnumber = true,
         treewith = 30,
         minwidth = 20,
       })
@@ -425,7 +427,7 @@ return packer.startup(function(use)
   -- Syntax highlighting
   use({
     'nvim-treesitter/nvim-treesitter',
-    event = 'CursorHold',
+    event = 'BufRead',
     run = ':TSUpdate',
     config = function()
       require('config.treesitter')
@@ -454,9 +456,28 @@ return packer.startup(function(use)
     event = 'InsertCharPre',
     after = 'nvim-treesitter',
     config = function()
-      require('nvim-ts-autotag').setup({})
+      require('nvim-ts-autotag').setup({
+        filetypes = {
+          'html',
+          'javascript',
+          'typescript',
+          'javascriptreact',
+          'typescriptreact',
+          'svelte',
+          'vue',
+          'tsx',
+          'jsx',
+          'rescript',
+          'xml',
+          'php',
+          'markdown',
+          'glimmer',
+          'handlebars',
+          'hbs',
+        },
+      })
     end,
-    requires = { { 'nvim-treesitter' } },
+    requires = { { 'nvim-treesitter', opt = true } },
   })
 
   use({ -- pairs and autocloses and can surrond stuff too!
