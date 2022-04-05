@@ -19,7 +19,6 @@ local cmap = utils.cmap
 local nnoremap = utils.nnoremap
 -- local inoremap = utils.inoremap
 local vnoremap = utils.vnoremap
-
 -- Test emote support: should be white skull 💀
 
 -- Vim options
@@ -110,6 +109,12 @@ vim.g.loaded_netrwPlugin = 1
 vim.g.loaded_matchit = 1
 vim.g.loaded_matchparen = 1
 vim.g.loaded_spec = 1
+
+-- Distinguish between Ctrl-i and Tab when using kitty
+if vim.env.TERM == 'xterm-kitty' then
+  vim.cmd([[autocmd UIEnter * if v:event.chan ==# 0 | call chansend(v:stderr, "\x1b[>1u") | endif]])
+  vim.cmd([[autocmd UILeave * if v:event.chan ==# 0 | call chansend(v:stderr, "\x1b[<1u") | endif]])
+end
 
 --[[
 -- ****************************
