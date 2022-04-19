@@ -22,6 +22,12 @@ return {
     s.d(2, rec_ls, {}),
     s.t({ '', '\\end{itemize}' }),
   }),
+  s.s('lls', {
+    s.t({ '\\begin{enumerate}', '\t\\item ' }),
+    s.i(1),
+    s.d(2, rec_ls, {}),
+    s.t({ '', '\\end{enumerate}' }),
+  }),
   s.s(
     'gather',
     s.fmt(
@@ -82,4 +88,7 @@ return {
       return vim.api.nvim_eval('vimtex#syntax#in_mathzone()') == 1
     end,
   }),
+  s.s('rar', { s.t('$\\rightarrow$') }),
+  s.s('bf', { s.t('\\textbf{'), s.i(1, 'bold'), s.t('}') }),
+  s.s('tt', { s.t('\\texttt{'), s.i(1, 'bold'), s.t('}') }),
 }
