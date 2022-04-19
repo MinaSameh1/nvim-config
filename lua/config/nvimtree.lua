@@ -11,7 +11,8 @@ if not config_status_ok then
   return
 end
 
-vim.g.nvim_tree_indent_markers = 1
+-- WARN: These options are Deprecated
+-- vim.g.nvim_tree_indent_markers = 1
 -- vim.g.nvim_tree_disable_window_picker = 1
 vim.g.nvim_tree_show_icons = {
   git = 1,
@@ -141,6 +142,16 @@ local defaut = {
   nvim_tree_window_picker_exclude = {
     filetype = { 'fugitive', 'packer', 'qf' },
     buftype = { 'terminal' },
+  },
+  render = {
+    indent_markers = {
+      enable = true,
+      icons = {
+        corner = '└ ',
+        edge = '│ ',
+        none = '  ',
+      },
+    },
   },
 }
 
