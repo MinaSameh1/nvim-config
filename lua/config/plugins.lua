@@ -265,7 +265,7 @@ return packer.startup(function(use)
   use({
     disable = true,
     'nvim-treesitter/playground',
-    cmd = "TSPlaygroundToggle",
+    cmd = 'TSPlaygroundToggle',
     requires = {
       { 'nvim-treesitter/nvim-treesitter' },
     },
