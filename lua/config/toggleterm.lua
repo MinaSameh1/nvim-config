@@ -71,7 +71,7 @@ function _HTOP_TOGGLE()
 end
 
 local python = Terminal:new({
-  cmd = 'python',
+  cmd = 'ipython',
   hidden = true,
   direction = 'float',
 })
