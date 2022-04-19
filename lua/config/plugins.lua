@@ -65,7 +65,7 @@ return packer.startup(function(use)
     'tpope/vim-surround',
     event = 'BufRead',
     requires = {
-      { 'tpope/vim-repeat', event = 'BufRead' },  -- Repeats plugins with . as well
+      { 'tpope/vim-repeat', event = 'BufRead' }, -- Repeats plugins with . as well
     },
   })
 
@@ -124,7 +124,7 @@ return packer.startup(function(use)
   })
   use({ -- Terminal
     'akinsho/toggleterm.nvim',
-    event = { 'VimEnter', 'GuiEnter' },
+    event = 'CursorHold',
     config = function()
       require('config.toggleterm')
     end,
@@ -179,43 +179,45 @@ return packer.startup(function(use)
     end,
   })
   use({
-    'nvim-telescope/telescope.nvim',
-    module = 'telescope',
-    cmd = 'Telescope',
-    -- keys = {
-    --   { 'n', '<Leader>fg' },
-    --   { 'n', '<Leader>tc' },
-    --   { 'n', '<Leader>ff' },
-    --   { 'n', '<Leader>fh' },
-    -- },
-    requires = { { 'nvim-lua/plenary.nvim', opt = true } },
-    config = function()
-      require('config.telescope')
-    end,
-  })
-
-  use({
-    'nvim-telescope/telescope-ui-select.nvim',
-    config = function()
-      require('telescope').load_extension('ui-select')
-    end,
-    requires = { { 'nvim-telescope/telescope.nvim', opt = true } },
-  })
-
-  use({
-    'nvim-telescope/telescope-media-files.nvim',
-    config = function()
-      require('telescope').load_extension('media_files')
-    end,
-    requires = { { 'nvim-telescope/telescope.nvim', opt = true } },
-  })
-
-  use({
-    'nvim-telescope/telescope-dap.nvim',
-    config = function()
-      require('telescope').load_extension('dap')
-    end,
-    requires = { { 'nvim-telescope/telescope.nvim', opt = true } },
+    {
+      'nvim-telescope/telescope.nvim',
+      module = 'telescope',
+      cmd = 'Telescope',
+      -- keys = {
+      --   { 'n', '<Leader>fg' },
+      --   { 'n', '<Leader>tc' },
+      --   { 'n', '<Leader>ff' },
+      --   { 'n', '<Leader>fh' },
+      -- },
+      requires = { { 'nvim-lua/plenary.nvim', opt = true } },
+      config = function()
+        require('config.telescope')
+      end,
+    },
+    {
+      'nvim-telescope/telescope-ui-select.nvim',
+      after = 'telescope.nvim',
+      config = function()
+        require('telescope').load_extension('ui-select')
+      end,
+      requires = { { 'nvim-telescope/telescope.nvim' } },
+    },
+    {
+      'nvim-telescope/telescope-media-files.nvim',
+      after = 'telescope.nvim',
+      config = function()
+        require('telescope').load_extension('media_files')
+      end,
+      requires = { { 'nvim-telescope/telescope.nvim' } },
+    },
+    {
+      'nvim-telescope/telescope-dap.nvim',
+      after = 'telescope.nvim',
+      config = function()
+        require('telescope').load_extension('dap')
+      end,
+      requires = { { 'nvim-telescope/telescope.nvim' } },
+    },
   })
 
   -- Emmet for html
@@ -486,7 +488,7 @@ return packer.startup(function(use)
 
   use({ -- comments using gc
     'numToStr/Comment.nvim',
-    after = 'nvim-treesitter',
+    event = 'BufRead',
     config = function()
       require('Comment').setup()
     end,
