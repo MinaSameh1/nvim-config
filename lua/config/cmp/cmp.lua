@@ -18,126 +18,6 @@ local check_backspace = function()
   return col == 0 or vim.fn.getline('.'):sub(col, col):match('%s')
 end
 
-local has_words_before = function()
-  local line, col = unpack(vim.api.nvim_win_get_cursor(0))
-  return col ~= 0
-    and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]
-        :sub(col, col)
-        :match('%s')
-      == nil
-end
-
-local function jumpable(dir)
-  local win_get_cursor = vim.api.nvim_win_get_cursor
-  local get_current_buf = vim.api.nvim_get_current_buf
-
-  local function inside_snippet()
-    -- for outdated versions of luasnip
-    if not luasnip.session.current_nodes then
-      return false
-    end
-
-    local node = luasnip.session.current_nodes[get_current_buf()]
-    if not node then
-      return false
-    end
-
-    local snip_begin_pos, snip_end_pos =
-      node.parent.snippet.mark:pos_begin_end()
-    local pos = win_get_cursor(0)
-    pos[1] = pos[1] - 1 -- LuaSnip is 0-based not 1-based like nvim for rows
-    return pos[1] >= snip_begin_pos[1] and pos[1] <= snip_end_pos[1]
-  end
-
-  ---sets the current buffer's luasnip to the one nearest the cursor
-  ---@return boolean true if a node is found, false otherwise
-  local function seek_luasnip_cursor_node()
-    -- for outdated versions of luasnip
-    if not luasnip.session.current_nodes then
-      return false
-    end
-
-    local pos = win_get_cursor(0)
-    pos[1] = pos[1] - 1
-    local node = luasnip.session.current_nodes[get_current_buf()]
-    if not node then
-      return false
-    end
-
-    local snippet = node.parent.snippet
-    local exit_node = snippet.insert_nodes[0]
-
-    -- exit early if we're past the exit node
-    if exit_node then
-      local exit_pos_end = exit_node.mark:pos_end()
-      if
-        (pos[1] > exit_pos_end[1])
-        or (pos[1] == exit_pos_end[1] and pos[2] > exit_pos_end[2])
-      then
-        snippet:remove_from_jumplist()
-        luasnip.session.current_nodes[get_current_buf()] = nil
-
-        return false
-      end
-    end
-
-    node = snippet.inner_first:jump_into(1, true)
-    while node ~= nil and node.next ~= nil and node ~= snippet do
-      local n_next = node.next
-      local next_pos = n_next and n_next.mark:pos_begin()
-      local candidate = n_next ~= snippet
-          and next_pos
-          and (pos[1] < next_pos[1])
-        or (pos[1] == next_pos[1] and pos[2] < next_pos[2])
-
-      -- Past unmarked exit node, exit early
-      if n_next == nil or n_next == snippet.next then
-        snippet:remove_from_jumplist()
-        luasnip.session.current_nodes[get_current_buf()] = nil
-
-        return false
-      end
-
-      if candidate then
-        luasnip.session.current_nodes[get_current_buf()] = node
-        return true
-      end
-
-      local ok
-      ok, node = pcall(node.jump_from, node, 1, true) -- no_move until last stop
-      if not ok then
-        snippet:remove_from_jumplist()
-        luasnip.session.current_nodes[get_current_buf()] = nil
-
-        return false
-      end
-    end
-
-    -- No candidate, but have an exit node
-    if exit_node then
-      if cmp.visible() then
-        return false
-      end
-      -- to jump to the exit node, seek to snippet
-      luasnip.session.current_nodes[get_current_buf()] = snippet
-      return true
-    end
-
-    -- No exit node, exit from snippet
-    snippet:remove_from_jumplist()
-    luasnip.session.current_nodes[get_current_buf()] = nil
-    return false
-  end
-
-  if dir == -1 then
-    return inside_snippet() and luasnip.jumpable(-1)
-  else
-    return inside_snippet()
-      and seek_luasnip_cursor_node()
-      and luasnip.jumpable()
-  end
-end
-
 local signs = {
   { name = 'DiagnosticSignError', text = '' },
   { name = 'DiagnosticSignWarn', text = '' },
@@ -164,43 +44,45 @@ cmp.setup({
       -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
       select = true,
     }),
-    ['<Tab>'] = cmp.mapping(function(fallback)
-      if luasnip.expandable() then
-        luasnip.expand()
-      elseif jumpable() then
-        luasnip.jump(1)
-      elseif cmp.visible() then
-        cmp.confirm({ select = true })
-      elseif has_words_before() then
-        cmp.complete()
-      elseif check_backspace() then
-        fallback()
+    ['<C-n>'] = cmp.mapping(function(fallback)
+      if cmp.visible() then
+        cmp.select_next_item()
       else
         fallback()
       end
-    end, {
-      'i',
-      's',
-    }),
-    ['<S-Tab>'] = cmp.mapping(function(fallback)
-      if jumpable(-1) then
-        luasnip.jump(-1)
-      elseif cmp.visible() then
+    end, { 'i', 's' }),
+    ['<C-p>'] = cmp.mapping(function(fallback)
+      if cmp.visible() then
         cmp.select_prev_item()
       else
         fallback()
       end
-    end, {
-      'i',
-      's',
-    }),
+    end, { 'i', 's' }),
+    ['<Tab>'] = cmp.mapping(function(fallback)
+      if cmp.visible() then
+        cmp.select_next_item()
+      elseif luasnip.expand_or_jumpable() then
+        luasnip.expand_or_jump()
+      else
+        fallback()
+      end
+    end, { 'i', 's' }),
+    ['<S-Tab>'] = cmp.mapping(function(fallback)
+      if cmp.visible() then
+        cmp.select_prev_item()
+      elseif luasnip.jumpable(-1) then
+        luasnip.jump(-1)
+      else
+        fallback()
+      end
+    end, { 'i', 's' }),
   },
   sources = {
     { name = 'nvim_lsp' },
     { name = 'luasnip' }, -- For luasnip users.
     -- { name = 'ultisnips' }, -- For ultisnips users.
-    { name = 'buffer' },
-    { name = 'path' },
+    { name = 'buffer', max_item_count = 10 },
+    { name = 'path', max_item_count = 10 },
     { name = 'cmdline' },
   },
   signs = {
@@ -226,15 +108,15 @@ cmp.setup({
       })(entry, vim_item)
 
       local alias = {
-        buffer = 'Buf',
-        path = 'Path',
+        buffer = '[Buf]',
+        path = '[Path]',
         nvim_lsp = '[LSP]',
-        luasnip = 'LuaSnip',
-        ultisnips = 'UltiSnips',
-        nvim_lua = 'Lua',
-        tmux = 'tmux',
-        latex_symbols = 'Latex',
-        nvim_lsp_signature_help = 'LSP Signature',
+        luasnip = '[LuaSnip]',
+        ultisnips = '[UltiSnips]',
+        nvim_lua = '[Lua]',
+        tmux = '[tmux]',
+        latex_symbols = '[Latex]',
+        nvim_lsp_signature_help = '[LSP Signature]',
       }
 
       if entry.source.name == 'nvim_lsp' then
@@ -256,6 +138,7 @@ cmp.setup.cmdline('/', {
 
 -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
 cmp.setup.cmdline(':', {
+  mapping = cmp.mapping.preset.cmdline(),
   sources = cmp.config.sources(
     -- {
     --   { name = 'path' },
