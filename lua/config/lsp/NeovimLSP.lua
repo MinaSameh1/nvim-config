@@ -2,7 +2,7 @@ local mapOpts = { noremap = true, silent = true }
 
 local function lsp_highlight_document(client)
   -- Set autocommands conditional on server_capabilities
-  if client.resolved_capabilities.document_highlight then
+  if client.server_capabilities.documentFormattingProvider then
     vim.api.nvim_exec(
       [[
       augroup lsp_document_highlight
@@ -58,7 +58,7 @@ local on_attach = function(client, bufnr)
   if client.name == 'tsserver' then
     local ts_utils = require('config.lsp.tsutils')
     ts_utils.setup_client(client)
-    client.resolved_capabilities.document_formatting = false -- I use prettier for now :)
+    client.server_capabilities.documentFormattingProvider = false -- I use prettier for now :)
   end
   -- Mappings.
   -- See `:help vim.lsp.*` for documentation on any of the below functions
@@ -170,12 +170,12 @@ local on_attach = function(client, bufnr)
   " autocmd CursorHold,CursorHoldI * lua vim.diagnostic.open_float(nil, {focus=false})
   " For diagnostics for specific cursor position
   autocmd CursorHold,CursorHoldI * lua vim.diagnostic.open_float(nil, {focus=false, scope="cursor", border="rounded"})
-	" Adds the commands to nvim
+  " Adds the commands to nvim
   command! LspCodeAction execute 'lua vim.lsp.buf.code_action()'
   command! LspFormat execute 'lua vim.lsp.buf.formatting()'
   ]])
   -- AutoFormat on save
-  if client.resolved_capabilities.document_formatting then
+  if client.server_capabilities.documentFormattingProvider then
     vim.cmd([[
       augroup lsp_format_on_save
       autocmd! * <buffer>
@@ -184,10 +184,10 @@ local on_attach = function(client, bufnr)
       ]])
   end
 
-  -- Enable completion triggered by <c-x><c-o>
-  buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
   -- Highlight used words
   lsp_highlight_document(client)
+  -- Enable completion triggered by <c-x><c-o>
+  buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
 end
 
 -- Use a loop to conveniently call 'setup' on multiple servers and
@@ -291,7 +291,7 @@ lsp_installer.on_server_ready(function(server)
     )
   end
 
-  lsp_installer.capabilities = require('cmp_nvim_lsp').update_capabilities(
+  opts.capabilities = require('cmp_nvim_lsp').update_capabilities(
     opts.capabilities
   )
 
