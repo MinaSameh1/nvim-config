@@ -6,7 +6,7 @@ end
 require('nvim-treesitter.install').compilers = { 'clang' }
 
 configs.setup({
-  ensure_installed = 'maintained', -- one of "all", "maintained" (parsers with maintainers), or a list of languages
+  ensure_installed = 'all', -- one of "all" or table of parsers.
   sync_install = false, -- install languages synchronously (only applied to `ensure_installed`)
   ignore_install = { '' }, -- List of parsers to ignore installing
   highlight = {

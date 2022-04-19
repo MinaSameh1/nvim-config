@@ -64,20 +64,35 @@ return packer.startup(function(use)
   use({ -- use ysiw for example i guess
     'tpope/vim-surround',
     event = 'BufRead',
-    requires = { { 'tpope/vim-repeat', event = 'BufRead' } },
+    requires = {
+      { 'tpope/vim-repeat', event = 'BufRead' },  -- Repeats plugins with . as well
+    },
   })
-  use({ -- Repeats plugins with . as well
-    'tpope/vim-repeat',
-    event = 'BufRead',
-  })
+
   use({
-    'nvim-lualine/lualine.nvim', -- Status line
-    after = 'nvim-web-devicons',
-    requires = { 'kyazdani42/nvim-web-devicons', opt = true },
-    config = function()
-      require('config.lualine.lualine_slanted')
-    end,
+    {
+      'nvim-lualine/lualine.nvim', -- Status line
+      event = 'BufEnter',
+      requires = { 'kyazdani42/nvim-web-devicons', opt = true },
+      config = function()
+        require('config.lualine.lualine_slanted')
+      end,
+    },
+    { -- Shows LSP progress
+      'j-hui/fidget.nvim',
+      after = 'lualine.nvim',
+      config = function()
+        require('fidget').setup({
+          sources = {
+            ['null-ls'] = {
+              ignore = true,
+            },
+          },
+        })
+      end,
+    },
   })
+
   use({ -- Split screen management
     'beauwilliams/focus.nvim',
     module = 'focus',
@@ -227,7 +242,7 @@ return packer.startup(function(use)
   use({
     'neovim/nvim-lspconfig',
     module = 'lspconfig',
-    event = { 'BufRead', 'BufNewFile' },
+    event = { 'BufRead' },
     cmd = 'LspInfo',
     config = function()
       require('config.lsp.NeovimLSP')
@@ -236,8 +251,6 @@ return packer.startup(function(use)
       -- WARN: Unfortunately we won't be able to lazy load this
       {
         'hrsh7th/cmp-nvim-lsp',
-        'hrsh7th/cmp-nvim-lsp-signature-help',
-        'hrsh7th/cmp-nvim-lsp-document-symbol',
       },
     },
   })
@@ -258,15 +271,6 @@ return packer.startup(function(use)
     'ThePrimeagen/refactoring.nvim',
     requires = {
       { 'nvim-lua/plenary.nvim' },
-      { 'nvim-treesitter/nvim-treesitter' },
-    },
-  })
-
-  use({
-    disable = true,
-    'nvim-treesitter/playground',
-    cmd = 'TSPlaygroundToggle',
-    requires = {
       { 'nvim-treesitter/nvim-treesitter' },
     },
   })
@@ -308,15 +312,17 @@ return packer.startup(function(use)
   --   { 'honza/vim-snippets', after = 'ultisnips' }
   -- )
 
-  use(
+  use({
     {
       'hrsh7th/nvim-cmp',
+      event = 'InsertEnter',
       config = function()
         require('config.cmp.cmp')
       end,
       requires = {
         {
           'L3MON4D3/LuaSnip',
+          event = 'CursorHold',
           module = 'luasnip',
           config = function()
             require('config.luasnip')
@@ -325,13 +331,12 @@ return packer.startup(function(use)
         },
       },
     },
-    { 'hrsh7th/cmp-buffer' },
-    { 'hrsh7th/cmp-path' },
-    { 'kdheepak/cmp-latex-symbols' },
-    { 'kdheepak/cmp-latex-symbols' },
-    { 'hrsh7th/cmp-cmdline' }
-  )
-  use({ 'saadparwaiz1/cmp_luasnip' })
+    { 'hrsh7th/cmp-buffer', after = 'nvim-cmp' },
+    { 'hrsh7th/cmp-path', after = 'nvim-cmp' },
+    { 'hrsh7th/cmp-cmdline', after = 'nvim-cmp' },
+    { 'kdheepak/cmp-latex-symbols', after = 'nvim-cmp' },
+    { 'saadparwaiz1/cmp_luasnip', after = 'nvim-cmp' },
+  })
 
   use({ 'onsails/lspkind-nvim', module = 'lspkind' }) -- Icons for autocomplete, you can never have enough.
   use({
@@ -435,12 +440,48 @@ return packer.startup(function(use)
   -- Syntax and languages
   -- Syntax highlighting
   use({
-    'nvim-treesitter/nvim-treesitter',
-    event = 'BufRead',
-    run = ':TSUpdate',
-    config = function()
-      require('config.treesitter')
-    end,
+    {
+      'nvim-treesitter/nvim-treesitter',
+      event = 'CursorHold',
+      run = ':TSUpdate',
+      config = function()
+        require('config.treesitter')
+      end,
+    },
+    { 'nvim-treesitter/playground', after = 'nvim-treesitter' },
+    { -- Auto close tags
+      'windwp/nvim-ts-autotag',
+      after = 'nvim-treesitter',
+      config = function()
+        require('nvim-ts-autotag').setup({
+          filetypes = {
+            'html',
+            'javascript',
+            'typescript',
+            'javascriptreact',
+            'typescriptreact',
+            'svelte',
+            'vue',
+            'tsx',
+            'jsx',
+            'rescript',
+            'xml',
+            'php',
+            'markdown',
+            'glimmer',
+            'handlebars',
+            'hbs',
+          },
+        })
+      end,
+    },
+    {
+      'JoosepAlviste/nvim-ts-context-commentstring',
+      after = 'nvim-treesitter',
+      config = function()
+        require('config.comments')
+      end,
+    },
   })
 
   use({ -- comments using gc
@@ -451,47 +492,9 @@ return packer.startup(function(use)
     end,
   })
 
-  use({
-    'JoosepAlviste/nvim-ts-context-commentstring',
-    after = 'nvim-treesitter',
-    requires = { { 'numToStr/Comment.nvim' } },
-    config = function()
-      require('config.comments')
-    end,
-  })
-
-  use({ -- Auto close tags
-    'windwp/nvim-ts-autotag',
-    event = 'InsertCharPre',
-    after = 'nvim-treesitter',
-    config = function()
-      require('nvim-ts-autotag').setup({
-        filetypes = {
-          'html',
-          'javascript',
-          'typescript',
-          'javascriptreact',
-          'typescriptreact',
-          'svelte',
-          'vue',
-          'tsx',
-          'jsx',
-          'rescript',
-          'xml',
-          'php',
-          'markdown',
-          'glimmer',
-          'handlebars',
-          'hbs',
-        },
-      })
-    end,
-    requires = { { 'nvim-treesitter', opt = true } },
-  })
-
   use({ -- pairs and autocloses and can surrond stuff too!
     'windwp/nvim-autopairs',
-    after = 'nvim-cmp',
+    after = 'nvim-cmp', -- Must be Loaded after nvim-cmp
     event = 'InsertCharPre',
     config = function()
       require('config.autopairs')
@@ -531,20 +534,6 @@ return packer.startup(function(use)
     ft = { 'rust' },
   })
 
-  use({ -- Shows LSP progress
-    'j-hui/fidget.nvim',
-    after = 'nvim-lspconfig',
-    config = function()
-      require('fidget').setup({
-        sources = {
-          ['null-ls'] = {
-            ignore = true,
-          },
-        },
-      })
-    end,
-  })
-
   -- use({ -- For now use prettier tailwind
   -- 	"steelsojka/headwind.nvim",
   -- 	ft = { "css", "typescriptreact" },
@@ -567,7 +556,7 @@ return packer.startup(function(use)
   -- heighlights Colors with their color xd
   use({
     'norcalli/nvim-colorizer.lua',
-    event = 'BufRead',
+    event = 'CursorHold',
     config = function()
       require('colorizer').setup()
     end,
