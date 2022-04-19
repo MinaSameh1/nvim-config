@@ -65,9 +65,9 @@ configs.setup({
   --     ['<cr>'] = 'textsubjects-smart', -- works in visual mode
   --   },
   -- },
-  -- playground = {
-  --   enable = true,
-  -- },
+  playground = {
+    enable = true,
+  },
 })
 
 -- Folding

@@ -333,7 +333,9 @@ local local_config = require('config.dap.dap_workspace_config')
 local_config.init()
 
 -- Dap ui
-require('dapui').setup({
+local dapui = require('dapui')
+
+dapui.setup({
   icons = { expanded = '▾', collapsed = '▸' },
   mappings = {
     -- Use a table to apply multiple mappings
@@ -349,14 +351,14 @@ require('dapui').setup({
       -- Provide as ID strings or tables with "id" and "size" keys
       {
         id = 'scopes',
-        size = 0.25, -- Can be float or integer > 1
+        size = 0.60, -- Can be float or integer > 1
       },
-      { id = 'breakpoints', size = 0.25 },
-      { id = 'stacks', size = 0.25 },
-      { id = 'watches', size = 00.25 },
+      { id = 'breakpoints', size = 0.20 },
+      { id = 'stacks', size = 0.15 },
+      { id = 'watches', size = 00.05 },
     },
     size = 25,
-    position = 'left', -- Can be "left", "right", "top", "bottom"
+    position = 'right', -- Can be "left", "right", "top", "bottom"
   },
   tray = {
     elements = { 'repl' },
@@ -366,7 +368,7 @@ require('dapui').setup({
   floating = {
     max_height = nil, -- These can be integers or a float between 0 and 1.
     max_width = nil, -- Floats will be treated as percentage of your screen.
-    border = 'single', -- Border style. Can be "single", "double" or "rounded"
+    border = 'rounded', -- Border style. Can be "single", "double" or "rounded"
     mappings = {
       close = { 'q', '<Esc>' },
     },
@@ -374,7 +376,6 @@ require('dapui').setup({
   windows = { indent = 1 },
 })
 
-local dapui = require('dapui')
 dap.listeners.after.event_initialized['dapui_config'] = function()
   dapui.open()
   vim.api.nvim_set_keymap(
@@ -453,7 +454,6 @@ vim.fn.sign_define(
 )
 
 vim.cmd([[
-command! DapReloadConfig lua require'dap'.configurations = {}; vim.cmd("luafile ~/.config/nvim/lua/config/dap/dap.lua"); require'dap.ext.vscode'.load_launchjs('.nvim/launch.json')
 command! DapClose lua require'dap'.terminate(); require'dapui'.close(); vim.cmd("bd! \\[dap-repl]")
 command! DapStart lua require'dap'.continue()
 ]])

@@ -124,9 +124,14 @@ end
 --- Check for config file and loads it, also creates command for creation of said file or edit
 function dap_workspace_config.init()
   dap_workspace_config.loadLunchLua()
-  vim.cmd([[
+  -- Save file type before switching buffers
+  vim.cmd(
+    [[
     command! DapEditLocalConfig execute 'lua require("config.dap.dap_workspace_config").config()'
-    ]])
+    command! DapReloadConfig lua require'dap'.configurations = {}; ]]
+      .. [[ "luafile ~/.config/nvim/lua/config/dap/dap.lua");]]
+      .. [[ require'dap.ext.vscode'.load_launchjs('.nvim/launch.json')]]
+  )
 end
 
 return dap_workspace_config

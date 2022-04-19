@@ -109,7 +109,7 @@ return packer.startup(function(use)
   })
   use({ -- Terminal
     'akinsho/toggleterm.nvim',
-    event = 'BufRead',
+    event = { 'VimEnter', 'GuiEnter' },
     config = function()
       require('config.toggleterm')
     end,
@@ -258,6 +258,15 @@ return packer.startup(function(use)
     'ThePrimeagen/refactoring.nvim',
     requires = {
       { 'nvim-lua/plenary.nvim' },
+      { 'nvim-treesitter/nvim-treesitter' },
+    },
+  })
+
+  use({
+    disable = true,
+    'nvim-treesitter/playground',
+    cmd = "TSPlaygroundToggle",
+    requires = {
       { 'nvim-treesitter/nvim-treesitter' },
     },
   })
