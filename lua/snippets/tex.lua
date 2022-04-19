@@ -90,5 +90,5 @@ return {
   }),
   s.s('rar', { s.t('$\\rightarrow$') }),
   s.s('bf', { s.t('\\textbf{'), s.i(1, 'bold'), s.t('}') }),
-  s.s('tt', { s.t('\\texttt{'), s.i(1, 'bold'), s.t('}') }),
+  s.s('tt', { s.t('\\texttt{'), s.i(1, 'teletext?'), s.t('}') }),
 }
