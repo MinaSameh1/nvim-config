@@ -85,7 +85,7 @@ return {
     s.t('}'),
   }, {
     condition = function()
-      return vim.api.nvim_eval('vimtex#syntax#in_mathzone()') == 1
+      return vim.api.nvim_eval('vimtex#syntax#in_mathzone()')
     end,
   }),
   s.s('rar', { s.t('$\\rightarrow$') }),
