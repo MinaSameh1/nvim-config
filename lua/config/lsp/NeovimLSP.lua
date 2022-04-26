@@ -2,7 +2,8 @@ local mapOpts = { noremap = true, silent = true }
 
 local function lsp_highlight_document(client)
   -- Set autocommands conditional on server_capabilities
-  if client.server_capabilities.documentFormattingProvider then
+  -- document_highlight
+  if client.resolved_capabilities.document_highlight then
     vim.api.nvim_exec(
       [[
       augroup lsp_document_highlight
