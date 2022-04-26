@@ -106,7 +106,7 @@ if exists('neovide')
 
   " set guifont=Hack\ Nerd\ Font:h11
   "set guifont=Inconsolata Nerd Font:h12
-	set guifont=FiraCode\ Nerd\ Font:h14 "Font that will be used in GUI vim
+	set guifont=FiraCode\ Nerd\ Font:h10 "Font that will be used in GUI vim
 
 
    " effects (sonicboom, ripple, railgun, torepedo)
