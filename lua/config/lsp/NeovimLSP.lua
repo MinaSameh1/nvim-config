@@ -62,6 +62,13 @@ local on_attach = function(client, bufnr)
     client.server_capabilities.documentFormattingProvider = false -- I use prettier for now :)
   end
   -- Mappings.
+  -- Mappings for Trouble
+  buf_set_keymap('n', '<leader>xx', '<cmd>TroubleToggle<cr>', mapOpts)
+  buf_set_keymap('n', '<leader>xw', '<cmd>Trouble workspace_diagnostics<cr>', mapOpts)
+  buf_set_keymap('n', '<leader>xd', '<cmd>Trouble document_diagnostics<cr>', mapOpts)
+  buf_set_keymap('n', '<leader>xl', '<cmd>Trouble loclist<cr>', mapOpts)
+  buf_set_keymap('n', '<leader>xq', '<cmd>Trouble quickfix<cr>', mapOpts)
+  buf_set_keymap('n', 'gr', '<cmd>Trouble lsp_references<cr>', mapOpts)
   -- See `:help vim.lsp.*` for documentation on any of the below functions
   buf_set_keymap('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', mapOpts)
   buf_set_keymap('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', mapOpts)
@@ -330,13 +337,3 @@ end)
 
 -- for debugging
 -- vim.lsp.set_log_level("debug")
-
-local Key = vim.api.nvim_set_keymap
-
--- Mappings for Trouble
-Key('n', '<leader>xx', '<cmd>TroubleToggle<cr>', mapOpts)
-Key('n', '<leader>xw', '<cmd>Trouble workspace_diagnostics<cr>', mapOpts)
-Key('n', '<leader>xd', '<cmd>Trouble document_diagnostics<cr>', mapOpts)
-Key('n', '<leader>xl', '<cmd>Trouble loclist<cr>', mapOpts)
-Key('n', '<leader>xq', '<cmd>Trouble quickfix<cr>', mapOpts)
-Key('n', 'gr', '<cmd>Trouble lsp_references<cr>', mapOpts)
