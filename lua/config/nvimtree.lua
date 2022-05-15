@@ -64,7 +64,7 @@ local defaut = {
     'dashboard',
     'fugitive',
   },
-  -- auto_close = true,  -- Deprecated.
+  auto_reload_on_write = true,
   open_on_tab = false,
   update_cwd = true,
   update_to_buf_dir = {
@@ -98,13 +98,7 @@ local defaut = {
     dotfiles = false,
     custom = {},
   },
-  git = {
-    enable = true,
-    ignore = true,
-    timeout = 500,
-  },
   view = {
-    allow_resize = true,
     width = 30,
     height = 30,
     hide_root_folder = false,
@@ -128,30 +122,51 @@ local defaut = {
     cmd = 'trash',
     require_confirm = true,
   },
-  quit_on_open = 0,
-  git_hl = 1,
-  disable_window_picker = 0,
-  root_folder_modifier = ':t',
-  show_icons = {
-    git = 1,
-    folders = 1,
-    files = 1,
-    folder_arrows = 1,
-    tree_width = 30,
+  git = {
+    enable = true,
+    ignore = true,
+    timeout = 400
   },
-  nvim_tree_window_picker_exclude = {
-    filetype = { 'fugitive', 'packer', 'qf' },
-    buftype = { 'terminal' },
-  },
-  render = {
-    indent_markers = {
+  -- root_folder_modifier = ':t',
+  -- show_icons = {
+  --   git = 1,
+  --   folders = 1,
+  --   files = 1,
+  --   folder_arrows = 1,
+  --   tree_width = 30,
+  -- },
+  actions = {
+    use_system_clipboard = true,
+    change_dir = {
       enable = true,
+      global = true,
+      restrict_above_cwd = false,
+    },
+    open_file = {
+      quit_on_open = true,
+      resize_window = false,
+      window_picker = {
+        enable = true,
+        exclude = {
+          filetype = { 'fugitive', 'packer', 'qf' },
+          buftype = { 'terminal' },
+        },
+      }
+    },
+  },
+  renderer = {
+    indent_markers = {
+      enable = false,
       icons = {
-        corner = '└ ',
-        edge = '│ ',
-        none = '  ',
+        corner = "└ ",
+        edge = "│ ",
+        none = "  ",
       },
     },
+    icons = {
+      webdev_colors = true,
+      git_placement = "before",
+    }
   },
 }
 
