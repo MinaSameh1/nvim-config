@@ -125,7 +125,7 @@ local defaut = {
   git = {
     enable = true,
     ignore = true,
-    timeout = 400
+    timeout = 400,
   },
   -- root_folder_modifier = ':t',
   -- show_icons = {
@@ -151,22 +151,22 @@ local defaut = {
           filetype = { 'fugitive', 'packer', 'qf' },
           buftype = { 'terminal' },
         },
-      }
+      },
     },
   },
   renderer = {
     indent_markers = {
       enable = false,
       icons = {
-        corner = "└ ",
-        edge = "│ ",
-        none = "  ",
+        corner = '└ ',
+        edge = '│ ',
+        none = '  ',
       },
     },
     icons = {
       webdev_colors = true,
-      git_placement = "before",
-    }
+      git_placement = 'before',
+    },
   },
 }
 
