@@ -3,7 +3,7 @@ local mapOpts = { noremap = true, silent = true }
 local function lsp_highlight_document(client)
   -- Set autocommands conditional on server_capabilities
   -- document_highlight
-  if client.resolved_capabilities.document_highlight then
+  if client.server_capabilities.documentHighlightProvider then
     vim.api.nvim_exec(
       [[
       augroup lsp_document_highlight
@@ -248,7 +248,6 @@ lsp_installer.on_server_ready(function(server)
   -- {"│", "FloatBorder"},
   -- }
 
-  -- -- LSP settings (for overriding per client)
   local handlers = {
     ['textDocument/hover'] = vim.lsp.with(
       vim.lsp.handlers.hover,
