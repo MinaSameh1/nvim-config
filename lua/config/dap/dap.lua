@@ -46,7 +46,6 @@ dap.configurations.javascript = { -- JS/node config
     name = 'Attach to process',
     type = 'node2',
     request = 'attach',
-    skipFiles = '["<node_internals>/**"]',
     processId = require('dap.utils').pick_process,
   },
   { -- Debug only this file
