@@ -33,7 +33,7 @@ dap.adapters.node2 = { -- Node adaptor Config
 
 dap.configurations.javascript = { -- JS/node config
   {
-    name = 'Launch',
+    name = 'Launch current file only',
     type = 'node2',
     request = 'launch',
     program = '${file}',
@@ -46,6 +46,7 @@ dap.configurations.javascript = { -- JS/node config
     name = 'Attach to process',
     type = 'node2',
     request = 'attach',
+    skipFiles = '["<node_internals>/**"]',
     processId = require('dap.utils').pick_process,
   },
   { -- Debug only this file
