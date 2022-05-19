@@ -171,7 +171,7 @@ local on_attach = function(client, bufnr)
   buf_set_keymap(
     'n',
     '<leader>f',
-    '<cmd>lua vim.lsp.buf.formatting()<CR>',
+    '<cmd>lua vim.lsp.buf.format { async = true }',
     mapOpts
   )
   buf_set_keymap(
@@ -190,7 +190,7 @@ local on_attach = function(client, bufnr)
   autocmd CursorHold,CursorHoldI * lua vim.diagnostic.open_float(nil, {focus=false, scope="cursor", border="rounded"})
   " Adds the commands to nvim
   command! LspCodeAction execute 'lua vim.lsp.buf.code_action()'
-  command! LspFormat execute 'lua vim.lsp.buf.formatting()'
+  command! LspFormat execute 'lua vim.lsp.buf.format { async = true }'
   ]])
   -- AutoFormat on save
   if client.server_capabilities.documentFormattingProvider then
