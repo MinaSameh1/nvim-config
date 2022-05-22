@@ -171,7 +171,7 @@ local on_attach = function(client, bufnr)
   buf_set_keymap(
     'n',
     '<leader>f',
-    '<cmd>lua vim.lsp.buf.format { async = true }',
+    '<cmd>lua vim.lsp.buf.format { async = true }<CR>',
     mapOpts
   )
   buf_set_keymap(
