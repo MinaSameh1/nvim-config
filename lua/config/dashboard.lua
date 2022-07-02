@@ -16,7 +16,7 @@ db.custom_center = {
   {
     icon = '  ',
     desc = 'Recently opened files                   ',
-    action = 'DashboardFindHistory',
+    action = 'Telescope oldfiles',
     shortcut = 'SPC f h',
   },
   {
@@ -28,7 +28,7 @@ db.custom_center = {
   {
     icon = '  ',
     desc = 'File Browser                            ',
-    action = 'Telescope file_browser',
+    action = 'NvimTreeOpen',
     shortcut = 'SPC f b',
   },
   {
