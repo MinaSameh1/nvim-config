@@ -26,7 +26,7 @@ local defaut = {
   auto_reload_on_write = true,
   open_on_tab = false,
   update_cwd = true,
- -- false by default, will change cwd of nvim-tree to that of new buffer's when opening nvim-tree.
+  -- false by default, will change cwd of nvim-tree to that of new buffer's when opening nvim-tree.
   respect_buf_cwd = true,
   hijack_directories = {
     enable = true,
