@@ -57,10 +57,15 @@ return packer.startup(function(use)
     'nvim-lua/popup.nvim',
     module = 'popup',
   })
+
   use({
     'glepnir/dashboard-nvim',
     event = { 'VimEnter', 'GuiEnter' },
+    config = function()
+      require('config.dashboard')
+    end,
   })
+
   use({ -- use ysiw for example i guess
     'tpope/vim-surround',
     event = 'BufRead',
@@ -409,16 +414,6 @@ return packer.startup(function(use)
 
   use({ 'vim-test/vim-test' })
 
-  use({
-    'rcarriga/vim-ultest',
-    requires = { 'vim-test/vim-test' },
-    cmd = { 'Ultest' },
-    config = function()
-      require('config.ultest')
-    end,
-    run = ':UpdateRemotePlugins',
-  })
-
   -- Jest Tests debugging
   use({
     disable = true,
@@ -512,7 +507,9 @@ return packer.startup(function(use)
       require('config.indentLines')
     end,
   })
+
   use({ 'folke/trouble.nvim', event = 'BufRead' }) -- pretty messages
+
   use({
     'folke/todo-comments.nvim',
     requires = 'nvim-lua/plenary.nvim',

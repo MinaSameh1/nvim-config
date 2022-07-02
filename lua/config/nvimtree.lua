@@ -11,47 +11,6 @@ if not config_status_ok then
   return
 end
 
--- WARN: These options are Deprecated
--- vim.g.nvim_tree_indent_markers = 1
--- vim.g.nvim_tree_disable_window_picker = 1
-vim.g.nvim_tree_show_icons = {
-  git = 1,
-  folder_arrows = 1,
-  folders = 1,
-  files = 1,
-}
-vim.g.nvim_tree_highlight_opened_files = 1 --0 by default, will enable folder and file icon highlight for opened files/directories.
-vim.g.nvim_tree_root_folder_modifier = table.concat({
-  ':t:gs?$?/..',
-  string.rep(' ', 1000),
-  '?:gs?^??',
-})
--- vim.g.nvim_tree_respect_buf_cwd = 1 -- 0 by default, will change cwd of nvim-tree to that of new buffer's when opening nvim-tree.
-
-vim.g.nvim_tree_icons = {
-  default = '',
-  symlink = '',
-  git = {
-    unstaged = '',
-    staged = '✓',
-    unmerged = '',
-    renamed = '➜',
-    deleted = '',
-    untracked = '★',
-    ignored = '◌',
-  },
-  folder = {
-    arrow_open = '',
-    arrow_closed = '',
-    default = '',
-    open = '',
-    empty = '',
-    empty_open = '',
-    symlink = '',
-    symlink_open = '',
-  },
-}
-
 local tree_cb = nvim_tree_config.nvim_tree_callback
 
 local defaut = {
@@ -67,7 +26,9 @@ local defaut = {
   auto_reload_on_write = true,
   open_on_tab = false,
   update_cwd = true,
-  update_to_buf_dir = {
+ -- false by default, will change cwd of nvim-tree to that of new buffer's when opening nvim-tree.
+  respect_buf_cwd = true,
+  hijack_directories = {
     enable = true,
     auto_open = true,
   },
@@ -103,7 +64,7 @@ local defaut = {
     height = 30,
     hide_root_folder = false,
     side = 'left',
-    auto_resize = true,
+    adaptive_size = false,
     mappings = {
       custom_only = false,
       list = {
@@ -156,16 +117,51 @@ local defaut = {
   },
   renderer = {
     indent_markers = {
-      enable = false,
+      enable = true,
       icons = {
         corner = '└ ',
         edge = '│ ',
         none = '  ',
       },
     },
+    highlight_opened_files = 'name', -- 0 None(Default), 1 Icon, 2 Name, 3 All
+    root_folder_modifier = table.concat({
+      ':t:gs?$?/..',
+      string.rep(' ', 1000),
+      '?:gs?^??',
+    }),
     icons = {
       webdev_colors = true,
       git_placement = 'before',
+      glyphs = {
+        default = '',
+        symlink = '',
+        git = {
+          unstaged = '',
+          staged = '✓',
+          unmerged = '',
+          renamed = '➜',
+          deleted = '',
+          untracked = '★',
+          ignored = '◌',
+        },
+        folder = {
+          arrow_open = '',
+          arrow_closed = '',
+          default = '',
+          open = '',
+          empty = '',
+          empty_open = '',
+          symlink = '',
+          symlink_open = '',
+        },
+      },
+      show = {
+        git = true,
+        folder_arrow = true,
+        folder = true,
+        file = true,
+      },
     },
   },
 }
