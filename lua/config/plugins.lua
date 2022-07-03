@@ -324,7 +324,7 @@ return packer.startup(function(use)
       'hrsh7th/nvim-cmp',
       event = 'InsertEnter',
       config = function()
-        require('config.cmp.cmp')
+       require('config.cmp.cmp')
       end,
       requires = {
         {
@@ -412,14 +412,30 @@ return packer.startup(function(use)
     requires = { { 'mfussenegger/nvim-dap' } },
   })
 
-  use({ 'vim-test/vim-test' })
+  -- Fixes performance issues with cursorHold
+  use({ 'antoinemadec/FixCursorHold.nvim', event = { 'CursorHold' } })
 
-  -- Jest Tests debugging
   use({
-    disable = true,
-    'David-Kunz/jester',
-    ft = { 'js', 'ts' },
+    'nvim-neotest/neotest',
+    event = 'BufRead',
+    requires = {
+      'haydenmeade/neotest-jest',
+      'nvim-neotest/neotest-python',
+      'sidlatau/neotest-dart',
+    },
+    config = function ()
+      require('config.neotest')
+    end
   })
+
+  -- use({ 'vim-test/vim-test' })
+  --
+  -- -- Jest Tests debugging
+  -- use({
+  --   disable = true,
+  --   'David-Kunz/jester',
+  --   ft = { 'js', 'ts' },
+  -- })
 
   -- Git integration
   use({
