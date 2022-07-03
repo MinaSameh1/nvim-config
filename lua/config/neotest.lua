@@ -26,7 +26,10 @@ local nnoremap = require('config.utils').nnoremap
 -- Run the nearest test
 nnoremap('<leader>tt', '<cmd>lua require("neotest").run.run()<CR>')
 -- Run the test file
-nnoremap('<leader>tT', '<cmd>lua require("neotest").run.run(vim.fn.expand(%))<CR>')
+nnoremap(
+  '<leader>tT',
+  '<cmd>lua require("neotest").run.run(vim.fn.expand(%))<CR>'
+)
 -- Debug the test
 nnoremap(
   '<leader>td',
