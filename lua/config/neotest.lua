@@ -31,7 +31,11 @@ end
 -- Run the nearest test
 setBufKey('n', '<leader>tt', '<cmd>lua require("neotest").run.run()')
 -- Run the test file
-setBufKey('n', '<leader>tT', '<cmd>lua require("neotest").run.run(vim.fn.expand(%))')
+setBufKey(
+  'n',
+  '<leader>tT',
+  '<cmd>lua require("neotest").run.run(vim.fn.expand(%))'
+)
 -- Debug the test
 setBufKey(
   'n',
