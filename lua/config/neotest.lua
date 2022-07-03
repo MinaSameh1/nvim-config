@@ -14,9 +14,9 @@ require('neotest').setup({
         -- Can be a function to return dynamic value.
         runner = 'pytest',
       }),
-      require('neotest-dart') {
+      require('neotest-dart')({
         fvm = false, -- takes priority over path, uses <workspace>/.fvm/flutter_sdk if enabled
-      },
+      }),
     },
   },
 })
@@ -31,6 +31,10 @@ end
 -- Run the nearest test
 setBufKey('n', '<leader>tt', 'lua require("neotest").run.run()')
 setBufKey('n', '<leader>tT', 'lua require("neotest").run.run(vim.fn.expand(%))')
-setBufKey('n', '<leader>td', 'lua require("neotest").run.run({strategy = "dap"})')
+setBufKey(
+  'n',
+  '<leader>td',
+  'lua require("neotest").run.run({strategy = "dap"})'
+)
 setBufKey('n', '<leader>ts', 'lua require("neotest").run.stop()')
 setBufKey('n', '<leader>ta', 'lua require("neotest").run.attach()')

@@ -324,7 +324,7 @@ return packer.startup(function(use)
       'hrsh7th/nvim-cmp',
       event = 'InsertEnter',
       config = function()
-       require('config.cmp.cmp')
+        require('config.cmp.cmp')
       end,
       requires = {
         {
@@ -423,9 +423,9 @@ return packer.startup(function(use)
       'nvim-neotest/neotest-python',
       'sidlatau/neotest-dart',
     },
-    config = function ()
+    config = function()
       require('config.neotest')
-    end
+    end,
   })
 
   -- use({ 'vim-test/vim-test' })
