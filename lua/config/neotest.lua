@@ -21,42 +21,30 @@ require('neotest').setup({
   },
 })
 
--- INFO: maybe refactor this to: https://stackoverflow.com/questions/6022519/define-default-values-for-function-arguments
--- and set default value of mode to 'n'
-local function setBufKey(mode, keymap, command)
-  local opts = { noremap = true }
-  vim.api.nvim_buf_set_keymap(0, mode, keymap, command, opts)
-end
+local nnoremap = require('config.utils').nnoremap
 
 -- Run the nearest test
-setBufKey('n', '<leader>tt', '<cmd>lua require("neotest").run.run()')
+nnoremap('<leader>tt', '<cmd>lua require("neotest").run.run()<CR>')
 -- Run the test file
-setBufKey(
-  'n',
-  '<leader>tT',
-  '<cmd>lua require("neotest").run.run(vim.fn.expand(%))'
-)
+nnoremap('<leader>tT', '<cmd>lua require("neotest").run.run(vim.fn.expand(%))<CR>')
 -- Debug the test
-setBufKey(
-  'n',
+nnoremap(
   '<leader>td',
-  '<cmd>lua require("neotest").run.run({strategy = "dap"})'
+  '<cmd>lua require("neotest").run.run({strategy = "dap"})<CR>'
 )
 -- Stop it
-setBufKey('n', '<leader>tS', '<cmd>lua require("neotest").run.stop()')
+nnoremap('<leader>tS', '<cmd>lua require("neotest").run.stop()<CR>')
 -- attach to the test
-setBufKey('n', '<leader>ta', '<cmd>lua require("neotest").run.attach()')
+nnoremap('<leader>ta', '<cmd>lua require("neotest").run.attach()<CR>')
 -- Show summary
-setBufKey('n', '<leader>ts', '<cmd>lua require("neotest").summary.toggle()')
+nnoremap('<leader>ts', '<cmd>lua require("neotest").summary.toggle()<CR>')
 
 -- Jump between test failures
-setBufKey(
-  'n',
+nnoremap(
   '<silent>[t',
   '<cmd>lua require("neotest").jump.prev({ status = "failed" })<CR>'
 )
-setBufKey(
-  'n',
+nnoremap(
   '<silent>]t',
   '<cmd>lua require("neotest").jump.next({ status = "failed" })<CR>'
 )
