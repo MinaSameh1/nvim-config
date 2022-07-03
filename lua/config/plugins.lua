@@ -417,7 +417,6 @@ return packer.startup(function(use)
 
   use({
     'nvim-neotest/neotest',
-    event = 'BufRead',
     after = { 'nvim-treesitter' },
     requires = {
       'haydenmeade/neotest-jest',

@@ -29,21 +29,21 @@ local function setBufKey(mode, keymap, command)
 end
 
 -- Run the nearest test
-setBufKey('n', '<leader>tt', 'lua require("neotest").run.run()')
+setBufKey('n', '<leader>tt', '<cmd>lua require("neotest").run.run()')
 -- Run the test file
-setBufKey('n', '<leader>tT', 'lua require("neotest").run.run(vim.fn.expand(%))')
+setBufKey('n', '<leader>tT', '<cmd>lua require("neotest").run.run(vim.fn.expand(%))')
 -- Debug the test
 setBufKey(
   'n',
   '<leader>td',
-  'lua require("neotest").run.run({strategy = "dap"})'
+  '<cmd>lua require("neotest").run.run({strategy = "dap"})'
 )
 -- Stop it
-setBufKey('n', '<leader>tS', 'lua require("neotest").run.stop()')
+setBufKey('n', '<leader>tS', '<cmd>lua require("neotest").run.stop()')
 -- attach to the test
-setBufKey('n', '<leader>ta', 'lua require("neotest").run.attach()')
+setBufKey('n', '<leader>ta', '<cmd>lua require("neotest").run.attach()')
 -- Show summary
-setBufKey('n', '<leader>ts', 'lua require("neotest").summary.toggle()')
+setBufKey('n', '<leader>ts', '<cmd>lua require("neotest").summary.toggle()')
 
 -- Jump between test failures
 setBufKey(
