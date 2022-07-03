@@ -30,11 +30,29 @@ end
 
 -- Run the nearest test
 setBufKey('n', '<leader>tt', 'lua require("neotest").run.run()')
+-- Run the test file
 setBufKey('n', '<leader>tT', 'lua require("neotest").run.run(vim.fn.expand(%))')
+-- Debug the test
 setBufKey(
   'n',
   '<leader>td',
   'lua require("neotest").run.run({strategy = "dap"})'
 )
-setBufKey('n', '<leader>ts', 'lua require("neotest").run.stop()')
+-- Stop it
+setBufKey('n', '<leader>tS', 'lua require("neotest").run.stop()')
+-- attach to the test
 setBufKey('n', '<leader>ta', 'lua require("neotest").run.attach()')
+-- Show summary
+setBufKey('n', '<leader>ts', 'lua require("neotest").summary.toggle()')
+
+-- Jump between test failures
+setBufKey(
+  'n',
+  '<silent>[t',
+  '<cmd>lua require("neotest").jump.prev({ status = "failed" })<CR>'
+)
+setBufKey(
+  'n',
+  '<silent>]t',
+  '<cmd>lua require("neotest").jump.next({ status = "failed" })<CR>'
+)
