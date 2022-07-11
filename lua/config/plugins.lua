@@ -180,7 +180,10 @@ return packer.startup(function(use)
   use({
     'folke/which-key.nvim',
     config = function()
-      require('which-key').setup({})
+      require('which-key').setup({
+        border = "single", -- none, single, double, shadow
+        margin = { 2, 2, 2, 2 }, -- extra window margin [top, right, bottom, left]
+      })
     end,
   })
   use({

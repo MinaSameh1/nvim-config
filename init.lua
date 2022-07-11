@@ -165,11 +165,7 @@ vim.opt.completeopt = { 'menu', 'menuone', 'noselect' }
 -- vim.g.UltiSnipsSnippetsDir = '~/.config/nvim/Snips' -- Location of snips
 -- vim.g.UltiSnipsListSnippets = '<C-Space>'
 
--- ******************************
--- *         DASHBOARD          *
--- ******************************
-nmap('<Leader>cn', ':<C-u>DashboardNewFile<CR>') -- Open new file
--- Dasaboard Sessions
+-- Sessions
 nnoremap('Leader>ss', ':<C-u>SessionSave<CR>') -- Save Session
 nnoremap('<Leader>sl', ':<C-u>SessionLoad<CR>') -- Load Session
 

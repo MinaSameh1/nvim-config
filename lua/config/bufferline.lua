@@ -38,6 +38,6 @@ nnoremap(']b', ':BufferLineCycleNext<CR>') -- Go right
 nnoremap('[b', ':BufferLineCyclePrev<CR>') -- Go left
 nnoremap(']B', ':BufferLineMoveNext<CR>') -- Move the buffer to the right
 nnoremap('[B', ':BufferLineMovePrev<CR>') -- Move the buffer to the left
-nnoremap('be', ':BufferLineSortByExtension<CR>') -- Sort buffer by Extension
-nnoremap('bd', ':BufferLineSortByDirectory<CR>') -- Sort buffer by Directory
+nnoremap('<leader>be', ':BufferLineSortByExtension<CR>') -- Sort buffer by Extension
+nnoremap('<leader>bd', ':BufferLineSortByDirectory<CR>') -- Sort buffer by Directory
 nnoremap('<leader>gb', ':BufferLinePick<CR>') -- Pick buffer

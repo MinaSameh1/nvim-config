@@ -1,4 +1,6 @@
----- DashBoard
+-- ******************************
+-- *         DASHBOARD          *
+-- ******************************
 
 local home = os.getenv('HOME')
 local db = require('dashboard')
@@ -44,6 +46,9 @@ db.custom_center = {
     shortcut = 'SPC f d',
   },
 }
+
+local nmap = require('config.utils').nmap
+nmap('<Leader>cn', ':<C-u>DashboardNewFile<CR>') -- Open new file
 
 -- For more checkout https://github.com/glepnir/dashboard-nvim/wiki/Ascii-Header-Text
 -- db.custom_header = {
