@@ -308,9 +308,8 @@ lsp_installer.on_server_ready(function(server)
     )
   end
 
-  opts.capabilities = require('cmp_nvim_lsp').update_capabilities(
-    opts.capabilities
-  )
+  opts.capabilities =
+    require('cmp_nvim_lsp').update_capabilities(opts.capabilities)
 
   -- If the server is eslint override the settings
   if server.name == 'eslint' or server.name == 'tsserver' then
