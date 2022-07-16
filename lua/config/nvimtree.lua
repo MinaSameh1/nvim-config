@@ -119,7 +119,7 @@ local defaut = {
     indent_markers = {
       enable = true,
       icons = {
-        corner = '└ ',
+        corner = '└',
         edge = '│ ',
         none = '  ',
       },
