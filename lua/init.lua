@@ -8,5 +8,5 @@ require('config.colorscheme')
 require('colors.colors')
 
 vim.cmd([[
-colorscheme rose-pine
+colorscheme catppuccin
 ]])
