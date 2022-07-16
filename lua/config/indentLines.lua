@@ -22,11 +22,11 @@ local function M()
       'lsp-installer',
       'terminal',
     },
-    buftype_exclude = { 'termina' },
+    buftype_exclude = { 'terminal', 'prompt', 'nofile', 'help' },
     show_first_indent_level = false,
     leading_space = true,
     -- for example, context is off by default, use this to turn it on
-    -- show_current_context_start = true,
+    show_current_context_start = true,
     show_current_context = true,
     show_end_of_line = true,
     space_char_blankline = ' ',
