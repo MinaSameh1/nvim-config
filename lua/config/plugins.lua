@@ -567,10 +567,12 @@ return packer.startup(function(use)
       require('nvim-web-devicons').setup()
     end,
   })
+
   -- Automatically creates missing LSP diagnostics highlight groups
   use({
     'folke/lsp-colors.nvim',
   })
+
   -- heighlights Colors with their color xd
   use({
     'norcalli/nvim-colorizer.lua',
@@ -579,38 +581,45 @@ return packer.startup(function(use)
       require('colorizer').setup()
     end,
   })
+
   use({
     'nathom/filetype.nvim',
     config = function()
       vim.g.did_load_filetypes = 1 -- Stop file types from loading, load them using filetypes.nvim
     end,
   })
+
   -- Dims lights xd
   use({
     'folke/twilight.nvim',
     cmd = 'Twilight',
   })
+
   -- Themes
-  use('rktjmp/lush.nvim') -- used to create colorschemes
-  use('nanotech/jellybeans.vim')
-  use('ellisonleao/gruvbox.nvim')
-  use('dracula/vim')
-  use('folke/tokyonight.nvim')
-  use('shaunsingh/nord.nvim')
-  use({ 'catppuccin/nvim', as = 'catppuccin' })
   use({
-    'rose-pine/neovim',
-    as = 'rose-pine',
-    config = function()
-      require('rose-pine').setup({
-        dark_variant = 'moon',
-      })
-    end,
+    { 'rktjmp/lush.nvim' }, -- used to create colorschemes
+    { 'nanotech/jellybeans.vim' },
+    { 'dracula/vim' },
+    { 'folke/tokyonight.nvim' },
+    { 'ellisonleao/gruvbox.nvim' },
+    { 'shaunsingh/nord.nvim' },
+    { 'catppuccin/nvim', as = 'catppuccin' },
+    {
+      'rose-pine/neovim',
+      as = 'rose-pine',
+      config = function()
+        require('rose-pine').setup({
+          dark_variant = 'moon',
+        })
+      end,
+    },
+    { 'overcache/NeoSolarized' },
+    {
+      'AlphaTechnolog/pywal.nvim',
+      disable = true,
+    },
   })
-  use({
-    'AlphaTechnolog/pywal.nvim',
-    disable = true,
-  })
+
   use({ -- Colors
     'tjdevries/colorbuddy.vim',
     event = 'BufRead',
@@ -618,7 +627,6 @@ return packer.startup(function(use)
       require('colorbuddy').setup()
     end,
   })
-  use({ 'overcache/NeoSolarized' })
   use({ -- Startup time
     'tweekmonster/startuptime.vim',
     cmd = 'StartupTime',
