@@ -10,6 +10,12 @@ db.preview_file_height = 12
 db.preview_file_width = 80
 db.custom_center = {
   {
+    icon = '  ',
+    desc = 'New File                                 ',
+    action = 'enew',
+    shortcut = 'SPC f f',
+  },
+  {
     icon = '  ',
     desc = 'Recently latest session                  ',
     shortcut = 'SPC s l',
@@ -17,37 +23,37 @@ db.custom_center = {
   },
   {
     icon = '  ',
-    desc = 'Recently opened files                   ',
+    desc = 'Recently opened files                    ',
     action = 'Telescope oldfiles',
     shortcut = 'SPC f h',
   },
   {
     icon = '  ',
-    desc = 'Find  File                              ',
+    desc = 'Find  File                               ',
     action = 'Telescope find_files find_command=rg,--hidden,--files',
     shortcut = 'SPC f f',
   },
   {
     icon = '  ',
-    desc = 'File Browser                            ',
+    desc = 'File Browser                             ',
     action = 'NvimTreeOpen',
     shortcut = 'SPC f b',
   },
   {
     icon = '  ',
-    desc = 'Find  word                              ',
+    desc = 'Find  word                               ',
     action = 'Telescope live_grep',
     shortcut = 'SPC f w',
   },
   {
     icon = '  ',
-    desc = 'Open Personal dotfiles                  ',
+    desc = 'Open Personal dotfiles                   ',
     action = 'Telescope dotfiles path=' .. home .. '/.config/nvim',
     shortcut = 'SPC f d',
   },
   {
     icon = '  ',
-    desc = 'Exit Neovim                             ',
+    desc = 'Exit Neovim                              ',
     action = 'quit',
     shortcut = 'SPC s-q',
   },
