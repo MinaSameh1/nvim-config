@@ -71,7 +71,7 @@ vim.opt.swapfile = false -- whether to use a swapfile for a buffer
 vim.opt.hlsearch = false --  highlight matches with last search pattern
 vim.opt.laststatus = 3 -- global status line
 
-vim.opt.clipboard = "unnamedplus"
+vim.opt.clipboard = 'unnamedplus'
 
 ---- Keybindings
 nnoremap('<leader>fF', ':!prettier --write %<CR>') -- Format
