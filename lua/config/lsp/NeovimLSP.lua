@@ -16,6 +16,7 @@ local function lsp_highlight_document(client)
     )
   end
 end
+
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
 local on_attach = function(client, bufnr)
@@ -24,6 +25,7 @@ local on_attach = function(client, bufnr)
   local function buf_set_keymap(...)
     vim.api.nvim_buf_set_keymap(bufnr, ...)
   end
+
   local function buf_set_option(...)
     vim.api.nvim_buf_set_option(bufnr, ...)
   end
@@ -60,6 +62,8 @@ local on_attach = function(client, bufnr)
     local ts_utils = require('config.lsp.tsutils')
     ts_utils.setup_client(client)
     client.server_capabilities.documentFormattingProvider = false -- I use prettier for now :)
+  elseif client.name == 'sumneko_lua' then
+    client.server_capabilities.documentFormattingProvider = false
   end
   -- Mappings.
   -- Mappings for Trouble
@@ -197,7 +201,7 @@ local on_attach = function(client, bufnr)
     vim.cmd([[
       augroup lsp_format_on_save
       autocmd! * <buffer>
-      autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_seq_sync()
+      autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync(nil, 1000)
       augroup END
       ]])
   end
@@ -308,8 +312,9 @@ lsp_installer.on_server_ready(function(server)
     )
   end
 
-  opts.capabilities =
-    require('cmp_nvim_lsp').update_capabilities(opts.capabilities)
+  opts.capabilities = require('cmp_nvim_lsp').update_capabilities(
+    opts.capabilities
+  )
 
   -- If the server is eslint override the settings
   if server.name == 'eslint' or server.name == 'tsserver' then
