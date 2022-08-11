@@ -329,8 +329,8 @@ dap.adapters.nlua = function(callback, config)
 end
 
 -- Load Specific workspace configs
-local local_config = require('config.dap.dap_workspace_config')
-local_config.init()
+-- local local_config = require('config.dap.dap_workspace_config')
+-- local_config.init()
 
 -- Dap ui
 local dapui = require('dapui')
