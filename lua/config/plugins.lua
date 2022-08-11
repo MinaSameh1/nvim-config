@@ -208,7 +208,7 @@ return packer.startup(function(use)
       config = function()
         require('telescope').load_extension('ui-select')
       end,
-      requires = { { 'nvim-telescope/telescope.nvim' } },
+      requires = { { 'nvim-telescope/telescope.nvim' }, opt = true },
     },
     {
       'nvim-telescope/telescope-media-files.nvim',
@@ -216,7 +216,7 @@ return packer.startup(function(use)
       config = function()
         require('telescope').load_extension('media_files')
       end,
-      requires = { { 'nvim-telescope/telescope.nvim' } },
+      requires = { { 'nvim-telescope/telescope.nvim' }, opt = true },
     },
     {
       'nvim-telescope/telescope-dap.nvim',
@@ -224,7 +224,7 @@ return packer.startup(function(use)
       config = function()
         require('telescope').load_extension('dap')
       end,
-      requires = { { 'nvim-telescope/telescope.nvim' } },
+      requires = { { 'nvim-telescope/telescope.nvim' }, opt = true },
     },
   })
 

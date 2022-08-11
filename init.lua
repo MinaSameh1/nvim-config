@@ -36,7 +36,7 @@ vim.opt.modelines = 5 -- number of lines checked for modelines
 
 vim.opt.updatetime = 300 -- after this many milliseconds flush swap file
 
-vim.opt.cmdheight = 1 -- number of lines to use for the command-line
+vim.opt.cmdheight = 0 -- number of lines to use for the command-line
 
 vim.opt.smartcase = true -- no ignore case when pattern has uppercase
 vim.opt.ignorecase = true -- ignore case in search patterns
