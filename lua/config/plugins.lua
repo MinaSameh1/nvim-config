@@ -216,7 +216,7 @@ return packer.startup(function(use)
       config = function()
         require('telescope').load_extension('media_files')
       end,
-      requires = { 'nvim-telescope/telescope.nvim' , opt = true },
+      requires = { 'nvim-telescope/telescope.nvim', opt = true },
     },
     {
       'nvim-telescope/telescope-dap.nvim',
