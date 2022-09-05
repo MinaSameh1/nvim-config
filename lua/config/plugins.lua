@@ -29,14 +29,14 @@ end
 
 -- Have packer use a popup window
 packer.init({
-  display = {
-    open_fn = function()
-      return require('packer.util').float({ border = 'rounded' })
-    end,
-    prompt_border = 'single',
-  },
   git = {
     clone_timeout = 6000, -- seconds
+  },
+  display = {
+    -- open_fn = function()
+    --   return require('packer.util').float({ border = 'rounded' })
+    -- end,
+    prompt_border = 'single',
   },
   auto_clean = true,
   compile_on_sync = true,
@@ -197,7 +197,7 @@ return packer.startup(function(use)
         { 'n', '<Leader>ff' },
         { 'n', '<Leader>fh' },
       },
-      requires = { { 'nvim-lua/plenary.nvim', opt = true } },
+      requires = { 'nvim-lua/plenary.nvim', opt = true },
       config = function()
         require('config.telescope')
       end,
@@ -208,7 +208,7 @@ return packer.startup(function(use)
       config = function()
         require('telescope').load_extension('ui-select')
       end,
-      requires = { { 'nvim-telescope/telescope.nvim' }, opt = true },
+      requires = { 'nvim-lua/plenary.nvim', opt = true },
     },
     {
       'nvim-telescope/telescope-media-files.nvim',
@@ -216,7 +216,7 @@ return packer.startup(function(use)
       config = function()
         require('telescope').load_extension('media_files')
       end,
-      requires = { { 'nvim-telescope/telescope.nvim' }, opt = true },
+      requires = { 'nvim-telescope/telescope.nvim' , opt = true },
     },
     {
       'nvim-telescope/telescope-dap.nvim',
@@ -224,7 +224,7 @@ return packer.startup(function(use)
       config = function()
         require('telescope').load_extension('dap')
       end,
-      requires = { { 'nvim-telescope/telescope.nvim' }, opt = true },
+      requires = { 'nvim-telescope/telescope.nvim', opt = true },
     },
   })
 
@@ -333,7 +333,7 @@ return packer.startup(function(use)
         {
           'L3MON4D3/LuaSnip',
           event = 'CursorHold',
-          module = 'luasnip',
+          module = 'InsertEnter',
           config = function()
             require('config.luasnip')
           end,

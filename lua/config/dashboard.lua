@@ -2,7 +2,7 @@
 -- *         DASHBOARD          *
 -- ******************************
 
-local home = os.getenv('HOME')
+local config_location = require('config.utils').config_location
 local db = require('dashboard')
 -- db.preview_command = 'cat | lolcat -F 0.3'
 -- db.preview_file_path = home .. '/.config/nvim/static/neovim.cat'
@@ -48,7 +48,7 @@ db.custom_center = {
   {
     icon = '  ',
     desc = 'Open Personal dotfiles                   ',
-    action = 'Telescope dotfiles path=' .. home .. '/.config/nvim',
+    action = 'Telescope dotfiles path=' .. config_location,
     shortcut = 'SPC f d',
   },
   {
