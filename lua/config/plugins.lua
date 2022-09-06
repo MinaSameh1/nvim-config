@@ -78,7 +78,7 @@ return packer.startup(function(use)
     {
       'nvim-lualine/lualine.nvim', -- Status line
       event = 'BufEnter',
-      requires = { 'kyazdani42/nvim-web-devicons', opt = true },
+      requires = { 'kyazdani42/nvim-web-devicons' },
       config = function()
         require('config.lualine.lualine_slanted')
       end,
@@ -431,6 +431,7 @@ return packer.startup(function(use)
     end,
   })
 
+  --- Deprecated.
   -- use({ 'vim-test/vim-test' })
   --
   -- -- Jest Tests debugging
@@ -448,12 +449,15 @@ return packer.startup(function(use)
       require('config.gitsigns')
     end,
   })
+
   use({ 'tpope/vim-fugitive' })
+
   -- Latex stuff
   use({ -- NOTE: We don't need to lazy load this, it lazy loads itself.
     'lervag/vimtex',
   })
-  -- Syntax and languages
+
+  --- Syntax and languages
   -- Syntax highlighting
   use({
     {
@@ -469,26 +473,7 @@ return packer.startup(function(use)
       'windwp/nvim-ts-autotag',
       after = 'nvim-treesitter',
       config = function()
-        require('nvim-ts-autotag').setup({
-          filetypes = {
-            'html',
-            'javascript',
-            'typescript',
-            'javascriptreact',
-            'typescriptreact',
-            'svelte',
-            'vue',
-            'tsx',
-            'jsx',
-            'rescript',
-            'xml',
-            'php',
-            'markdown',
-            'glimmer',
-            'handlebars',
-            'hbs',
-          },
-        })
+        require('nvim-ts-autotag').setup()
       end,
     },
     {
@@ -552,7 +537,8 @@ return packer.startup(function(use)
     ft = { 'rust' },
   })
 
-  -- use({ -- For now use prettier tailwind
+  ---- For now use prettier tailwind
+  -- use({
   -- 	"steelsojka/headwind.nvim",
   -- 	ft = { "css", "typescriptreact" },
   -- 	config = function()
@@ -627,10 +613,12 @@ return packer.startup(function(use)
       require('colorbuddy').setup()
     end,
   })
+
   use({ -- Startup time
     'tweekmonster/startuptime.vim',
     cmd = 'StartupTime',
   })
+
   use({ -- adds transpancy toggles
     'xiyaowong/nvim-transparent',
     cmd = { 'TransparentToggle', 'TransparentEnable', 'TransparentDisable' },
@@ -649,6 +637,7 @@ return packer.startup(function(use)
       })
     end,
   })
+
   -- Automatically set up your configuration after cloning packer.nvim
   -- Put this at the end after all plugins
   if PACKER_BOOTSTRAP then
