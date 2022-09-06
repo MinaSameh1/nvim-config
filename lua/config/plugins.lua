@@ -33,9 +33,9 @@ packer.init({
     clone_timeout = 6000, -- seconds
   },
   display = {
-    -- open_fn = function()
-    --   return require('packer.util').float({ border = 'rounded' })
-    -- end,
+    open_fn = function()
+      return require('packer.util').float({ border = 'rounded' })
+    end,
     prompt_border = 'single',
   },
   auto_clean = true,
