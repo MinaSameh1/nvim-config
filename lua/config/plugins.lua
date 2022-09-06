@@ -120,13 +120,15 @@ return packer.startup(function(use)
       })
     end,
   })
+
   use({ -- Smooth scrolling
     'karb94/neoscroll.nvim',
     event = 'WinScrolled',
     config = function()
-      require('neoscroll').setup()
+      require('neoscroll').setup({ hide_cursor = false })
     end,
   })
+
   use({ -- Terminal
     'akinsho/toggleterm.nvim',
     event = 'CursorHold',
@@ -144,6 +146,7 @@ return packer.startup(function(use)
       require('config.venn')
     end,
   })
+
   use({
     'kyazdani42/nvim-tree.lua',
     -- cmd = { 'NvimTreeToggle' },
@@ -177,6 +180,7 @@ return packer.startup(function(use)
     cmd = { 'F', 'Far', 'Fardo', 'Farundo' },
   })
 
+  -- Shows actions menu on key press, really helpful
   use({
     'folke/which-key.nvim',
     config = function()
@@ -186,6 +190,8 @@ return packer.startup(function(use)
       })
     end,
   })
+
+  -- Best picker <3
   use({
     {
       'nvim-telescope/telescope.nvim',
@@ -247,6 +253,7 @@ return packer.startup(function(use)
       require('config.bufferline')
     end,
   })
+
   -- Linting among other things
   -- LSP
   use({
