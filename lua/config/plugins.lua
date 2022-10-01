@@ -462,6 +462,9 @@ return packer.startup(function(use)
   -- Latex stuff
   use({ -- NOTE: We don't need to lazy load this, it lazy loads itself.
     'lervag/vimtex',
+    config = function()
+      vim.g.tex_flavor = 'latex'
+    end,
   })
 
   --- Syntax and languages
