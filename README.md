@@ -1,4 +1,5 @@
-# This is my Neovim Config
+# Neovim config
+This is a config for neovim, a texteditor.
 
 Everything in Lua :D
 
