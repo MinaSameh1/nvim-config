@@ -1,19 +1,79 @@
+local status_ok_lsp, lspconfig = pcall(require, 'lspconfig')
+if not status_ok_lsp then
+  vim.notify('Problem with lsp!')
+  return
+end
+
+local status_ok_mason, mason = pcall(require, 'mason')
+if not status_ok_mason then
+  vim.notify('Problem with mason!')
+  return
+end
+
+mason.setup({
+  log_level = vim.log.levels.INFO,
+  max_concurrent_installers = 2,
+  ui = {
+    -- Whether to automatically check for new versions when opening the :Mason window.
+    check_outdated_packages_on_open = true,
+  },
+})
+
+local status_ok_mason_lsp, mason_lspconfig = pcall(require, 'mason-lspconfig')
+if not status_ok_mason_lsp then
+  vim.notify('Problem with mason-lspconfig!')
+  return
+end
+
+mason_lspconfig.setup({
+  ensure_installed = {
+    'tsserver',
+    'kotlin_language_server',
+    'json-lsp',
+    'pyright',
+    'sumneko_lua',
+    'yamlls',
+    'ltex',
+    'texlab',
+    'clangd',
+    'cssls',
+    'sqlls',
+    'marksman',
+    'grammerly',
+    'jdtls',
+    'cmake',
+  },
+  automatic_installation = true,
+})
+
 local mapOpts = { noremap = true, silent = true }
 
 local function lsp_highlight_document(client)
   -- Set autocommands conditional on server_capabilities
   -- document_highlight
   if client.server_capabilities.documentHighlightProvider then
-    vim.api.nvim_exec(
-      [[
-      augroup lsp_document_highlight
-      autocmd! * <buffer>
-      autocmd CursorHold <buffer> lua vim.lsp.buf.document_highlight()
-      autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
-      augroup END
-      ]],
-      false
-    )
+    vim.cmd([[
+      hi! LspReferenceRead cterm=underline ctermbg=red gui=underline guibg=#24283b
+      hi! LspReferenceText cterm=underline ctermbg=red guibg=#24283b
+      hi! LspReferenceWrite cterm=underline ctermbg=red  guibg=#24283b
+    ]])
+    vim.api.nvim_create_augroup('lsp_document_highlight', {
+      clear = false,
+    })
+    vim.api.nvim_clear_autocmds({
+      buffer = bufnr,
+      group = 'lsp_document_highlight',
+    })
+    vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI' }, {
+      group = 'lsp_document_highlight',
+      buffer = bufnr,
+      callback = vim.lsp.buf.document_highlight,
+    })
+    vim.api.nvim_create_autocmd('CursorMoved', {
+      group = 'lsp_document_highlight',
+      buffer = bufnr,
+      callback = vim.lsp.buf.clear_references,
+    })
   end
 end
 
@@ -58,11 +118,7 @@ local on_attach = function(client, bufnr)
     '', -- TypeParameter
   }
 
-  if client.name == 'tsserver' then
-    local ts_utils = require('config.lsp.tsutils')
-    ts_utils.setup_client(client)
-    client.server_capabilities.documentFormattingProvider = false -- I use prettier for now :)
-  elseif client.name == 'sumneko_lua' then
+  if client.name == 'sumneko_lua' then
     client.server_capabilities.documentFormattingProvider = false
   end
   -- Mappings.
@@ -188,10 +244,6 @@ local on_attach = function(client, bufnr)
   vim.cmd([[
   " Lightblub for code action
   autocmd CursorHold,CursorHoldI * lua require'nvim-lightbulb'.update_lightbulb()
-  " Show line diagnostics automatically in hover window
-  " autocmd CursorHold,CursorHoldI * lua vim.diagnostic.open_float(nil, {focus=false})
-  " For diagnostics for specific cursor position
-  autocmd CursorHold,CursorHoldI * lua vim.diagnostic.open_float(nil, {focus=false, scope="cursor", border="rounded"})
   " Adds the commands to nvim
   command! LspCodeAction execute 'lua vim.lsp.buf.code_action()'
   command! LspFormat execute 'lua vim.lsp.buf.format { async = true }'
@@ -201,7 +253,7 @@ local on_attach = function(client, bufnr)
     vim.cmd([[
       augroup lsp_format_on_save
       autocmd! * <buffer>
-      autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync(nil, 1000)
+      autocmd BufWritePre <buffer> lua vim.lsp.buf.format { async = true }
       augroup END
       ]])
   end
@@ -210,11 +262,27 @@ local on_attach = function(client, bufnr)
   lsp_highlight_document(client)
   -- Enable completion triggered by <c-x><c-o>
   buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
-end
 
--- Use a loop to conveniently call 'setup' on multiple servers and
--- map buffer local keybindings when the language server attaches
-local lsp_installer = require('nvim-lsp-installer')
+  vim.api.nvim_create_autocmd('CursorHold', {
+    buffer = bufnr,
+    callback = function()
+      local opts = {
+        focusable = false,
+        close_events = {
+          'BufLeave',
+          'CursorMoved',
+          'InsertEnter',
+          'FocusLost',
+        },
+        border = 'rounded',
+        source = 'always',
+        prefix = ' ',
+        scope = 'cursor',
+      }
+      vim.diagnostic.open_float(nil, opts)
+    end,
+  })
+end
 
 -- Set the signs to this
 local signs = {
@@ -224,11 +292,21 @@ local signs = {
   { name = 'DiagnosticSignInfo', text = '' },
 }
 
+for _, sign in ipairs(signs) do
+  vim.fn.sign_define(
+    sign.name,
+    { texthl = sign.name, text = sign.text, numhl = '' }
+  )
+end
+
 vim.diagnostic.config({
   float = { source = 'always' },
   underline = true,
   signs = true,
   severity_sort = true,
+  virtual_text = {
+    prefix = '●',
+  },
 })
 
 local path = vim.fn.stdpath('config') .. '/spell/en.utf-8.add'
@@ -238,114 +316,148 @@ for word in io.open(path, 'r'):lines() do
   table.insert(words, word)
 end
 
--- Register a handler that will be called for all installed servers.
--- Alternatively, you may also register handlers on specific server instances instead (see example below).
-lsp_installer.on_server_ready(function(server)
-  -- local border = {
-  -- {"╭", "FloatBorder"},
-  -- {"─", "FloatBorder"},
-  -- {"╮", "FloatBorder"},
-  -- {"│", "FloatBorder"},
-  -- {"╯", "FloatBorder"},
-  -- {"─", "FloatBorder"},
-  -- {"╰", "FloatBorder"},
-  -- {"│", "FloatBorder"},
-  -- }
+-- Default settings
+-- local border = {
+-- {"╭", "FloatBorder"},
+-- {"─", "FloatBorder"},
+-- {"╮", "FloatBorder"},
+-- {"│", "FloatBorder"},
+-- {"╯", "FloatBorder"},
+-- {"─", "FloatBorder"},
+-- {"╰", "FloatBorder"},
+-- {"│", "FloatBorder"},
+-- }
 
-  local handlers = {
-    ['textDocument/hover'] = vim.lsp.with(
-      vim.lsp.handlers.hover,
-      { border = 'rounded' }
-    ),
-    ['textDocument/signatureHelp'] = vim.lsp.with(
-      vim.lsp.handlers.signature_help,
-      { border = 'rounded' }
-    ),
-    ['textDocument/publishDiagnostics'] = vim.lsp.with(
-      vim.lsp.diagnostic.on_publish_diagnostics,
-      {
-        underline = true,
-        virtual_text = {
-          spacing = 2,
-          prefix = '',
+local handlers = {
+  ['textDocument/hover'] = vim.lsp.with(
+    vim.lsp.handlers.hover,
+    { border = 'rounded' }
+  ),
+  ['textDocument/signatureHelp'] = vim.lsp.with(
+    vim.lsp.handlers.signature_help,
+    { border = 'rounded' }
+  ),
+  ['textDocument/publishDiagnostics'] = vim.lsp.with(
+    vim.lsp.diagnostic.on_publish_diagnostics,
+    {
+      underline = true,
+      virtual_text = {
+        spacing = 2,
+        prefix = '',
+      },
+    }
+  ),
+}
+
+local default_opts = {
+  autoSetHints = true,
+  handlers = handlers,
+  noremap = true,
+  silent = true,
+  on_attach = on_attach,
+  flags = {
+    debounce_text_changes = 150,
+  },
+  capabilities = vim.lsp.protocol.make_client_capabilities(),
+}
+
+default_opts.capabilities = require('cmp_nvim_lsp').update_capabilities(
+  default_opts.capabilities
+)
+
+mason_lspconfig.setup_handlers({
+  function(server_name) -- default
+    lspconfig[server_name].setup(default_opts)
+  end,
+  ['ltex'] = function()
+    local opts = default_opts
+    opts.settings = {
+      ltex = {
+        dictionary = {
+          ['en-US'] = words,
         },
-      }
-    ),
-  }
-
-  local opts = {
-    autoSetHints = true,
-    handlers = handlers,
-    noremap = true,
-    silent = true,
-    on_attach = on_attach,
-    flags = {
-      debounce_text_changes = 150,
-    },
-    float = {
-      style = 'minimal',
-      border = 'rounded',
-      source = 'always',
-      header = '',
-      prefix = '',
-    },
-    settings = {
+      },
+    }
+    lspconfig.ltex.setup(opts)
+  end,
+  ['eslint'] = function()
+    local opts = default_opts
+    opts.codeAction = {
+      disableRuleComment = {
+        location = 'separateLine',
+      },
+      showDocumentation = {
+        enable = true,
+      },
+      format = { enable = true }, -- Use Prettier using null-ls
+    }
+    lspconfig['eslint'].setup(opts)
+  end,
+  ['tsserver'] = function()
+    require('typescript').setup({
+      disable_commands = false, -- prevent the plugin from creating Vim commands
+      debug = false, -- enable debug logging for commands
+      go_to_source_definition = {
+        fallback = true, -- fall back to standard LSP definition on failure
+      },
+      server = {
+        autoSetHints = true,
+        handlers = handlers,
+        noremap = true,
+        silent = true,
+        on_attach = on_attach,
+        flags = {
+          debounce_text_changes = 150,
+        },
+        settings = {
+          ltex = {
+            dictionary = {
+              ['en-US'] = words,
+            },
+          },
+        },
+        capabilities = vim.lsp.protocol.make_client_capabilities(),
+      },
+    })
+  end,
+  ['rust_analyzer'] = function()
+    -- Initialize the LSP via rust-tools instead
+    require('rust-tools').setup({
+      server = {
+        on_attach = on_attach,
+        handlers = handlers,
+        flags = {
+          debounce_text_changes = 150,
+        },
+      },
+    })
+  end,
+  ['clangd'] = function()
+    local opts = default_opts
+    opts.capabilities.offsetEncoding = { 'utf-16' } -- Fixes problem with clang
+    lspconfig['clangd'].setup(opts)
+  end,
+  ['sumneko_lua'] = function()
+    local opts = default_opts
+    opts.settings = {
       Lua = {
         diagnostics = {
           -- Get the language server to recognize the `vim` global
           globals = { 'vim' },
         },
-        ltex = {
-          dictionary = {
-            ['en-US'] = words,
-          },
-        },
       },
-    },
-    capabilities = vim.lsp.protocol.make_client_capabilities(),
-  }
-
-  for _, sign in ipairs(signs) do
-    vim.fn.sign_define(
-      sign.name,
-      { texthl = sign.name, text = sign.text, numhl = '' }
-    )
-  end
-
-  opts.capabilities =
-    require('cmp_nvim_lsp').update_capabilities(opts.capabilities)
-
-  -- If the server is eslint override the settings
-  if server.name == 'eslint' or server.name == 'tsserver' then
-    opts.init_options = require('nvim-lsp-ts-utils').init_options
-    opts.settings = {
-      codeAction = {
-        disableRuleComment = {
-          location = 'separateLine',
-        },
-        showDocumentation = {
-          enable = true,
-        },
-        format = { enable = false }, -- Use Prettier using null-ls
+      workspace = {
+        -- Make the server aware of Neovim runtime files
+        library = vim.api.nvim_get_runtime_file('', true),
+      },
+      -- Do not send telemetry data containing a randomized but unique identifier
+      telemetry = {
+        enable = false,
       },
     }
-    -- If the server is Rust analyzer use the plugin
-  elseif server.name == 'rust_analyzer' then
-    -- Initialize the LSP via rust-tools instead
-    require('rust-tools').setup({
-      -- The "server" property provided in rust-tools setup function are the
-      -- settings rust-tools will provide to lspconfig during init.            --
-      -- We merge the necessary settings from nvim-lsp-installer (server:get_default_options())
-      -- with the user's own settings (opts).
-      server = vim.tbl_deep_extend('force', server:get_default_options(), opts),
-    })
-    server:attach_buffers()
-    return
-  elseif server.name == 'clangd' or server.name == 'ccls' then
-    opts.capabilities.offsetEncoding = { 'utf-16' } -- Fixes problem with clang
-  end
-  server:setup(opts)
-end)
+    lspconfig['sumneko_lua'].setup(opts)
+  end,
+})
 
 -- for debugging
--- vim.lsp.set_log_level("debug")
+--[[ vim.lsp.set_log_level("debug") ]]

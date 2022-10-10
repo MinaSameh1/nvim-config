@@ -257,17 +257,22 @@ return packer.startup(function(use)
   -- Linting among other things
   -- LSP
   use({
-    'neovim/nvim-lspconfig',
-    module = 'lspconfig',
-    event = { 'BufRead' },
-    cmd = 'LspInfo',
-    config = function()
-      require('config.lsp.NeovimLSP')
-    end,
-    requires = {
-      -- WARN: Unfortunately we won't be able to lazy load this
-      {
-        'hrsh7th/cmp-nvim-lsp',
+    {
+      'williamboman/mason.nvim',
+    },
+    {
+      'williamboman/mason-lspconfig.nvim'
+    },
+    {
+      'neovim/nvim-lspconfig',
+      config = function()
+        require('config.lsp.NeovimLSP')
+      end,
+      requires = {
+        -- WARN: Unfortunately we won't be able to lazy load this
+        {
+          'hrsh7th/cmp-nvim-lsp',
+        },
       },
     },
   })
@@ -302,8 +307,8 @@ return packer.startup(function(use)
   })
 
   use({
-    'jose-elias-alvarez/nvim-lsp-ts-utils',
-    module = 'nvim-lsp-ts-utils',
+    'jose-elias-alvarez/typescript.nvim',
+    module = 'typescript',
   })
 
   use({
@@ -312,11 +317,6 @@ return packer.startup(function(use)
       require('config.code_runner')
     end,
     requires = 'nvim-lua/plenary.nvim',
-  })
-
-  use({
-    'williamboman/nvim-lsp-installer',
-    requires = { { 'neovim/nvim-lspconfig' } },
   })
 
   -- Show lightblub on code action
@@ -472,7 +472,6 @@ return packer.startup(function(use)
   use({
     {
       'nvim-treesitter/nvim-treesitter',
-      event = 'CursorHold',
       run = ':TSUpdate',
       config = function()
         require('config.treesitter')
