@@ -8,9 +8,19 @@ dap.adapters.firefox = {
   justMyCode = true,
   args = {
     vim.fn.stdpath('data')
-      .. '/dapinstall/firefox/vscode-firefox-debug/dist/adapter.bundle.js',
+      .. '/mason/packages/firefox-debug-adapter/dist/adapter.bundle.js',
   },
 }
+
+require('dap-vscode-js').setup({
+  debugger_path = vim.fn.stdpath('data') .. '/mason/packages/js-debug-adapter',
+  adapters = {
+    'pwa-node',
+    'pwa-chrome',
+    'node-terminal',
+    'pwa-extensionHost',
+  }, -- which adapters to register in nvim-dap
+})
 
 -- note: chrome has to be started with a remote debugging port google-chrome-stable --remote-debugging-port=9222
 dap.adapters.chrome = {
@@ -18,7 +28,7 @@ dap.adapters.chrome = {
   command = 'node',
   args = {
     vim.fn.stdpath('data')
-      .. '/dapinstall/chrome/vscode-chrome-debug/out/src/chromeDebug.js',
+      .. '/mason/packages/chrome-debug-adapter/out/src/chromeDebug.js',
   },
 }
 
@@ -27,13 +37,57 @@ dap.adapters.node2 = { -- Node adaptor Config
   command = 'node',
   args = {
     vim.fn.stdpath('data')
-      .. '/dapinstall/jsnode/vscode-node-debug2/out/src/nodeDebug.js',
+      .. '/mason/packages/node-debug2-adapter/out/src/nodeDebug.js',
   },
 }
 
 dap.configurations.javascript = { -- JS/node config
   {
-    name = 'Launch current file only',
+    type = 'pwa-node',
+    request = 'launch',
+    name = 'Launch file pwa-node',
+    program = '${file}',
+    cwd = '${workspaceFolder}',
+  },
+  {
+    type = 'pwa-node',
+    request = 'launch',
+    name = 'Launch ts file pwa-node',
+    program = '${file}',
+    cwd = '${workspaceFolder}',
+    protocol = 'inspector',
+    console = 'integratedTerminal',
+    resolveSourceMapLocations = {
+      '${workspaceFolder}/dist/**/*.js',
+      '${workspaceFolder}/**',
+      '!**/node_modules/**',
+    },
+    runtimeExecutable = '${workspaceFolder}/node_modules/.bin/ts-node',
+  },
+  {
+    type = 'pwa-node',
+    request = 'attach',
+    name = 'Attach pwa-node',
+    processId = require('dap.utils').pick_process,
+    cwd = '${workspaceFolder}',
+  },
+  {
+    type = 'pwa-node',
+    request = 'launch',
+    name = 'Debug Jest Tests pwa-node',
+    -- trace = true, -- include debugger info
+    runtimeExecutable = 'node',
+    runtimeArgs = {
+      './node_modules/jest/bin/jest.js',
+      '--runInBand',
+    },
+    rootPath = '${workspaceFolder}',
+    cwd = '${workspaceFolder}',
+    console = 'integratedTerminal',
+    internalConsoleOptions = 'neverOpen',
+  },
+  {
+    name = 'Launch debug2 current file only',
     type = 'node2',
     request = 'launch',
     program = '${file}',
@@ -43,14 +97,14 @@ dap.configurations.javascript = { -- JS/node config
     console = 'integratedTerminal',
   },
   { -- For this to work you need to make sure the node process is started with the `--inspect` flag.
-    name = 'Attach to process',
+    name = 'Attach to process debug2',
     type = 'node2',
     request = 'attach',
     processId = require('dap.utils').pick_process,
   },
   { -- Debug only this file
     type = 'node2',
-    name = 'Debug current jest test',
+    name = 'Debug current jest test debug2',
     request = 'launch',
     console = 'integratedTerminal',
     justMyCode = true,
@@ -75,7 +129,7 @@ dap.configurations.javascript = { -- JS/node config
   },
   { -- Debug all tests in the config
     type = 'node2',
-    name = 'Debug all jest',
+    name = 'Debug all jest debug2',
     request = 'launch',
     console = 'integratedTerminal',
     justMyCode = true,
@@ -132,6 +186,7 @@ dap.configurations.javascriptreact = {
     webRoot = '${workspaceFolder}',
   },
 }
+
 -- use same config as jsreact
 dap.configurations.typescriptreact = dap.configurations.javascriptreact
 -- use same config as js
@@ -336,7 +391,7 @@ end
 local dapui = require('dapui')
 
 dapui.setup({
-  icons = { expanded = '▾', collapsed = '▸' },
+  icons = { expanded = '▾', collapsed = '▸', current_frame = '▸' },
   mappings = {
     -- Use a table to apply multiple mappings
     expand = { '<CR>', '<2-LeftMouse>' },
@@ -344,6 +399,7 @@ dapui.setup({
     remove = 'd',
     edit = 'e',
     repl = 'r',
+    toggle = 't',
   },
   layouts = {
     {
@@ -376,6 +432,10 @@ dapui.setup({
     },
   },
   windows = { indent = 1 },
+  render = {
+    max_type_length = nil, -- Can be integer or nil.
+    max_value_lines = 100, -- Can be integer or nil.
+  },
 })
 
 dap.listeners.after.event_initialized['dapui_config'] = function()

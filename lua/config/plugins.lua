@@ -195,15 +195,13 @@ return packer.startup(function(use)
   use({
     {
       'nvim-telescope/telescope.nvim',
-      module = 'telescope',
-      cmd = 'Telescope',
       keys = {
         { 'n', '<Leader>fg' },
         { 'n', '<Leader>tc' },
         { 'n', '<Leader>ff' },
         { 'n', '<Leader>fh' },
       },
-      requires = { 'nvim-lua/plenary.nvim', opt = true },
+      requires = { 'nvim-lua/plenary.nvim' },
       config = function()
         require('config.telescope')
       end,
@@ -261,7 +259,7 @@ return packer.startup(function(use)
       'williamboman/mason.nvim',
     },
     {
-      'williamboman/mason-lspconfig.nvim'
+      'williamboman/mason-lspconfig.nvim',
     },
     {
       'neovim/nvim-lspconfig',
@@ -374,18 +372,38 @@ return packer.startup(function(use)
 
   -- Debugger
   use({
-    'mfussenegger/nvim-dap',
-    key = {
-      { 'n', '<leader>d' },
+    {
+      'mfussenegger/nvim-dap',
+      key = {
+        { 'n', '<leader>d' },
+      },
+      config = function()
+        require('config.dap.dap')
+      end,
     },
-    config = function()
-      require('config.dap.dap')
-    end,
-  })
-
-  use({ -- For nvim lua
-    'jbyuki/one-small-step-for-vimkind',
-    requires = { { 'mfussenegger/nvim-dap', opt = true } },
+    { -- For nvim lua
+      'jbyuki/one-small-step-for-vimkind',
+      requires = { { 'mfussenegger/nvim-dap', opt = true } },
+    },
+    {
+      'mxsdev/nvim-dap-vscode-js',
+      requires = { 'mfussenegger/nvim-dap' },
+    },
+    -- Debugger UI
+    {
+      'rcarriga/nvim-dap-ui',
+      requires = { 'mfussenegger/nvim-dap' },
+    },
+    -- Shows variables and their values when debugging
+    {
+      'theHamsta/nvim-dap-virtual-text',
+      requires = { 'mfussenegger/nvim-dap' },
+    },
+    {
+      'mfussenegger/nvim-dap-python',
+      module = 'dap-python',
+      requires = { 'mfussenegger/nvim-dap' },
+    },
   })
 
   -- use({ -- For java
@@ -396,31 +414,6 @@ return packer.startup(function(use)
   -- 		require("config.jdtls")
   -- 	end
   -- })
-
-  use({
-    'mfussenegger/nvim-dap-python',
-    module = 'dap-python',
-    requires = { { 'mfussenegger/nvim-dap', opt = true } },
-  })
-  -- Debugger UI
-  use({
-    'rcarriga/nvim-dap-ui',
-    module = 'dapui',
-    requires = { { 'mfussenegger/nvim-dap', opt = true } },
-  })
-  -- Shows variables and their values when debugging
-  use({
-    'theHamsta/nvim-dap-virtual-text',
-    requires = { { 'mfussenegger/nvim-dap' } },
-  })
-
-  -- Installs dap debuggers
-  use({
-    'Pocco81/DAPInstall.nvim',
-    opt = true,
-    cmd = { 'DIInstall', 'DIList', 'DIUninstall' },
-    requires = { { 'mfussenegger/nvim-dap' } },
-  })
 
   -- Fixes performance issues with cursorHold
   use({ 'antoinemadec/FixCursorHold.nvim', event = { 'CursorHold' } })
