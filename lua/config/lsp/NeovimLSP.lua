@@ -118,9 +118,6 @@ local on_attach = function(client, bufnr)
     '', -- TypeParameter
   }
 
-  if client.name == 'sumneko_lua' then
-    client.server_capabilities.documentFormattingProvider = false
-  end
   -- Mappings.
   -- Mappings for Trouble
   buf_set_keymap('n', '<leader>xx', '<cmd>TroubleToggle<cr>', mapOpts)
@@ -454,6 +451,7 @@ mason_lspconfig.setup_handlers({
       telemetry = {
         enable = false,
       },
+      format = { enable = false }
     }
     lspconfig['sumneko_lua'].setup(opts)
   end,
