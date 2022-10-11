@@ -212,7 +212,7 @@ return packer.startup(function(use)
       config = function()
         require('telescope').load_extension('ui-select')
       end,
-      requires = { 'nvim-lua/plenary.nvim', opt = true },
+      requires = { 'nvim-lua/plenary.nvim' },
     },
     {
       'nvim-telescope/telescope-media-files.nvim',
@@ -220,7 +220,7 @@ return packer.startup(function(use)
       config = function()
         require('telescope').load_extension('media_files')
       end,
-      requires = { 'nvim-telescope/telescope.nvim', opt = true },
+      requires = { 'nvim-telescope/telescope.nvim' },
     },
     {
       'nvim-telescope/telescope-dap.nvim',
@@ -228,7 +228,7 @@ return packer.startup(function(use)
       config = function()
         require('telescope').load_extension('dap')
       end,
-      requires = { 'nvim-telescope/telescope.nvim', opt = true },
+      requires = { 'nvim-telescope/telescope.nvim' },
     },
   })
 
@@ -273,26 +273,29 @@ return packer.startup(function(use)
         },
       },
     },
-  })
-
-  use({
-    'jose-elias-alvarez/null-ls.nvim',
-    after = 'nvim-lspconfig',
-    module = 'null-ls',
-    event = 'BufRead',
-    requires = { { 'neovim/nvim-lspconfig' } },
-    config = function()
-      require('config.lsp.null_ls')
-    end,
-  })
-
-  use({
-    disable = true,
-    'ThePrimeagen/refactoring.nvim',
-    requires = {
-      { 'nvim-lua/plenary.nvim' },
-      { 'nvim-treesitter/nvim-treesitter' },
+    {
+      'jose-elias-alvarez/null-ls.nvim',
+      after = 'nvim-lspconfig',
+      module = 'null-ls',
+      event = 'BufRead',
+      requires = { { 'neovim/nvim-lspconfig' } },
+      config = function()
+        require('config.lsp.null_ls')
+      end,
     },
+    {
+      disable = true,
+      'ThePrimeagen/refactoring.nvim',
+      requires = {
+        { 'nvim-lua/plenary.nvim' },
+        { 'nvim-treesitter/nvim-treesitter' },
+      },
+    },
+  })
+
+  use({
+    'jose-elias-alvarez/typescript.nvim',
+    module = 'typescript',
   })
 
   use({
@@ -302,11 +305,6 @@ return packer.startup(function(use)
     config = function()
       require('config.aerial')
     end,
-  })
-
-  use({
-    'jose-elias-alvarez/typescript.nvim',
-    module = 'typescript',
   })
 
   use({
@@ -330,7 +328,6 @@ return packer.startup(function(use)
   use({
     {
       'hrsh7th/nvim-cmp',
-      event = 'InsertEnter',
       config = function()
         require('config.cmp.cmp')
       end,
