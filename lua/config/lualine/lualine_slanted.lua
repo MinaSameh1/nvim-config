@@ -54,7 +54,11 @@ require('lualine').setup({
     -- component_separators = { left = '', right = '' },
     component_separators = '',
     section_separators = { left = '', right = '' },
-    disabled_filetypes = {}, -- NONE
+    disabled_filetypes = {
+      statusline = {},
+      winbar = { 'dashboard' },
+    },
+    ignore_focus = {},
     always_divide_middle = true,
   },
   sections = process_sections({
@@ -103,6 +107,22 @@ require('lualine').setup({
     lualine_x = { 'location' },
     lualine_y = {},
     lualine_z = { '%y %m' },
+  },
+  winbar = {
+    lualine_a = { '%*' },
+    lualine_b = {},
+    lualine_c = { 'filename' },
+    lualine_x = {},
+    lualine_y = {},
+    lualine_z = { '%m' },
+  },
+  inactive_winbar = {
+    lualine_a = {},
+    lualine_b = {},
+    lualine_c = { 'filename' },
+    lualine_x = {},
+    lualine_y = {},
+    lualine_z = {},
   },
   tabline = {},
   extensions = {
