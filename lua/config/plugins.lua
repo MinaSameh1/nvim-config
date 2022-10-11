@@ -195,12 +195,12 @@ return packer.startup(function(use)
   use({
     {
       'nvim-telescope/telescope.nvim',
-      keys = {
-        { 'n', '<Leader>fg' },
-        { 'n', '<Leader>tc' },
-        { 'n', '<Leader>ff' },
-        { 'n', '<Leader>fh' },
-      },
+      -- keys = {
+      --   { 'n', '<Leader>fg' },
+      --   { 'n', '<Leader>tc' },
+      --   { 'n', '<Leader>ff' },
+      --   { 'n', '<Leader>fh' },
+      -- },
       requires = { 'nvim-lua/plenary.nvim' },
       config = function()
         require('config.telescope')
