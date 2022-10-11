@@ -6,6 +6,7 @@ if not ok then
 end
 
 null_ls.setup({
+  on_attach = require('config.lsp.default_opts').on_attach,
   sources = {
     -- # FORMATTING #
     null_ls.builtins.formatting.trim_whitespace.with({
@@ -33,7 +34,9 @@ null_ls.setup({
       extra_args = { '--fast', '--line-length', '80' },
     }),
     -- null_ls.builtins.formatting.autopep8, Gonna try black
-    null_ls.builtins.diagnostics.pydocstyle,
+    null_ls.builtins.diagnostics.pydocstyle.with({
+      extra_args = { '--config=$ROOT/setup.cfg' },
+    }),
     null_ls.builtins.diagnostics.pylint.with({
       method = null_ls.methods.DIAGNOSTICS_ON_SAVE,
     }),
@@ -68,6 +71,14 @@ null_ls.setup({
 
     ---- latex
     null_ls.builtins.formatting.latexindent,
+
+    ---- sql
+    null_ls.builtins.diagnostics.sqlfluff.with({
+      extra_args = { '--dialect', 'postgres' }, -- change to your dialect
+    }),
+    null_ls.builtins.formatting.sqlfluff.with({
+      extra_args = { '--dialect', 'postgres' }, -- change to your dialect
+    }),
 
     ---- General
     null_ls.builtins.diagnostics.write_good.with({
