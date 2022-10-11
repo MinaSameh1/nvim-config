@@ -48,10 +48,8 @@ mason_lspconfig.setup({
 
 local mapOpts = { noremap = true, silent = true }
 
-local function lsp_highlight_document(client)
-  -- Set autocommands conditional on server_capabilities
-  -- document_highlight
-  if client.server_capabilities.documentHighlightProvider then
+-- document_highlight
+local function lsp_highlight_document(client, bufnr)
     vim.cmd([[
       hi! LspReferenceRead cterm=underline ctermbg=red gui=underline guibg=#24283b
       hi! LspReferenceText cterm=underline ctermbg=red guibg=#24283b
@@ -74,7 +72,6 @@ local function lsp_highlight_document(client)
       buffer = bufnr,
       callback = vim.lsp.buf.clear_references,
     })
-  end
 end
 
 -- Use an on_attach function to only map the following keys
@@ -256,7 +253,10 @@ local on_attach = function(client, bufnr)
   end
 
   -- Highlight used words
-  lsp_highlight_document(client)
+  if client.server_capabilities.documentHighlightProvider then
+    lsp_highlight_document(client, bufnr)
+  end
+
   -- Enable completion triggered by <c-x><c-o>
   buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
 
