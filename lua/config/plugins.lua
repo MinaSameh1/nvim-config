@@ -334,8 +334,6 @@ return packer.startup(function(use)
       requires = {
         {
           'L3MON4D3/LuaSnip',
-          event = 'CursorHold',
-          module = 'InsertEnter',
           config = function()
             require('config.luasnip')
           end,
