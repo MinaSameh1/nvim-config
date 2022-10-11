@@ -1,7 +1,5 @@
 local M = {}
 
-local mapOpts = { noremap = true, silent = true }
-
 -- document_highlight
 local function lsp_highlight_document(bufnr)
   vim.cmd([[
@@ -28,18 +26,26 @@ local function lsp_highlight_document(bufnr)
   })
 end
 
+vim.diagnostic.config({
+  float = { source = 'always' },
+  underline = true,
+  signs = true,
+  severity_sort = true,
+  virtual_text = {
+    spacing = 2,
+    prefix = '',
+  },
+})
+
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
 M.on_attach = function(client, bufnr)
   require('aerial').on_attach(client, bufnr)
 
-  local function buf_set_keymap(...)
-    vim.api.nvim_buf_set_keymap(bufnr, ...)
-  end
+  local mapOpts = { noremap = true, silent = true, buffer = bufnr }
 
-  local function buf_set_option(...)
-    vim.api.nvim_buf_set_option(bufnr, ...)
-  end
+  -- Enable completion triggered by <c-x><c-o>
+  vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
 
   require('vim.lsp.protocol').CompletionItemKind = {
     '', -- Text
@@ -71,121 +77,59 @@ M.on_attach = function(client, bufnr)
 
   -- Mappings.
   -- Mappings for Trouble
-  buf_set_keymap('n', '<leader>xx', '<cmd>TroubleToggle<cr>', mapOpts)
-  buf_set_keymap(
+  vim.keymap.set('n', '<leader>xx', '<cmd>TroubleToggle<cr>', mapOpts)
+  vim.keymap.set(
     'n',
     '<leader>xw',
     '<cmd>Trouble workspace_diagnostics<cr>',
     mapOpts
   )
-  buf_set_keymap(
+  vim.keymap.set(
     'n',
     '<leader>xd',
     '<cmd>Trouble document_diagnostics<cr>',
     mapOpts
   )
-  buf_set_keymap('n', '<leader>xl', '<cmd>Trouble loclist<cr>', mapOpts)
-  buf_set_keymap('n', '<leader>xq', '<cmd>Trouble quickfix<cr>', mapOpts)
-  buf_set_keymap('n', 'gr', '<cmd>Trouble lsp_references<cr>', mapOpts)
+  vim.keymap.set('n', '<leader>xl', '<cmd>Trouble loclist<cr>', mapOpts)
+  vim.keymap.set('n', '<leader>xq', '<cmd>Trouble quickfix<cr>', mapOpts)
+  vim.keymap.set('n', 'gr', '<cmd>Trouble lsp_references<cr>', mapOpts)
+  -- vim.keymap.set(
+  --   'v',
+  --   '<leader>ca',
+  --   "<cmd>'<,'>lua vim.lsp.buf.range_code_action()<CR>",
+  --   Opts
+  -- )
+  -- buf_set_keymap('n', 'gr',         '<cmd>lua vim.lsp.buf.references()<CR>',                                 mapOpts)
   -- See `:help vim.lsp.*` for documentation on any of the below functions
-  buf_set_keymap('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', mapOpts)
-  buf_set_keymap('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', mapOpts)
-  buf_set_keymap('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', mapOpts)
-  buf_set_keymap(
-    'n',
-    'gi',
-    '<cmd>lua vim.lsp.buf.implementation()<CR>',
-    mapOpts
-  )
-  buf_set_keymap(
-    'n',
-    '<C-k>',
-    '<cmd>lua vim.lsp.buf.signature_help()<CR>',
-    mapOpts
-  )
-  buf_set_keymap(
-    'n',
-    '<leader>Wa',
-    '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>',
-    mapOpts
-  )
-  buf_set_keymap(
+  vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, mapOpts)
+  vim.keymap.set('n', 'gd', vim.lsp.buf.definition, mapOpts)
+  vim.keymap.set('n', 'K', vim.lsp.buf.hover, mapOpts)
+  vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, mapOpts)
+  vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, mapOpts)
+  vim.keymap.set('n', '<leader>Wa', vim.lsp.buf.add_workspace_folder, mapOpts)
+  vim.keymap.set(
     'n',
     '<leader>Wr',
-    '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>',
+    vim.lsp.buf.remove_workspace_folder,
     mapOpts
   )
-  buf_set_keymap(
-    'n',
-    '<leader>Wl',
-    '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>',
-    mapOpts
-  )
-  buf_set_keymap(
-    'n',
-    '<leader>gt',
-    '<cmd>lua vim.lsp.buf.type_definition()<CR>',
-    mapOpts
-  )
-  buf_set_keymap(
-    'n',
-    '<leader>rn',
-    '<cmd>lua vim.lsp.buf.rename()<CR>',
-    mapOpts
-  )
-  buf_set_keymap(
-    'n',
-    '<leader>ca',
-    '<cmd>Telescope lsp_code_actions theme=cursor<CR>',
-    mapOpts
-  )
-  buf_set_keymap(
-    'v',
-    '<leader>ca',
-    "<cmd>'<,'>lua vim.lsp.buf.range_code_action()<CR>",
-    mapOpts
-  )
-  buf_set_keymap(
-    'n',
-    '<leader>I',
-    "<cmd>lua require('nvim-lsp-installer.extras.tsserver').organize_imports(bufname)<CR>",
-    mapOpts
-  )
-  -- buf_set_keymap('n', 'gr',         '<cmd>lua vim.lsp.buf.references()<CR>',                                 mapOpts)
-  buf_set_keymap(
-    'n',
-    '<leader>e',
-    '<cmd>lua vim.diagnostic.open_float({ border = "rounded" })<CR>',
-    mapOpts
-  )
-  buf_set_keymap(
-    'n',
-    '[c',
-    '<cmd>lua vim.diagnostic.goto_prev({ border = "rounded" })<CR>',
-    mapOpts
-  )
-  buf_set_keymap(
-    'n',
-    ']c',
-    '<cmd>lua vim.diagnostic.goto_next({ border = "rounded" })<CR>',
-    mapOpts
-  )
-  buf_set_keymap(
-    'n',
-    '<leader>q',
-    '<cmd>lua vim.diagnostic.setloclist()<CR>',
-    mapOpts
-  )
-  buf_set_keymap(
-    'n',
-    '<leader>f',
-    '<cmd>lua vim.lsp.buf.format { async = true }<CR>',
-    mapOpts
-  )
-  buf_set_keymap(
+  vim.keymap.set('n', '<space>Wl', function()
+    print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+  end, mapOpts)
+  vim.keymap.set('n', '<leader>gt', vim.lsp.buf.type_definition, mapOpts)
+  vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, mapOpts)
+  vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, mapOpts)
+  vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, mapOpts)
+  vim.keymap.set('n', '[c', vim.diagnostic.goto_prev, mapOpts)
+  vim.keymap.set('n', ']c', vim.diagnostic.goto_next, mapOpts)
+  vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, mapOpts)
+  vim.keymap.set('n', '<leader>f', function()
+    vim.lsp.buf.format({ async = true })
+  end, mapOpts)
+  vim.keymap.set(
     'n',
     '<leader>fs',
-    [[<cmd>lua require('telescope.builtin').lsp_document_symbols()<CR>]],
+    require('telescope.builtin').lsp_document_symbols,
     mapOpts
   )
 
@@ -202,9 +146,6 @@ M.on_attach = function(client, bufnr)
     lsp_highlight_document(bufnr)
   end
 
-  -- Enable completion triggered by <c-x><c-o>
-  buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
-
   vim.api.nvim_create_autocmd('CursorHold', {
     buffer = bufnr,
     callback = function()
@@ -216,7 +157,6 @@ M.on_attach = function(client, bufnr)
           'InsertEnter',
           'FocusLost',
         },
-        border = 'rounded',
         source = 'always',
         prefix = ' ',
         scope = 'cursor',
@@ -260,16 +200,6 @@ for _, sign in ipairs(signs) do
   )
 end
 
-vim.diagnostic.config({
-  float = { source = 'always' },
-  underline = true,
-  signs = true,
-  severity_sort = true,
-  virtual_text = {
-    prefix = '●',
-  },
-})
-
 local path = vim.fn.stdpath('config') .. '/spell/en.utf-8.add'
 M.words = {}
 
@@ -298,16 +228,6 @@ M.handlers = {
     vim.lsp.handlers.signature_help,
     { border = 'rounded' }
   ),
-  ['textDocument/publishDiagnostics'] = vim.lsp.with(
-    vim.lsp.diagnostic.on_publish_diagnostics,
-    {
-      underline = true,
-      virtual_text = {
-        spacing = 2,
-        prefix = '',
-      },
-    }
-  ),
 }
 
 M.default_opts = {
@@ -323,9 +243,8 @@ M.default_opts = {
   capabilities = vim.lsp.protocol.make_client_capabilities(),
 }
 
-M.default_opts.capabilities = require('cmp_nvim_lsp').update_capabilities(
-  M.default_opts.capabilities
-)
+M.default_opts.capabilities =
+  require('cmp_nvim_lsp').update_capabilities(M.default_opts.capabilities)
 M.default_opts.capabilities.textDocument.completion.completionItem.snippetSupport =
   true
 
