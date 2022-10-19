@@ -240,11 +240,9 @@ M.default_opts = {
     debounce_text_changes = 150,
   },
   format = true,
-  capabilities = vim.lsp.protocol.make_client_capabilities(),
+  capabilities = require('cmp_nvim_lsp').default_capabilities(),
 }
 
-M.default_opts.capabilities =
-  require('cmp_nvim_lsp').update_capabilities(M.default_opts.capabilities)
 M.default_opts.capabilities.textDocument.completion.completionItem.snippetSupport =
   true
 

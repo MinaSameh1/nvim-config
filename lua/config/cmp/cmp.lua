@@ -83,7 +83,6 @@ cmp.setup({
     -- { name = 'ultisnips' }, -- For ultisnips users.
     { name = 'buffer', max_item_count = 10 },
     { name = 'path', max_item_count = 10 },
-    { name = 'cmdline' },
   },
   signs = {
     active = signs,
@@ -129,13 +128,6 @@ cmp.setup({
   },
 })
 
--- Use buffer source for `/` (if you enabled `native_menu`, this won't work anymore).
-cmp.setup.cmdline('/', {
-  sources = {
-    { name = 'buffer' },
-  },
-})
-
 -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
 cmp.setup.cmdline(':', {
   mapping = cmp.mapping.preset.cmdline(),
@@ -147,6 +139,13 @@ cmp.setup.cmdline(':', {
       { name = 'cmdline' },
     }
   ),
+})
+
+-- Use buffer source for `/` (if you enabled `native_menu`, this won't work anymore).
+cmp.setup.cmdline('/', {
+  sources = {
+    { name = 'buffer' },
+  },
 })
 
 cmp.setup.filetype({ 'markdown', 'pandoc', 'text', 'latex' }, {
