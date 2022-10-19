@@ -109,7 +109,7 @@ require('lualine').setup({
     lualine_z = { '%y %m' },
   },
   winbar = {
-    lualine_a = { '%*' },
+    lualine_a = {},
     lualine_b = {},
     lualine_c = { 'filename' },
     lualine_x = {},
