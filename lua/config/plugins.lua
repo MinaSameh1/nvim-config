@@ -581,6 +581,7 @@ return packer.startup(function(use)
   -- Themes
   use({
     { 'rktjmp/lush.nvim' }, -- used to create colorschemes
+    { 'savq/melange' },
     { 'nanotech/jellybeans.vim' },
     { 'dracula/vim' },
     { 'folke/tokyonight.nvim' },
