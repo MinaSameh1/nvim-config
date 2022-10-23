@@ -26,17 +26,6 @@ local function lsp_highlight_document(bufnr)
   })
 end
 
-vim.diagnostic.config({
-  float = { source = 'always' },
-  underline = true,
-  signs = true,
-  severity_sort = true,
-  virtual_text = {
-    spacing = 2,
-    prefix = '',
-  },
-})
-
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
 M.on_attach = function(client, bufnr)
@@ -207,17 +196,33 @@ for word in io.open(path, 'r'):lines() do
   table.insert(M.words, word)
 end
 
--- Default settings
+-- -- Default settings
 -- local border = {
--- {"╭", "FloatBorder"},
--- {"─", "FloatBorder"},
--- {"╮", "FloatBorder"},
--- {"│", "FloatBorder"},
--- {"╯", "FloatBorder"},
--- {"─", "FloatBorder"},
--- {"╰", "FloatBorder"},
--- {"│", "FloatBorder"},
+--   { '╭', 'FloatBorder' },
+--   { '─', 'FloatBorder' },
+--   { '╮', 'FloatBorder' },
+--   { '│', 'FloatBorder' },
+--   { '╯', 'FloatBorder' },
+--   { '─', 'FloatBorder' },
+--   { '╰', 'FloatBorder' },
+--   { '│', 'FloatBorder' },
 -- }
+
+vim.diagnostic.config({
+  float = {
+    source = 'always',
+    focusable = true,
+    style = 'minimal',
+    border = 'rounded',
+  },
+  underline = true,
+  signs = true,
+  severity_sort = true,
+  virtual_text = {
+    spacing = 2,
+    prefix = '',
+  },
+})
 
 M.handlers = {
   ['textDocument/hover'] = vim.lsp.with(
