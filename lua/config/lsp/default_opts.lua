@@ -29,8 +29,6 @@ end
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
 M.on_attach = function(client, bufnr)
-  require('aerial').on_attach(client, bufnr)
-
   local mapOpts = { noremap = true, silent = true, buffer = bufnr }
 
   -- Enable completion triggered by <c-x><c-o>

@@ -92,6 +92,9 @@ return packer.startup(function(use)
             ['null-ls'] = {
               ignore = true,
             },
+            ['ltex'] = {
+              ignore = true,
+            },
           },
         })
       end,
@@ -291,20 +294,23 @@ return packer.startup(function(use)
         { 'nvim-treesitter/nvim-treesitter' },
       },
     },
-  })
-
-  use({
-    'jose-elias-alvarez/typescript.nvim',
-    module = 'typescript',
-  })
-
-  use({
-    'stevearc/aerial.nvim',
-    opt = true,
-    module = 'aerial',
-    config = function()
-      require('config.aerial')
-    end,
+    {
+      'simrat39/symbols-outline.nvim',
+      config = function()
+        require("symbols-outline").setup()
+      end
+    },
+    { -- typescript
+      'jose-elias-alvarez/typescript.nvim',
+      module = 'typescript',
+    },
+    { -- for rust
+      'simrat39/rust-tools.nvim',
+      module = 'rust-tools',
+      ft = { 'rust' },
+    },
+    -- Show lightblub on code action
+    { 'kosayoda/nvim-lightbulb' },
   })
 
   use({
@@ -314,9 +320,6 @@ return packer.startup(function(use)
     end,
     requires = 'nvim-lua/plenary.nvim',
   })
-
-  -- Show lightblub on code action
-  use({ 'kosayoda/nvim-lightbulb' })
 
   -- AutoCompletetion and snippets, replaced with luasnip
   -- use(
@@ -349,6 +352,7 @@ return packer.startup(function(use)
   })
 
   use({ 'onsails/lspkind-nvim', module = 'lspkind' }) -- Icons for autocomplete, you can never have enough.
+
   use({
     'ray-x/lsp_signature.nvim',
     after = 'nvim-lspconfig',
@@ -526,12 +530,6 @@ return packer.startup(function(use)
         },
       })
     end,
-  })
-
-  use({ -- for rust
-    'simrat39/rust-tools.nvim',
-    module = 'rust-tools',
-    ft = { 'rust' },
   })
 
   ---- For now use prettier tailwind
