@@ -29,7 +29,7 @@ mason_lspconfig.setup({
   ensure_installed = {
     'tsserver',
     'kotlin_language_server',
-    'json-lsp',
+    'jsonls',
     'pyright',
     'sumneko_lua',
     'yamlls',
@@ -39,7 +39,7 @@ mason_lspconfig.setup({
     'cssls',
     'sqlls',
     'marksman',
-    'grammerly',
+    'grammarly',
     'jdtls',
     'cmake',
   },
