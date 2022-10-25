@@ -48,6 +48,11 @@ require('config.plugins')
 require('config.colorscheme')
 require('colors.colors')
 
+-- Colorscheme
+require('NeoSolarized').setup({
+  style = 'dark',
+  transparent = false,
+})
 vim.cmd([[
   try
     colorscheme NeoSolarized

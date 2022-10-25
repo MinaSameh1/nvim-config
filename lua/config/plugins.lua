@@ -633,12 +633,6 @@ return packer.startup(function(use)
     },
     {
       'Tsuzat/NeoSolarized.nvim',
-      config = function()
-        require('NeoSolarized').setup({
-          style = 'dark',
-          transparent = 'false',
-        })
-      end,
     },
     {
       'AlphaTechnolog/pywal.nvim',
