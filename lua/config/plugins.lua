@@ -163,7 +163,7 @@ return packer.startup(function(use)
       tag = 'v1.*',
       config = function()
         require('window-picker').setup({
-          use_winbar = 'smart',
+          use_winbar = 'never',
           autoselect_one = true,
           include_current_win = false,
           filter_rules = {
