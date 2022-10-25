@@ -13,7 +13,7 @@ local utils = require('config.utils')
 local nmap = utils.nmap
 -- local vmap = utils.vmap
 -- local imap = utils.imap
-local xmap = utils.xmap
+-- local xmap = utils.xmap
 -- local omap = utils.omap
 local cmap = utils.cmap
 local nnoremap = utils.nnoremap
@@ -123,6 +123,10 @@ if vim.env.TERM == 'xterm-kitty' then
   )
 end
 
+-- Sessions
+nnoremap('Leader>ss', ':<C-u>SessionSave<CR>') -- Save Session
+nnoremap('<Leader>sl', ':<C-u>SessionLoad<CR>') -- Load Session
+
 --[[
 -- ****************************
 -- *         Plugins          *
@@ -130,58 +134,6 @@ end
 --]]
 require('init')
 
---[[
--- ****************************************
--- *         Plugins Keybindings          *
--- ****************************************
---]]
-
--- *****************************
--- *         fugitive          *
--- *****************************
-nnoremap('<leader>gg', '<Cmd>Git<CR>') -- fugitive Git window
-nnoremap('<leader>gc', '<Cmd>Git commit<CR>') -- Commit
-
--- *******************************
--- *         EasyAlign           *
--- *******************************
-xmap('ga', '<Plug>(EasyAlign)') -- Start interactive EasyAlign in visual mode (e.g. vipga)
-nnoremap('ga', '<Plug>(EasyAlign)') -- Start interactive EasyAlign for a motion/text object (e.g. gaip)
-
--- *******************************
--- *      CMP autocomplete       *
--- *******************************
-vim.opt.completeopt = { 'menu', 'menuone', 'noselect' }
-
--- *******************************
--- *         UltiSnips           *
--- *******************************
----- These keybindings are useless since I use cmp
--- vim.g.UltiSnipsExpandTrigger="<tab>"
--- vim.g.UltiSnipsJumpForwardTrigger="<c-j>"
--- vim.g.UltiSnipsJumpBackwardTrigger="<c-k>"
---
--- vim.g.UltiSnipsEditSplit = 'vertical' -- If you want :UltiSnipsEdit to split your window.
---
--- vim.g.UltiSnipsSnippetDirectories = { '~/.config/nvim/Snips', 'Snips' }
--- vim.g.UltiSnipsSnippetsDir = '~/.config/nvim/Snips' -- Location of snips
--- vim.g.UltiSnipsListSnippets = '<C-Space>'
-
--- Sessions
-nnoremap('Leader>ss', ':<C-u>SessionSave<CR>') -- Save Session
-nnoremap('<Leader>sl', ':<C-u>SessionLoad<CR>') -- Load Session
-
-vim.g.dashboard_default_executive = 'telescope' -- Use telescope
-
--- ********************************
--- *         Focus                *
--- ********************************
-vim.api.nvim_set_keymap(
-  'n',
-  '<leader>S',
-  ':FocusSplitNicely<CR>',
-  { silent = true }
-)
 -- **********************************
 -- *         Vim Commands           *
 -- **********************************

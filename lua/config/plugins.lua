@@ -109,7 +109,6 @@ return packer.startup(function(use)
     config = function()
       require('focus').setup({
         excludeded_filetypes = {
-          'NvimTree',
           'toggleterm',
           'term',
           'fterm',
@@ -150,12 +149,49 @@ return packer.startup(function(use)
     end,
   })
 
+  -- use({
+  --   'kyazdani42/nvim-tree.lua',
+  --   -- cmd = { 'NvimTreeToggle' },
+  --   config = function()
+  --     require('config.nvimtree')
+  --   end,
+  -- })
+
   use({
-    'kyazdani42/nvim-tree.lua',
-    -- cmd = { 'NvimTreeToggle' },
-    config = function()
-      require('config.nvimtree')
-    end,
+    {
+      's1n7ax/nvim-window-picker',
+      tag = 'v1.*',
+      config = function()
+        require('window-picker').setup({
+          use_winbar = 'smart',
+          autoselect_one = true,
+          include_current_win = false,
+          filter_rules = {
+            -- filter using buffer options
+            bo = {
+              -- if the file type is one of following, the window will be ignored
+              filetype = { 'neo-tree', 'neo-tree-popup', 'notify' },
+
+              -- if the buffer type is one of following, the window will be ignored
+              buftype = { 'terminal', 'quickfix' },
+            },
+          },
+          other_win_hl_color = '#e35e4f',
+        })
+      end,
+    },
+    {
+      'nvim-neo-tree/neo-tree.nvim',
+      branch = 'v2.x',
+      requires = {
+        'nvim-lua/plenary.nvim',
+        'kyazdani42/nvim-web-devicons', -- not strictly required, but recommended
+        'MunifTanjim/nui.nvim',
+      },
+      config = function()
+        require('config.neotree')
+      end,
+    },
   })
 
   -- better matchit plug
@@ -297,8 +333,8 @@ return packer.startup(function(use)
     {
       'simrat39/symbols-outline.nvim',
       config = function()
-        require("symbols-outline").setup()
-      end
+        require('symbols-outline').setup()
+      end,
     },
     { -- typescript
       'jose-elias-alvarez/typescript.nvim',
@@ -595,7 +631,15 @@ return packer.startup(function(use)
         })
       end,
     },
-    { 'overcache/NeoSolarized' },
+    {
+      'Tsuzat/NeoSolarized.nvim',
+      config = function()
+        require('NeoSolarized').setup({
+          style = 'dark',
+          transparent = 'false',
+        })
+      end,
+    },
     {
       'AlphaTechnolog/pywal.nvim',
       disable = true,
