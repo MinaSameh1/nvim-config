@@ -387,8 +387,6 @@ return packer.startup(function(use)
     { 'saadparwaiz1/cmp_luasnip', after = 'nvim-cmp' },
   })
 
-  use({ 'onsails/lspkind-nvim', module = 'lspkind' }) -- Icons for autocomplete, you can never have enough.
-
   use({
     'ray-x/lsp_signature.nvim',
     after = 'nvim-lspconfig',

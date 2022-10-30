@@ -3,15 +3,38 @@ if not cmp_status_ok then
   return
 end
 
-local lspkind_ok, lspkind = pcall(require, 'lspkind')
-if not lspkind_ok then
-  return
-end
-
 local luasnip_ok, luasnip = pcall(require, 'luasnip')
 if not luasnip_ok then
   return
 end
+
+local kindIcons = {
+  Text = '',
+  Method = '',
+  Function = '',
+  Constructor = '',
+  Field = '',
+  Variable = '',
+  Class = 'ﴯ',
+  Interface = '',
+  Module = '',
+  Property = 'ﰠ',
+  Unit = '',
+  Value = '',
+  Enum = '',
+  Keyword = '',
+  Snippet = '',
+  Color = '',
+  File = '',
+  Reference = '',
+  Folder = '',
+  EnumMember = '',
+  Constant = '',
+  Struct = '',
+  Event = '',
+  Operator = '',
+  TypeParameter = '',
+}
 
 local check_backspace = function()
   local col = vim.fn.col('.') - 1
@@ -59,9 +82,12 @@ cmp.setup({
     end, { 'i', 's' }),
     ['<C-Space>'] = cmp.mapping(function(fallback)
       if luasnip.expand_or_jumpable() then
-        luasnip.expand_or_jump()
+        return luasnip.expand_or_jump()
       elseif cmp.visible() then
-        cmp.select_next_item()
+        return cmp.confirm({
+          behavior = cmp.ConfirmBehavior.Insert,
+          select = true,
+        })
       else
         fallback()
       end
@@ -98,6 +124,10 @@ cmp.setup({
   update_in_insert = true,
   underline = true,
   severity_sort = true,
+  window = {
+    completion = cmp.config.window.bordered(),
+    documentation = cmp.config.window.bordered(),
+  },
   float = {
     focusable = false,
     style = 'minimal',
@@ -108,12 +138,6 @@ cmp.setup({
   },
   formatting = {
     format = function(entry, vim_item)
-      lspkind.cmp_format({
-        with_text = true, -- do not show text alongside icons
-        -- prevent the popup from showing more than provided characters (e.g 50 will not show more than 50 characters)
-        maxwidth = 30,
-      })(entry, vim_item)
-
       local alias = {
         buffer = '[Buf]',
         path = '[Path]',
@@ -121,12 +145,17 @@ cmp.setup({
         luasnip = '[LuaSnip]',
         ultisnips = '[UltiSnips]',
         nvim_lua = '[Lua]',
-        tmux = '[tmux]',
         latex_symbols = '[Latex]',
-        nvim_lsp_signature_help = '[LSP Signature]',
       }
-
+      -- Kind icons
+      vim_item.kind = string.format(
+        '%s %s',
+        kindIcons[vim_item.kind],
+        vim_item.kind
+      ) -- This concatonates the icons with the name of the item kind
       if entry.source.name == 'nvim_lsp' then
+        -- I can add '['.. lspname .. ']'
+        -- But decided against it, I like its look that way.
         vim_item.menu = entry.source.source.client.name
       else
         vim_item.menu = alias[entry.source.name] or entry.source.name
