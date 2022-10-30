@@ -139,13 +139,20 @@ cmp.setup({
   formatting = {
     format = function(entry, vim_item)
       local alias = {
-        buffer = '[Buf]',
-        path = '[Path]',
-        nvim_lsp = '[LSP]',
-        luasnip = '[LuaSnip]',
-        ultisnips = '[UltiSnips]',
-        nvim_lua = '[Lua]',
-        latex_symbols = '[Latex]',
+        -- buffer = '[Buf]',
+        -- path = '[Path]',
+        -- nvim_lsp = '[LSP]',
+        -- luasnip = '[LuaSnip]',
+        -- ultisnips = '[UltiSnips]',
+        -- nvim_lua = '[Lua]',
+        -- latex_symbols = '[Latex]',
+        nvim_lua = '',
+        latex_symbols = '',
+        nvim_lsp = 'λ',
+        luasnip = '⋗',
+        ultisnips = '⋗',
+        buffer = 'Ω',
+        path = '🖫',
       }
       -- Kind icons
       vim_item.kind = string.format(
@@ -153,6 +160,8 @@ cmp.setup({
         kindIcons[vim_item.kind],
         vim_item.kind
       ) -- This concatonates the icons with the name of the item kind
+
+      --  I like to know my lsp names :v
       if entry.source.name == 'nvim_lsp' then
         -- I can add '['.. lspname .. ']'
         -- But decided against it, I like its look that way.
@@ -160,6 +169,13 @@ cmp.setup({
       else
         vim_item.menu = alias[entry.source.name] or entry.source.name
       end
+      ---- This sorta of works but now the menu is too large,
+      ---- removed for clarity.
+      -- local detail = entry:get_completion_item().detail
+      -- if detail then
+      --   local item_detail = vim.split(detail, '%s', { trimempty = true })
+      --   vim_item.menu = vim_item.menu .. ' (' .. item_detail[1] .. ')'
+      -- end
       return vim_item
     end,
   },
