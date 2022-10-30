@@ -36,7 +36,6 @@ cmp.setup({
   mapping = {
     ['<C-d>'] = cmp.mapping(cmp.mapping.scroll_docs(-4), { 'i', 'c' }),
     ['<C-f>'] = cmp.mapping(cmp.mapping.scroll_docs(4), { 'i', 'c' }),
-    ['<C-Space>'] = cmp.mapping(cmp.mapping.complete(), { 'i', 'c' }),
     ['<C-e>'] = cmp.config.disable, -- Specify `cmp.config.disable` if you want to remove the default `<C-y>` mapping.
     ['<C-y>'] = cmp.mapping.confirm({ select = true }),
     ['<CR>'] = cmp.mapping.confirm({
@@ -54,6 +53,15 @@ cmp.setup({
     ['<C-p>'] = cmp.mapping(function(fallback)
       if cmp.visible() then
         cmp.select_prev_item()
+      else
+        fallback()
+      end
+    end, { 'i', 's' }),
+    ['<C-Space>'] = cmp.mapping(function(fallback)
+      if luasnip.expand_or_jumpable() then
+        luasnip.expand_or_jump()
+      elseif cmp.visible() then
+        cmp.select_next_item()
       else
         fallback()
       end
