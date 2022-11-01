@@ -1,4 +1,10 @@
-require('bufferline').setup({
+local status_ok, bufferline = pcall(require, 'bufferline')
+if not status_ok then
+  print('problem with bufferline.')
+  return
+end
+
+bufferline.setup({
   options = {
     -- numbers = 'buffer_id',
     numbers = function(opts)

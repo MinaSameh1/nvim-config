@@ -3,7 +3,12 @@
 -- ******************************
 
 local config_location = require('config.utils').config_location
-local db = require('dashboard')
+local status_ok, db = pcall(require, 'dashboard')
+if not status_ok then
+  print('Error in db config')
+  return
+end
+
 -- db.preview_command = 'cat | lolcat -F 0.3'
 -- db.preview_file_path = home .. '/.config/nvim/static/neovim.cat'
 db.preview_file_height = 12

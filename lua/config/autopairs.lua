@@ -1,4 +1,10 @@
-require('nvim-autopairs').setup({
+local status_ok, autopairs = pcall(require, 'nvim-autopairs')
+if not status_ok then
+  print('Error in autopairs')
+  return
+end
+
+autopairs.setup({
   disable_filetype = { 'TelescopePrompt', 'dap-repl', 'NvimTree' },
   disable_in_macro = false, -- disable when recording or executing a macro
   disable_in_visualblock = false, -- disable when insert after visual block mode
@@ -27,6 +33,7 @@ require('nvim-autopairs').setup({
     highlight_grey = 'Comment',
   },
 })
+
 require('cmp').event:on(
   'confirm_done',
   require('nvim-autopairs.completion.cmp').on_confirm_done({

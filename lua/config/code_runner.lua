@@ -1,6 +1,12 @@
+local status_ok, coderunner = pcall(require, 'code_runner')
+if not status_ok then
+  print('Error in coderunner config')
+  return
+end
+
 local config_location = require('config.utils').config_location
 
-require('code_runner').setup({
+coderunner.setup({
   term = {
     position = 'belowright',
     size = 4,
@@ -12,6 +18,8 @@ require('code_runner').setup({
     config_location .. '/utils/project_manager.json'
   ),
 })
+
+-- Keymaps
 vim.api.nvim_set_keymap(
   'n',
   '<leader>rc',
