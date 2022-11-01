@@ -439,14 +439,14 @@ return packer.startup(function(use)
     },
   })
 
-  -- use({ -- For java
-  -- 	"mfussenegger/nvim-jdtls",
-  -- 	ft= { 'java' },
-  -- 	requires = { { "williamboman/nvim-lsp-installer" } },
-  -- 	config = function ()
-  -- 		require("config.jdtls")
-  -- 	end
-  -- })
+  use({ -- For java
+    'mfussenegger/nvim-jdtls',
+    -- ft = { 'java' },
+    -- Use ftplugin/java instead
+    -- config = function()
+    --   require('config.jdtls')
+    -- end,
+  })
 
   -- Fixes performance issues with cursorHold
   use({ 'antoinemadec/FixCursorHold.nvim', event = { 'CursorHold' } })
@@ -597,12 +597,12 @@ return packer.startup(function(use)
     end,
   })
 
-  use({
-    'nathom/filetype.nvim',
-    config = function()
-      vim.g.did_load_filetypes = 1 -- Stop file types from loading, load them using filetypes.nvim
-    end,
-  })
+  -- use({
+  --   'nathom/filetype.nvim',
+  --   config = function()
+  --     vim.g.did_load_filetypes = 1 -- Stop file types from loading, load them using filetypes.nvim
+  --   end,
+  -- })
 
   -- Dims lights xd
   use({

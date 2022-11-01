@@ -127,6 +127,7 @@ mason_lspconfig.setup_handlers({
     opts.capabilities.offsetEncoding = { 'utf-16' } -- Fixes problem with clang
     lspconfig['clangd'].setup(opts)
   end,
+  ['jdtls'] = function() end,
   ['sumneko_lua'] = function()
     local opts = default_opts
     opts.settings = {
