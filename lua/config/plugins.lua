@@ -610,6 +610,15 @@ return packer.startup(function(use)
     cmd = 'Twilight',
   })
 
+  -- Takes beautiful screenshots of code
+  use({
+    'narutoxy/silicon.lua',
+    requires = { 'nvim-lua/plenary.nvim' },
+    config = function()
+      require('config.silicon')
+    end,
+  })
+
   -- Themes
   use({
     { 'rktjmp/lush.nvim' }, -- used to create colorschemes
