@@ -388,6 +388,7 @@ end
 -- local_config.init()
 
 -- Dap ui
+dap.defaults.fallback.terminal_win_cmd = "10split new"
 local dapui = require('dapui')
 
 dapui.setup({
@@ -418,8 +419,13 @@ dapui.setup({
       position = 'right', -- Can be "left", "right", "top", "bottom"
     },
     {
+      elements = { 'console' },
+      size = 5,
+      position = 'bottom', -- Can be "left", "right", "top", "bottom"
+    },
+    {
       elements = { 'repl' },
-      size = 10,
+      size = 5,
       position = 'bottom', -- Can be "left", "right", "top", "bottom"
     },
   },
@@ -460,17 +466,18 @@ dap.listeners.after.event_initialized['dapui_config'] = function()
   )
 end
 dap.listeners.before.event_terminated['dapui_config'] = function()
-  vim.api.nvim_del_keymap('n', '<down>')
-  vim.api.nvim_del_keymap('n', '<left>')
-  vim.api.nvim_del_keymap('n', '<right>')
+  -- vim.api.nvim_del_keymap('n', '<down>')
+  -- vim.api.nvim_del_keymap('n', '<left>')
+  -- vim.api.nvim_del_keymap('n', '<right>')
   dapui.close()
-  vim.cmd('bd! \\[dap-repl]')
+  dapui.toggle(3) -- show repl
 end
 dap.listeners.before.event_exited['dapui_config'] = function()
   vim.api.nvim_del_keymap('n', '<down>')
   vim.api.nvim_del_keymap('n', '<left>')
   vim.api.nvim_del_keymap('n', '<right>')
   dapui.close()
+  dapui.toggle(2) -- show repl
   vim.cmd('bd! \\[dap-repl]')
 end
 
@@ -516,7 +523,7 @@ vim.fn.sign_define(
 )
 
 vim.cmd([[
-command! DapClose lua require'dap'.terminate(); require'dapui'.close(); vim.cmd("bd! \\[dap-repl]")
+" command! DapClose lua require'dap'.terminate(); require'dapui'.close(); vim.cmd("bd! \\[dap-repl]")
 command! DapStart lua require'dap'.continue()
 ]])
 
@@ -566,10 +573,4 @@ map(
   ':lua local widgets=require"dap.ui.widgets";widgets.centered_float(widgets.scopes)<CR>'
 )
 map('n', '<Leader>dui', '<Cmd>lua require("dapui").toggle()<CR>')
--- -- Jester test
--- map('n', '<leader>jn', '<Cmd>lua require"jester".run_file()<CR>')
--- map('n', '<leader>jj', '<Cmd>lua require"jester".run()<CR>')
--- map('n', '<leader>jN', '<Cmd>lua require"jester".run_last()<CR>')
--- map('n', '<leader>jd', '<Cmd>lua require"jester".debug()<CR>')
--- map('n', '<leader>jD', '<Cmd>lua require"jester".debug_file()<CR>')
--- map('n', '<leader>jdn', '<Cmd>lua require"jester".debug()<CR>')
+map('n', '<Leader>duc', '<Cmd>lua require("dapui").toggle()<CR><Cmd>lua require("dapui").toggle(2)<CR>')
