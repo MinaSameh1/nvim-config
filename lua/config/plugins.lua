@@ -597,12 +597,9 @@ return packer.startup(function(use)
     end,
   })
 
-  -- use({
-  --   'nathom/filetype.nvim',
-  --   config = function()
-  --     vim.g.did_load_filetypes = 1 -- Stop file types from loading, load them using filetypes.nvim
-  --   end,
-  -- })
+  use({
+    'nathom/filetype.nvim',
+  })
 
   -- Dims lights xd
   use({
