@@ -49,10 +49,5 @@ require('config.colorscheme')
 require('colors.colors')
 
 vim.cmd([[
-  try
-    colorscheme NeoSolarized
-  catch /^Vim\%((\a\+)\)\=:E18o
-    colorscheme default
-    set background=dark
-  endtry
+  colorscheme NeoSolarized
 ]])

@@ -61,8 +61,9 @@ local config = {
     '-Xmx1G',
     -- location of jdtls
     '-jar',
-    home
-      .. '/.local/share/jdtls/plugins/org.eclipse.equinox.launcher_1.6.400.v20210924-0641.jar',
+    vim.fn.glob(
+      home .. '/.local/share/jdtls/plugins/org.eclipse.equinox.launcher_*.jar'
+    ),
     -- config location
     '-configuration',
     home .. '/.local/share/jdtls/config_linux',
