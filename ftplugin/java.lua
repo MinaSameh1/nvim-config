@@ -11,6 +11,38 @@ local home = os.getenv('HOME')
 
 local root_markers = { 'gradlew', '.git', 'mvnw', 'pom.xml' }
 
+local bundles = {
+  vim.fn.glob(
+    home
+      .. '/.local/share/java/java-debug/com.microsoft.java.debug.plugin/target/com.microsoft.java.debug.plugin-*.jar',
+    1
+  ),
+  -- vim.fn.glob(
+  --   home
+  --     .. '~/.local/share/java/vscode-java-test/java-extension/com.microsoft.java.test.runner/lib/*.jar',
+  --   1
+  -- ),
+  -- vim.fn.glob(
+  --   home
+  --     .. '~/.local/share/java/vscode-java-test/java-extension/com.microsoft.java.test.runner/target/*.jar',
+  --   1
+  -- ),
+  -- vim.fn.glob(
+  --   home
+  --     .. '~/.local/share/java/java-debug/com.microsoft.java.debug.plugin/com.microsoft.java.debug.plugin-*.jar',
+  --   1
+  -- ),
+  --
+}
+
+vim.list_extend(
+  bundles,
+  vim.split(
+    vim.fn.glob(home .. '/.local/share/java/vscode-java-test/server/*.jar', 1),
+    '\n'
+  )
+)
+--
 -- extends default on attach
 opts.capabilities.configuration = true
 
@@ -41,7 +73,7 @@ local config = {
   root_dir = vim.fs.dirname(vim.fs.find(root_markers, { upward = true })[1]),
   capabilities = opts.capabilities,
   init_options = {
-    bundles = {},
+    bundles = bundles,
     extendedClientCapabilities = extendedClientCapabilities,
   },
   configuration = {
@@ -117,6 +149,8 @@ config['on_attach'] = function(client, bufnr)
     mapOpts
   )
   opts.on_attach(client, bufnr)
+  jdtls.setup_dap({ hotcodereplace = 'auto' })
+  require('jdtls.setup').add_commands()
 end
 
 jdtls.start_or_attach(config)
