@@ -46,12 +46,12 @@ null_ls.setup({
 
     ---- Typescript/Javascript
     null_ls.builtins.formatting.prettier.with({
-      env = {
-        PRETTIERD_DEFAULT_CONFIG = vim.fn.expand(
-          '~/.config/nvim/utils/linter-config/.prettier.config.js'
-        ),
-      },
-      extra_args = { '--no-semi', '--single-quote', '--jsx-single-quote' },
+      -- env = {
+      --   PRETTIERD_DEFAULT_CONFIG = vim.fn.expand(
+      --     '~/.config/nvim/utils/linter-config/.prettier.config.js'
+      --   ),
+      -- },
+      -- extra_args = { '--no-semi', '--single-quote', '--jsx-single-quote' },
       prefer_local = 'node_modules/.bin',
     }),
     -- null_ls.builtins.formatting.eslint_d,
