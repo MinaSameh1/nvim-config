@@ -388,7 +388,7 @@ end
 -- local_config.init()
 
 -- Dap ui
-dap.defaults.fallback.terminal_win_cmd = "10split new"
+dap.defaults.fallback.terminal_win_cmd = '10split new'
 local dapui = require('dapui')
 
 dapui.setup({
@@ -573,4 +573,8 @@ map(
   ':lua local widgets=require"dap.ui.widgets";widgets.centered_float(widgets.scopes)<CR>'
 )
 map('n', '<Leader>dui', '<Cmd>lua require("dapui").toggle()<CR>')
-map('n', '<Leader>duc', '<Cmd>lua require("dapui").toggle()<CR><Cmd>lua require("dapui").toggle(2)<CR>')
+map(
+  'n',
+  '<Leader>duc',
+  '<Cmd>lua require("dapui").toggle()<CR><Cmd>lua require("dapui").toggle(2)<CR>'
+)
