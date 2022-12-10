@@ -154,7 +154,7 @@ M.on_attach = function(client, bufnr)
     'n',
     '<leader>fs',
     require('telescope.builtin').lsp_document_symbols,
-    setDesc("Opens document symbols")
+    setDesc('Opens document symbols')
   )
 
   vim.cmd([[
