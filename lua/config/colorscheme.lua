@@ -15,7 +15,7 @@ vim.g.tokyonight_colors = { hint = 'orange', error = '#ff0000' }
 -- NeoSolarized
 require('NeoSolarized').setup({
   style = 'dark',
-  transparent = true,
+  transparent = false,
 })
 
 -- Border for floaty stuff :P
