@@ -623,6 +623,7 @@ return packer.startup(function(use)
     { 'ellisonleao/gruvbox.nvim' },
     { 'shaunsingh/nord.nvim' },
     { 'catppuccin/nvim', as = 'catppuccin' },
+    { 'nyoom-engineering/oxocarbon.nvim' },
     {
       'rose-pine/neovim',
       as = 'rose-pine',

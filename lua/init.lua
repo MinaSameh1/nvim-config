@@ -49,5 +49,5 @@ require('config.colorscheme')
 require('colors.colors')
 
 vim.cmd([[
-  colorscheme NeoSolarized
+  colorscheme oxocarbon
 ]])
