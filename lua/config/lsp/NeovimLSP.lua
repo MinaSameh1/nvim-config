@@ -27,13 +27,16 @@ end
 
 mason_lspconfig.setup({
   ensure_installed = {
+    'eslint',
     'tsserver',
     'kotlin_language_server',
     'jsonls',
+    'dockerls',
     'pyright',
     'sumneko_lua',
     'yamlls',
     'ltex',
+    'yamlls',
     'texlab',
     'clangd',
     'cssls',
