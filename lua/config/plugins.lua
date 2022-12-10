@@ -223,13 +223,7 @@ return packer.startup(function(use)
   use({
     'folke/which-key.nvim',
     config = function()
-      require('which-key').setup({
-        window = {
-          position = 'bottom', -- 'bottom', 'top'
-          border = 'single', -- none, single, double, shadow
-          margin = { 2, 2, 2, 2 }, -- extra window margin [top, right, bottom, left]
-        },
-      })
+      require('config.whichkey')
     end,
   })
 
