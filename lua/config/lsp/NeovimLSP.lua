@@ -86,6 +86,12 @@ mason_lspconfig.setup_handlers({
     lspconfig['eslint'].setup(opts)
   end,
   ['tsserver'] = function()
+    vim.api.nvim_set_keymap(
+      'n',
+      '<Leader>xc',
+      ':g/console.lo/d<cr>',
+      { desc = 'Remove console.log' }
+    )
     require('typescript').setup({
       disable_commands = false, -- prevent the plugin from creating Vim commands
       debug = false, -- enable debug logging for commands
