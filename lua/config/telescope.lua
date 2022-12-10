@@ -172,18 +172,30 @@ telescope.setup(default)
 
 local Key = vim.api.nvim_set_keymap
 local Opts = { noremap = true, silent = true }
+local setDesc = require('config.utils').getDescWithMapOptsSetter(Opts)
+
 -- Find files using Telescope command-line sugar.
-Key('n', '<leader>ff', '<Cmd>Telescope find_files<CR>', Opts)
-Key('n', '<leader>fg', '<Cmd>Telescope live_grep<CR>', Opts)
-Key('n', '<leader>fb', '<Cmd>Telescope buffers<CR>', Opts)
-Key('n', '<leader>fm', '<Cmd>Telescope marks<CR>', Opts)
-Key('n', '<leader>fH', '<Cmd>Telescope help_tags<CR>', Opts)
-Key('n', '<leader>fh', '<Cmd>Telescope oldfiles<CR>', Opts)
-Key('n', '<leader>fsh', '<Cmd>Telescope search_history<CR>', Opts)
-Key('n', '<leader>fc', '<Cmd>Telescope commands<CR>', Opts)
+Key('n', '<leader>ff', '<Cmd>Telescope find_files<CR>', setDesc('Find Files'))
+Key('n', '<leader>fg', '<Cmd>Telescope live_grep<CR>', setDesc('Grep Files'))
+Key('n', '<leader>fb', '<Cmd>Telescope buffers<CR>', setDesc('Open Buffers'))
+Key('n', '<leader>fm', '<Cmd>Telescope marks<CR>', setDesc('Open Marks'))
+Key('n', '<leader>fH', '<Cmd>Telescope help_tags<CR>', setDesc('help Tags'))
+Key('n', '<leader>fh', '<Cmd>Telescope oldfiles<CR>', setDesc('File History'))
+Key(
+  'n',
+  '<leader>fsh',
+  '<Cmd>Telescope search_history<CR>',
+  setDesc('search command History')
+)
+Key(
+  'n',
+  '<leader>fc',
+  '<Cmd>Telescope commands<CR>',
+  setDesc('telescope commands')
+)
 Key(
   'n',
   '<leader>tc',
   '<Cmd>lua require("colors.colorpicker").ChooseColors()<CR>',
-  Opts
+  setDesc('Change ColorScheme')
 )

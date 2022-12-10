@@ -30,28 +30,49 @@ end
 -- after the language server attaches to the current buffer
 M.on_attach = function(client, bufnr)
   local mapOpts = { noremap = true, silent = true, buffer = bufnr }
+  local setDesc = require('config.utils').getDescWithMapOptsSetter(mapOpts)
 
   -- Enable completion triggered by <c-x><c-o>
   vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
 
   -- Mappings.
   -- Mappings for Trouble
-  vim.keymap.set('n', '<leader>xx', '<cmd>TroubleToggle<cr>', mapOpts)
+  vim.keymap.set(
+    'n',
+    '<leader>xx',
+    '<cmd>TroubleToggle<cr>',
+    setDesc('Toggles Trouble')
+  )
   vim.keymap.set(
     'n',
     '<leader>xw',
     '<cmd>Trouble workspace_diagnostics<cr>',
-    mapOpts
+    setDesc('Opens workspace diagnostics')
   )
   vim.keymap.set(
     'n',
     '<leader>xd',
     '<cmd>Trouble document_diagnostics<cr>',
-    mapOpts
+    setDesc('Opens document diagnostics')
   )
-  vim.keymap.set('n', '<leader>xl', '<cmd>Trouble loclist<cr>', mapOpts)
-  vim.keymap.set('n', '<leader>xq', '<cmd>Trouble quickfix<cr>', mapOpts)
-  vim.keymap.set('n', 'gr', '<cmd>Trouble lsp_references<cr>', mapOpts)
+  vim.keymap.set(
+    'n',
+    '<leader>xl',
+    '<cmd>Trouble loclist<cr>',
+    setDesc('Opens Loclist')
+  )
+  vim.keymap.set(
+    'n',
+    '<leader>xq',
+    '<cmd>Trouble quickfix<cr>',
+    setDesc('Opens quickfix')
+  )
+  vim.keymap.set(
+    'n',
+    'gr',
+    '<cmd>Trouble lsp_references<cr>',
+    setDesc('Gets lsp references')
+  )
   -- vim.keymap.set(
   --   'v',
   --   '<leader>ca',
@@ -60,36 +81,80 @@ M.on_attach = function(client, bufnr)
   -- )
   -- buf_set_keymap('n', 'gr',         '<cmd>lua vim.lsp.buf.references()<CR>',                                 mapOpts)
   -- See `:help vim.lsp.*` for documentation on any of the below functions
-  vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, mapOpts)
-  vim.keymap.set('n', 'gd', vim.lsp.buf.definition, mapOpts)
-  vim.keymap.set('n', 'K', vim.lsp.buf.hover, mapOpts)
-  vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, mapOpts)
-  vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, mapOpts)
-  vim.keymap.set('n', '<leader>Wa', vim.lsp.buf.add_workspace_folder, mapOpts)
+  vim.keymap.set(
+    'n',
+    'gD',
+    vim.lsp.buf.declaration,
+    setDesc('Go to declaration')
+  )
+  vim.keymap.set('n', 'gd', vim.lsp.buf.definition, setDesc('Go to definition'))
+  vim.keymap.set('n', 'K', vim.lsp.buf.hover, setDesc('Opens hover doc'))
+  vim.keymap.set(
+    'n',
+    'gi',
+    vim.lsp.buf.implementation,
+    setDesc('Go to implemntation')
+  )
+  vim.keymap.set(
+    'n',
+    '<C-k>',
+    vim.lsp.buf.signature_help,
+    setDesc('Opens signature help')
+  )
+  vim.keymap.set(
+    'n',
+    '<leader>Wa',
+    vim.lsp.buf.add_workspace_folder,
+    setDesc('Adds the folder to the workspace.')
+  )
   vim.keymap.set(
     'n',
     '<leader>Wr',
     vim.lsp.buf.remove_workspace_folder,
-    mapOpts
+    setDesc('Removes the folder from workspace.')
   )
   vim.keymap.set('n', '<space>Wl', function()
     print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-  end, mapOpts)
-  vim.keymap.set('n', '<leader>gt', vim.lsp.buf.type_definition, mapOpts)
-  vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, mapOpts)
-  vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, mapOpts)
-  vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, mapOpts)
-  vim.keymap.set('n', '[c', vim.diagnostic.goto_prev, mapOpts)
-  vim.keymap.set('n', ']c', vim.diagnostic.goto_next, mapOpts)
-  vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, mapOpts)
-  vim.keymap.set('n', '<leader>f', function()
+  end, setDesc('Lists workspace folders'))
+  vim.keymap.set(
+    'n',
+    '<leader>gt',
+    vim.lsp.buf.type_definition,
+    setDesc('Go to type definition')
+  )
+  vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, setDesc('Rename'))
+  vim.keymap.set(
+    'n',
+    '<leader>ca',
+    vim.lsp.buf.code_action,
+    setDesc('Code action')
+  )
+  vim.keymap.set(
+    'n',
+    '<leader>e',
+    vim.diagnostic.open_float,
+    setDesc('Opens diagnostics in float')
+  )
+  vim.keymap.set(
+    'n',
+    '[c',
+    vim.diagnostic.goto_prev,
+    setDesc('Go to next diagnostics')
+  )
+  vim.keymap.set(
+    'n',
+    ']c',
+    vim.diagnostic.goto_next,
+    setDesc('Go to prev diagnostics')
+  )
+  vim.keymap.set('n', '<leader>F', function()
     vim.lsp.buf.format({ async = true })
-  end, mapOpts)
+  end, setDesc('Formats file'))
   vim.keymap.set(
     'n',
     '<leader>fs',
     require('telescope.builtin').lsp_document_symbols,
-    mapOpts
+    setDesc("Opens document symbols")
   )
 
   vim.cmd([[
