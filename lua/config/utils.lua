@@ -100,4 +100,13 @@ utils.LSP_Name = {
   color = { fg = '#ffffff', gui = 'bold' },
 }
 
+--- Returns a function that takes a description and returns mapOpts with the desc.
+-- @param mapOptions a table with mapoptions ex: { noremap = true }
+-- @return function(description) extend(opts, { desc = description }) end
+utils.getDescWithMapOptsSetter = function(mapOptions)
+  return function(description)
+    return vim.tbl_extend('force', mapOptions, { desc = description })
+  end
+end
+
 return utils
