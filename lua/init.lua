@@ -37,5 +37,6 @@ require('config.plugins')
 require('config.colorscheme')
 require('colors.colors')
 require('cmds')
+require('maps')
 
 vim.cmd.colorscheme('oxocarbon')
