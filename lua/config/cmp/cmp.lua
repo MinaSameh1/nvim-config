@@ -113,8 +113,7 @@ cmp.setup({
   },
   sources = {
     { name = 'nvim_lsp' },
-    { name = 'luasnip' }, -- For luasnip users.
-    -- { name = 'ultisnips' }, -- For ultisnips users.
+    { name = 'luasnip' },
     { name = 'buffer', max_item_count = 10 },
     { name = 'path', max_item_count = 10 },
   },
@@ -155,8 +154,11 @@ cmp.setup({
         path = '🖫',
       }
       -- Kind icons
-      vim_item.kind =
-        string.format('%s %s', kindIcons[vim_item.kind], vim_item.kind) -- This concatonates the icons with the name of the item kind
+      vim_item.kind = string.format(
+        '%s %s',
+        kindIcons[vim_item.kind],
+        vim_item.kind
+      ) -- This concatonates the icons with the name of the item kind
 
       --  I like to know my lsp names :v
       if entry.source.name == 'nvim_lsp' then
@@ -175,6 +177,11 @@ cmp.setup({
       -- end
       return vim_item
     end,
+  },
+  performance = {
+    trigger_debounce_time = 400,
+    throttle = 450,
+    fetching_timeout = 80,
   },
 })
 
@@ -200,7 +207,12 @@ cmp.setup.cmdline('/', {
 
 cmp.setup.filetype({ 'markdown', 'pandoc', 'text', 'latex' }, {
   sources = {
-    { name = 'nvim_lsp' },
+    {
+      name = 'nvim_lsp',
+      keyword_length = 8,
+      group_index = 1,
+      max_item_count = 30,
+    },
     { name = 'luasnip' },
     { name = 'path' },
     { name = 'buffer' },

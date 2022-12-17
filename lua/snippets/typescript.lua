@@ -1,5 +1,7 @@
 local s = require('snippets.shorthands')
 
+require('snippets.javascript') -- Load js snippets
+
 return {
   s.s(
     'func',

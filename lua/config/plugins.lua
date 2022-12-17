@@ -619,7 +619,12 @@ return packer.startup(function(use)
     { 'savq/melange' },
     { 'nanotech/jellybeans.vim' },
     { 'dracula/vim' },
-    { 'folke/tokyonight.nvim' },
+    {
+      'folke/tokyonight.nvim',
+      config = function()
+        require('config.colorscheme').setupTokyonight()
+      end,
+    },
     { 'ellisonleao/gruvbox.nvim' },
     { 'shaunsingh/nord.nvim' },
     { 'catppuccin/nvim', as = 'catppuccin' },
@@ -635,6 +640,12 @@ return packer.startup(function(use)
     },
     {
       'Tsuzat/NeoSolarized.nvim',
+      config = function()
+        require('NeoSolarized').setup({
+          style = 'dark',
+          transparent = false,
+        })
+      end,
     },
     {
       'AlphaTechnolog/pywal.nvim',
@@ -653,25 +664,6 @@ return packer.startup(function(use)
   use({ -- Startup time
     'tweekmonster/startuptime.vim',
     cmd = 'StartupTime',
-  })
-
-  use({ -- adds transpancy toggles
-    'xiyaowong/nvim-transparent',
-    cmd = { 'TransparentToggle', 'TransparentEnable', 'TransparentDisable' },
-    config = function()
-      require('transparent').setup({
-        enable = true, -- boolean: enable transparent
-        extra_groups = { -- table/string: additional groups that should be clear
-          'BufferLineTabClose',
-          'BufferlineBufferSelected',
-          'BufferLineFill',
-          'BufferLineBackground',
-          'BufferLineSeparator',
-          'BufferLineIndicatorSelected',
-        },
-        exclude = {}, -- table: groups you don't want to clear
-      })
-    end,
   })
 
   -- Automatically set up your configuration after cloning packer.nvim
