@@ -554,7 +554,7 @@ map('n', '<leader>dC', '<Cmd>DapClose<CR>')
 map('n', '<leader>dr', ':lua require"dap".repl.toggle({}, "8 split")<CR><C-w>l')
 map(
   'n',
-  '<Leader>dB',
+  '<leader>dB',
   '<Cmd>lua require("dap").set_breakpoint(nil, vim.fn.input("Log point message: "))<CR>'
 )
 map(
@@ -572,9 +572,9 @@ map(
   '<leader>d?',
   ':lua local widgets=require"dap.ui.widgets";widgets.centered_float(widgets.scopes)<CR>'
 )
-map('n', '<Leader>dui', '<Cmd>lua require("dapui").toggle()<CR>')
+map('n', '<leader>dui', '<Cmd>lua require("dapui").toggle()<CR>')
 map(
   'n',
-  '<Leader>duc',
+  '<leader>duc',
   '<Cmd>lua require("dapui").toggle()<CR><Cmd>lua require("dapui").toggle(2)<CR>'
 )

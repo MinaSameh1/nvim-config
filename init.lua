@@ -74,12 +74,13 @@ vim.opt.laststatus = 3 -- global status line
 vim.opt.clipboard = 'unnamedplus'
 
 ---- Keybindings
+require('maps')
 nnoremap('<leader>fF', ':!prettier --write %<CR>') -- Format
 nnoremap('<F6>', ':!zathura %:r.pdf > /dev/null 2>&1 & <CR>') -- open file.pdf
 nnoremap('<leader>s', ':%s/') -- global substitute
 vnoremap('<leader>s', ':s/') -- global substitute
 nnoremap('<F10>', ':setlocal spell! <CR>') -- Toggles spell(Autocorrection)
-nnoremap('<Leader>w', ':w<CR>') -- Saves file
+nnoremap('<leader>w', ':w<CR>') -- Saves file
 nnoremap('<leader>/', ':noh <CR>') -- Stops highlighting
 nnoremap('<leader>cd', '<Cmd>cd %:h<CR>') -- Cd to current file location
 
