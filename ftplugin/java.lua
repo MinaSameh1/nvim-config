@@ -57,8 +57,13 @@ local config = {
     '-Declipse.product=org.eclipse.jdt.ls.core.product',
     '-Dlog.level=ALL',
     '-noverify',
-    -- use 1gig ram
     '-Xmx1G',
+    '-Xmx2G',
+    '--add-modules=ALL-SYSTEM',
+    '--add-opens',
+    'java.base/java.util=ALL-UNNAMED',
+    '--add-opens',
+    'java.base/java.lang=ALL-UNNAMED',
     -- location of jdtls
     '-jar',
     vim.fn.glob(
@@ -72,27 +77,69 @@ local config = {
     home .. '/.cache/jdtls_workspaces/' .. workspace_dir,
   },
   root_dir = vim.fs.dirname(vim.fs.find(root_markers, { upward = true })[1]),
+  settings = {
+    java = {
+      signatureHelp = { enabled = true },
+      import = { enabled = true },
+      rename = { enabled = true },
+    },
+    sources = {
+      organizeImports = {
+        starThreshold = 9999,
+        staticStarThreshold = 9999,
+      },
+    },
+    codeGeneration = {
+      toString = {
+        template = '${object.className}{${member.name()}=${member.value}, ${otherMembers}}',
+      },
+    },
+    configuration = {
+      runtimes = {
+        {
+          name = 'JavaSE-1.8',
+          path = '/usr/lib/jvm/java-8-openjdk/',
+        },
+        {
+          name = 'JavaSE-11',
+          path = '/usr/lib/jvm/java-11-openjdk/',
+        },
+        {
+          name = 'JavaSE-17',
+          path = '/usr/lib/jvm/java-17-openjdk/',
+        },
+        {
+          name = 'JavaSE-19',
+          path = '/usr/lib/jvm/java-19-openjdk/',
+        },
+      },
+    },
+  },
   capabilities = opts.capabilities,
   init_options = {
     bundles = bundles,
     extendedClientCapabilities = extendedClientCapabilities,
   },
-  configuration = {
-    runtimes = {
-      {
-        name = 'JavaSE-17',
-        path = '/usr/lib/jvm/java-17-openjdk/',
-      },
-      {
-        name = 'JavaSE-19',
-        path = '/usr/lib/jvm/java-19-openjdk/',
-      },
-    },
-  },
 }
 
+vim.api.nvim_buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
 config['on_attach'] = function(client, bufnr)
+  vim.cmd([[
+      hi LspReferenceRead cterm=bold ctermbg=red guibg=LightYellow
+      hi LspReferenceText cterm=bold ctermbg=red guibg=LightYellow
+      hi LspReferenceWrite cterm=bold ctermbg=red guibg=LightYellow
+      augroup lsp_document_highlight
+        autocmd!
+        autocmd CursorHold <buffer> lua vim.lsp.buf.document_highlight()
+        autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
+      augroup END
+      augroup FormatAutogroup
+        autocmd!
+        autocmd BufWritePost *.java LspFormat
+      augroup end
+    ]])
   -- Call default  on attach
+  opts.on_attach(client, bufnr)
   local mapOpts = { noremap = true, silent = true, buffer = bufnr }
   -- Java specific
   vim.keymap.set(
@@ -149,7 +196,6 @@ config['on_attach'] = function(client, bufnr)
     '<Cmd> lua require("jdtls").extract_constant()',
     mapOpts
   )
-  opts.on_attach(client, bufnr)
   jdtls.setup_dap({ hotcodereplace = 'auto' })
   require('jdtls.setup').add_commands()
 end
