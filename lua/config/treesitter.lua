@@ -19,15 +19,6 @@ configs.setup({
     enable_autocmd = false,
   },
   indent = { enable = true, disable = { 'yaml' } },
-  swap = {
-    enable = true,
-    swap_next = {
-      ['<leader>ss'] = '@parameter.inner',
-    },
-    swap_previous = {
-      ['<leader>sS'] = '@parameter.inner',
-    },
-  },
   autopairs = { enable = true },
   autotag = { enable = true },
   matchup = { enable = true },
@@ -35,41 +26,59 @@ configs.setup({
     enable = true,
     set_jumps = true, -- whether to set jumps in the jumplist
     goto_next_start = {
-      [']m'] = '@function.outer',
-      [']]'] = '@class.outer',
+      [']f'] = '@function.outer',
+      [']m'] = '@class.outer',
     },
     goto_next_end = {
-      [']M'] = '@function.outer',
-      [']['] = '@class.outer',
+      [']F'] = '@function.outer',
+      [']M'] = '@class.outer',
     },
     goto_previous_start = {
-      ['[m'] = '@function.outer',
-      ['[['] = '@class.outer',
+      ['[f'] = '@function.outer',
+      ['[m'] = '@class.outer',
     },
     goto_previous_end = {
-      ['[M'] = '@function.outer',
-      ['[]'] = '@class.outer',
+      ['[F'] = '@function.outer',
+      ['[M'] = '@class.outer',
     },
   },
-  -- lsp_interop = {
-  --   enable = true,
-  --   border = 'single',
-  --   peek_definition_code = {
-  --     ['<leader>lg'] = '@block.outer',
-  --     -- ["<leader>lG"] = "@class.outer",
-  --   },
-  -- },
-  -- textsubjects = {
-  --   enable = true,
-  --   keymaps = {
-  --     ['<cr>'] = 'textsubjects-smart', -- works in visual mode
-  --   },
-  -- },
+  textobjects = {
+    lsp_interop = {
+      enable = true,
+      border = 'single',
+      peek_definition_code = {
+        ['<leader>df'] = '@block.outer',
+        ['<leader>dF'] = '@class.outer',
+      },
+    },
+    select = {
+      enable = true,
+      lookahead = true, -- Automatically jump forward to textobj, similar to targets.vim
+      keymaps = {
+        -- You can use the capture groups defined in textobjects.scm
+        ['aa'] = '@parameter.outer',
+        ['ia'] = '@parameter.inner',
+        ['af'] = '@function.outer',
+        ['if'] = '@function.inner',
+        ['ac'] = '@class.outer',
+        ['ic'] = '@class.inner',
+      },
+    },
+    swap = {
+      enable = true,
+      swap_next = {
+        ['<leader>a'] = '@parameter.inner',
+      },
+      swap_previous = {
+        ['<leader>A'] = '@parameter.inner',
+      },
+    },
+  },
   playground = {
     enable = true,
   },
 })
 
--- Folding
+---- Folding
 -- vim.o.foldmethod = 'expr'
 -- vim.o.foldexpr = 'nvim_treesitter#foldexpr()'

@@ -162,8 +162,15 @@ M.on_attach = function(client, bufnr)
   autocmd CursorHold,CursorHoldI * lua require'nvim-lightbulb'.update_lightbulb()
   " Adds the commands to nvim
   command! LspCodeAction execute 'lua vim.lsp.buf.code_action()'
-  command! LspFormat execute 'lua vim.lsp.buf.format { async = true }'
   ]])
+
+  vim.api.nvim_buf_create_user_command(bufnr, 'LspFormat', function(_)
+    if vim.lsp.buf.format then
+      vim.lsp.buf.format()
+    elseif vim.lsp.buf.formatting then
+      vim.lsp.buf.formatting()
+    end
+  end, { desc = 'Format current buffer with LSP' })
 
   -- Highlight used words
   if client.server_capabilities.documentHighlightProvider then

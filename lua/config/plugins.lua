@@ -482,6 +482,8 @@ return packer.startup(function(use)
 
   use({ 'tpope/vim-fugitive' })
 
+  -- Detect tabstop and shiftwidth automatically
+  use('tpope/vim-sleuth')
   -- Latex stuff
   use({ -- NOTE: We don't need to lazy load this, it lazy loads itself.
     'lervag/vimtex',
@@ -501,6 +503,7 @@ return packer.startup(function(use)
       end,
     },
     { 'nvim-treesitter/playground', after = 'nvim-treesitter' },
+    { 'nvim-treesitter/nvim-treesitter-textobjects', after = 'nvim-treesitter' },
     { -- Auto close tags
       'windwp/nvim-ts-autotag',
       after = 'nvim-treesitter',
