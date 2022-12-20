@@ -503,7 +503,10 @@ return packer.startup(function(use)
       end,
     },
     { 'nvim-treesitter/playground', after = 'nvim-treesitter' },
-    { 'nvim-treesitter/nvim-treesitter-textobjects', after = 'nvim-treesitter' },
+    {
+      'nvim-treesitter/nvim-treesitter-textobjects',
+      after = 'nvim-treesitter',
+    },
     { -- Auto close tags
       'windwp/nvim-ts-autotag',
       after = 'nvim-treesitter',
