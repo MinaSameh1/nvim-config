@@ -46,9 +46,6 @@ vim.list_extend(
 -- extends default on attach
 opts.capabilities.configuration = true
 
-local extendedClientCapabilities = jdtls.extendedClientCapabilities
-extendedClientCapabilities.resolveAdditionalTextEditsSupport = true
-
 local config = {
   cmd = {
     'java',
@@ -80,8 +77,37 @@ local config = {
   settings = {
     java = {
       signatureHelp = { enabled = true },
+      referenceCodeLens = { enabled = true },
       import = { enabled = true },
       rename = { enabled = true },
+      saveActions = { organizeImports = true },
+      format = {
+        enabled = true,
+        settings = {
+          profile = 'GoogleStyle',
+          url = 'https://raw.githubusercontent.com/google/styleguide/gh-pages/eclipse-java-google-style.xml',
+        },
+      },
+      favoriteStaticMembers = {
+        'org.junit.jupiter.api.DynamicTest.*',
+        'org.junit.jupiter.api.Assertions.*',
+        'org.junit.jupiter.api.Assumptions.*',
+        'org.junit.jupiter.api.DynamicContainer.*',
+        'org.junit.Assert.*',
+        'org.junit.Assume.*',
+        'java.util.Objects.*',
+        'org.mockito.ArgumentMatchers.*',
+        'org.mockito.Mockito.*',
+        'org.mockito.Answers.*',
+      },
+      completion = {
+        importOrder = {
+          'javax',
+          'java',
+          'com',
+          'org',
+        },
+      },
     },
     sources = {
       organizeImports = {
@@ -91,8 +117,27 @@ local config = {
     },
     codeGeneration = {
       toString = {
+        listArrayContents = true,
+        skipNullValues = true,
         template = '${object.className}{${member.name()}=${member.value}, ${otherMembers}}',
       },
+      useBlocks = true,
+      hashCodeEquals = {
+        useInstanceof = true,
+        useJava7Objects = true,
+      },
+      generateComments = true,
+      insertLocation = true,
+    },
+    autobuild = {
+      enabled = true,
+    },
+    eclipse = {
+      downloadSources = true,
+    },
+    maven = {
+      downloadSources = true,
+      updateSnapshots = true,
     },
     configuration = {
       runtimes = {
@@ -117,13 +162,29 @@ local config = {
   },
   capabilities = opts.capabilities,
   init_options = {
+    extendedClientCapabilities = {
+      resolveAdditionalTextEditsSupport = true,
+      classFileContentsSupport = true,
+      generateToStringPromptSupport = true,
+      hashCodeEqualsPromptSupport = true,
+      advancedExtractRefactoringSupport = true,
+      advancedOrganizeImportsSupport = true,
+      generateConstructorsPromptSupport = true,
+      generateDelegateMethodsPromptSupport = true,
+      moveRefactoringSupport = true,
+      overrideMethodsPromptSupport = true,
+      inferSelectionSupport = {
+        'extractMethod',
+        'extractVariable',
+        'extractConstant',
+      },
+    },
     bundles = bundles,
-    extendedClientCapabilities = extendedClientCapabilities,
   },
 }
 
-vim.api.nvim_buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
 config['on_attach'] = function(client, bufnr)
+  vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
   vim.cmd([[
       hi LspReferenceRead cterm=bold ctermbg=red guibg=LightYellow
       hi LspReferenceText cterm=bold ctermbg=red guibg=LightYellow
