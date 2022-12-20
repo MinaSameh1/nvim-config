@@ -108,6 +108,26 @@ local config = {
           'org',
         },
       },
+      configuration = {
+        runtimes = {
+          {
+            name = 'JavaSE-1.8',
+            path = '/usr/lib/jvm/java-8-openjdk/',
+          },
+          {
+            name = 'JavaSE-11',
+            path = '/usr/lib/jvm/java-11-openjdk/',
+          },
+          {
+            name = 'JavaSE-17',
+            path = '/usr/lib/jvm/java-17-openjdk/',
+          },
+          {
+            name = 'JavaSE-19',
+            path = '/usr/lib/jvm/java-19-openjdk/',
+          },
+        },
+      },
     },
     sources = {
       organizeImports = {
@@ -138,26 +158,6 @@ local config = {
     maven = {
       downloadSources = true,
       updateSnapshots = true,
-    },
-    configuration = {
-      runtimes = {
-        {
-          name = 'JavaSE-1.8',
-          path = '/usr/lib/jvm/java-8-openjdk/',
-        },
-        {
-          name = 'JavaSE-11',
-          path = '/usr/lib/jvm/java-11-openjdk/',
-        },
-        {
-          name = 'JavaSE-17',
-          path = '/usr/lib/jvm/java-17-openjdk/',
-        },
-        {
-          name = 'JavaSE-19',
-          path = '/usr/lib/jvm/java-19-openjdk/',
-        },
-      },
     },
   },
   capabilities = opts.capabilities,
