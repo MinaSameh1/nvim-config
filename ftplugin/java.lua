@@ -42,7 +42,7 @@ vim.list_extend(
     '\n'
   )
 )
---
+
 -- extends default on attach
 opts.capabilities.configuration = true
 
