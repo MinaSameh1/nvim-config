@@ -18,7 +18,10 @@ configs.setup({
     enable = true,
     enable_autocmd = false,
   },
-  indent = { enable = true, disable = { 'yaml' } },
+  indent = {
+    enable = true,
+    disable = { 'yaml', 'typescript', 'javascript', 'jsdoc' },
+  },
   autopairs = { enable = true },
   autotag = { enable = true },
   matchup = { enable = true },
