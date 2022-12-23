@@ -118,7 +118,6 @@ local config = {
         'org.mockito.Answers.*',
       },
       completion = {
-        enabled = true,
         importOrder = {
           'javax',
           'java',
