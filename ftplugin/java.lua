@@ -76,9 +76,15 @@ local config = {
   root_dir = vim.fs.dirname(vim.fs.find(root_markers, { upward = true })[1]),
   settings = {
     java = {
-      signatureHelp = { enabled = true },
+      signatureHelp = { enabled = true, description = { enabled = true } },
       referenceCodeLens = { enabled = true },
       import = { enabled = true },
+      exclusions = {
+        '**/node_modules/**',
+        '**/.metadata/**',
+        '**/archetype-resources/**',
+        '**/META-INF/maven/**',
+      },
       rename = { enabled = true },
       saveActions = { organizeImports = true },
       format = {
@@ -87,6 +93,17 @@ local config = {
           profile = 'GoogleStyle',
           url = 'https://raw.githubusercontent.com/google/styleguide/gh-pages/eclipse-java-google-style.xml',
         },
+      },
+      project = {
+        resourceFilters = {
+          'node_modules',
+          '.metadata',
+          'archetype-resources',
+          'META-INF/maven',
+        },
+      },
+      templates = {
+        fileHeader = '${package_name}',
       },
       favoriteStaticMembers = {
         'org.junit.jupiter.api.DynamicTest.*',
@@ -101,12 +118,14 @@ local config = {
         'org.mockito.Answers.*',
       },
       completion = {
+        enabled = true,
         importOrder = {
           'javax',
           'java',
           'com',
           'org',
         },
+        guessMethodArguments = true,
       },
       configuration = {
         runtimes = {
@@ -149,6 +168,11 @@ local config = {
       generateComments = true,
       insertLocation = true,
     },
+    inlayHints = { --  doesn't work with jdtls yet
+      parameterNames = {
+        enabled = 'none', -- literals, all, none
+      },
+    },
     autobuild = {
       enabled = true,
     },
@@ -159,6 +183,9 @@ local config = {
       downloadSources = true,
       updateSnapshots = true,
     },
+  },
+  flags = {
+    allow_incremental_sync = true,
   },
   capabilities = opts.capabilities,
   init_options = {
