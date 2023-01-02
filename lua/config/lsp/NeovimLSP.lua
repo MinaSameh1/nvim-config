@@ -27,7 +27,6 @@ end
 
 mason_lspconfig.setup({
   ensure_installed = {
-    'eslint',
     'tsserver',
     'kotlin_language_server',
     'jsonls',
@@ -99,22 +98,15 @@ mason_lspconfig.setup_handlers({
         fallback = true, -- fall back to standard LSP definition on failure
       },
       server = {
+        flags = {
+          debounce_text_changes = 150,
+        },
         autoSetHints = true,
         handlers = handlers,
         noremap = true,
         silent = true,
-        on_attach = on_attach,
+        on_attach,
         format = false,
-        flags = {
-          debounce_text_changes = 150,
-        },
-        settings = {
-          ltex = {
-            dictionary = {
-              ['en-US'] = words,
-            },
-          },
-        },
         capabilities = vim.lsp.protocol.make_client_capabilities(),
       },
     })
@@ -123,7 +115,7 @@ mason_lspconfig.setup_handlers({
     -- Initialize the LSP via rust-tools instead
     require('rust-tools').setup({
       server = {
-        on_attach = on_attach,
+        on_attach,
         handlers = handlers,
         flags = {
           debounce_text_changes = 150,
