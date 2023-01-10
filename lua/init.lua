@@ -38,4 +38,4 @@ require('config.colorscheme')
 require('colors.colors')
 require('cmds')
 
-vim.cmd.colorscheme('oxocarbon')
+vim.cmd.colorscheme('rose-pine')
