@@ -34,7 +34,7 @@ vim.opt.termguicolors = true -- Terminal true color support
 vim.opt.modeline = true -- recognize modelines at start or end of file
 vim.opt.modelines = 5 -- number of lines checked for modelines
 
-vim.opt.updatetime = 300 -- after this many milliseconds flush swap file
+vim.opt.updatetime = 150 -- after this many milliseconds flush swap file
 
 vim.opt.cmdheight = 0 -- number of lines to use for the command-line
 
