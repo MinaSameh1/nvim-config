@@ -154,11 +154,8 @@ cmp.setup({
         path = '🖫',
       }
       -- Kind icons
-      vim_item.kind = string.format(
-        '%s %s',
-        kindIcons[vim_item.kind],
-        vim_item.kind
-      ) -- This concatonates the icons with the name of the item kind
+      vim_item.kind =
+        string.format('%s %s', kindIcons[vim_item.kind], vim_item.kind) -- This concatonates the icons with the name of the item kind
 
       --  I like to know my lsp names :v
       if entry.source.name == 'nvim_lsp' then
