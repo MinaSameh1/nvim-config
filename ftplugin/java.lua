@@ -91,7 +91,7 @@ local config = {
         enabled = true,
         settings = {
           profile = 'GoogleStyle',
-          url = 'https://raw.githubusercontent.com/google/styleguide/gh-pages/eclipse-java-google-style.xml',
+          url = home .. '/.config/nvim/utils/java_format.xml',
         },
       },
       project = {
