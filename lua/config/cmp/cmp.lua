@@ -177,7 +177,7 @@ cmp.setup({
   },
   performance = {
     trigger_debounce_time = 150,
-    throttle = 350,
+    throttle = 50,
     fetching_timeout = 80,
   },
 })
