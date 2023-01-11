@@ -91,24 +91,15 @@ mason_lspconfig.setup_handlers({
       ':g/console.lo/d<cr>',
       { desc = 'Remove console.log' }
     )
+    local opts = default_opts
+    opts.format = false
     require('typescript').setup({
       disable_commands = false, -- prevent the plugin from creating Vim commands
       debug = false, -- enable debug logging for commands
       go_to_source_definition = {
         fallback = true, -- fall back to standard LSP definition on failure
       },
-      server = {
-        flags = {
-          debounce_text_changes = 150,
-        },
-        autoSetHints = true,
-        handlers = handlers,
-        noremap = true,
-        silent = true,
-        on_attach,
-        format = false,
-        capabilities = vim.lsp.protocol.make_client_capabilities(),
-      },
+      server = opts,
     })
   end,
   ['rust_analyzer'] = function()
