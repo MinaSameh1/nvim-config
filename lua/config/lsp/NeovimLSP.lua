@@ -96,10 +96,28 @@ mason_lspconfig.setup_handlers({
     require('typescript').setup({
       disable_commands = false, -- prevent the plugin from creating Vim commands
       debug = false, -- enable debug logging for commands
-      go_to_source_definition = {
-        fallback = true, -- fall back to standard LSP definition on failure
+      server = {
+        flags = { allow_incremental_sync = true, debounce_text_changes = 225 },
+        go_to_source_definition = {
+          fallback = true, -- fall back to standard LSP definition on failure
+        },
+        settings = {
+          tsserver = {
+            diagnosticsDelay = '150ms',
+            experimentalWatchedFileDelay = '100ms',
+            perferences = {
+              importModuleSpecifierEnding = 'minimal',
+            },
+          },
+        },
+        autoSetHints = true,
+        format = false,
+        noremap = true,
+        silent = true,
+        handlers = handlers,
+        on_attach,
+        capabilities = vim.lsp.protocol.make_client_capabilities(),
       },
-      server = opts,
     })
   end,
   ['rust_analyzer'] = function()
