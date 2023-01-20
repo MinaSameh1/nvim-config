@@ -550,7 +550,7 @@ map('n', '<leader>dc', ':lua require"dap".continue()<CR>')
 map('n', '<leader>dn', ':lua require"dap".run_to_cursor()<CR>')
 map('n', '<leader>dk', ':lua require"dap".up()<CR>')
 map('n', '<leader>dj', ':lua require"dap".down()<CR>')
-map('n', '<leader>dC', '<Cmd>DapClose<CR>')
+map('n', '<leader>dC', '<Cmd>DapTerminate<CR>')
 map('n', '<leader>dr', ':lua require"dap".repl.toggle({}, "8 split")<CR><C-w>l')
 map(
   'n',
