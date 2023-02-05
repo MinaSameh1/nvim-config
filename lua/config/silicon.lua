@@ -39,7 +39,7 @@ vim.keymap.set('n', '<Leader>S', function()
   silicon.visualise_api({ to_clip = true, visible = true })
 end, setDes('Generate visible portion of a buffer'))
 -- Generate whole buffer
-vim.keymap.set('n', '<Leader>S', function()
+vim.keymap.set('n', '<Leader>SS', function()
   silicon.visualise_api({ to_clip = true, show_buf = true })
 end, setDes('Generate visible portion of a buffer'))
 -- Generate current buffer line in normal mode
