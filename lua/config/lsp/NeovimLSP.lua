@@ -138,6 +138,13 @@ mason_lspconfig.setup_handlers({
     lspconfig['clangd'].setup(opts)
   end,
   ['jdtls'] = function() end,
+  ['tailwindcss'] = function()
+    local opts = default_opts
+    opts.settings = {
+      emmetCompletions = true
+    }
+    lspconfig['tailwindcss'].setup(opts)
+  end,
   ['sumneko_lua'] = function()
     local opts = default_opts
     opts.settings = {
