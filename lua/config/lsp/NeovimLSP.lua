@@ -141,7 +141,7 @@ mason_lspconfig.setup_handlers({
   ['tailwindcss'] = function()
     local opts = default_opts
     opts.settings = {
-      emmetCompletions = true
+      emmetCompletions = true,
     }
     lspconfig['tailwindcss'].setup(opts)
   end,
