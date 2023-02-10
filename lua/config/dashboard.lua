@@ -61,35 +61,29 @@ local custom_shortcuts = {
     group = 'DiagnosticHint',
     key = 'N',
   },
-  -- {
-  --   desc = ' Recently opened files',
-  --   action = 'Telescope oldfiles',
-  --   group = 'Label',
-  --   key = 'fh',
-  -- },
   {
     desc = ' Find File',
-    action = 'Telescope find_files find_command=rg,--hidden,--files',
+    action = 'Telescope find_files find_command=rg,--hidden,--files prompt_prefix=🔍',
     group = 'Label',
     key = 'ff',
   },
   {
     desc = ' File Browser',
-    group = 'Label',
     action = 'Neotree toggle',
+    group = 'Label',
     key = 'F',
   },
   {
     desc = ' Find word',
     action = 'Telescope live_grep',
     group = 'Label',
-    shortcut = 'fg',
+    key = 'fg',
   },
   {
     desc = ' Open Vim Config',
-    action = 'Telescope find_files path=' .. config_location,
+    action = 'Telescope find_files cwd=' .. config_location,
     group = 'Number',
-    key = '<leader>v',
+    key = 'C',
   },
   {
     desc = ' Upgrade',
@@ -107,7 +101,7 @@ local custom_shortcuts = {
     desc = ' Exit Neovim',
     action = 'quit',
     group = '@property',
-    key = '<leader>q',
+    key = 'q',
   },
 }
 
