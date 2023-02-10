@@ -9,22 +9,12 @@ if not status_ok then
   return
 end
 
--- db.preview_command = 'cat | lolcat -F 0.3'
--- db.preview_file_path = home .. '/.config/nvim/static/neovim.cat'
-db.preview_file_height = 12
-db.preview_file_width = 80
-db.custom_center = {
+local custom_center = {
   {
     icon = '  ',
     desc = 'New File                                 ',
     action = 'enew',
     shortcut = 'SPC f f',
-  },
-  {
-    icon = '  ',
-    desc = 'Recently latest session                  ',
-    shortcut = 'SPC s l',
-    action = 'SessionLoad',
   },
   {
     icon = '  ',
@@ -41,7 +31,7 @@ db.custom_center = {
   {
     icon = '  ',
     desc = 'File Browser                             ',
-    action = 'NvimTreeOpen',
+    action = 'Neotree toggle',
     shortcut = 'SPC f b',
   },
   {
@@ -52,7 +42,7 @@ db.custom_center = {
   },
   {
     icon = '  ',
-    desc = 'Open Personal dotfiles                   ',
+    desc = 'Open Vim Config                   ',
     action = 'Telescope dotfiles path=' .. config_location,
     shortcut = 'SPC f d',
   },
@@ -64,11 +54,65 @@ db.custom_center = {
   },
 }
 
-local nmap = require('config.utils').nmap
-nmap('<Leader>cn', ':<C-u>DashboardNewFile<CR>') -- Open new file
+local custom_shortcuts = {
+  {
+    desc = ' new file',
+    action = 'enew',
+    group = 'DiagnosticHint',
+    key = 'N',
+  },
+  -- {
+  --   desc = ' Recently opened files',
+  --   action = 'Telescope oldfiles',
+  --   group = 'Label',
+  --   key = 'fh',
+  -- },
+  {
+    desc = ' Find File',
+    action = 'Telescope find_files find_command=rg,--hidden,--files',
+    group = 'Label',
+    key = 'ff',
+  },
+  {
+    desc = ' File Browser',
+    group = 'Label',
+    action = 'Neotree toggle',
+    key = 'F',
+  },
+  {
+    desc = ' Find word',
+    action = 'Telescope live_grep',
+    group = 'Label',
+    shortcut = 'fg',
+  },
+  {
+    desc = ' Open Vim Config',
+    action = 'Telescope find_files path=' .. config_location,
+    group = 'Number',
+    key = '<leader>v',
+  },
+  {
+    desc = ' Upgrade',
+    action = 'PackerSync',
+    group = '@property',
+    key = 'u',
+  },
+  {
+    desc = ' Mason',
+    action = 'Mason',
+    group = '@property',
+    key = 'M',
+  },
+  {
+    desc = ' Exit Neovim',
+    action = 'quit',
+    group = '@property',
+    key = '<leader>q',
+  },
+}
 
--- For more checkout https://github.com/glepnir/dashboard-nvim/wiki/Ascii-Header-Text
--- db.custom_header = {
+--- For more checkout https://github.com/glepnir/dashboard-nvim/wiki/Ascii-Header-Text
+-- local custom_header = {
 --   [[      ___                                    ___     ]],
 --   [[     /__/\          ___        ___          /__/\    ]],
 --   [[     \  \:\        /__/\      /  /\        |  |::\   ]],
@@ -82,7 +126,7 @@ nmap('<Leader>cn', ':<C-u>DashboardNewFile<CR>') -- Open new file
 --   [[     \__\/           ~~~~                   \__\/    ]],
 -- }
 
--- db.custom_header = {
+-- local custom_header = {
 -- [[  ________   _______   ________  ___      ___ ___  _____ _______]],
 -- [[ |\   ___  \|\  ____\ |\   __  \|\  \    /  /|\  \|\   _ \  _   \]],
 -- [[ \ \  \\ \  \ \  \___ \ \  \|\  \ \  \  /  / | \  \ \  \\\__\ \  \]],
@@ -92,7 +136,7 @@ nmap('<Leader>cn', ':<C-u>DashboardNewFile<CR>') -- Open new file
 -- [[     \|__| \|__|\|_______|\|_______|\|__|/       \|__|\|__|     \|__|]]
 -- }
 
--- db.custom_header = {
+-- local custom_header = {
 -- [[ ███╗   ██╗██╗   ██╗██╗███╗   ███╗ ]],
 -- [[ ████╗  ██║██║   ██║██║████╗ ████║ ]],
 -- [[ ██╔██╗ ██║██║   ██║██║██╔████╔██║ ]],
@@ -101,16 +145,18 @@ nmap('<Leader>cn', ':<C-u>DashboardNewFile<CR>') -- Open new file
 -- [[ ╚═╝  ╚═══╝  ╚═══╝  ╚═╝╚═╝     ╚═╝ ]]
 -- }
 
--- db.custom_header = {
---   [[ ███╗   ██╗ ███████╗ ██████╗  ██╗   ██╗ ██╗ ███╗   ███╗]],
---   [[ ████╗  ██║ ██╔════╝██╔═══██╗ ██║   ██║ ██║ ████╗ ████║]],
---   [[ ██╔██╗ ██║ █████╗  ██║   ██║ ██║   ██║ ██║ ██╔████╔██║]],
---   [[ ██║╚██╗██║ ██╔══╝  ██║   ██║ ╚██╗ ██╔╝ ██║ ██║╚██╔╝██║]],
---   [[ ██║ ╚████║ ███████╗╚██████╔╝  ╚████╔╝  ██║ ██║ ╚═╝ ██║]],
---   [[ ╚═╝  ╚═══╝ ╚══════╝ ╚═════╝    ╚═══╝   ╚═╝ ╚═╝     ╚═╝]],
--- }
+local custom_header = {
+  [[                                                       ]],
+  [[ ███╗   ██╗ ███████╗ ██████╗  ██╗   ██╗ ██╗ ███╗   ███╗]],
+  [[ ████╗  ██║ ██╔════╝██╔═══██╗ ██║   ██║ ██║ ████╗ ████║]],
+  [[ ██╔██╗ ██║ █████╗  ██║   ██║ ██║   ██║ ██║ ██╔████╔██║]],
+  [[ ██║╚██╗██║ ██╔══╝  ██║   ██║ ╚██╗ ██╔╝ ██║ ██║╚██╔╝██║]],
+  [[ ██║ ╚████║ ███████╗╚██████╔╝  ╚████╔╝  ██║ ██║ ╚═╝ ██║]],
+  [[ ╚═╝  ╚═══╝ ╚══════╝ ╚═════╝    ╚═══╝   ╚═╝ ╚═╝     ╚═╝]],
+  [[                                                       ]],
+}
 
--- db.custom_header = {
+-- local custom_header = {
 -- [[ ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⡀⠀⠀⠀⠀⢀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀]],
 -- [[ ⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⡖⠁⠀⠀⠀⠀⠀⠀⠈⢲⣄⠀⠀⠀⠀⠀⠀⠀⠀⠀]],
 -- [[ ⠀⠀⠀⠀⠀⠀⠀⠀⣼⡏⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢹⣧⠀⠀⠀⠀⠀⠀⠀⠀]],
@@ -128,42 +174,67 @@ nmap('<Leader>cn', ':<C-u>DashboardNewFile<CR>') -- Open new file
 -- [[ ⠀⠀⠀⠀⠀⠈⠉⠛⠛⠛⠛⠉⠀⠀⠀⠀⠀⠈⠉⠛⠛⠛⠛⠋⠁⠀⠀⠀⠀⠀]],
 -- }
 
-db.custom_header = {
-  [[                        .,,cc,,,.                                ]],
-  [[                   ,c$$$$$$$$$$$$cc,                             ]],
-  [[                ,c$$$$$$$$$$??""??$?? ..                         ]],
-  [[             ,z$$$$$$$$$$$P xdMMbx  nMMMMMb                      ]],
-  [[            r")$$$$??$$$$" dMMMMMMb "MMMMMMb                     ]],
-  [[          r",d$$$$$>;$$$$ dMMMMMMMMb MMMMMMM.                    ]],
-  [[         d'z$$$$$$$>'"""" 4MMMMMMMMM MMMMMMM>                    ]],
-  [[        d'z$$$$$$$$h $$$$r`MMMMMMMMM "MMMMMM                     ]],
-  [[        P $$$$$$$$$$.`$$$$.'"MMMMMP',c,"""'..                    ]],
-  [[       d',$$$$$$$$$$$.`$$$$$c,`""_,c$$$$$$$$h                    ]],
-  [[       $ $$$$$$$$$$$$$.`$$$$$$$$$$$"     "$$$h                   ]],
-  [[      ,$ $$$$$$$$$$$$$$ $$$$$$$$$$%       `$$$L                  ]],
-  [[      d$c`?$$$$$$$$$$P'z$$$$$$$$$$c       ,$$$$.                 ]],
-  [[      $$$cc,"""""""".zd$$$$$$$$$$$$c,  .,c$$$$$F                 ]],
-  [[     ,$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$                 ]],
-  [[     d$$$$$$$$$$$$$$$$c`?$$$$$$$$$$$$$$$$$$$$$$$                 ]],
-  [[     ?$$$$$$$$$."$$$$$$c,`..`?$$$$$$$$$$$$$$$$$$.                ]],
-  [[     <$$$$$$$$$$. ?$$$$$$$$$h $$$$$$$$$$$$$$$$$$>                ]],
-  [[      $$$$$$$$$$$h."$$$$$$$$P $$$$$$$$$$$$$$$$$$>                ]],
-  [[      `$$$$$$$$$$$$ $$$$$$$",d$$$$$$$$$$$$$$$$$$>                ]],
-  [[       $$$$$$$$$$$$c`""""',c$$$$$$$$$$$$$$$$$$$$'                ]],
-  [[       "$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$F                 ]],
-  [[        "$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$'                  ]],
-  [[        ."?$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$P'                   ]],
-  [[     ,c$$c,`?$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$"  THE TIME HE WASTES ]],
-  [[   z$$$$$P"   ""??$$$$$$$$$$$$$$$$$$$$$$$"  IN RICING NVIM IS    ]],
-  [[,c$$$$$P"          .`""????????$$$$$$$$$$c  DRIVING ME CRAZY.    ]],
-  [[`"""              ,$$$L.        "?$$$$$$$$$.   WHAT'S THE MATTER ]],
-  [[               ,cd$$$$$$$$$hc,    ?$$$$$$$$$c    WITH HIM ?????? ]],
-  [[              `$$$$$$$$$$$$$$$.    ?$$$$$$$$$h                   ]],
-  [[               `?$$$$$$$$$$$$P      ?$$$$$$$$$   GO DO SOMETHING ]],
-  [[                 `?$$$$$$$$$P        ?$$$$$$$$$$$$hc WITH YOUR   ]],
-  [[                   "?$$$$$$"         <$$$$$$$$$$$$$$r    TIME!   ]],
-  [[                     `""""           <$$$$$$$$$$$$$$F            ]],
-  [[                                      $$$$$$$$$$$$$F             ]],
-  [[                                      `?$$$$$$$$P"               ]],
-  [[                                        "????""                  ]],
-}
+-- local custom_header = {
+--   [[                        .,,cc,,,.                                ]],
+--   [[                   ,c$$$$$$$$$$$$cc,                             ]],
+--   [[                ,c$$$$$$$$$$??""??$?? ..                         ]],
+--   [[             ,z$$$$$$$$$$$P xdMMbx  nMMMMMb                      ]],
+--   [[            r")$$$$??$$$$" dMMMMMMb "MMMMMMb                     ]],
+--   [[          r",d$$$$$>;$$$$ dMMMMMMMMb MMMMMMM.                    ]],
+--   [[         d'z$$$$$$$>'"""" 4MMMMMMMMM MMMMMMM>                    ]],
+--   [[        d'z$$$$$$$$h $$$$r`MMMMMMMMM "MMMMMM                     ]],
+--   [[        P $$$$$$$$$$.`$$$$.'"MMMMMP',c,"""'..                    ]],
+--   [[       d',$$$$$$$$$$$.`$$$$$c,`""_,c$$$$$$$$h                    ]],
+--   [[       $ $$$$$$$$$$$$$.`$$$$$$$$$$$"     "$$$h                   ]],
+--   [[      ,$ $$$$$$$$$$$$$$ $$$$$$$$$$%       `$$$L                  ]],
+--   [[      d$c`?$$$$$$$$$$P'z$$$$$$$$$$c       ,$$$$.                 ]],
+--   [[      $$$cc,"""""""".zd$$$$$$$$$$$$c,  .,c$$$$$F                 ]],
+--   [[     ,$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$                 ]],
+--   [[     d$$$$$$$$$$$$$$$$c`?$$$$$$$$$$$$$$$$$$$$$$$                 ]],
+--   [[     ?$$$$$$$$$."$$$$$$c,`..`?$$$$$$$$$$$$$$$$$$.                ]],
+--   [[     <$$$$$$$$$$. ?$$$$$$$$$h $$$$$$$$$$$$$$$$$$>                ]],
+--   [[      $$$$$$$$$$$h."$$$$$$$$P $$$$$$$$$$$$$$$$$$>                ]],
+--   [[      `$$$$$$$$$$$$ $$$$$$$",d$$$$$$$$$$$$$$$$$$>                ]],
+--   [[       $$$$$$$$$$$$c`""""',c$$$$$$$$$$$$$$$$$$$$'                ]],
+--   [[       "$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$F                 ]],
+--   [[        "$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$'                  ]],
+--   [[        ."?$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$P'                   ]],
+--   [[     ,c$$c,`?$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$"  THE TIME HE WASTES ]],
+--   [[   z$$$$$P"   ""??$$$$$$$$$$$$$$$$$$$$$$$"  IN RICING NVIM IS    ]],
+--   [[,c$$$$$P"          .`""????????$$$$$$$$$$c  DRIVING ME CRAZY.    ]],
+--   [[`"""              ,$$$L.        "?$$$$$$$$$.   WHAT'S THE MATTER ]],
+--   [[               ,cd$$$$$$$$$hc,    ?$$$$$$$$$c    WITH HIM ?????? ]],
+--   [[              `$$$$$$$$$$$$$$$.    ?$$$$$$$$$h                   ]],
+--   [[               `?$$$$$$$$$$$$P      ?$$$$$$$$$   GO DO SOMETHING ]],
+--   [[                 `?$$$$$$$$$P        ?$$$$$$$$$$$$hc WITH YOUR   ]],
+--   [[                   "?$$$$$$"         <$$$$$$$$$$$$$$r    TIME!   ]],
+--   [[                     `""""           <$$$$$$$$$$$$$$F            ]],
+--   [[                                      $$$$$$$$$$$$$F             ]],
+--   [[                                      `?$$$$$$$$P"               ]],
+--   [[                                        "????""                  ]],
+-- }
+
+db.setup({
+  theme = 'hyper', -- 'doom' or 'hyper'
+  config = {
+    header = custom_header,
+    -- week_header = { enable = true }, -- Show week name
+    center = custom_center,
+    shortcut = custom_shortcuts,
+    packages = { enable = true },
+    -- limit how many projects list, action when you press key or enter it will run this action.
+    project = { -- only for hyper
+      limit = 8,
+      icon = '',
+      label = 'Projects',
+      action = 'Telescope find_files cwd=',
+      key = '<leader>fp',
+    },
+    mru = { limit = 6, icon = '', label = 'Recent Files' },
+    hide = { -- Hide stuff
+      statusline = { enable = false },
+      tabline = { enable = false },
+      winbar = { enable = false },
+    },
+  },
+})
