@@ -139,16 +139,16 @@ local custom_shortcuts = {
 -- [[ ╚═╝  ╚═══╝  ╚═══╝  ╚═╝╚═╝     ╚═╝ ]]
 -- }
 
-local custom_header = {
-  [[                                                       ]],
-  [[ ███╗   ██╗ ███████╗ ██████╗  ██╗   ██╗ ██╗ ███╗   ███╗]],
-  [[ ████╗  ██║ ██╔════╝██╔═══██╗ ██║   ██║ ██║ ████╗ ████║]],
-  [[ ██╔██╗ ██║ █████╗  ██║   ██║ ██║   ██║ ██║ ██╔████╔██║]],
-  [[ ██║╚██╗██║ ██╔══╝  ██║   ██║ ╚██╗ ██╔╝ ██║ ██║╚██╔╝██║]],
-  [[ ██║ ╚████║ ███████╗╚██████╔╝  ╚████╔╝  ██║ ██║ ╚═╝ ██║]],
-  [[ ╚═╝  ╚═══╝ ╚══════╝ ╚═════╝    ╚═══╝   ╚═╝ ╚═╝     ╚═╝]],
-  [[                                                       ]],
-}
+-- local custom_header = {
+--   [[                                                       ]],
+--   [[ ███╗   ██╗ ███████╗ ██████╗  ██╗   ██╗ ██╗ ███╗   ███╗]],
+--   [[ ████╗  ██║ ██╔════╝██╔═══██╗ ██║   ██║ ██║ ████╗ ████║]],
+--   [[ ██╔██╗ ██║ █████╗  ██║   ██║ ██║   ██║ ██║ ██╔████╔██║]],
+--   [[ ██║╚██╗██║ ██╔══╝  ██║   ██║ ╚██╗ ██╔╝ ██║ ██║╚██╔╝██║]],
+--   [[ ██║ ╚████║ ███████╗╚██████╔╝  ╚████╔╝  ██║ ██║ ╚═╝ ██║]],
+--   [[ ╚═╝  ╚═══╝ ╚══════╝ ╚═════╝    ╚═══╝   ╚═╝ ╚═╝     ╚═╝]],
+--   [[                                                       ]],
+-- }
 
 -- local custom_header = {
 -- [[ ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⡀⠀⠀⠀⠀⢀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀]],
@@ -208,6 +208,30 @@ local custom_header = {
 --   [[                                        "????""                  ]],
 -- }
 
+local custom_header = {
+  [[           MMM.           .MMM                                           ]],
+  [[           MMMMMMMMMMMMMMMMMMM                                           ]],
+  [[           MMMMMMMMMMMMMMMMMMM      ___________________________________  ]],
+  [[          MMMMMMMMMMMMMMMMMMMMM    |                                   | ]],
+  [[         MMMMMMMMMMMMMMMMMMMMMMM   |  Talk is cheap, show me the code! | ]],
+  [[        MMMMMMMMMMMMMMMMMMMMMMMM   |_   _______________________________| ]],
+  [[        MMMM::- -:::::::- -::MMMM    |/                                  ]],
+  [[         MM~:~   ~:::::~   ~:~MM                                         ]],
+  [[    .. MMMMM::. .:::+:::. .::MMMMM ..                                    ]],
+  [[          .MM::::: ._. :::::MM.                                          ]],
+  [[             MMMM;:::::;MMMM                                             ]],
+  [[      -MM        MMMMMMM                                                 ]],
+  [[      ^  M+     MMMMMMMMM                                                ]],
+  [[          MMMMMMM MM MM MM                                               ]],
+  [[               MM MM MM MM                                               ]],
+  [[               MM MM MM MM                                               ]],
+  [[            .~~MM~MM~MM~MM~~.                                            ]],
+  [[         ~~~~MM:~MM~~~MM~:MM~~~~                                         ]],
+  [[        ~~~~~~==~==~~~==~==~~~~~~                                        ]],
+  [[         ~~~~~~==~==~==~==~~~~~~                                         ]],
+  [[             :~==~==~==~==~~                                             ]],
+}
+
 db.setup({
   theme = 'hyper', -- 'doom' or 'hyper'
   config = {
@@ -219,12 +243,12 @@ db.setup({
     -- limit how many projects list, action when you press key or enter it will run this action.
     project = { -- only for hyper
       limit = 8,
-      icon = '',
+      icon = ' ',
       label = 'Projects',
       action = 'Telescope find_files cwd=',
       key = '<leader>fp',
     },
-    mru = { limit = 6, icon = '', label = 'Recent Files' },
+    mru = { limit = 6, icon = ' ', label = 'Recent Files' },
     hide = { -- Hide stuff
       statusline = { enable = false },
       tabline = { enable = false },
