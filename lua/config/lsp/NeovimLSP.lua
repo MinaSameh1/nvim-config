@@ -32,7 +32,7 @@ mason_lspconfig.setup({
     'jsonls',
     'dockerls',
     'pyright',
-    'sumneko_lua',
+    'lua_ls',
     'yamlls',
     'ltex',
     'yamlls',
@@ -145,7 +145,7 @@ mason_lspconfig.setup_handlers({
     }
     lspconfig['tailwindcss'].setup(opts)
   end,
-  ['sumneko_lua'] = function()
+  ['lua_ls'] = function()
     local opts = default_opts
     opts.settings = {
       Lua = {
@@ -164,7 +164,7 @@ mason_lspconfig.setup_handlers({
       },
       format = false, -- use stylua
     }
-    lspconfig['sumneko_lua'].setup(opts)
+    lspconfig['lua_ls'].setup(opts)
   end,
 })
 
