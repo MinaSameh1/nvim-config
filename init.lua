@@ -88,6 +88,7 @@ nmap('<leader>l', ':bnext<CR>') -- Move to the next buffer
 nmap('<leader>h', ':bprevious<CR>') -- Move to the previous buffer
 nmap('<leader>bq', ':bp <BAR> bd #<CR>') -- Close the current buffer and move to the previous one
 nmap('<leader>bQ', ':bp <BAR> bd! #<CR>') -- Close the current buffer and move to the previous one
+nmap('<leader>bE', ':silent %bd|e#|bd#<CR>') -- Close all buffers except this one
 nmap('<leader>bl', ':ls<CR>') -- Show all open buffers and their status
 
 nmap('gx', ':!open <c-r><c-a><CR>') -- Opens anything under cursor (url or file)
@@ -140,13 +141,5 @@ require('init')
 vim.cmd([[
   " To make saving write protected files easier, make sure to set SUDO_ASKPASS!
   com -bar W exe 'w !sudo tee >/dev/null %:p:S' | setl nomod
-  let g:dashboard_custom_shortcut={
-  \ 'last_session'       : 'leader s l',
-  \ 'find_history'       : 'leader f h',
-  \ 'find_file'          : 'leader f f',
-  \ 'new_file'           : 'leader c n',
-  \ 'change_colorscheme' : 'leader t c',
-  \ 'find_word'          : 'leader f a',
-  \ 'book_marks'         : 'leader f B',
-  \ }
+  command! BufOnly silent! execute "%bd|e#|bd#"
 ]])
