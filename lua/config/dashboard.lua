@@ -245,7 +245,10 @@ db.setup({
       limit = 8,
       icon = ' ',
       label = 'Projects',
-      action = 'Telescope find_files cwd=',
+      action = function(path)
+        vim.cmd('cd ' .. path)
+        return vim.cmd('Telescope find_files cwd=' .. path)
+      end,
       key = '<leader>fp',
     },
     mru = { limit = 6, icon = ' ', label = 'Recent Files' },
