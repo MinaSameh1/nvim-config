@@ -214,13 +214,17 @@ neotree.setup({
       end,
     },
   },
+  source_selector = {
+    winbar = false,
+    statusline = false,
+  },
 })
 
 -- open neotree
 vim.api.nvim_set_keymap(
   'n',
   '<F2>',
-  '<Cmd>Neotree toggle<CR>',
+  '<Cmd>Neotree left toggle<CR>',
   { noremap = true, silent = true }
 )
 
