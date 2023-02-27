@@ -55,9 +55,9 @@ null_ls.setup({
       prefer_local = 'node_modules/.bin',
     }),
     -- null_ls.builtins.formatting.eslint_d,
-    null_ls.builtins.diagnostics.tsc.with({
-      method = null_ls.methods.DIAGNOSTICS_ON_SAVE,
-    }),
+    -- null_ls.builtins.diagnostics.tsc.with({
+    --   method = null_ls.methods.DIAGNOSTICS_ON_SAVE,
+    -- }),
     -- null_ls.builtins.diagnostics.eslint_d.with({
     --   prefer_local = 'node_modules/.bin',
     -- }),
