@@ -183,7 +183,7 @@ neotree.setup({
       system_open = function(state)
         local node = state.tree:get_node()
         local path = node:get_id()
-        vim.api.nvim_command(string.format("silent !xdg-open '%s'", path))
+        vim.api.nvim_command(string.format("silent !xdg-open '%s' &", path))
       end,
     },
   },
