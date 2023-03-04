@@ -1,6 +1,34 @@
+-- https://github.com/nvim-neo-tree/neo-tree.nvim/wiki/Recipes#commands
 local status_ok, neotree = pcall(require, 'neo-tree')
 if not status_ok then
   return
+end
+
+-- Find/grep for a file under the current node using Telescope and select it.
+local function getTelescopeOpts(state, path)
+  return {
+    cwd = path,
+    search_dirs = { path },
+    attach_mappings = function(prompt_bufnr, map)
+      local actions = require('telescope.actions')
+      actions.select_default:replace(function()
+        actions.close(prompt_bufnr)
+        local action_state = require('telescope.actions.state')
+        local selection = action_state.get_selected_entry()
+        local filename = selection.filename
+        if filename == nil then
+          filename = selection[1]
+        end
+        -- any way to open the file without triggering auto-close event of neo-tree?
+        require('neo-tree.sources.filesystem').navigate(
+          state,
+          state.path,
+          filename
+        )
+      end)
+      return true
+    end,
+  }
 end
 
 vim.g.neo_tree_remove_legacy_commands = 1
@@ -172,6 +200,8 @@ neotree.setup({
         ['.'] = 'set_root',
         ['H'] = 'toggle_hidden',
         ['/'] = 'fuzzy_finder',
+        ['tf'] = 'telescope_find',
+        ['tg'] = 'telescope_grep',
         ['D'] = 'fuzzy_finder_directory',
         ['f'] = 'filter_on_submit',
         ['<c-x>'] = 'clear_filter',
@@ -180,6 +210,16 @@ neotree.setup({
       },
     },
     commands = {
+      telescope_find = function(state)
+        local node = state.tree:get_node()
+        local path = node:get_id()
+        require('telescope.builtin').find_files(getTelescopeOpts(state, path))
+      end,
+      telescope_grep = function(state)
+        local node = state.tree:get_node()
+        local path = node:get_id()
+        require('telescope.builtin').live_grep(getTelescopeOpts(state, path))
+      end,
       system_open = function(state)
         local node = state.tree:get_node()
         local path = node:get_id()
