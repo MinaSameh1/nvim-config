@@ -80,7 +80,7 @@ return packer.startup(function(use)
       event = 'BufEnter',
       requires = { 'kyazdani42/nvim-web-devicons' },
       config = function()
-        require('config.lualine.lualine_evil')
+        require('config.lualine.lualine_slanted')
       end,
     },
     { -- Shows LSP progress
