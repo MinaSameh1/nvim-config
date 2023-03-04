@@ -140,10 +140,10 @@ local config = {
             name = 'JavaSE-17',
             path = '/usr/lib/jvm/java-17-openjdk/',
           },
-          {
-            name = 'JavaSE-19',
-            path = '/usr/lib/jvm/java-19-openjdk/',
-          },
+          -- {
+          --   name = 'JavaSE-19',
+          --   path = '/usr/lib/jvm/java-19-openjdk/',
+          -- },
         },
       },
     },
@@ -286,5 +286,7 @@ config['on_attach'] = function(client, bufnr)
   jdtls.setup_dap({ hotcodereplace = 'auto' })
   require('jdtls.setup').add_commands()
 end
+
+config['handlers'] = opts.handlers
 
 jdtls.start_or_attach(config)

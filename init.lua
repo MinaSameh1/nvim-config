@@ -112,7 +112,7 @@ vim.g.loaded_netrwPlugin = 1
 vim.g.loaded_matchit = 1
 vim.g.loaded_matchparen = 1
 vim.g.loaded_spec = 1
-vim.g.loaded_perl_provider = 0 -- Perl provider
+vim.g.loaded_perl_provider = 1 -- Perl provider
 
 -- Distinguish between Ctrl-i and Tab when using kitty
 if vim.env.TERM == 'xterm-kitty' then

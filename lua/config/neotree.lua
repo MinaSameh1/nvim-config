@@ -7,7 +7,7 @@ vim.g.neo_tree_remove_legacy_commands = 1
 
 neotree.setup({
   close_if_last_window = false, -- Close Neo-tree if it is the last window left in the tab
-  popup_border_style = 'rounded',
+  popup_border_style = 'rounded', -- rounded or NC
   enable_git_status = true,
   enable_diagnostics = true,
   sort_case_insensitive = false, -- used when sorting files and directories in the tree
@@ -157,7 +157,7 @@ neotree.setup({
     },
     follow_current_file = false, -- This will find and focus the file in the active buffer every
     -- time the current file is changed while the tree is open.
-    group_empty_dirs = false, -- when true, empty folders will be grouped together
+    group_empty_dirs = true, -- when true, empty folders will be grouped together
     hijack_netrw_behavior = 'open_current',
     -- netrw disabled, opening a directory opens neo-tree
     -- in whatever position is specified in window.position
