@@ -188,7 +188,7 @@ local config = {
   },
   capabilities = opts.capabilities,
   init_options = {
-    extendedClientCapabilities = {
+    extendedClientCapabilities = vim.tbl_deep_extend('keep', opts.capabilities, {
       resolveAdditionalTextEditsSupport = true,
       classFileContentsSupport = true,
       generateToStringPromptSupport = true,
@@ -204,7 +204,7 @@ local config = {
         'extractVariable',
         'extractConstant',
       },
-    },
+    }),
     bundles = bundles,
   },
 }
