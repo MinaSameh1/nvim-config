@@ -124,10 +124,6 @@ if vim.env.TERM == 'xterm-kitty' then
   )
 end
 
--- Sessions
-nnoremap('Leader>ss', ':<C-u>SessionSave<CR>') -- Save Session
-nnoremap('<Leader>sl', ':<C-u>SessionLoad<CR>') -- Load Session
-
 --[[
 -- ****************************
 -- *         Plugins          *
