@@ -53,7 +53,8 @@ return packer.startup(function(use)
     'nvim-lua/plenary.nvim',
   })
 
-  use({ -- Allows us to implement easy popups
+  use({
+    -- Allows us to implement easy popups
     'nvim-lua/popup.nvim',
     module = 'popup',
   })
@@ -66,7 +67,8 @@ return packer.startup(function(use)
     end,
   })
 
-  use({ -- use ysiw for example i guess
+  use({
+    -- use ysiw for example i guess
     'tpope/vim-surround',
     event = 'BufRead',
     requires = {
@@ -83,7 +85,8 @@ return packer.startup(function(use)
         require('config.lualine.lualine_slanted')
       end,
     },
-    { -- Shows LSP progress
+    {
+      -- Shows LSP progress
       'j-hui/fidget.nvim',
       after = 'lualine.nvim',
       config = function()
@@ -101,7 +104,8 @@ return packer.startup(function(use)
     },
   })
 
-  use({ -- Split screen management
+  use({
+    -- Split screen management
     'beauwilliams/focus.nvim',
     module = 'focus',
     cmd = { 'FocusSplitNicely', 'FocusSplitCycle' },
@@ -123,7 +127,8 @@ return packer.startup(function(use)
     end,
   })
 
-  use({ -- Smooth scrolling
+  use({
+    -- Smooth scrolling
     'karb94/neoscroll.nvim',
     event = 'WinScrolled',
     config = function()
@@ -131,7 +136,8 @@ return packer.startup(function(use)
     end,
   })
 
-  use({ -- Terminal
+  use({
+    -- Terminal
     'akinsho/toggleterm.nvim',
     event = 'CursorHold',
     config = function()
@@ -171,7 +177,6 @@ return packer.startup(function(use)
             bo = {
               -- if the file type is one of following, the window will be ignored
               filetype = { 'neo-tree', 'neo-tree-popup', 'notify' },
-
               -- if the buffer type is one of following, the window will be ignored
               buftype = { 'terminal', 'quickfix' },
             },
@@ -333,11 +338,13 @@ return packer.startup(function(use)
         require('symbols-outline').setup()
       end,
     },
-    { -- typescript
+    {
+      -- typescript
       'jose-elias-alvarez/typescript.nvim',
       module = 'typescript',
     },
-    { -- for rust
+    {
+      -- for rust
       'simrat39/rust-tools.nvim',
       module = 'rust-tools',
       ft = { 'rust' },
@@ -411,7 +418,8 @@ return packer.startup(function(use)
         require('config.dap.dap')
       end,
     },
-    { -- For nvim lua
+    {
+      -- For nvim lua
       'jbyuki/one-small-step-for-vimkind',
       requires = { { 'mfussenegger/nvim-dap', opt = true } },
     },
@@ -485,7 +493,8 @@ return packer.startup(function(use)
   -- Detect tabstop and shiftwidth automatically
   use('tpope/vim-sleuth')
   -- Latex stuff
-  use({ -- NOTE: We don't need to lazy load this, it lazy loads itself.
+  use({
+    -- NOTE: We don't need to lazy load this, it lazy loads itself.
     'lervag/vimtex',
     config = function()
       vim.g.tex_flavor = 'latex'
@@ -507,7 +516,8 @@ return packer.startup(function(use)
       'nvim-treesitter/nvim-treesitter-textobjects',
       after = 'nvim-treesitter',
     },
-    { -- Auto close tags
+    {
+      -- Auto close tags
       'windwp/nvim-ts-autotag',
       after = 'nvim-treesitter',
       config = function()
@@ -523,7 +533,8 @@ return packer.startup(function(use)
     },
   })
 
-  use({ -- comments using gc
+  use({
+    -- comments using gc
     'numToStr/Comment.nvim',
     event = 'BufRead',
     config = function()
@@ -531,7 +542,8 @@ return packer.startup(function(use)
     end,
   })
 
-  use({ -- pairs and autocloses and can surrond stuff too!
+  use({
+    -- pairs and autocloses and can surrond stuff too!
     'windwp/nvim-autopairs',
     after = 'nvim-cmp', -- Must be Loaded after nvim-cmp
     event = 'InsertCharPre',
@@ -625,6 +637,7 @@ return packer.startup(function(use)
     { 'savq/melange' },
     { 'nanotech/jellybeans.vim' },
     { 'dracula/vim' },
+    { 'AlexvZyl/nordic.nvim' },
     {
       'folke/tokyonight.nvim',
       config = function()
@@ -659,7 +672,8 @@ return packer.startup(function(use)
     },
   })
 
-  use({ -- Colors
+  use({
+    -- Colors
     'tjdevries/colorbuddy.vim',
     event = 'BufRead',
     config = function()
@@ -667,7 +681,8 @@ return packer.startup(function(use)
     end,
   })
 
-  use({ -- Startup time
+  use({
+    -- Startup time
     'tweekmonster/startuptime.vim',
     cmd = 'StartupTime',
   })
