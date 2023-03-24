@@ -687,6 +687,16 @@ return packer.startup(function(use)
     cmd = 'StartupTime',
   })
 
+  use({
+    -- Github copilot
+    'github/copilot.vim',
+    cmd = 'Copilot',
+    event = 'InsertEnter',
+    config = function()
+      require('config.copilot')
+    end,
+  })
+
   -- Automatically set up your configuration after cloning packer.nvim
   -- Put this at the end after all plugins
   if PACKER_BOOTSTRAP then
