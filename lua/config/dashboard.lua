@@ -12,45 +12,45 @@ end
 local custom_center = {
   {
     icon = '  ',
-    desc = 'New File                                 ',
+    desc = 'New File',
     action = 'enew',
-    shortcut = 'SPC f f',
+    key = 'f f',
   },
   {
     icon = '  ',
-    desc = 'Recently opened files                    ',
+    desc = 'Recently opened files',
     action = 'Telescope oldfiles',
-    shortcut = 'SPC f h',
+    key = 'f h',
   },
   {
     icon = '  ',
-    desc = 'Find  File                               ',
+    desc = 'Find  File',
     action = 'Telescope find_files find_command=rg,--hidden,--files',
-    shortcut = 'SPC f f',
+    key = 'f f',
   },
   {
     icon = '  ',
-    desc = 'File Browser                             ',
+    desc = 'File Browser',
     action = 'Neotree toggle',
-    shortcut = 'SPC f b',
+    key = 'f b',
   },
   {
     icon = '  ',
-    desc = 'Find  word                               ',
+    desc = 'Find  word',
     action = 'Telescope live_grep',
-    shortcut = 'SPC f w',
+    key = 'f w',
   },
   {
     icon = '  ',
-    desc = 'Open Vim Config                   ',
+    desc = 'Open Vim Config',
     action = 'Telescope dotfiles path=' .. config_location,
-    shortcut = 'SPC f d',
+    key = 'f d',
   },
   {
     icon = '  ',
-    desc = 'Exit Neovim                              ',
+    desc = 'Exit Neovim',
     action = 'quit',
-    shortcut = 'SPC s-q',
+    key = 'Q',
   },
 }
 
@@ -209,6 +209,8 @@ local custom_shortcuts = {
 -- }
 
 local custom_header = {
+  [[           M                 M                                           ]],
+  [[           MM               MM                                           ]],
   [[           MMM.           .MMM                                           ]],
   [[           MMMMMMMMMMMMMMMMMMM                                           ]],
   [[           MMMMMMMMMMMMMMMMMMM      ___________________________________  ]],
