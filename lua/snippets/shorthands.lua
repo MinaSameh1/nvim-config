@@ -21,6 +21,7 @@ Snip.fmt = require('luasnip.extras.fmt').fmt
 Snip.fmta = require('luasnip.extras.fmt').fmta
 Snip.types = require('luasnip.util.types')
 Snip.conds = require('luasnip.extras.expand_conditions')
+Snip.copy = Snip.ls.copy
 
 function Snip.copy(args)
   return args[1]

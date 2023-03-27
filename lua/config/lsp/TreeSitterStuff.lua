@@ -1,7 +1,8 @@
 local TSPrebuild = {}
 local has_prebuilt = false
 
-TSPrebuild.on_attach = function(client, bufnr)
+---@diagnostic disable-next-line: unused-local
+TSPrebuild.on_attach = function(_client, _bufnr)
   if has_prebuilt then
     return
   end
@@ -29,10 +30,10 @@ TSPrebuild.on_attach = function(client, bufnr)
   end
 
   local function prebuild_query(lang, query_name)
-    local query_files = query.get_query_files(lang, query_name)
+    local query_files = query.get_files(lang, query_name)
     local query_string = read_query_files(query_files)
 
-    query.set_query(lang, query_name, query_string)
+    query.set(lang, query_name, query_string)
   end
 
   local prebuild_languages = { 'typescript', 'javascript', 'tsx' }

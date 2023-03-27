@@ -109,4 +109,21 @@ utils.getDescWithMapOptsSetter = function(mapOptions)
   end
 end
 
+--- Handle Neovim version differences for treesitter
+-- @param node the node to get the text from
+-- @param buf the buffer to get the text from
+-- @return the text of the node
+-- @see https://github.com/stevearc/aerial.nvim/commit/a6b86fd357f184ad9f146245f8d34c9df0f424fa
+function utils.get_node_text(node, bufnr)
+  if vim.treesitter.get_node_text then
+    -- Neovim 0.9
+    return vim.treesitter.get_node_text(node, bufnr)
+  elseif vim.treesitter.query and vim.treesitter.query.get_node_text then
+    return vim.treesitter.query.get_node_text(node, bufnr)
+  else
+    local ts_utils = require('nvim-treesitter.ts_utils')
+    return ts_utils.get_node_text(node, bufnr)[1]
+  end
+end
+
 return utils
