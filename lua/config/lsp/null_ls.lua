@@ -52,6 +52,7 @@ null_ls.setup({
       --   ),
       -- },
       -- extra_args = { '--no-semi', '--single-quote', '--jsx-single-quote' },
+      extra_filetypes = { 'astro' },
       prefer_local = 'node_modules/.bin',
     }),
     -- null_ls.builtins.formatting.eslint_d,
