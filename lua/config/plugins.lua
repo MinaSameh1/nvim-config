@@ -670,6 +670,20 @@ return packer.startup(function(use)
       'AlphaTechnolog/pywal.nvim',
       disable = true,
     },
+    {
+      'rebelot/kanagawa.nvim',
+      config = function()
+        require('kanagawa').setup({
+          transparent = false,
+          dimInactive = true, -- dim inactive window `:h hl-NormalNC`
+          terminalColors = true,
+          background = {
+            dark = 'dragon',
+            light = 'lotus',
+          },
+        })
+      end,
+    },
   })
 
   use({
@@ -693,7 +707,7 @@ return packer.startup(function(use)
     cmd = 'Copilot',
     event = 'InsertEnter',
     config = function()
-      require('config.copilot')
+      require('')
     end,
   })
 

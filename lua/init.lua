@@ -82,4 +82,4 @@ vim.api.nvim_create_autocmd('ColorScheme', {
   end,
 })
 
-vim.cmd.colorscheme('rose-pine')
+vim.cmd.colorscheme('kanagawa-dragon')
