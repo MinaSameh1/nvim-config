@@ -707,7 +707,7 @@ return packer.startup(function(use)
     cmd = 'Copilot',
     event = 'InsertEnter',
     config = function()
-      require('')
+      require('config.copilot')
     end,
   })
 
