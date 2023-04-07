@@ -212,10 +212,10 @@ return packer.startup(function(use)
   })
 
   -- Vim MultiCurosr, use cgn instead :)
-  use({
-    'mg979/vim-visual-multi',
-    disable = true,
-  })
+  -- use({
+  --   'mg979/vim-visual-multi',
+  --   disable = true,
+  -- })
 
   -- Search, and fuzzy stuff, far for replace
   use({
@@ -325,7 +325,6 @@ return packer.startup(function(use)
       end,
     },
     {
-      disable = true,
       'ThePrimeagen/refactoring.nvim',
       requires = {
         { 'nvim-lua/plenary.nvim' },
@@ -351,14 +350,6 @@ return packer.startup(function(use)
     },
     -- Show lightblub on code action
     { 'kosayoda/nvim-lightbulb' },
-  })
-
-  use({
-    'CRAG666/code_runner.nvim',
-    config = function()
-      require('config.code_runner')
-    end,
-    requires = 'nvim-lua/plenary.nvim',
   })
 
   -- AutoCompletetion and snippets, replaced with luasnip
@@ -496,9 +487,6 @@ return packer.startup(function(use)
   use({
     -- NOTE: We don't need to lazy load this, it lazy loads itself.
     'lervag/vimtex',
-    config = function()
-      vim.g.tex_flavor = 'latex'
-    end,
   })
 
   --- Syntax and languages
@@ -684,6 +672,12 @@ return packer.startup(function(use)
         })
       end,
     },
+    {
+      'sainnhe/sonokai',
+    },
+    {
+      'mountain-theme/vim',
+    },
   })
 
   use({
@@ -706,9 +700,6 @@ return packer.startup(function(use)
     'github/copilot.vim',
     cmd = 'Copilot',
     event = 'InsertEnter',
-    config = function()
-      require('config.copilot')
-    end,
   })
 
   -- Automatically set up your configuration after cloning packer.nvim

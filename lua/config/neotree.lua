@@ -273,7 +273,7 @@ vim.api.nvim_set_keymap(
   'n',
   '<F2>',
   '<Cmd>Neotree left toggle<CR>',
-  { noremap = true, silent = true }
+  { noremap = true, silent = true, desc = 'Open neotree' }
 )
 
 -- open neotree
@@ -281,5 +281,5 @@ vim.api.nvim_set_keymap(
   'n',
   '<leader>G',
   '<Cmd>Neotree float toggle git_status<CR>',
-  { noremap = true, silent = true }
+  { noremap = true, silent = true, desc = 'Open neotree git status' }
 )
