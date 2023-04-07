@@ -624,7 +624,7 @@ return packer.startup(function(use)
     { 'rktjmp/lush.nvim' }, -- used to create colorschemes
     { 'savq/melange' },
     { 'nanotech/jellybeans.vim' },
-    { 'dracula/vim' },
+    { 'dracula/vim', as = 'dracula' },
     { 'AlexvZyl/nordic.nvim' },
     {
       'folke/tokyonight.nvim',
@@ -677,6 +677,8 @@ return packer.startup(function(use)
     },
     {
       'mountain-theme/vim',
+      as = 'mountain',
+      branch = 'master',
     },
   })
 
