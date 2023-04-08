@@ -600,10 +600,6 @@ return packer.startup(function(use)
     end,
   })
 
-  use({
-    'nathom/filetype.nvim',
-  })
-
   -- Dims lights xd
   use({
     'folke/twilight.nvim',
