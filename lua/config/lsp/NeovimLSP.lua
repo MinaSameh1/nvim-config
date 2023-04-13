@@ -146,31 +146,26 @@ mason_lspconfig.setup_handlers({
     lspconfig['tailwindcss'].setup(opts)
   end,
   ['intelephense'] = function()
-    lspconfig['intelephense'].setup({
-      on_attach = on_attach,
-      handlers = handlers,
-      capabilities = default_opts.capabilities,
-      settings = {
-        intelephense = {
-          stubs = {
-            'bcmath',
-            'bz2',
-            'calendar',
-            'Core',
-            'curl',
-            'zip',
-            'zlib',
-            'wordpress',
-            'woocommerce',
-            'acf-pro',
-            'wordpress-globals',
-            'wp-cli',
-            'genesis',
-            'polylang',
-          },
-        },
+    local opts = default_opts
+    opts.settings.intelephense = {
+      stubs = {
+        'bcmath',
+        'bz2',
+        'calendar',
+        'Core',
+        'curl',
+        'zip',
+        'zlib',
+        'wordpress',
+        'woocommerce',
+        'acf-pro',
+        'wordpress-globals',
+        'wp-cli',
+        'genesis',
+        'polylang',
       },
-    })
+    }
+    lspconfig['intelephense'].setup(opts)
   end,
   ['lua_ls'] = function()
     local opts = default_opts
