@@ -147,22 +147,24 @@ mason_lspconfig.setup_handlers({
   end,
   ['intelephense'] = function()
     local opts = default_opts
-    opts.settings.intelephense = {
-      stubs = {
-        'bcmath',
-        'bz2',
-        'calendar',
-        'Core',
-        'curl',
-        'zip',
-        'zlib',
-        'wordpress',
-        'woocommerce',
-        'acf-pro',
-        'wordpress-globals',
-        'wp-cli',
-        'genesis',
-        'polylang',
+    opts.settings = {
+      intelephense = {
+        stubs = {
+          'bcmath',
+          'bz2',
+          'calendar',
+          'Core',
+          'curl',
+          'zip',
+          'zlib',
+          'wordpress',
+          'woocommerce',
+          'acf-pro',
+          'wordpress-globals',
+          'wp-cli',
+          'genesis',
+          'polylang',
+        },
       },
     }
     lspconfig['intelephense'].setup(opts)
