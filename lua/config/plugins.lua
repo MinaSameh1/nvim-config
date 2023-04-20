@@ -607,13 +607,13 @@ return packer.startup(function(use)
   })
 
   -- Takes beautiful screenshots of code
-  use({
-    'narutoxy/silicon.lua',
-    requires = { 'nvim-lua/plenary.nvim' },
-    config = function()
-      require('config.silicon')
-    end,
-  })
+  -- use({
+  --   'narutoxy/silicon.lua',
+  --   requires = { 'nvim-lua/plenary.nvim' },
+  --   config = function()
+  --     require('config.silicon')
+  --   end,
+  -- })
 
   -- Themes
   use({
@@ -698,6 +698,14 @@ return packer.startup(function(use)
     'github/copilot.vim',
     cmd = 'Copilot',
     event = 'InsertEnter',
+  })
+
+  use({
+    'nvim-neorg/neorg',
+    run = ':Neorg sync-parsers',
+    config = function()
+      require('config.neorg')
+    end,
   })
 
   -- Automatically set up your configuration after cloning packer.nvim
