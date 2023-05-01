@@ -125,6 +125,45 @@ return {
       s.i(1),
     })
   ),
+  -- Create express controller snippet
+  s.s(
+    'exprouter',
+    s.fmt(
+      [[
+  import {{ Router }} from "express";
+
+  const {name}Router = Router();
+
+  {name}Router.get("/", {controller});
+
+  export default {}Router;
+  ]],
+      {
+        s.i(1),
+        name = s.f(s.copy, 1),
+        controller = s.i(2, 'controller'),
+      }
+    )
+  ),
+  s.s(
+    'expcontroller',
+    s.fmt(
+      [[
+  export const {}: ExpressFunc = async (req, res, next) => {{
+    try {{
+      {}
+    }} catch (err) {{
+      next(err);
+    }}
+  }}
+
+  ]],
+      {
+        s.i(1),
+        s.i(2),
+      }
+    )
+  ),
   s.parse_snippet('clgv', 'console.log("${1:value} >>", ${2:value});'),
   s.parse_snippet('clg', 'console.log("${1:value}");'),
 }
