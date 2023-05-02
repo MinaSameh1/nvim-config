@@ -146,20 +146,35 @@ return {
     )
   ),
   s.s(
-    'expcontroller',
+    'expcont',
     s.fmt(
       [[
-  export const {}: ExpressFunc = async (req, res, next) => {{
+  {} {{
     try {{
       {}
     }} catch (err) {{
       next(err);
     }}
   }}
-
   ]],
       {
-        s.i(1),
+        s.c(1, {
+          s.fmt('export const {name}: ExpressFunc = async (req, res, next) =>', {
+            name = s.i(1, 'name'),
+          }),
+          s.fmt(
+            'export const {name} = async (req: Request, res: Response, next: NextFunction) =>',
+            {
+              name = s.i(1, 'name'),
+            }
+          ),
+          s.fmt(
+            'export async function {name}(req: Request, res: Response, next: NextFunction)',
+            {
+              name = s.i(1, 'name'),
+            }
+          ),
+        }),
         s.i(2),
       }
     )
