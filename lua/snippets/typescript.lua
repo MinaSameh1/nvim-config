@@ -149,7 +149,14 @@ return {
     'expcont',
     s.fmt(
       [[
-  {} {{
+  /**
+   * @function {}
+   * @description {}
+   * @param {Request} req Express Request
+   * @param {Response} res Express Response
+   * @param {NextFunction} next Express Next Function
+   */
+  export {} {{
     try {{
       {}
     }} catch (err) {{
@@ -158,27 +165,80 @@ return {
   }}
   ]],
       {
-        s.c(1, {
-          s.fmt('export const {name}: ExpressFunc = async (req, res, next) =>', {
+        s.i(1),
+        s.i(2),
+        s.c(3, {
+          s.fmt('const {name}: ExpressFunc = async (req, res, next) =>', {
             name = s.i(1, 'name'),
           }),
           s.fmt(
-            'export const {name} = async (req: Request, res: Response, next: NextFunction) =>',
+            'const {name} = async (req: Request, res: Response, next: NextFunction) =>',
             {
               name = s.i(1, 'name'),
             }
           ),
           s.fmt(
-            'export async function {name}(req: Request, res: Response, next: NextFunction)',
+            'async function {name}(req: Request, res: Response, next: NextFunction)',
             {
               name = s.i(1, 'name'),
             }
           ),
         }),
-        s.i(2),
+        s.i(4),
       }
     )
   ),
   s.parse_snippet('clgv', 'console.log("${1:value} >>", ${2:value});'),
   s.parse_snippet('clg', 'console.log("${1:value}");'),
 }
+--
+-- s.fmt([[
+-- import type {{ FilterQuery, QueryOptions, ProjectionType }} from "mongoose";
+-- import {{ {}, {}, {} }} from "../models";
+--
+-- export const findOne = (
+--   query: FilterQuery<{document}> = {{}},
+--   options: QueryOptions<{document}> = {{ lean: true }},
+--   select: ProjectionType<{document}> = {{}}
+-- ) =>
+-- {model}.findOne(query, select, options);
+--
+-- export const findById = (
+--   id: string,
+--   options: QueryOptions<LoggerDocument> | undefined = {}
+-- ) => LoggerModel.findById(id, options).populate("userId", "name phone").lean();
+--
+-- export const Create = (log: Logger) => LoggerModel.create(log);
+--
+-- export const find = (
+--   query: FilterQuery<LoggerDocument>,
+--   limit = 10,
+--   skip = 0,
+--   options: QueryOptions<LoggerDocument> | undefined = {}
+-- ) =>
+--   LoggerModel.find(query, options)
+--     .limit(limit)
+--     .skip(skip)
+--     .sort({ createdAt: -1 })
+--     .populate("userId", "name phone")
+--     .lean()
+--     .exec();
+--
+-- export const deleteOne = (id: string) =>
+--   LoggerModel.findOneAndDelete({ _id: id });
+--
+-- export const deleteManyByNumber = async (num: number) => {
+--   const ids = await LoggerModel.find({}, { _id: 1 })
+--     .sort({ createdAt: 1 })
+--     .limit(num)
+--     .select("_id")
+--     .lean()
+--     .exec();
+--   if (ids) return LoggerModel.deleteMany({ _id: { $in: ids } });
+-- };
+--   ]], {
+--     s.i(1, "document"),
+--     s.i(2, "Model"),
+--     s.i(1, "document"),
+--
+--   })
