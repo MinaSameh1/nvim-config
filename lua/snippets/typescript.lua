@@ -152,9 +152,9 @@ return {
   /**
    * @function {}
    * @description {}
-   * @param {Request} req Express Request
-   * @param {Response} res Express Response
-   * @param {NextFunction} next Express Next Function
+   * @param {{Request}} req Express Request
+   * @param {{Response}} res Express Response
+   * @param {{NextFunction}} next Express Next Function
    */
   export {} {{
     try {{
