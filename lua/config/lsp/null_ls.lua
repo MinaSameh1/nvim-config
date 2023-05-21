@@ -88,6 +88,7 @@ null_ls.setup({
       filetypes = { 'markdown', 'latex', 'tex' },
     }),
     null_ls.builtins.diagnostics.yamllint,
+    null_ls.builtins.formatting.xmlformat,
     -- null_ls.builtins.diagnostics.php,
     -- null_ls.builtins.code_actions.refactoring,
 
