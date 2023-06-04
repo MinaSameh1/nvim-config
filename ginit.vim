@@ -12,9 +12,10 @@ if exists('g:GuiLoaded')
   GuiTabline 0
   GuiPopupmenu 0
   GuiLinespace 2
-  "GuiFont! Inconsolata\ Nerd\ Font:h13:l
-  "GuiFont! iMWritingMonoS\ Nerd\ Font:h12
-  GuiFont! FiraCode NF:h9
+  " GuiFont! Inconsolata\ Nerd\ Font:h13:l
+  " GuiFont! iMWritingMonoS\ Nerd\ Font:h12
+  " GuiFont! FiraCode NF:h9
+  GuiFont! Iosevka\ Light:h10
   
   " Right Click Context Menu (Copy-Cut-Paste)
   nnoremap <silent><RightMouse> :call GuiShowContextMenu()<CR>
@@ -101,12 +102,22 @@ endif
 
 if exists('neovide')
   " NOTE: check out multigrid its been removed cuz of issues for now 
-  
-  " FONT:  Main: Hack
 
+  " Increases the font size with `amount`
+  function! Zoom(amount) abort
+    call ZoomSet(matchstr(&guifont, '\d\+$') + a:amount)
+  endfunc
+
+  " Sets the font size to `font_size`
+  function ZoomSet(font_size) abort
+    let &guifont = substitute(&guifont, '\d\+$', a:font_size, '')
+  endfunc
+
+  "" Fonts that I normally use, I like to switch things up
   " set guifont=Hack\ Nerd\ Font:h11
-  "set guifont=Inconsolata Nerd Font:h12
-	set guifont=FiraCode\ Nerd\ Font:h10 "Font that will be used in GUI vim
+  " set guifont=Inconsolata Nerd Font:h12
+  " set guifont=FiraCode\ Nerd\ Font:h10 "Font that will be used in GUI vim
+  set guifont=Iosevka\ Light:h16
 
 
    " effects (sonicboom, ripple, railgun, torepedo)
@@ -114,12 +125,12 @@ if exists('neovide')
   let g:neovide_cursor_antialiasing=v:true " Cursor antialiasing
   let g:neovide_refresh_rate=120  " Refresh rate
   
-  " Always redraw 
-  let g:neovide_no_idle=v:true
+  " Always redraw
+  " let g:neovide_no_idle=v:true
 
   noremap <silent> <C-+> :call Zoom(v:count1)<CR>
   noremap <silent> <C--> :call Zoom(-v:count1)<CR>
-  noremap <silent> <C-0> :call ZoomSet(12)<CR>
+  noremap <silent> <C-0> :call ZoomSet(16)<CR>
   nnoremap <silent> <C-ScrollWheelUp> :call Zoom(v:count1)<CR>
   nnoremap <silent> <C-ScrollWheelDown> :call Zoom(-v:count1)-<CR>
 
@@ -133,14 +144,5 @@ if exists('neovide')
     endif
   endfunc
 
-  let g:transparent_enabled = v:false
-  " Increases the font size with `amount`
-  function! Zoom(amount) abort
-    call ZoomSet(matchstr(&guifont, '\d\+$') + a:amount)
-  endfunc
-
-  " Sets the font size to `font_size`
-  function ZoomSet(font_size) abort
-    let &guifont = substitute(&guifont, '\d\+$', a:font_size, '')
-  endfunc
+  let g:transparent_enabled = v:true
 endif

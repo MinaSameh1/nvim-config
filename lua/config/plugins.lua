@@ -668,13 +668,20 @@ return packer.startup(function(use)
         })
       end,
     },
-    {
-      'sainnhe/sonokai',
-    },
+    { 'sainnhe/sonokai', },
     {
       'mountain-theme/vim',
       as = 'mountain',
       branch = 'master',
+    },
+    {
+      'EdenEast/nightfox.nvim',
+      config = function()
+        require('nightfox').setup({
+          transparent = false,
+          terminal_colors = true,
+        })
+      end,
     },
   })
 
