@@ -668,7 +668,7 @@ return packer.startup(function(use)
         })
       end,
     },
-    { 'sainnhe/sonokai', },
+    { 'sainnhe/sonokai' },
     {
       'mountain-theme/vim',
       as = 'mountain',
