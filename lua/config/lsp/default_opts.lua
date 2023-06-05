@@ -32,7 +32,7 @@ M.on_attach = function(client, bufnr)
   local mapOpts = { noremap = true, silent = true, buffer = bufnr }
   local setDesc = require('config.utils').getDescWithMapOptsSetter(mapOpts)
 
-  require('config.lsp.TreeSitterStuff').on_attach(client, bufnr)
+  -- require('config.lsp.TreeSitterStuff').on_attach(client, bufnr)
   -- Enable completion triggered by <c-x><c-o>
   vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
 
