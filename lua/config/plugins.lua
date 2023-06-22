@@ -88,6 +88,7 @@ return packer.startup(function(use)
     {
       -- Shows LSP progress
       'j-hui/fidget.nvim',
+      tag = 'legacy',
       after = 'lualine.nvim',
       config = function()
         require('fidget').setup({
