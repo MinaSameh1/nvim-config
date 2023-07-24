@@ -116,7 +116,7 @@ dap.configurations.javascript = { -- JS/node config
       NODE_ENV = 'development',
     },
     args = {
-      '--inspect',
+      '--inspect-brk',
       '${workspaceFolder}/node_modules/.bin/jest',
       '--no-cache',
       '--detectOpenHandles',
@@ -141,7 +141,7 @@ dap.configurations.javascript = { -- JS/node config
       NODE_ENV = 'development',
     },
     args = {
-      '--inspect',
+      '--inspect-brk',
       '${workspaceFolder}/node_modules/.bin/jest',
       '--no-cache',
       '--detectOpenHandles',
