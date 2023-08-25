@@ -31,7 +31,11 @@ null_ls.setup({
 
     ---- Python
     null_ls.builtins.formatting.black.with({
-      extra_args = { '--fast', '--line-length', '80' },
+      extra_args = {
+        '--fast',
+        '--line-length',
+        '80',
+      },
     }),
     -- null_ls.builtins.formatting.autopep8, Gonna try black
     null_ls.builtins.diagnostics.pydocstyle.with({
@@ -39,6 +43,9 @@ null_ls.setup({
     }),
     null_ls.builtins.diagnostics.pylint.with({
       method = null_ls.methods.DIAGNOSTICS_ON_SAVE,
+      extra_args = {
+        "--indent-string='  '",
+      },
     }),
 
     ---- C / Cpp
