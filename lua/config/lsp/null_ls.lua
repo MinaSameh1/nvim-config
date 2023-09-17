@@ -43,9 +43,10 @@ null_ls.setup({
     }),
     null_ls.builtins.diagnostics.pylint.with({
       method = null_ls.methods.DIAGNOSTICS_ON_SAVE,
-      extra_args = {
-        "--indent-string='  '",
-      },
+      --- Set spaces to 2 only.
+      -- extra_args = {
+      --   "--indent-string='  '",
+      -- },
     }),
 
     ---- C / Cpp
