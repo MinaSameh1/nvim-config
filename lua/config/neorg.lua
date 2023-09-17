@@ -20,12 +20,13 @@ neorg.setup({
         engine = 'nvim-cmp',
       },
     },
+    ['core.export'] = {},
     ['core.dirman'] = { -- Manage your directories with Neorg
       config = {
         workspaces = {
-          notes = '~/Documents/notes',
+          notes = '~/Documents/stuff/notes/notes',
           home = '~/Documents/stuff/notes',
-          work = '~/Documents/stuff/work/notes',
+          work = '~/Documents/stuff/notes/work/notes',
         },
       },
     },
