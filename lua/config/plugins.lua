@@ -489,6 +489,15 @@ return packer.startup(function(use)
     -- NOTE: We don't need to lazy load this, it lazy loads itself.
     'lervag/vimtex',
   })
+  use({
+    'jbyuki/nabla.nvim',
+    requires = { 'nvim-treesitter/nvim-treesitter' },
+    config = function()
+      vim.cmd(
+        'nnoremap <leader>p :lua require("nabla").popup({ border = "rounded" })<CR> " `single` (default), `double`, `rounded`'
+      )
+    end,
+  })
 
   --- Syntax and languages
   -- Syntax highlighting
