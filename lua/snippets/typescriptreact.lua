@@ -7,6 +7,7 @@ local i = ls.insert_node
 local f = ls.function_node
 local d = ls.dynamic_node
 local sn = ls.snippet_node
+local l = require('luasnip.extras').l
 local rep = require('luasnip.extras').rep
 
 -- Get a list of  the property names given an `interface_declaration`
@@ -93,5 +94,14 @@ ls.add_snippets('typescriptreact', {
         i(5, 'return <div></div>'),
       }
     )
+  ),
+  s(
+    'useS',
+    fmt('const [{}, set{setter}] = useState<{}>({})', {
+      i(1, 'state'),
+      i(2, 'initialValue'),
+      i(3, 'unknown'),
+      setter = l(l._1:sub(1, 1):upper() .. l._1:sub(2, -1), 1),
+    })
   ),
 })
