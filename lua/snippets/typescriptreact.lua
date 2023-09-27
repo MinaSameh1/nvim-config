@@ -9,6 +9,7 @@ local d = ls.dynamic_node
 local sn = ls.snippet_node
 local l = require('luasnip.extras').l
 local rep = require('luasnip.extras').rep
+local get_node_text = require('config.utils').get_node_text
 
 -- Get a list of  the property names given an `interface_declaration`
 -- treesitter *tsx* node.
@@ -31,7 +32,7 @@ local function get_prop_names(id_node)
   for prop_signature in object_type_node:iter_children() do
     if prop_signature:type() == 'property_signature' then
       local prop_iden = prop_signature:child(0)
-      local prop_name = vim.treesitter.query.get_node_text(prop_iden, 0)
+      local prop_name = get_node_text(prop_iden, 0)
       prop_names[#prop_names + 1] = prop_name
     end
   end
