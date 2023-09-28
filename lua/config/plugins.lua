@@ -212,17 +212,11 @@ return packer.startup(function(use)
     key = '<Plug>(EasyAlign)', -- Lazy load on keymap press
   })
 
-  -- Vim MultiCurosr, use cgn instead :)
-  -- use({
-  --   'mg979/vim-visual-multi',
-  --   disable = true,
-  -- })
-
   -- Search, and fuzzy stuff, far for replace
   use({
     'brooth/far.vim',
     opt = true,
-    cmd = { 'F', 'Far', 'Fardo', 'Farundo' },
+    cmd = { 'F', 'Far', 'Farr', 'Fardo', 'Farundo' },
   })
 
   -- Shows actions menu on key press, really helpful
@@ -353,13 +347,6 @@ return packer.startup(function(use)
     { 'kosayoda/nvim-lightbulb' },
   })
 
-  -- AutoCompletetion and snippets, replaced with luasnip
-  -- use(
-  --   { 'SirVer/ultisnips', after = 'nvim-cmp' },
-  --   { 'quangnguyen30192/cmp-nvim-ultisnips', after = 'ultisnips' },
-  --   { 'honza/vim-snippets', after = 'ultisnips' }
-  -- )
-
   use({
     {
       'hrsh7th/nvim-cmp',
@@ -429,6 +416,7 @@ return packer.startup(function(use)
       'theHamsta/nvim-dap-virtual-text',
       requires = { 'mfussenegger/nvim-dap' },
     },
+    -- For python
     {
       'mfussenegger/nvim-dap-python',
       module = 'dap-python',
@@ -436,17 +424,9 @@ return packer.startup(function(use)
     },
   })
 
-  use({ -- For java
+  use({ -- For java, auto lazy loaded using ftplugin
     'mfussenegger/nvim-jdtls',
-    -- ft = { 'java' },
-    -- Use ftplugin/java instead
-    -- config = function()
-    --   require('config.jdtls')
-    -- end,
   })
-
-  -- Fixes performance issues with cursorHold
-  use({ 'antoinemadec/FixCursorHold.nvim', event = { 'CursorHold' } })
 
   use({
     'nvim-neotest/neotest',
@@ -461,16 +441,6 @@ return packer.startup(function(use)
     end,
   })
 
-  --- Deprecated.
-  -- use({ 'vim-test/vim-test' })
-  --
-  -- -- Jest Tests debugging
-  -- use({
-  --   disable = true,
-  --   'David-Kunz/jester',
-  --   ft = { 'js', 'ts' },
-  -- })
-
   -- Git integration
   use({
     'lewis6991/gitsigns.nvim',
@@ -480,9 +450,10 @@ return packer.startup(function(use)
     end,
   })
 
+  -- Git integration, LOVE IT! <3
   use({ 'tpope/vim-fugitive' })
 
-  -- Detect tabstop and shiftwidth automatically
+  -- Detect tabstop and shiftwidth automatically in file tree
   use('tpope/vim-sleuth')
   -- Latex stuff
   use({
@@ -509,7 +480,11 @@ return packer.startup(function(use)
         require('config.treesitter')
       end,
     },
-    { 'nvim-treesitter/playground', after = 'nvim-treesitter' },
+    {
+      'nvim-treesitter/playground',
+      cmd = 'TSPlaygroundToggle',
+      after = 'nvim-treesitter',
+    },
     {
       'nvim-treesitter/nvim-treesitter-textobjects',
       after = 'nvim-treesitter',
@@ -581,15 +556,6 @@ return packer.startup(function(use)
       })
     end,
   })
-
-  ---- For now use prettier tailwind
-  -- use({
-  -- 	"steelsojka/headwind.nvim",
-  -- 	ft = { "css", "typescriptreact" },
-  -- 	config = function()
-  -- 		require("headwind").setup({})
-  -- 	end,
-  -- })
 
   -- Icons
   use({
