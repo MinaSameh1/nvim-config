@@ -4,6 +4,16 @@ if not status_ok then
   return
 end
 
+local opts = { noremap = true, silent = true, expr = false }
+local setDesc = require('config.utils').getDescWithMapOptsSetter(opts)
+
+vim.api.nvim_set_keymap(
+  'v',
+  '<leader>N',
+  '<cmd>Neorg<CR>',
+  setDesc('Opens Neorg')
+)
+
 neorg.setup({
   load = {
     ['core.defaults'] = {},
@@ -29,8 +39,9 @@ neorg.setup({
         workspaces = {
           notes = '~/Documents/stuff/notes/notes',
           home = '~/Documents/stuff/notes',
-          work = '~/Documents/stuff/notes/work/notes',
+          work = '~/Documents/stuff/notes/work',
         },
+        default_workspace = 'notes',
       },
     },
   },

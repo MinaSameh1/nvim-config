@@ -569,6 +569,9 @@ return packer.startup(function(use)
     config = function()
       require('todo-comments').setup({
         keywords = {
+          TODO = {
+            'todo'
+          },
           FIX = {
             alt = { 'FIXME', 'BUG', 'FIXIT', 'ISSUE' },
           },
