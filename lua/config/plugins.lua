@@ -570,7 +570,7 @@ return packer.startup(function(use)
       require('todo-comments').setup({
         keywords = {
           TODO = {
-            'todo'
+            'todo',
           },
           FIX = {
             alt = { 'FIXME', 'BUG', 'FIXIT', 'ISSUE' },
