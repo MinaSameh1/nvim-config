@@ -8,7 +8,7 @@ local function M()
   -- vim.g.indent_blankline_use_treesitter = true
   -- vim.g.indent_blankline_show_first_indent_level = false
 
-  return require('indent_blankline').setup({
+  return require('ibl').setup({
     use_treesitter = true,
     filetype_exclude = {
       'help',
