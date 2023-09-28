@@ -20,8 +20,10 @@ local function_q = vim.treesitter.query.parse(
 )
 -- This only matches returns that actually return something, so early return can still be used for
 -- control flow!
-local return_q =
-  vim.treesitter.query.parse('typescript', '(return_statement) @ret')
+local return_q = vim.treesitter.query.parse(
+  'typescript',
+  '(return_statement) @ret'
+)
 
 --- Obtains list of parameter names for the next lua function and whether it returns something.
 -- @param linenr Line number at which we start searching.
@@ -90,12 +92,12 @@ return {
     s.fmt(
       [[
     /**
-      * {doc}
-      *
-      * @param {param}:{type}
+      * @function {doc}
+      * @description {}
+      * @param {paramdoc}
       * @return {ret}
       */
-    {} {} ({}: {}): {} {{{}}}
+    {} {} ({}): {} {{{}}}
     ]],
       {
         s.c(1, {
@@ -106,12 +108,11 @@ return {
         }),
         s.i(2, 'name'),
         s.i(3, 'param'),
-        s.i(4, 'type'),
+        paramdoc = s.i(4),
         s.i(5, 'return'),
-        s.i(6, ''),
-        param = s.f(s.copy, 3),
+        s.i(6, 'body'),
+        s.i(7, 'description'),
         ret = s.f(s.copy, 5),
-        type = s.f(s.copy, 4),
         doc = s.f(s.copy, 2),
       }
     )
@@ -191,54 +192,3 @@ return {
   s.parse_snippet('clgv', 'console.log("${1:value} >>", ${2:value});'),
   s.parse_snippet('clg', 'console.log("${1:value}");'),
 }
---
--- s.fmt([[
--- import type {{ FilterQuery, QueryOptions, ProjectionType }} from "mongoose";
--- import {{ {}, {}, {} }} from "../models";
---
--- export const findOne = (
---   query: FilterQuery<{document}> = {{}},
---   options: QueryOptions<{document}> = {{ lean: true }},
---   select: ProjectionType<{document}> = {{}}
--- ) =>
--- {model}.findOne(query, select, options);
---
--- export const findById = (
---   id: string,
---   options: QueryOptions<LoggerDocument> | undefined = {}
--- ) => LoggerModel.findById(id, options).populate("userId", "name phone").lean();
---
--- export const Create = (log: Logger) => LoggerModel.create(log);
---
--- export const find = (
---   query: FilterQuery<LoggerDocument>,
---   limit = 10,
---   skip = 0,
---   options: QueryOptions<LoggerDocument> | undefined = {}
--- ) =>
---   LoggerModel.find(query, options)
---     .limit(limit)
---     .skip(skip)
---     .sort({ createdAt: -1 })
---     .populate("userId", "name phone")
---     .lean()
---     .exec();
---
--- export const deleteOne = (id: string) =>
---   LoggerModel.findOneAndDelete({ _id: id });
---
--- export const deleteManyByNumber = async (num: number) => {
---   const ids = await LoggerModel.find({}, { _id: 1 })
---     .sort({ createdAt: 1 })
---     .limit(num)
---     .select("_id")
---     .lean()
---     .exec();
---   if (ids) return LoggerModel.deleteMany({ _id: { $in: ids } });
--- };
---   ]], {
---     s.i(1, "document"),
---     s.i(2, "Model"),
---     s.i(1, "document"),
---
---   })
