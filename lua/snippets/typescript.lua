@@ -1,4 +1,5 @@
 local s = require('snippets.shorthands')
+local l = require('luasnip.extras').l
 local get_node_text = require('config.utils').get_node_text
 
 require('snippets.javascript') -- Load js snippets
@@ -20,8 +21,10 @@ local function_q = vim.treesitter.query.parse(
 )
 -- This only matches returns that actually return something, so early return can still be used for
 -- control flow!
-local return_q =
-  vim.treesitter.query.parse('typescript', '(return_statement) @ret')
+local return_q = vim.treesitter.query.parse(
+  'typescript',
+  '(return_statement) @ret'
+)
 
 --- Obtains list of parameter names for the next lua function and whether it returns something.
 -- @param linenr Line number at which we start searching.
@@ -192,6 +195,25 @@ return {
   ),
   s.parse('clgv', 'console.log("${1:value} >>", ${2:value});'),
   s.parse('clg', 'console.log("${1:value}");'),
+  s.s(
+    { trig = 'nestcontroller', dscr = 'NestJS Controller' },
+    s.fmt(
+      [[
+import {{ Controller }} from '@nestjs/common'
+import {{ ApiTags }} from '@nestjs/swagger'
+
+@Controller('{tag}')
+@ApiTags('{tag}')
+export class {name}Controller {{
+
+}}
+]],
+      {
+        name = s.i(1, 'name'),
+        tag = l(l._1:lower(), 1),
+      }
+    )
+  ),
   s.s(
     { trig = 'nestservice', dscr = 'NestJS Service' },
     s.fmt(
