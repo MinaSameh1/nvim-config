@@ -126,7 +126,7 @@ return {
   ),
   -- Create express controller snippet
   s.s(
-    'exprouter',
+    { trig = 'exprouter', dscr = 'Express Router' },
     s.fmt(
       [[
   import {{ Router }} from "express";
@@ -145,7 +145,10 @@ return {
     )
   ),
   s.s(
-    'expcont',
+    {
+      trig = 'expcont',
+      dscr = 'Express Controller with choice for controller shape',
+    },
     s.fmt(
       [[
   /**
@@ -187,6 +190,71 @@ return {
       }
     )
   ),
-  s.parse_snippet('clgv', 'console.log("${1:value} >>", ${2:value});'),
-  s.parse_snippet('clg', 'console.log("${1:value}");'),
+  s.parse('clgv', 'console.log("${1:value} >>", ${2:value});'),
+  s.parse('clg', 'console.log("${1:value}");'),
+  s.s(
+    { trig = 'nestservice', dscr = 'NestJS Service' },
+    s.fmt(
+      [[
+import {{ Injectable, Logger }} from '@nestjs/common';
+
+@Injectable()
+export class {}Service {{
+  private readonly logger = new Logger({service}Service.name);
+
+  {}
+
+}}
+]],
+      {
+        s.i(1),
+        s.i(2),
+        service = s.f(s.copy, 1),
+      }
+    )
+  ),
+  s.s(
+    { trig = 'nestmodule', dscr = 'NestJS Module' },
+    s.fmt(
+      [[
+import {{ Module }} from '@nestjs/common';
+
+@Module({{
+  imports: [{imports}],
+  controllers: [{controllers}],
+  providers: [{providers}],
+  exports: [{exports}]
+}})
+export class {name}Module {{}}
+]],
+      {
+        imports = s.i(1, 'imports'),
+        controllers = s.i(2, 'controllers'),
+        providers = s.i(3, 'providers'),
+        exports = s.i(4, 'exports'),
+        name = s.i(5, 'name'),
+      }
+    )
+  ),
+  s.s(
+    { trig = 'nestguard', dscr = 'NestJS Guard' },
+    s.fmt(
+      [[
+import {{ Injectable, CanActivate, ExecutionContext }} from '@nestjs/common';
+
+@Injectable()
+export class ${GuardName} implements CanActivate {{
+  canActivate(context: ExecutionContext) {{
+    const request = context.switchToHttp().getRequest();
+    {logic}
+    return true;
+  }}
+}}
+]],
+      {
+        GuardName = s.i(1, 'GuardName'),
+        logic = s.i(2, '// Add your logic here'),
+      }
+    )
+  ),
 }

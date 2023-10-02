@@ -20,8 +20,10 @@ local function_q = vim.treesitter.query.parse(
 )
 -- This only matches returns that actually return something, so early return can still be used for
 -- control flow!
-local return_q =
-  vim.treesitter.query.parse('lua', '(return_statement (expression_list)) @ret')
+local return_q = vim.treesitter.query.parse(
+  'lua',
+  '(return_statement (expression_list)) @ret'
+)
 
 --- Obtains list of parameter names for the next lua function and whether it returns something.
 -- @param linenr Line number at which we start searching.
@@ -56,20 +58,14 @@ local function next_fun_parms(linenr)
 end
 
 return {
-  s.parse_snippet('for', 'for ${1:i} = ${2:1}, ${3:n} do\n\t$0\nend'),
-  s.parse_snippet('fun', 'local function ${1:name}($2)\n\t$0\nend'),
-  s.parse_snippet('while', 'while ${1:cond} do\n\t$0\nend'),
-  s.parse_snippet('mfun', 'function M.${1:name}($2)\n\t$0\nend'),
-  s.parse_snippet(
-    'pairs',
-    'for ${1:key}, ${2:value} in pairs($3) do\n\t$0\nend'
-  ),
-  s.parse_snippet(
-    'ipairs',
-    'for ${1:i}, ${2:value} in ipairs($3) do\n\t$0\nend'
-  ),
-  s.parse_snippet('if', 'if ${1:cond} then\n\t$0\nend'),
-  s.parse_snippet('ifn', 'if not ${1:cond} then\n\t$0\nend'),
+  s.parse('for', 'for ${1:i} = ${2:1}, ${3:n} do\n\t$0\nend'),
+  s.parse('fun', 'local function ${1:name}($2)\n\t$0\nend'),
+  s.parse('while', 'while ${1:cond} do\n\t$0\nend'),
+  s.parse('mfun', 'function M.${1:name}($2)\n\t$0\nend'),
+  s.parse('pairs', 'for ${1:key}, ${2:value} in pairs($3) do\n\t$0\nend'),
+  s.parse('ipairs', 'for ${1:i}, ${2:value} in ipairs($3) do\n\t$0\nend'),
+  s.parse('if', 'if ${1:cond} then\n\t$0\nend'),
+  s.parse('ifn', 'if not ${1:cond} then\n\t$0\nend'),
   s.s(
     'req',
     s.fmt('local {} = require("{}")', {

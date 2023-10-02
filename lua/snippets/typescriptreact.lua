@@ -48,22 +48,42 @@ ls.add_snippets('typescriptreact', {
 {}interface {}Props {{
   {}
 }}
-{}function {}({{{}}}: {}Props) {{
-  {}
-}}
+
+export function {}({{ {} }}: {}Props)  {{
+  return {};
+}};
 ]],
       {
         i(1, 'export '),
 
         -- Initialize component name to file name
         d(2, function(_, snip)
+          local dirname = vim.fn.expand('%'):match('([^/]+)/[^/]+$')
+          local filename = vim.fn.expand('%:t')
+          if filename == 'index.tsx' then
+            return sn(nil, {
+              i(1, dirname),
+            })
+          end
+
           return sn(nil, {
             i(1, vim.fn.substitute(snip.env.TM_FILENAME, '\\..*$', '', 'g')),
           })
         end, { 1 }),
-        i(3, '// props'),
-        rep(1),
-        rep(2),
+        i(3, '// Props'),
+        d(4, function(_, snip)
+          local dirname = vim.fn.expand('%'):match('([^/]+)/[^/]+$')
+          local filename = vim.fn.expand('%:t')
+          if filename == 'index.tsx' then
+            return sn(nil, {
+              i(1, dirname),
+            })
+          end
+
+          return sn(nil, {
+            i(1, vim.fn.substitute(snip.env.TM_FILENAME, '\\..*$', '', 'g')),
+          })
+        end, { 1 }),
         f(function(_, snip, _)
           local pos_begin = snip.nodes[6].mark:pos_begin()
           local pos_end = snip.nodes[6].mark:pos_end()
@@ -92,7 +112,7 @@ ls.add_snippets('typescriptreact', {
           return vim.fn.join(prop_names, ', ')
         end, { 3 }),
         rep(2),
-        i(5, 'return <div></div>'),
+        i(5, 'null'),
       }
     )
   ),

@@ -1,4 +1,4 @@
-local parse_snippet = require('snippets.shorthands').parse_snippet
+local parse_snippet = require('snippets.shorthands').parse
 return {
   parse_snippet('trig', 'loaded!!'),
   parse_snippet(
