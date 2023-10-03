@@ -110,7 +110,7 @@ mason_lspconfig.setup_handlers({
         Renamefile = {
           utils.rename_file,
           description = 'Rename file',
-        }
+        },
       },
       settings = {
         publish_diagnostic_on = 'insert_leave',
