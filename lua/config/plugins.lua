@@ -200,6 +200,18 @@ return packer.startup(function(use)
     },
   })
 
+  -- adds support for file operations using built-in LSP support.
+  use({
+      'antosha417/nvim-lsp-file-operations',
+      requires = {
+        'nvim-lua/plenary.nvim',
+        'nvim-neo-tree/neo-tree.nvim',
+      },
+      config = function()
+        require('lsp-file-operations').setup()
+      end,
+    })
+
   -- better matchit plug
   use({
     'andymass/vim-matchup',
@@ -334,8 +346,8 @@ return packer.startup(function(use)
     },
     {
       -- typescript
-      'jose-elias-alvarez/typescript.nvim',
-      module = 'typescript',
+      'pmizio/typescript-tools.nvim',
+      requires = { 'nvim-lua/plenary.nvim', 'neovim/nvim-lspconfig' },
     },
     {
       -- for rust

@@ -49,6 +49,7 @@ mason_lspconfig.setup({
 })
 
 local default_opts = require('config.lsp.default_opts').default_opts
+local utils = require('config.lsp.utils')
 local on_attach = require('config.lsp.default_opts').on_attach
 local handlers = require('config.lsp.default_opts').handlers
 local words = require('config.lsp.default_opts').words
@@ -93,30 +94,26 @@ mason_lspconfig.setup_handlers({
     )
     local opts = default_opts
     opts.format = false
-    require('typescript').setup({
-      disable_commands = false, -- prevent the plugin from creating Vim commands
-      debug = false, -- enable debug logging for commands
-      server = {
-        flags = { allow_incremental_sync = true, debounce_text_changes = 225 },
-        go_to_source_definition = {
-          fallback = true, -- fall back to standard LSP definition on failure
-        },
-        settings = {
-          tsserver = {
-            diagnosticsDelay = '150ms',
-            experimentalWatchedFileDelay = '100ms',
-            perferences = {
-              importModuleSpecifierEnding = 'minimal',
-            },
-          },
-        },
-        autoSetHints = true,
-        format = false,
-        noremap = true,
-        silent = true,
-        handlers = handlers,
-        on_attach,
-        capabilities = vim.lsp.protocol.make_client_capabilities(),
+    require('typescript-tools').setup({
+      flags = { allow_incremental_sync = true, debounce_text_changes = 225 },
+      go_to_source_definition = {
+        fallback = true, -- fall back to standard LSP definition on failure
+      },
+      autoSetHints = true,
+      format = false,
+      noremap = true,
+      silent = true,
+      handlers = handlers,
+      on_attach,
+      capabilities = vim.lsp.protocol.make_client_capabilities(),
+      commands = {
+        Renamefile = {
+          utils.rename_file,
+          description = 'Rename file',
+        }
+      },
+      settings = {
+        publish_diagnostic_on = 'insert_leave',
       },
     })
   end,
