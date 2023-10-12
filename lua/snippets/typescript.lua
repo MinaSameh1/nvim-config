@@ -116,6 +116,10 @@ return {
       }
     )
   ),
+  s.parse({
+    trig = 'errimpl',
+    description = 'Adds a throw err with message',
+  }, 'throw new Error("${1:Not Implemented}");'),
   s.s(
     'todo',
     s.fmt([[ // TODO: {date} {}]], {
@@ -253,6 +257,26 @@ export class {name}Module {{}}
         providers = s.i(3, 'providers'),
         exports = s.i(4, 'exports'),
         name = s.i(5, 'name'),
+      }
+    )
+  ),
+  s.s(
+    { trig = 'nestpipe', dscr = 'NestJS Pipe' },
+    s.fmt(
+      [[
+import {{ Injectable, PipeTransform, ArgumentMetadata, BadRequestException }} from '@nestjs/common';
+
+@Injectable()
+export class ${PipeName} implements PipeTransform {{
+  transform(value: any, metadata: ArgumentMetadata) {{
+    {logic}
+    return value;
+  }}
+}}
+]],
+      {
+        PipeName = s.i(1, 'PipeName'),
+        logic = s.i(2, '// Add your logic here'),
       }
     )
   ),
