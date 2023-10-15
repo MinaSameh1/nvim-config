@@ -11,21 +11,33 @@ local function M()
 
   return require('ibl').setup({
     scope = { enabled = true },
-    -- exclude = {
-    --   'help',
-    --   'dashboard',
-    --   'TelescopePrompt',
-    --   'TelescopeResults',
-    --   'checkhealth',
-    --   'packer',
-    --   'lspinfo',
-    --   'toggleterm',
-    --   'lsp-installer',
-    --   'terminal',
-    -- },
+    exclude = {
+      filetypes = {
+        'help',
+        'dashboard',
+        'TelescopePrompt',
+        'TelescopeResults',
+        'checkhealth',
+        'packer',
+        'lspinfo',
+        'toggleterm',
+        'lsp-installer',
+        'terminal',
+      },
+      buftypes = {
+        'terminal',
+        'prompt',
+        'nofile',
+        'help',
+      },
+    },
+    indent = {
+      char = '|',
+    },
     -- indent = {
     --   char = ' ',
     -- },
+
     ---- WARN: DEPRECATED:
     -- use_treesitter = true,
     -- buftype_exclude = { 'terminal', 'prompt', 'nofile', 'help' },
