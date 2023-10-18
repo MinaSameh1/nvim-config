@@ -41,24 +41,15 @@ return {
           s.fmt('const {name} = (req, res, next) =>', {
             name = s.i(1, 'name'),
           }),
-          s.fmt(
-            'const {name} = async (req, res, next) =>',
-            {
-              name = s.i(1, 'name'),
-            }
-          ),
-          s.fmt(
-            'export function {name}(req, res, next)',
-            {
-              name = s.i(1, 'name'),
-            }
-          ),
-          s.fmt(
-            'export async function {name}(req, res, next)',
-            {
-              name = s.i(1, 'name'),
-            }
-          ),
+          s.fmt('const {name} = async (req, res, next) =>', {
+            name = s.i(1, 'name'),
+          }),
+          s.fmt('export function {name}(req, res, next)', {
+            name = s.i(1, 'name'),
+          }),
+          s.fmt('export async function {name}(req, res, next)', {
+            name = s.i(1, 'name'),
+          }),
         }),
         s.i(4),
       }
