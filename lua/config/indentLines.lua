@@ -32,7 +32,7 @@ local function M()
       },
     },
     indent = {
-      char = '|',
+      char = '│',
     },
     -- indent = {
     --   char = ' ',
