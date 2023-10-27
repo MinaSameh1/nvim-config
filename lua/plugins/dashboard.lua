@@ -57,24 +57,6 @@ local custom_shortcuts = {
     key = 'N',
   },
   {
-    desc = ' Find File',
-    action = 'Telescope find_files find_command=rg,--hidden,--files prompt_prefix=🔍',
-    group = 'Label',
-    key = 'ff',
-  },
-  {
-    desc = ' File Browser',
-    action = 'Neotree toggle',
-    group = 'Label',
-    key = 'F',
-  },
-  {
-    desc = ' Find word',
-    action = 'Telescope live_grep',
-    group = 'Label',
-    key = 'fg',
-  },
-  {
     desc = ' Open Vim Config',
     action = 'Telescope find_files cwd=' .. config_location,
     group = 'Number',
