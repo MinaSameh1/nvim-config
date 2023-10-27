@@ -145,13 +145,13 @@ return {
   -- Aligns things easly using gaip=
   {
     'junegunn/vim-easy-align',
-    key = '<Plug>(EasyAlign)', -- Lazy load on keymap press
+    event = 'BufEnter',
   },
 
   -- Search, and fuzzy stuff, far for replace
   {
     'brooth/far.vim',
-    opt = true,
+    opt = {},
     cmd = { 'F', 'Far', 'Farr', 'Fardo', 'Farundo' },
   },
 
