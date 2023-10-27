@@ -3,11 +3,6 @@
 -- ******************************
 
 local config_location = require('config.utils').config_location
-local status_ok, db = pcall(require, 'dashboard')
-if not status_ok then
-  print('Error in db config')
-  return
-end
 
 local custom_center = {
   {
@@ -234,30 +229,34 @@ local custom_header = {
   [[             :~==~==~==~==~~                                             ]],
 }
 
-db.setup({
-  theme = 'hyper', -- 'doom' or 'hyper'
+return {
+  'glepnir/dashboard-nvim',
+  event = { 'VimEnter', 'GuiEnter' },
   config = {
-    header = custom_header,
-    -- week_header = { enable = true }, -- Show week name
-    center = custom_center,
-    shortcut = custom_shortcuts,
-    packages = { enable = true },
-    -- limit how many projects list, action when you press key or enter it will run this action.
-    project = { -- only for hyper
-      limit = 8,
-      icon = ' ',
-      label = 'Projects',
-      action = function(path)
-        vim.cmd('cd ' .. path)
-        return vim.cmd('Telescope find_files cwd=' .. path)
-      end,
-      key = '<leader>fp',
-    },
-    mru = { limit = 6, icon = ' ', label = 'Recent Files' },
-    hide = { -- Hide stuff
-      statusline = { enable = false },
-      tabline = { enable = false },
-      winbar = { enable = false },
+    theme = 'hyper', -- 'doom' or 'hyper'
+    config = {
+      header = custom_header,
+      -- week_header = { enable = true }, -- Show week name
+      center = custom_center,
+      shortcut = custom_shortcuts,
+      packages = { enable = true },
+      -- limit how many projects list, action when you press key or enter it will run this action.
+      project = { -- only for hyper
+        limit = 8,
+        icon = ' ',
+        label = 'Projects',
+        action = function(path)
+          vim.cmd('cd ' .. path)
+          return vim.cmd('Telescope find_files cwd=' .. path)
+        end,
+        key = '<leader>fp',
+      },
+      mru = { limit = 6, icon = ' ', label = 'Recent Files' },
+      hide = { -- Hide stuff
+        statusline = { enable = false },
+        tabline = { enable = false },
+        winbar = { enable = false },
+      },
     },
   },
-})
+}

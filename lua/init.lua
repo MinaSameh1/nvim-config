@@ -32,7 +32,7 @@ vim.api.nvim_set_keymap(
   { silent = true }
 )
 
-require('config.plugins')
+require('config')
 require('config.colorscheme')
 require('colors.colors')
 require('cmds')
@@ -81,5 +81,3 @@ vim.api.nvim_create_autocmd('ColorScheme', {
     ]])
   end,
 })
-
-vim.cmd.colorscheme('horizon')
