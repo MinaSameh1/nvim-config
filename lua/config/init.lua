@@ -19,8 +19,23 @@ if not status_ok then
 end
 
 lazy.setup('plugins', {
+  defaults = { lazy = true },
   git = {
     timeout = 6000, -- kill processes that take more than 2 minutes
+  },
+  performance = {
+    rtp = {
+      disabled_plugins = {
+        'gzip',
+        'matchit',
+        'matchparen',
+        'netrwPlugin',
+        'tarPlugin',
+        'tohtml',
+        'tutor',
+        'zipPlugin',
+      },
+    },
   },
   ui = {
     -- The border to use for the UI window. Accepts same border values as |nvim_open_win()|.

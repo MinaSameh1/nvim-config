@@ -158,6 +158,7 @@ return {
   -- Shows actions menu on key press, really helpful
   {
     'folke/which-key.nvim',
+    event = 'VeryLazy',
     config = function()
       require('config.whichkey')
     end,
@@ -165,6 +166,7 @@ return {
 
   -- Best picker <3
   {
+    lazy = false,
     'nvim-telescope/telescope.nvim',
     -- keys = {
     --   { 'n', '<Leader>fg' },
@@ -216,6 +218,8 @@ return {
   -- Bar
   {
     'akinsho/bufferline.nvim',
+    event = 'BufRead',
+    version = '*',
     after = 'nvim-web-devicons',
     config = function()
       require('config.bufferline')
@@ -226,12 +230,14 @@ return {
   -- LSP
   {
     'williamboman/mason.nvim',
+    command = 'Mason',
   },
   {
     'williamboman/mason-lspconfig.nvim',
   },
   {
     'neovim/nvim-lspconfig',
+    lazy = false,
     config = function()
       require('config.lsp.NeovimLSP')
     end,
@@ -282,6 +288,7 @@ return {
 
   {
     'hrsh7th/nvim-cmp',
+    lazy = false,
     config = function()
       require('config.cmp.cmp')
     end,
@@ -295,11 +302,11 @@ return {
       },
     },
   },
-  { 'hrsh7th/cmp-buffer', after = 'nvim-cmp' },
-  { 'hrsh7th/cmp-path', after = 'nvim-cmp' },
-  { 'hrsh7th/cmp-cmdline', after = 'nvim-cmp' },
-  { 'kdheepak/cmp-latex-symbols', after = 'nvim-cmp' },
-  { 'saadparwaiz1/cmp_luasnip', after = 'nvim-cmp' },
+  { 'hrsh7th/cmp-buffer', lazy = false, after = 'nvim-cmp' },
+  { 'hrsh7th/cmp-path', lazy = false, after = 'nvim-cmp' },
+  { 'hrsh7th/cmp-cmdline', lazy = false, after = 'nvim-cmp' },
+  { 'kdheepak/cmp-latex-symbols', lazy = false, after = 'nvim-cmp' },
+  { 'saadparwaiz1/cmp_luasnip', lazy = false, after = 'nvim-cmp' },
 
   {
     'ray-x/lsp_signature.nvim',
@@ -380,19 +387,23 @@ return {
   },
 
   -- Git integration, LOVE IT! <3
-  { 'tpope/vim-fugitive' },
+  { 'tpope/vim-fugitive', event = 'VeryLazy' },
 
   -- Detect tabstop and shiftwidth automatically in file tree
   {
     'tpope/vim-sleuth',
+    event = 'BufRead',
   },
   -- Latex stuff
   {
     -- NOTE: We don't need to lazy load this, it lazy loads itself.
     'lervag/vimtex',
+    lazy = false,
   },
   {
     'jbyuki/nabla.nvim',
+    event = 'BufRead',
+    ft = { 'tex', 'latex' },
     dependencies = { 'nvim-treesitter/nvim-treesitter' },
     config = function()
       vim.cmd(
@@ -454,16 +465,6 @@ return {
     end,
   },
 
-  -- indentation highlight
-  {
-    'lukas-reineke/indent-blankline.nvim',
-    event = 'BufRead',
-    after = { 'nvim-treesitter' },
-    config = function()
-      require('config.indentLines')
-    end,
-  },
-
   { 'folke/trouble.nvim', event = 'BufRead' }, -- pretty messages
 
   {
@@ -489,6 +490,7 @@ return {
   -- Icons
   {
     'kyazdani42/nvim-web-devicons',
+    lazy = false,
     opts = {},
   },
 
@@ -603,8 +605,9 @@ return {
   {
     'EdenEast/nightfox.nvim',
     priority = 1000,
+    main = 'nightfox',
     lazy = false,
-    config = {
+    opts = {
       transparent = false,
       terminal_colors = true,
     },
