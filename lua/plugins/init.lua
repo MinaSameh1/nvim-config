@@ -347,6 +347,7 @@ return {
   {
     'nvim-neotest/neotest',
     after = { 'nvim-treesitter' },
+    event = 'BufRead',
     dependencies = {
       'haydenmeade/neotest-jest',
       'nvim-neotest/neotest-python',
