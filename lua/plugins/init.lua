@@ -177,31 +177,24 @@ return {
     dependencies = { 'nvim-lua/plenary.nvim' },
     config = function()
       require('config.telescope')
+      require('telescope').load_extension('ui-select')
+      require('telescope').load_extension('media_files')
+      require('telescope').load_extension('dap')
     end,
   },
+  -- No need to lazy load this
   {
+    event = 'VeryLazy',
     'nvim-telescope/telescope-ui-select.nvim',
-    after = 'telescope.nvim',
-    config = function()
-      require('telescope').load_extension('ui-select')
-    end,
     dependencies = { 'nvim-lua/plenary.nvim' },
   },
   {
+    event = 'VeryLazy',
     'nvim-telescope/telescope-media-files.nvim',
-    after = 'telescope.nvim',
-    config = function()
-      require('telescope').load_extension('media_files')
-    end,
-    dependencies = { 'nvim-telescope/telescope.nvim' },
   },
   {
+    event = 'VeryLazy',
     'nvim-telescope/telescope-dap.nvim',
-    after = 'telescope.nvim',
-    config = function()
-      require('telescope').load_extension('dap')
-    end,
-    dependencies = { 'nvim-telescope/telescope.nvim' },
   },
 
   -- Emmet for html
@@ -231,10 +224,7 @@ return {
       require('config.lsp.NeovimLSP')
     end,
     dependencies = {
-      -- WARN: Unfortunately we won't be able to lazy load this
-      {
-        'hrsh7th/cmp-nvim-lsp',
-      },
+      { 'hrsh7th/cmp-nvim-lsp' },
     },
   },
   {
@@ -278,7 +268,7 @@ return {
 
   {
     'hrsh7th/nvim-cmp',
-    lazy = false,
+    event = 'InsertEnter',
     config = function()
       require('config.cmp.cmp')
     end,
@@ -290,13 +280,13 @@ return {
         end,
         dependencies = { 'rafamadriz/friendly-snippets' },
       },
+      { 'hrsh7th/cmp-buffer' },
+      { 'hrsh7th/cmp-path' },
+      { 'hrsh7th/cmp-cmdline' },
+      { 'kdheepak/cmp-latex-symbols' },
+      { 'saadparwaiz1/cmp_luasnip' },
     },
   },
-  { 'hrsh7th/cmp-buffer', lazy = false, after = 'nvim-cmp' },
-  { 'hrsh7th/cmp-path', lazy = false, after = 'nvim-cmp' },
-  { 'hrsh7th/cmp-cmdline', lazy = false, after = 'nvim-cmp' },
-  { 'kdheepak/cmp-latex-symbols', lazy = false, after = 'nvim-cmp' },
-  { 'saadparwaiz1/cmp_luasnip', lazy = false, after = 'nvim-cmp' },
 
   {
     'ray-x/lsp_signature.nvim',
@@ -420,6 +410,7 @@ return {
   {
     'nvim-treesitter/nvim-treesitter-textobjects',
     after = 'nvim-treesitter',
+    event = 'VeryLazy',
   },
   {
     -- Auto close versions
@@ -431,6 +422,7 @@ return {
   {
     'JoosepAlviste/nvim-ts-context-commentstring',
     after = 'nvim-treesitter',
+    ft = { 'typescript', 'typescriptreact', 'javascript', 'javascriptreact' },
     config = function()
       require('config.comments')
     end,
@@ -515,43 +507,36 @@ return {
   {
     'dracula/vim',
     name = 'dracula',
-    lazy = false,
-    priority = 1000,
+    event = 'VeryLazy',
   },
-  { 'AlexvZyl/nordic.nvim', lazy = false, priority = 1000 },
+  { 'AlexvZyl/nordic.nvim', event = 'VeryLazy' },
   {
     'folke/tokyonight.nvim',
-    lazy = false,
-    priority = 1000,
+    event = 'VeryLazy',
     config = function()
       require('config.colorscheme').setupTokyonight()
     end,
   },
   {
     'ellisonleao/gruvbox.nvim',
-    lazy = false,
-    priority = 1000,
+    event = 'VeryLazy',
   },
   {
     'shaunsingh/nord.nvim',
-    lazy = false,
-    priority = 1000,
+    event = 'VeryLazy',
   },
   {
     'catppuccin/nvim',
     name = 'catppuccin',
-    lazy = false,
-    priority = 1000,
+    event = 'VeryLazy',
   },
   {
     'nyoom-engineering/oxocarbon.nvim',
-    lazy = false,
-    priority = 1000,
+    event = 'VeryLazy',
   },
   {
     'rose-pine/neovim',
-    lazy = false,
-    priority = 1000,
+    event = 'VeryLazy',
     name = 'rose-pine',
     config = {
       dark_variant = 'moon',
@@ -559,9 +544,9 @@ return {
   },
   {
     'Tsuzat/NeoSolarized.nvim',
-    lazy = false,
-    priority = 1000,
-    config = {
+    event = 'VeryLazy',
+    main = 'NeoSolarized',
+    opts = {
       style = 'dark',
       transparent = false,
     },
@@ -572,9 +557,9 @@ return {
   },
   {
     'rebelot/kanagawa.nvim',
-    lazy = false,
-    priority = 1000,
-    config = {
+    event = 'VeryLazy',
+    main = 'kanagawa',
+    opts = {
       transparent = false,
       dimInactive = true, -- dim inactive window `:h hl-NormalNC`
       terminalColors = true,
@@ -584,19 +569,17 @@ return {
       },
     },
   },
-  { 'sainnhe/sonokai', lazy = false, priority = 1000 },
+  { 'sainnhe/sonokai', event = 'VeryLazy' },
   {
     'mountain-theme/vim',
-    lazy = false,
-    priority = 1000,
+    event = 'VeryLazy',
     name = 'mountain',
     branch = 'master',
   },
   {
     'EdenEast/nightfox.nvim',
-    priority = 1000,
     main = 'nightfox',
-    lazy = false,
+    event = 'VeryLazy',
     opts = {
       transparent = false,
       terminal_colors = true,
@@ -605,8 +588,7 @@ return {
   {
     'akinsho/horizon.nvim',
     version = '*',
-    lazy = false,
-    priority = 1000,
+    event = 'VeryLazy',
     config = function()
       vim.cmd.colorscheme('horizon')
     end,
