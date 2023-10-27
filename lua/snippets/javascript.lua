@@ -20,7 +20,6 @@ return {
     s.fmt(
       [[
   /**
-   * @function {}
    * @description {}
    * @param {{Request}} req Express Request
    * @param {{Response}} res Express Response
@@ -36,8 +35,7 @@ return {
   ]],
       {
         s.i(1),
-        s.i(2),
-        s.c(3, {
+        s.c(2, {
           s.fmt('const {name} = (req, res, next) =>', {
             name = s.i(1, 'name'),
           }),
@@ -51,7 +49,7 @@ return {
             name = s.i(1, 'name'),
           }),
         }),
-        s.i(4),
+        s.i(3),
       }
     )
   ),
@@ -75,16 +73,16 @@ return {
       }
     )
   ),
-  {
-    trig = 'jtest', -- Trigger word to expand the snippet
-    name = 'jest_test', -- Optional name for the snippet
-    dscr = 'Create a Jest test case', -- Description
-
-    -- Snippet body
-    s.t(
-      "test('${1:test description}', () => {\n",
-      '\t${2: // Test code here}\n',
-      '});'
-    ),
-  },
+  -- Snippet body
+  s.parse(
+    {
+      trig = 'jtest', -- Trigger word to expand the snippet
+      description = 'Create a Jest test case', -- Description
+    },
+    [[
+it("should ${1:do something}", () => {
+  ${2:expect(true).toBe(true)};
+});
+    ]]
+  ),
 }
