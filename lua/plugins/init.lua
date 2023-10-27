@@ -616,7 +616,6 @@ return {
     cmd = 'Copilot',
     event = 'InsertEnter',
   },
-
   {
     'nvim-neorg/neorg',
     build = ':Neorg sync-parsers',

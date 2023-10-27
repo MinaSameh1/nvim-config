@@ -224,7 +224,7 @@ return {
       packages = { enable = true },
       -- limit how many projects list, action when you press key or enter it will run this action.
       project = { -- only for hyper
-        limit = 8,
+        limit = 6,
         icon = ' ',
         label = 'Projects',
         action = function(path)
@@ -233,7 +233,7 @@ return {
         end,
         key = '<leader>fp',
       },
-      mru = { limit = 6, icon = ' ', label = 'Recent Files' },
+      mru = { limit = 4, icon = ' ', label = 'Recent Files' },
       hide = { -- Hide stuff
         statusline = { enable = false },
         tabline = { enable = false },
