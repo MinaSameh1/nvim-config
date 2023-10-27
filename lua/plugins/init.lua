@@ -588,7 +588,8 @@ return {
   {
     'akinsho/horizon.nvim',
     version = '*',
-    event = 'VeryLazy',
+    lazy = false,
+    priority = 1000,
     config = function()
       vim.cmd.colorscheme('horizon')
     end,
@@ -619,6 +620,7 @@ return {
   {
     'nvim-neorg/neorg',
     build = ':Neorg sync-parsers',
+    cmd = 'Neorg',
     config = function()
       require('config.neorg')
     end,
