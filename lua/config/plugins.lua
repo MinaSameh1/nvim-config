@@ -674,6 +674,7 @@ return packer.startup(function(use)
         })
       end,
     },
+    { 'akinsho/horizon.nvim', tag = '*' },
   })
 
   use({

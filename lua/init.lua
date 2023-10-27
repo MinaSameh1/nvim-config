@@ -82,4 +82,4 @@ vim.api.nvim_create_autocmd('ColorScheme', {
   end,
 })
 
-vim.cmd.colorscheme('nightfox')
+vim.cmd.colorscheme('horizon')
