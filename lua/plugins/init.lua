@@ -215,17 +215,6 @@ return {
     },
   },
 
-  -- Bar
-  {
-    'akinsho/bufferline.nvim',
-    event = 'BufRead',
-    version = '*',
-    after = 'nvim-web-devicons',
-    config = function()
-      require('config.bufferline')
-    end,
-  },
-
   -- Linting among other things
   -- LSP
   {
@@ -261,6 +250,7 @@ return {
   {
     'ThePrimeagen/refactoring.nvim',
     name = 'refactoring',
+    event = 'BufEnter',
     dependencies = {
       { 'nvim-lua/plenary.nvim' },
       { 'nvim-treesitter/nvim-treesitter' },
