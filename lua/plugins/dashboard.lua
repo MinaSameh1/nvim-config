@@ -82,7 +82,7 @@ local custom_shortcuts = {
   },
   {
     desc = ' Upgrade',
-    action = 'PackerSync',
+    action = 'Lazy sync',
     group = '@property',
     key = 'u',
   },
