@@ -141,7 +141,7 @@ return {
   s.s(
     {
       trig = 'ip',
-      wordTrig = true,
+      wordTrig = false,
       snippetType = 'autosnippet',
       dscr = 'Inner product',
     },
@@ -159,7 +159,7 @@ return {
   s.s(
     {
       trig = 'fr',
-      wordTrig = true,
+      wordTrig = false,
       snippetType = 'autosnippet',
       dscr = '\frac{}{}',
     },
@@ -177,7 +177,7 @@ return {
   s.s(
     {
       trig = 'top',
-      wordTrig = true,
+      wordTrig = false,
       snippetType = 'autosnippet',
       dscr = '^\top',
     },
@@ -256,13 +256,13 @@ return {
   ),
 
   parse(
-    { trig = 'bitemize', wordTrig = true, dscr = 'begin itemize' },
+    { trig = 'bitemize', wordTrig = false, dscr = 'begin itemize' },
     '\\begin{itemize} \n \\item $1 \n \\end{itemize}'
   ),
   s.s(
     {
       trig = 'it',
-      wordTrig = true,
+      wordTrig = false,
       snippetType = 'autosnippet',
       dscr = '\\item',
     },
@@ -271,44 +271,44 @@ return {
   ),
 
   parse(
-    { trig = 'beg', wordTrig = true, dscr = 'begin env' },
+    { trig = 'beg', wordTrig = false, dscr = 'begin env' },
     '\\begin{${1:ENV_NAME}} \n \t${2:$SELECT_DEDENT} \n \\end{$1}'
   ),
   parse(
-    { trig = 'section', wordTrig = true, dscr = 'section' },
+    { trig = 'section', wordTrig = false, dscr = 'section' },
     '\\section{${1:NAME}} \n \\label{sec:$1}'
   ),
 
   parse(
-    { trig = 'subsection', wordTrig = true, dscr = 'subsection' },
+    { trig = 'subsection', wordTrig = false, dscr = 'subsection' },
     '\\subsection{${1:NAME}} \n \\label{sec:$1}'
   ),
   parse(
-    { trig = 'subsubsection', wordTrig = true, dscr = 'subsubsection' },
+    { trig = 'subsubsection', wordTrig = false, dscr = 'subsubsection' },
     '\\subsubsection{${1:NAME}} \n \\label{sec:$1}'
   ),
   parse(
-    { trig = 'bequation', wordTrig = true, dscr = 'begin equation' },
+    { trig = 'bequation', wordTrig = false, dscr = 'begin equation' },
     '\\begin{equation*}\n\t${1:$SELECT_DEDENT}\n\\end{equation*}'
   ),
   parse(
-    { trig = 'baligned', wordTrig = true, dscr = 'begin aligned' },
+    { trig = 'baligned', wordTrig = false, dscr = 'begin aligned' },
     '\\begin{aligned} \n \t${1:$SELECT_DEDENT} \n \\end{aligned}'
   ),
   parse(
-    { trig = 'bframe', wordTrig = true, dscr = 'begin frame' },
+    { trig = 'bframe', wordTrig = false, dscr = 'begin frame' },
     '% Begin FRAME %%%%%%%%%%%%%%%%%%%%%%%%%%%%%% \n \
     \\begin{frame} \n \\frametitle{$1} \n $2 \n \\end{frame}'
   ),
   parse(
-    { trig = 'benumerate', wordTrig = true, dscr = 'begin enumerate' },
+    { trig = 'benumerate', wordTrig = false, dscr = 'begin enumerate' },
     ' \\begin{enumerate} \n \
       \\item  ${1} \n \
       \\end{enumerate}'
   ),
 
   parse(
-    { trig = 'bmatrix', wordTrig = true, dscr = 'begin matrix' },
+    { trig = 'bmatrix', wordTrig = false, dscr = 'begin matrix' },
     ' \\begin{bmatrix} \n \
         $1 & $2 \\\\ \
         $3 & $4 \
@@ -316,7 +316,7 @@ return {
   ),
 
   parse(
-    { trig = 'float_img', wordTrig = true, dscr = 'tikz float_img' },
+    { trig = 'float_img', wordTrig = false, dscr = 'tikz float_img' },
     ' \\tikz[remember picture, overlay] \\node[anchor=center] \
       (img) at ($(current page.center)+(0,0)$) \
       {\\includegraphics[width=3.5cm]{$1}}; \n \
@@ -324,7 +324,7 @@ return {
       [below of=img, yshift=-0.6cm, xshift=0cm] {$0}; '
   ),
   parse(
-    { trig = 'bfigure', wordTrig = true, dscr = 'begin figure' },
+    { trig = 'bfigure', wordTrig = false, dscr = 'begin figure' },
     ' \\begin{figure}[${1:htpb}] \
         \\centering \
         ${2:\\includegraphics[width=0.8\\textwidth]{$3}} \
@@ -334,7 +334,7 @@ return {
   ),
 
   parse(
-    { trig = 'bsubfigure', wordTrig = true, dscr = 'begin subfigure' },
+    { trig = 'bsubfigure', wordTrig = false, dscr = 'begin subfigure' },
     ' \\begin{figure}[${1:htpb}] \
          \\centering \
          \\begin{subfigure}[b]{0.3\\textwidth} \
@@ -363,33 +363,33 @@ return {
   ),
 
   parse(
-    { trig = 'norm', wordTrig = true },
+    { trig = 'norm', wordTrig = false },
     '\\lvert ${1:$SELECT_DEDENT} \\rvert'
   ),
 
-  parse({ trig = '*', wordTrig = true }, '\\cdot '),
+  parse({ trig = '*', wordTrig = false }, '\\cdot '),
 
-  parse({ trig = 'sum', wordTrig = true }, [[\sum^{$1}_{$2}]]),
+  parse({ trig = 'sum', wordTrig = false }, [[\sum^{$1}_{$2}]]),
 
   parse(
-    { trig = 'int', wordTrig = true },
+    { trig = 'int', wordTrig = false },
     [[\int_{${1:lower}}^{${2:upper}} $3 \\,d$4]]
   ),
 
   parse(
-    { trig = 'lim', wordTrig = true },
+    { trig = 'lim', wordTrig = false },
     [[\lim_{${1:lower}}^{${2:upper}} $3 \\,d$4]]
   ),
   parse({
     trig = 'partial_derivative',
-    wordTrig = true,
+    wordTrig = false,
     dscr = 'partial derivative',
   }, [[\frac{\partial ${1:f(x)}}{\partial ${2:x}} $0]]),
 
   parse(
     {
       trig = 'template_extarticle',
-      wordTrig = true,
+      wordTrig = false,
       dscr = 'standalone figure',
     },
     ' \
@@ -425,7 +425,7 @@ return {
   parse(
     {
       trig = 'table_custom',
-      wordTrig = true,
+      wordTrig = false,
       dscr = 'Default Table look I use',
     },
     [[
