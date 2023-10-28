@@ -388,12 +388,12 @@ return {
 
   parse(
     {
-      trig = 'template_standalone',
+      trig = 'template_extarticle',
       wordTrig = true,
       dscr = 'standalone figure',
     },
     ' \
-  \\documentclass[varwidth, border=0cm]{standalone} \
+  \\documentclass[fontsize=14pt]{extarticle} \
 \
   \\usepackage[export]{adjustbox} \
   \\usepackage{booktabs} \
@@ -409,7 +409,6 @@ return {
   \\usepackage{multicol} \
   \\usepackage{makecell} \
  \
-  \\newcommand{\\tabfigure}[2]{\\raisebox{-.5\\height}{\\includegraphics[#1]{#2}}} \
  \
   \\title{$1} \
   \\author{Mina Sameh Wadie} \
