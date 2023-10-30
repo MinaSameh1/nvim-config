@@ -1,3 +1,5 @@
+-- This was a test for the rename file function, but it's not working
+
 local M = {}
 
 local util = require('lspconfig').util

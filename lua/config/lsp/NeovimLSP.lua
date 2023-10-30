@@ -107,13 +107,16 @@ mason_lspconfig.setup_handlers({
       on_attach,
       capabilities = vim.lsp.protocol.make_client_capabilities(),
       commands = {
-        Renamefile = {
-          utils.rename_file,
-          description = 'Rename file',
-        },
+        -- Renamefile = {
+        --   utils.rename_file,
+        --   description = 'Rename file',
+        -- },
       },
       settings = {
         publish_diagnostic_on = 'insert_leave',
+        -- WARNING: Experimental feature also in VSCode, because it might hit performance of server.
+        -- possible values: ("off"|"all"|"implementations_only"|"references_only")
+        code_lens = 'implementations_only',
       },
     })
   end,
