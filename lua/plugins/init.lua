@@ -434,6 +434,7 @@ return {
     'numToStr/Comment.nvim',
     name = 'Comment',
     event = 'BufRead',
+    lazy = false,
     config = function()
       require('Comment').setup()
     end,
