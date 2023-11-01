@@ -432,6 +432,7 @@ return {
   {
     -- comments using gc
     'numToStr/Comment.nvim',
+    name = 'Comment',
     event = 'BufRead',
     config = function()
       require('Comment').setup()
