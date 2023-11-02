@@ -195,6 +195,31 @@ return {
       }
     )
   ),
+  s.s(
+    { trig = 'expmodel', dscr = 'Express Function' },
+    s.fmt(
+      [[import mongoose from "mongoose";
+
+export interface {} {{}}
+
+export interface {upper}Document extends {upper}, mongoose.Document {{
+  createdAt: Date;
+  updatedAt: Date;
+}}
+
+const {upper}Schema = new mongoose.Schema<{upper}Document>({{}}, {{ timestamps: true }});
+
+export const {upper}Model = mongoose.model<{upper}Document>("{lower}", {upper}Schema);
+
+export default {upper}Model;
+      ]],
+      {
+        s.i(1, 'name'),
+        lower = s.f(s.copy, 1),
+        upper = s.l(s.l._1:sub(1, 1):upper() .. l._1:sub(2, -1), 1),
+      }
+    )
+  ),
   s.parse('clgv', 'console.log("${1:value} >>", ${2:value});'),
   s.parse('clg', 'console.log("${1:value}");'),
   s.s(
