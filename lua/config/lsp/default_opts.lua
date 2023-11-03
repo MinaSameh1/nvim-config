@@ -35,7 +35,11 @@ M.on_attach = function(client, bufnr)
 
   -- require('config.lsp.TreeSitterStuff').on_attach(client, bufnr)
   -- Enable completion triggered by <c-x><c-o>
-  vim.api.nvim_set_option_value('omnifunc', 'v:lua.vim.lsp.omnifunc', { buf = bufnr })
+  vim.api.nvim_set_option_value(
+    'omnifunc',
+    'v:lua.vim.lsp.omnifunc',
+    { buf = bufnr }
+  )
 
   -- https://reddit.com/r/neovim/s/eDfG5BfuxW
   if client.supports_method(methods.textDocument_inlayHint) then
