@@ -21,8 +21,10 @@ local function_q = vim.treesitter.query.parse(
 )
 -- This only matches returns that actually return something, so early return can still be used for
 -- control flow!
-local return_q =
-  vim.treesitter.query.parse('typescript', '(return_statement) @ret')
+local return_q = vim.treesitter.query.parse(
+  'typescript',
+  '(return_statement) @ret'
+)
 
 --- Obtains list of parameter names for the next lua function and whether it returns something.
 -- @param linenr Line number at which we start searching.
@@ -196,12 +198,15 @@ return {
     )
   ),
   s.s(
-    { trig = 'expmodel', dscr = 'Express Function' },
+    { trig = 'expmongomodel', dscr = 'Express Mongoose Model' },
     s.fmt(
       [[import mongoose from "mongoose";
 
 export interface {} {{}}
 
+// WARN: This is deprecated, use
+// `type {upper}Document = ReturnType<(typeof {upper})['hydrate']>;`
+//  instead if you want the hydrated document type
 export interface {upper}Document extends {upper}, mongoose.Document {{
   createdAt: Date;
   updatedAt: Date;
@@ -209,6 +214,7 @@ export interface {upper}Document extends {upper}, mongoose.Document {{
 
 const {upper}Schema = new mongoose.Schema<{upper}Document>({{}}, {{ timestamps: true }});
 
+// WARN: Mongoose models no longer support passing document type.
 export const {upper}Model = mongoose.model<{upper}Document>("{lower}", {upper}Schema);
 
 export default {upper}Model;
@@ -216,6 +222,58 @@ export default {upper}Model;
       {
         s.i(1, 'name'),
         lower = s.f(s.copy, 1),
+        upper = s.l(s.l._1:sub(1, 1):upper() .. l._1:sub(2, -1), 1),
+      }
+    )
+  ),
+  s.s(
+    { trig = 'expmongorepo', dscr = 'Express Mongoose Repository' },
+    s.fmt(
+      [[import {{ FilterQuery, QueryOptions, ProjectionType }} from "mongoose";
+import {{ {upper}Document, {upper}Model, {upper} }} from "../models";
+
+export const {}Repository = {{
+  findOne: (
+    query: FilterQuery<{upper}Document>,
+    options: QueryOptions<{upper}Document> | undefined = {{}}
+  ) =>
+    {upper}Model.findOne(query, options).lean().exec(),
+
+  findById: (
+    id: string,
+    options: QueryOptions<{upper}Document> | undefined = {{}}
+  ) =>
+    {upper}Model.findById(id, options).lean().exec(),
+
+  Create: (item: {upper}) => {upper}Model.create(item),
+
+  find: (
+    query: FilterQuery<{upper}Document>,
+    limit = 10,
+    skip = 0,
+    options: QueryOptions<{upper}Document> | undefined = {{}},
+    select: ProjectionType<{upper}Document> = {{}}
+  ) =>
+    {upper}Model.find(query, select, options)
+      .limit(limit)
+      .skip(skip)
+      .sort({{ createdAt: -1 }})
+      .lean()
+      .exec(),
+
+  updateOne: (query: FilterQuery<{upper}Document>, update: Partial<{upper}>) =>
+    {upper}Model.findOneAndUpdate(query, update, {{ new: true }}),
+
+  updateById: (id: string, update: Partial<{upper}>) =>
+    {upper}Model.findByIdAndUpdate(id, update, {{ new: true }}),
+
+  deleteOne: (query: FilterQuery<{upper}Document>) => {upper}Model.findOneAndDelete(query),
+
+  deleteById: (id: string) => {upper}Model.findByIdAndDelete(id)
+}};
+      ]],
+      {
+        s.i(1, 'name'),
         upper = s.l(s.l._1:sub(1, 1):upper() .. l._1:sub(2, -1), 1),
       }
     )
