@@ -1,4 +1,5 @@
 local M = {}
+local methods = vim.lsp.protocol.Methods
 
 -- document_highlight
 local function lsp_highlight_document(bufnr)
@@ -34,7 +35,14 @@ M.on_attach = function(client, bufnr)
 
   -- require('config.lsp.TreeSitterStuff').on_attach(client, bufnr)
   -- Enable completion triggered by <c-x><c-o>
-  vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
+  vim.api.nvim_set_option_value('omnifunc', 'v:lua.vim.lsp.omnifunc', { buf = bufnr })
+
+  -- https://reddit.com/r/neovim/s/eDfG5BfuxW
+  if client.supports_method(methods.textDocument_inlayHint) then
+    vim.keymap.set('n', '<leader>Th', function()
+      vim.lsp.inlay_hint(bufnr, nil)
+    end, { desc = '[T]oggle inlay [h]ints' })
+  end
 
   -- Mappings.
   -- Mappings for Trouble

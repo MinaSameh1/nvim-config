@@ -94,7 +94,7 @@ end
 local Key = vim.api.nvim_set_keymap
 local Opts = { noremap = true, silent = true }
 
-Key('n', '<leader>th', '<Cmd>lua _HTOP_TOGGLE()<CR>', Opts)
+Key('n', '<leader>tH', '<Cmd>lua _HTOP_TOGGLE()<CR>', Opts)
 Key('n', '<leader>tp', '<Cmd>lua _PYTHON_TOGGLE()<CR>', Opts)
 Key('n', '<leader>tn', '<Cmd>lua _NODE_TOGGLE()<CR>', Opts)
 Key('n', '<leader>tN', '<Cmd>lua _NCDU_TOGGLE()<CR>', Opts)
