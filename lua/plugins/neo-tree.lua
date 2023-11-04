@@ -30,6 +30,12 @@ end
 
 vim.g.neo_tree_remove_legacy_commands = 1
 
+vim.keymap.set(
+  'n',
+  '<leader>pv',
+  '<Cmd>Neotree float toggle reveal_force_cwd<CR>',
+  { silent = true, noremap = true, desc = 'Open File map' }
+)
 -- open neotree
 -- vim.api.nvim_set_keymap('n', '<F2>', '<Cmd>Neotree left toggle<CR>', {
 --   noremap = true,
