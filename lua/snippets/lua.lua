@@ -67,14 +67,14 @@ return {
   s.parse('lf', 'local function ${1:name}(${2})\n  $0\nend'),
   s.parse('mf', 'function ${1:M}.${2:name}(${3})\n  $0\nend'),
   s.s(
-    'req',
+    { trig = 'req', dscr = 'require, can take spaces' },
     s.fmt('local {} = require("{}")', {
       s.l(s.l._1:match('[^.]*$'):gsub('[^%a]+', '_'), 1),
       s.i(1, 'module'),
     })
   ),
   s.s(
-    'preq',
+    { trig = 'preq', dscr = 'require with pcall' },
     s.fmt(
       'local {1}_ok, {1} = pcall(require, "{}")\nif not {1}_ok then return end',
       {
@@ -105,7 +105,7 @@ return {
     end),
   }),
   s.s(
-    'guard',
+    { trig = 'guard', dscr = 'Guard against missing module' },
     s.fmt(
       [[
       local status_ok, {} = pcall(require,'{}')
