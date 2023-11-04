@@ -41,13 +41,6 @@ M.on_attach = function(client, bufnr)
     { buf = bufnr }
   )
 
-  -- https://reddit.com/r/neovim/s/eDfG5BfuxW
-  if client.supports_method(methods.textDocument_inlayHint) then
-    vim.keymap.set('n', '<leader>Th', function()
-      vim.lsp.inlay_hint(bufnr, nil)
-    end, { desc = '[T]oggle inlay [h]ints' })
-  end
-
   -- Mappings.
   -- Mappings for Trouble
   vim.keymap.set(
@@ -204,7 +197,14 @@ M.on_attach = function(client, bufnr)
   if client.server_capabilities.documentHighlightProvider then
     lsp_highlight_document(bufnr)
   end
+
+  -- https://reddit.com/r/neovim/s/eDfG5BfuxW
+  -- if client.supports_method(methods.textDocument_inlayHint) then
+  -- end
   if vim.lsp.inlay_hint then
+    vim.keymap.set('n', '<leader>th', function()
+      vim.lsp.inlay_hint(bufnr, nil)
+    end, { expr = true, noremap = true, desc = '[T]oggle inlay [h]ints' })
     vim.lsp.inlay_hint(bufnr, true)
   end
 
