@@ -5,6 +5,7 @@ if not status_ok then
 end
 
 local actions = require('telescope.actions')
+local trouble = require('trouble.providers.telescope')
 
 local default = {
   defaults = {
@@ -90,6 +91,7 @@ local default = {
         ['<PageUp>'] = actions.results_scrolling_up,
         ['<PageDown>'] = actions.results_scrolling_down,
 
+        ['<C-i>'] = trouble.open_with_trouble,
         ['<Tab>'] = actions.toggle_selection + actions.move_selection_worse,
         ['<S-Tab>'] = actions.toggle_selection + actions.move_selection_better,
         ['<C-q>'] = actions.send_to_qflist + actions.open_qflist,
@@ -104,6 +106,7 @@ local default = {
         ['<C-v>'] = actions.select_vertical,
         ['<C-t>'] = actions.select_tab,
 
+        ['<C-i>'] = trouble.open_with_trouble,
         ['<Tab>'] = actions.toggle_selection + actions.move_selection_worse,
         ['<S-Tab>'] = actions.toggle_selection + actions.move_selection_better,
         ['<C-q>'] = actions.send_to_qflist + actions.open_qflist,
