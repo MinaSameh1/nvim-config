@@ -175,6 +175,7 @@ local Opts = { noremap = true, silent = true }
 local setDesc = require('config.utils').getDescWithMapOptsSetter(Opts)
 
 -- Find files using Telescope command-line sugar.
+Key('n', '<leader>fr', '<Cmd>Telescope resume<CR>', setDesc('Resume'))
 Key('n', '<leader>ff', '<Cmd>Telescope find_files<CR>', setDesc('Find Files'))
 Key('n', '<leader>fg', '<Cmd>Telescope live_grep<CR>', setDesc('Grep Files'))
 Key('n', '<leader>fb', '<Cmd>Telescope buffers<CR>', setDesc('Open Buffers'))
