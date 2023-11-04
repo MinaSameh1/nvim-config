@@ -438,4 +438,27 @@ return {
 \end{tabular}
   ]]
   ),
+  s.parse(
+    {
+      trig = 'tikz_nfa',
+      dscr = 'Tikz NFA Shape',
+    },
+    [[
+\\begin{tikzpicture}
+  \\draw[thick, ->] (0, 0) circle(3mm) node(q4)[anchor=center]{$q_4$};
+  \\draw[thick, ->] (0, 0) circle(4mm);
+  \\draw[thick, ->] (0.4, 0.15) -- (0.7, 0.15);
+  \\draw[thick, ->] (0.7, -0.15) -- (0.4, -0.15);
+  \\draw[thick, ->] (1,0) circle(3mm) node(q3)[anchor=center]{$q_3$};
+  \\draw[thick, ->] (1.3,0.15) -- (1.7, 0.15);
+  \\draw[thick, ->] (1.7, -0.15) -- (1.3, -0.15);
+  \\draw[thick, ->] (2,0) circle(3mm) node(q1)[anchor=center]{$ q_1 $ };
+  \\draw[thick, ->] (2.3,0.15) -- (2.7, 0.15);
+  \\draw[thick, ->] (2.7, -0.15) -- (2.3, -0.15);
+  \\draw[thick, ->] (3,0) circle(3mm) node(q0)[anchor=center]{$ q_0 $ };
+  \\draw[thick, ->] (3, -0.7) -- (3,-0.3);
+  \\draw[thick,->] (q1) +(80:-3mm) arc(80:-260:3mm) node[anchor=north]{b};
+\\end{tikzpicture} 
+    ]]
+  ),
 }
