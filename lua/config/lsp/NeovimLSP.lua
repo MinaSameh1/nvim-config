@@ -116,7 +116,18 @@ mason_lspconfig.setup_handlers({
         publish_diagnostic_on = 'insert_leave',
         -- WARNING: Experimental feature also in VSCode, because it might hit performance of server.
         -- possible values: ("off"|"all"|"implementations_only"|"references_only")
-        code_lens = 'implementations_only',
+        code_lens = 'all',
+        tsserver_file_preferences = {
+          -- Inlay Hints
+          includeInlayParameterNameHints = 'all',
+          includeInlayParameterNameHintsWhenArgumentMatchesName = true,
+          includeInlayFunctionParameterTypeHints = true,
+          includeInlayVariableTypeHints = true,
+          includeInlayVariableTypeHintsWhenTypeMatchesName = true,
+          includeInlayPropertyDeclarationTypeHints = true,
+          includeInlayFunctionLikeReturnTypeHints = true,
+          includeInlayEnumMemberValueHints = true,
+        },
       },
     })
   end,
@@ -184,11 +195,13 @@ mason_lspconfig.setup_handlers({
         workspace = {
           -- Make the server aware of Neovim runtime files
           library = vim.api.nvim_get_runtime_file('', true),
+          checkThirdParty = false,
         },
         -- Do not send telemetry data containing a randomized but unique identifier
         telemetry = {
           enable = false,
         },
+        hint = { enable = true },
       },
       format = false, -- use stylua
     }

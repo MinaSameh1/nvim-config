@@ -204,6 +204,9 @@ M.on_attach = function(client, bufnr)
   if client.server_capabilities.documentHighlightProvider then
     lsp_highlight_document(bufnr)
   end
+  if vim.lsp.inlay_hint then
+    vim.lsp.inlay_hint(bufnr, true)
+  end
 
   vim.api.nvim_create_autocmd('CursorHold', {
     buffer = bufnr,
