@@ -219,7 +219,7 @@ export default {upper}Model;
       ]],
       {
         s.i(1, 'name'),
-        lower = s.f(s.copy, 1),
+        lower = s.l(s.l._1:lower(), 1),
         upper = s.l(s.l._1:sub(1, 1):upper() .. l._1:sub(2, -1), 1),
       }
     )
