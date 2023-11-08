@@ -45,6 +45,13 @@ return {
     },
   },
   {
+    'anuvyklack/pretty-fold.nvim',
+    lazy = false,
+    config = function()
+      require('pretty-fold').setup()
+    end,
+  },
+  {
     -- Split screen management
     'beauwilliams/focus.nvim',
     module = 'focus',
