@@ -24,7 +24,7 @@ return {
     event = 'BufEnter',
     dependencies = { 'kyazdani42/nvim-web-devicons' },
     config = function()
-      require('config.lualine.lualine_slanted')
+      require('config.lualine.lualine')
     end,
   },
   {
