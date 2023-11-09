@@ -92,6 +92,7 @@ local default = {
         ['<PageDown>'] = actions.results_scrolling_down,
 
         ['<C-i>'] = trouble.open_with_trouble,
+        ['<M-i>'] = trouble.open_with_trouble, -- In case of tmux
         ['<Tab>'] = actions.toggle_selection + actions.move_selection_worse,
         ['<S-Tab>'] = actions.toggle_selection + actions.move_selection_better,
         ['<C-q>'] = actions.send_to_qflist + actions.open_qflist,
@@ -107,6 +108,7 @@ local default = {
         ['<C-t>'] = actions.select_tab,
 
         ['<C-i>'] = trouble.open_with_trouble,
+        ['<M-i>'] = trouble.open_with_trouble, -- In case of tmux
         ['<Tab>'] = actions.toggle_selection + actions.move_selection_worse,
         ['<S-Tab>'] = actions.toggle_selection + actions.move_selection_better,
         ['<C-q>'] = actions.send_to_qflist + actions.open_qflist,
