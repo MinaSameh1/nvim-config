@@ -304,7 +304,7 @@ return {
           border = 'rounded',
         },
         floating_window = true,
-        hint_enable = false,        -- disable virtual text hint
+        hint_enable = false, -- disable virtual text hint
         hi_parameter = 'IncSearch', -- highlight group used to highlight the current parameter
       })
     end,
@@ -374,7 +374,7 @@ return {
   },
 
   -- Git integration, LOVE IT! <3
-  { 'tpope/vim-fugitive',     event = 'VeryLazy' },
+  { 'tpope/vim-fugitive', event = 'VeryLazy' },
 
   -- Detect tabstop and shiftwidth automatically in file tree
   {
@@ -394,7 +394,7 @@ return {
     dependencies = { 'nvim-treesitter/nvim-treesitter' },
     config = function()
       vim.cmd(
-      -- `single` (default), `double`, `rounded`
+        -- `single` (default), `double`, `rounded`
         'nnoremap <leader>p :lua require("nabla").popup({ border = "rounded" })<CR>'
       )
     end,
@@ -456,7 +456,7 @@ return {
     end,
   },
 
-  { 'folke/trouble.nvim',      event = 'BufRead' }, -- pretty messages
+  { 'folke/trouble.nvim', event = 'BufRead' }, -- pretty messages
 
   {
     'folke/todo-comments.nvim',
@@ -511,8 +511,8 @@ return {
 
   -- Themes
   { 'rktjmp/lush.nvim' }, -- used to create colorschemes
-  { 'savq/melange',            lazy = false,     priority = 1000 },
-  { 'nanotech/jellybeans.vim', lazy = false,     priority = 1000 },
+  { 'savq/melange', lazy = false, priority = 1000 },
+  { 'nanotech/jellybeans.vim', lazy = false, priority = 1000 },
   {
     'dracula/vim',
     name = 'dracula',
@@ -580,7 +580,7 @@ return {
       },
     },
   },
-  { 'sainnhe/sonokai',      event = 'VeryLazy' },
+  { 'sainnhe/sonokai', event = 'VeryLazy' },
   {
     'mountain-theme/vim',
     event = 'VeryLazy',
