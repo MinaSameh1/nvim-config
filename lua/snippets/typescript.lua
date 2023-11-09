@@ -368,7 +368,7 @@ export class ${PipeName} implements PipeTransform {{
 import {{ Injectable, CanActivate, ExecutionContext }} from '@nestjs/common';
 
 @Injectable()
-export class ${GuardName} implements CanActivate {{
+export class {GuardName} implements CanActivate {{
   canActivate(context: ExecutionContext) {{
     const request = context.switchToHttp().getRequest();
     {logic}
@@ -379,6 +379,49 @@ export class ${GuardName} implements CanActivate {{
       {
         GuardName = s.i(1, 'GuardName'),
         logic = s.i(2, '// Add your logic here'),
+      }
+    )
+  ),
+  s.s(
+    { trig = 'nestmetadata', dscr = 'NestJS Metadata Decorator' },
+    s.fmt(
+      [[import {{ SetMetadata }} from '@nestjs/common';
+
+export const {name} = (...args: string[]) => SetMetadata('{lower}', args);
+    ]],
+      {
+        name = s.i(1, 'name'),
+        lower = s.l(
+          s.l._1:sub(1, 1)
+            .. s.l._1:sub(2, -1):gsub('%u', function(c)
+              return '_' .. c:lower()
+            end),
+          1
+        ),
+      }
+    )
+  ),
+  s.s(
+    { trig = 'nestparamdecorator', dscr = 'NestJS Param Decorator' },
+    s.fmt(
+      [[import {{ ExecutionContext, createParamDecorator }} from '@nestjs/common'
+import type {{ Request }} from 'express'
+
+/**
+ *  @description {desc}
+ *  @returns {returns}
+ */
+export const {name} = createParamDecorator(
+  (data = null, ctx: ExecutionContext) => {{
+    const request = ctx.switchToHttp().getRequest<Request>()
+    {body}
+  }},
+)]],
+      {
+        name = s.i(1, 'name'),
+        desc = s.i(2, 'description'),
+        returns = s.i(3, 'return'),
+        body = s.i(4, 'body'),
       }
     )
   ),
