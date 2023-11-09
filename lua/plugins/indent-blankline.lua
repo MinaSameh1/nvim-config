@@ -15,7 +15,7 @@ return {
   'lukas-reineke/indent-blankline.nvim',
   main = 'ibl',
   event = 'BufReadPre',
-  after = { ' nvim-treesitter/nvim-treesitter' },
+  dependencies = { 'nvim-treesitter/nvim-treesitter' },
   opts = {
     scope = {
       enabled = true,

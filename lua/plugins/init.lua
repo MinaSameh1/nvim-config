@@ -31,7 +31,7 @@ return {
     -- Shows LSP progress
     'j-hui/fidget.nvim',
     version = 'legacy',
-    after = 'lualine.nvim',
+    dependencies = 'lualine.nvim',
     event = 'LspAttach',
     opts = {
       sources = {
@@ -93,8 +93,8 @@ return {
 
   {
     'jbyuki/venn.nvim',
-    key = {
-      { 'n', '<leader>v' },
+    keys = {
+      { 'n', '<leader>v', desc = 'Starts venn diagram' },
     },
     config = function()
       require('config.venn')
@@ -158,7 +158,7 @@ return {
   -- Search, and fuzzy stuff, far for replace
   {
     'brooth/far.vim',
-    opt = {},
+    opts = {},
     cmd = { 'F', 'Far', 'Farr', 'Fardo', 'Farundo' },
   },
 
@@ -216,15 +216,15 @@ return {
   },
 
   -- Linting among other things
-  -- LSP
+  -- LSP Installer
   {
     'williamboman/mason.nvim',
-    command = 'Mason',
+    cmd = 'Mason',
   },
-  {
+  { -- Auto setup LSPs
     'williamboman/mason-lspconfig.nvim',
   },
-  {
+  { -- LSP config helper
     'neovim/nvim-lspconfig',
     lazy = false,
     config = function()
@@ -236,10 +236,9 @@ return {
   },
   {
     'jose-elias-alvarez/null-ls.nvim',
-    after = 'nvim-lspconfig',
     module = 'null-ls',
     event = 'BufRead',
-    dependencies = { { 'neovim/nvim-lspconfig' } },
+    dependencies = { 'neovim/nvim-lspconfig' },
     config = function()
       require('config.lsp.null_ls')
     end,
@@ -297,7 +296,7 @@ return {
 
   {
     'ray-x/lsp_signature.nvim',
-    after = 'nvim-lspconfig',
+    dependencies = 'nvim-lspconfig',
     config = function()
       require('lsp_signature').setup({
         bind = true,
@@ -305,7 +304,7 @@ return {
           border = 'rounded',
         },
         floating_window = true,
-        hint_enable = false, -- disable virtual text hint
+        hint_enable = false,        -- disable virtual text hint
         hi_parameter = 'IncSearch', -- highlight group used to highlight the current parameter
       })
     end,
@@ -353,12 +352,12 @@ return {
 
   {
     'nvim-neotest/neotest',
-    after = { 'nvim-treesitter' },
     event = 'BufRead',
     dependencies = {
       'haydenmeade/neotest-jest',
       'nvim-neotest/neotest-python',
       'sidlatau/neotest-dart',
+      'nvim-treesitter/nvim-treesitter',
     },
     config = function()
       require('config.neotest')
@@ -375,7 +374,7 @@ return {
   },
 
   -- Git integration, LOVE IT! <3
-  { 'tpope/vim-fugitive', event = 'VeryLazy' },
+  { 'tpope/vim-fugitive',     event = 'VeryLazy' },
 
   -- Detect tabstop and shiftwidth automatically in file tree
   {
@@ -395,7 +394,7 @@ return {
     dependencies = { 'nvim-treesitter/nvim-treesitter' },
     config = function()
       vim.cmd(
-        -- `single` (default), `double`, `rounded`
+      -- `single` (default), `double`, `rounded`
         'nnoremap <leader>p :lua require("nabla").popup({ border = "rounded" })<CR>'
       )
     end,
@@ -413,23 +412,23 @@ return {
   {
     'nvim-treesitter/playground',
     cmd = 'TSPlaygroundToggle',
-    after = 'nvim-treesitter',
+    dependencies = 'nvim-treesitter/nvim-treesitter',
   },
   {
     'nvim-treesitter/nvim-treesitter-textobjects',
-    after = 'nvim-treesitter',
+    dependencies = 'nvim-treesitter/nvim-treesitter',
     event = 'VeryLazy',
   },
   {
     -- Auto close versions
     'windwp/nvim-autopairs',
-    after = 'nvim-treesitter',
+    dependencies = 'nvim-treesitter/nvim-treesitter',
     event = 'InsertEnter',
     opts = {},
   },
   {
     'JoosepAlviste/nvim-ts-context-commentstring',
-    after = 'nvim-treesitter',
+    dependencies = { 'nvim-treesitter/nvim-treesitter' },
     ft = { 'typescript', 'typescriptreact', 'javascript', 'javascriptreact' },
     config = function()
       require('config.comments')
@@ -450,14 +449,14 @@ return {
   {
     -- pairs and autocloses and can surrond stuff too!
     'windwp/nvim-autopairs',
-    after = 'nvim-cmp', -- Must be Loaded after nvim-cmp
+    dependencies = 'nvim-cmp', -- Must be Loaded after nvim-cmp
     event = 'InsertCharPre',
     config = function()
       require('config.autopairs')
     end,
   },
 
-  { 'folke/trouble.nvim', event = 'BufRead' }, -- pretty messages
+  { 'folke/trouble.nvim',      event = 'BufRead' }, -- pretty messages
 
   {
     'folke/todo-comments.nvim',
@@ -512,8 +511,8 @@ return {
 
   -- Themes
   { 'rktjmp/lush.nvim' }, -- used to create colorschemes
-  { 'savq/melange', lazy = false, priority = 1000 },
-  { 'nanotech/jellybeans.vim', lazy = false, priority = 1000 },
+  { 'savq/melange',            lazy = false,     priority = 1000 },
+  { 'nanotech/jellybeans.vim', lazy = false,     priority = 1000 },
   {
     'dracula/vim',
     name = 'dracula',
@@ -548,7 +547,7 @@ return {
     'rose-pine/neovim',
     event = 'VeryLazy',
     name = 'rose-pine',
-    config = {
+    opts = {
       dark_variant = 'moon',
     },
   },
@@ -563,7 +562,9 @@ return {
   },
   {
     'AlphaTechnolog/pywal.nvim',
-    disable = true,
+    cond = function()
+      return vim.fn.executable('wal')
+    end,
   },
   {
     'rebelot/kanagawa.nvim',
@@ -579,7 +580,7 @@ return {
       },
     },
   },
-  { 'sainnhe/sonokai', event = 'VeryLazy' },
+  { 'sainnhe/sonokai',      event = 'VeryLazy' },
   {
     'mountain-theme/vim',
     event = 'VeryLazy',

@@ -14,7 +14,7 @@ return {
   'akinsho/bufferline.nvim',
   event = 'BufWinEnter',
   version = '*',
-  after = 'nvim-web-devicons',
+  dependencies = { 'nvim-web-devicons' },
   opts = {
     options = {
       -- numbers = 'buffer_id',
