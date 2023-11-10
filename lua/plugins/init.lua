@@ -93,9 +93,7 @@ return {
 
   {
     'jbyuki/venn.nvim',
-    keys = {
-      { 'n', '<leader>v', desc = 'Starts venn diagram' },
-    },
+    event = 'VeryLazy',
     config = function()
       require('config.venn')
     end,
