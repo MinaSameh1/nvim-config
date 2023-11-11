@@ -80,7 +80,7 @@ M.on_attach = function(client, bufnr)
     'n',
     'gr',
     '<cmd>Trouble lsp_references<cr>',
-    setDesc('Gets lsp references')
+    setDesc('LspReferences for word under cursor')
   )
   -- vim.keymap.set(
   --   'v',
@@ -88,7 +88,6 @@ M.on_attach = function(client, bufnr)
   --   "<cmd>'<,'>lua vim.lsp.buf.range_code_action()<CR>",
   --   Opts
   -- )
-  -- buf_set_keymap('n', 'gr',         '<cmd>lua vim.lsp.buf.references()<CR>',                                 mapOpts)
   -- See `:help vim.lsp.*` for documentation on any of the below functions
   vim.keymap.set(
     'n',
