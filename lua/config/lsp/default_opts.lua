@@ -154,11 +154,9 @@ M.on_attach = function(client, bufnr)
   autocmd CursorHold,CursorHoldI * lua require'nvim-lightbulb'.update_lightbulb()
   ]])
 
-  vim.api.nvim_create_user_command(
-    'LspCodeAction',
-    vim.lsp.buf.code_action,
-    { nargs = 0, desc = 'Code action' }
-  )
+  vim.api.nvim_create_user_command('LspCodeAction', function()
+    vim.lsp.buf.code_action()
+  end, { nargs = 0, desc = 'Code action' })
 
   vim.api.nvim_buf_create_user_command(bufnr, 'LspFormat', function(_)
     if vim.lsp.buf.format then
