@@ -188,27 +188,23 @@ local config = {
   },
   capabilities = opts.capabilities,
   init_options = {
-    extendedClientCapabilities = vim.tbl_deep_extend(
-      'keep',
-      opts.capabilities,
-      {
-        resolveAdditionalTextEditsSupport = true,
-        classFileContentsSupport = true,
-        generateToStringPromptSupport = true,
-        hashCodeEqualsPromptSupport = true,
-        advancedExtractRefactoringSupport = true,
-        advancedOrganizeImportsSupport = true,
-        generateConstructorsPromptSupport = true,
-        generateDelegateMethodsPromptSupport = true,
-        moveRefactoringSupport = true,
-        overrideMethodsPromptSupport = true,
-        inferSelectionSupport = {
-          'extractMethod',
-          'extractVariable',
-          'extractConstant',
-        },
-      }
-    ),
+    extendedClientCapabilities = vim.tbl_deep_extend('keep', opts.capabilities, {
+      resolveAdditionalTextEditsSupport = true,
+      classFileContentsSupport = true,
+      generateToStringPromptSupport = true,
+      hashCodeEqualsPromptSupport = true,
+      advancedExtractRefactoringSupport = true,
+      advancedOrganizeImportsSupport = true,
+      generateConstructorsPromptSupport = true,
+      generateDelegateMethodsPromptSupport = true,
+      moveRefactoringSupport = true,
+      overrideMethodsPromptSupport = true,
+      inferSelectionSupport = {
+        'extractMethod',
+        'extractVariable',
+        'extractConstant',
+      },
+    }),
     bundles = bundles,
   },
 }
@@ -294,13 +290,13 @@ config['on_attach'] = function(client, bufnr)
   -- requires vscode-java-test
   vim.keymap.set(
     'n',
-    '<leader>gT',
+    '<leader>JT',
     '<Cmd> lua require("jdtls.tests").generate()<CR>',
     setDesc('Generate test')
   )
   vim.keymap.set(
     'n',
-    '<leader>gt',
+    '<leader>Jt',
     '<Cmd> lua require("jdtls.tests").goto_subjects()<CR>',
     setDesc('Go to test subject')
   )

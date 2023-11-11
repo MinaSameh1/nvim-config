@@ -57,7 +57,8 @@ M.on_attach = function(client, bufnr)
     { buf = bufnr }
   )
 
-  -- Mappings.
+  --- Mappings.
+  -- Info
   vim.keymap.set(
     'n',
     '<leader>xw',
@@ -72,31 +73,34 @@ M.on_attach = function(client, bufnr)
   )
   vim.keymap.set(
     'n',
-    '<leader>xl',
-    '<cmd>Trouble loclist<cr>',
-    setDesc('Opens Loclist')
-  )
-  vim.keymap.set(
-    'n',
     'gr',
     '<cmd>Trouble lsp_references<cr>',
     setDesc('LspReferences for word under cursor')
   )
-  -- vim.keymap.set(
-  --   'v',
-  --   '<leader>ca',
-  --   "<cmd>'<,'>lua vim.lsp.buf.range_code_action()<CR>",
-  --   Opts
-  -- )
-  -- See `:help vim.lsp.*` for documentation on any of the below functions
+  vim.keymap.set(
+    'n',
+    '<leader>e',
+    vim.diagnostic.open_float,
+    setDesc('Opens diagnostics in float')
+  )
+
+  -- Docs
+  vim.keymap.set('n', 'K', vim.lsp.buf.hover, setDesc('Opens hover doc'))
+  vim.keymap.set(
+    'n',
+    '<C-k>',
+    vim.lsp.buf.signature_help,
+    setDesc('Opens signature help')
+  )
+
+  -- Go To
+  vim.keymap.set('n', 'gd', vim.lsp.buf.definition, setDesc('Go to definition'))
   vim.keymap.set(
     'n',
     'gD',
     vim.lsp.buf.declaration,
     setDesc('Go to declaration')
   )
-  vim.keymap.set('n', 'gd', vim.lsp.buf.definition, setDesc('Go to definition'))
-  vim.keymap.set('n', 'K', vim.lsp.buf.hover, setDesc('Opens hover doc'))
   vim.keymap.set(
     'n',
     'gi',
@@ -105,10 +109,12 @@ M.on_attach = function(client, bufnr)
   )
   vim.keymap.set(
     'n',
-    '<C-k>',
-    vim.lsp.buf.signature_help,
-    setDesc('Opens signature help')
+    '<leader>gt',
+    vim.lsp.buf.type_definition,
+    setDesc('Go to type definition')
   )
+
+  -- Workspace
   vim.keymap.set(
     'n',
     '<leader>Wa',
@@ -121,39 +127,17 @@ M.on_attach = function(client, bufnr)
     vim.lsp.buf.remove_workspace_folder,
     setDesc('Removes the folder from workspace.')
   )
-  vim.keymap.set('n', '<space>Wl', function()
+  vim.keymap.set('n', '<leader>Wl', function()
     print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
   end, setDesc('Lists workspace folders'))
-  vim.keymap.set(
-    'n',
-    '<leader>gt',
-    vim.lsp.buf.type_definition,
-    setDesc('Go to type definition')
-  )
+
+  -- Actions
   vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, setDesc('Rename'))
   vim.keymap.set(
-    'n',
+    { 'n', 'v' },
     '<leader>ca',
     vim.lsp.buf.code_action,
     setDesc('Code action')
-  )
-  vim.keymap.set(
-    'n',
-    '<leader>e',
-    vim.diagnostic.open_float,
-    setDesc('Opens diagnostics in float')
-  )
-  vim.keymap.set(
-    'n',
-    '[c',
-    vim.diagnostic.goto_prev,
-    setDesc('Go to next diagnostics')
-  )
-  vim.keymap.set(
-    'n',
-    ']c',
-    vim.diagnostic.goto_next,
-    setDesc('Go to prev diagnostics')
   )
   vim.keymap.set('n', '<leader>F', function()
     vim.lsp.buf.format({ async = true })
@@ -170,11 +154,11 @@ M.on_attach = function(client, bufnr)
   autocmd CursorHold,CursorHoldI * lua require'nvim-lightbulb'.update_lightbulb()
   ]])
 
-  vim.api.nvim_create_user_command('LspCodeAction', {
-    nargs = '?',
-    cmd = 'lua vim.lsp.buf.code_action()',
-    complete = 'customlist,v:lua.vim.lsp.buf.list_code_actions()',
-  }, { nargs = 0, desc = 'Code action' })
+  vim.api.nvim_create_user_command(
+    'LspCodeAction',
+    vim.lsp.buf.code_action,
+    { nargs = 0, desc = 'Code action' }
+  )
 
   vim.api.nvim_buf_create_user_command(bufnr, 'LspFormat', function(_)
     if vim.lsp.buf.format then
