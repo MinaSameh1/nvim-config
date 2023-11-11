@@ -132,17 +132,25 @@ function utils.cd_current_file()
   vim.cmd('cd ' .. vim.fn.fnameescape(vim.fn.expand('%:p:h')))
 end
 
-function utils.change_to_package_json_dir()
+function utils.search_for_file_in_parent_dirs(filename)
   local current_dir = vim.fn.expand('%:p:h')
-  local package_json_dir = vim.fn.findfile('package.json', current_dir .. ';')
+  local file = vim.fn.findfile(filename, current_dir .. ';')
 
-  if package_json_dir ~= '' then
-    vim.cmd(
-      'cd ' .. vim.fn.fnameescape(vim.fn.fnamemodify(package_json_dir, ':h'))
-    )
-    print('Changed to directory containing package.json')
+  if file ~= '' then
+    vim.cmd('edit ' .. vim.fn.fnameescape(file))
   else
-    print('package.json not found in current or parent directories')
+    print(filename .. ' not found in current or parent directories')
+  end
+end
+
+function utils.search_and_cd_for_file(filename)
+  local current_dir = vim.fn.expand('%:p:h')
+  local file = vim.fn.findfile(filename, current_dir .. ';')
+
+  if file ~= '' then
+    vim.cmd('cd ' .. vim.fn.fnameescape(vim.fn.fnamemodify(file, ':h')))
+  else
+    print(filename .. ' not found in current or parent directories')
   end
 end
 

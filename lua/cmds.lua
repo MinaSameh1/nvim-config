@@ -12,10 +12,22 @@ vim.api.nvim_create_user_command('CdCurrentFile', function()
   utils.cd_current_file()
 end, { nargs = 0, desc = 'Changes to current file directory' })
 
+vim.api.nvim_create_user_command('SearchForFileInParentDirs', function()
+  utils.search_for_file_in_parent_dirs(vim.fn.input('File to search for: '))
+end, { nargs = 0, desc = 'Searches for file in parent directories' })
+
 vim.api.nvim_create_user_command(
-  'CdPackageJson',
+  'SearchAndCdForFile',
   function()
-    utils.change_to_package_json_dir()
+    -- add vim.select.ui prompt
+    vim.ui.select({ 'package.json', 'gradlew', 'pom.xml', 'mvnw', 'other' }, {
+      prompt = 'Select directory to navigate:',
+    }, function(choice)
+      if choice == 'other' then
+        choice = vim.fn.input('File to search for: ')
+      end
+      utils.search_and_cd_for_file(choice)
+    end)
   end,
   { nargs = 0, desc = 'Changes to package.json directory if found in parent' }
 )
