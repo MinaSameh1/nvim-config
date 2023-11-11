@@ -127,4 +127,23 @@ function utils.get_node_text(node, bufnr)
   end
 end
 
+-- Utils module
+function utils.cd_current_file()
+  vim.cmd('cd ' .. vim.fn.fnameescape(vim.fn.expand('%:p:h')))
+end
+
+function utils.change_to_package_json_dir()
+  local current_dir = vim.fn.expand('%:p:h')
+  local package_json_dir = vim.fn.findfile('package.json', current_dir .. ';')
+
+  if package_json_dir ~= '' then
+    vim.cmd(
+      'cd ' .. vim.fn.fnameescape(vim.fn.fnamemodify(package_json_dir, ':h'))
+    )
+    print('Changed to directory containing package.json')
+  else
+    print('package.json not found in current or parent directories')
+  end
+end
+
 return utils

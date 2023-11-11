@@ -214,7 +214,9 @@ local config = {
 }
 
 config['on_attach'] = function(client, bufnr)
-  vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
+  vim.api.nvim_set_option_value('omnifunc', 'v:lua.vim.lsp.omnifunc', {
+    buf = bufnr,
+  })
   vim.cmd([[
       hi LspReferenceRead cterm=bold ctermbg=red guibg=LightYellow
       hi LspReferenceText cterm=bold ctermbg=red guibg=LightYellow
@@ -232,60 +234,75 @@ config['on_attach'] = function(client, bufnr)
   -- Call default  on attach
   opts.on_attach(client, bufnr)
   local mapOpts = { noremap = true, silent = true, buffer = bufnr }
+  local setDesc = require('config.utils').getDescWithMapOptsSetter(mapOpts)
+
   -- Java specific
   vim.keymap.set(
     'v',
     '<leader>ca',
     '<Cmd>lua require("jdtls").code_action(true)<CR>',
-    mapOpts
+    setDesc('Code Action')
   )
   vim.keymap.set(
     'n',
     '<leader>rr',
     '<Cmd>lua require("jdtls").code_action(false, "refactor")<CR>',
-    mapOpts
+    setDesc('Refactor')
   )
   vim.keymap.set(
     'n',
     '<leader>ji',
     "<Cmd>lua require'jdtls'.organize_imports()<CR>",
-    mapOpts
+    setDesc('Organize imports')
   )
   vim.keymap.set(
     'n',
     '<leader>jt',
     "<Cmd>lua require'jdtls'.test_class()<CR>",
-    mapOpts
+    setDesc('Test class')
   )
   vim.keymap.set(
     'n',
     '<leader>jn',
     "<Cmd>lua require'jdtls'.test_nearest_method()<CR>",
-    mapOpts
+    setDesc('Test nearest method')
   )
   vim.keymap.set(
     'v',
     '<leader>jm',
     "<Esc><Cmd>lua require('jdtls').extract_method(true)<CR>",
-    mapOpts
+    setDesc('Extract method')
   )
   vim.keymap.set(
     'v',
     '<leader>jE',
     "<Esc><Cmd>lua require('jdtls').extract_variable(true)<CR>",
-    mapOpts
+    setDesc('Extract variable')
   )
   vim.keymap.set(
     'n',
     '<leader>je',
     '<Cmd> lua require("jdtls").extract_variable()<CR>',
-    mapOpts
+    setDesc('Extract variable')
   )
   vim.keymap.set(
     'n',
     '<leader>jc',
     '<Cmd> lua require("jdtls").extract_constant()',
-    mapOpts
+    setDesc('Extract as constant')
+  )
+  -- requires vscode-java-test
+  vim.keymap.set(
+    'n',
+    '<leader>gT',
+    '<Cmd> lua require("jdtls.tests").generate()<CR>',
+    setDesc('Generate test')
+  )
+  vim.keymap.set(
+    'n',
+    '<leader>gt',
+    '<Cmd> lua require("jdtls.tests").goto_subjects()<CR>',
+    setDesc('Go to test subject')
   )
   jdtls.setup_dap({ hotcodereplace = 'auto' })
   require('jdtls.setup').add_commands()

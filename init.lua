@@ -68,38 +68,71 @@ vim.opt.backup = false -- keep backup file after overwriting a file
 vim.opt.errorbells = false -- ring the bell for error messages
 vim.opt.writebackup = false -- make a backup before overwriting a file
 vim.opt.swapfile = false -- whether to use a swapfile for a buffer
-vim.opt.hlsearch = false --  highlight matches with last search pattern
+vim.opt.hlsearch = true --  highlight matches with last search pattern
 vim.opt.laststatus = 3 -- global status line
 
 vim.opt.clipboard = 'unnamedplus'
 
 ---- Keybindings
 require('maps')
-nnoremap('<F6>', ':!zathura %:r.pdf > /dev/null 2>&1 & <CR>') -- open file.pdf
-nnoremap('<leader>s', ':%s/') -- global substitute
-vnoremap('<leader>s', ':s/') -- global substitute
-nnoremap('<F10>', ':setlocal spell! <CR>') -- Toggles spell(Autocorrection)
-nnoremap('<leader>w', ':w<CR>') -- Saves file
-nnoremap('<leader>/', ':noh <CR>') -- Stops highlighting
-nnoremap('<leader>cd', '<Cmd>cd %:h<CR>') -- Cd to current file location
+nnoremap(
+  '<F6>',
+  ':!zathura %:r.pdf > /dev/null 2>&1 & <CR>',
+  { desc = 'open pdf file (Same name as file)' }
+) -- open file.pdf
+nnoremap('<F10>', ':setlocal spell! <CR>', { desc = 'starts autocorrection' }) -- Toggles spell(Autocorrection)
+nnoremap('<leader>w', ':w<CR>', { desc = 'saves file' }) -- Saves file
+nnoremap('<leader>/', ':noh <CR>', { desc = 'stops highlighting search' }) -- Stops highlighting
+nnoremap( -- Cd to current file location
+  '<leader>cd',
+  '<Cmd>cd %:h<CR>',
+  { desc = 'Cds to current opened file' }
+)
+nnoremap('<leader>T', ':enew<CR>', { desc = 'Open a new buffer' }) -- open new buffer, normally I use it to hold a json obj to format!
+nmap('<leader>l', ':bnext<CR>', { desc = 'Move to next buffer' }) -- Move to the next buffer
+nmap('<leader>h', ':bprevious<CR>', { desc = 'Move to the prev buffer' }) -- Move to the previous buffer
+nmap('<leader>bq', ':bp <BAR> bd #<CR>', { desc = 'Close the current buffer' }) -- Close the current buffer and move to the previous one
+nmap( -- Close the current buffer and move to the previous one
+  '<leader>bQ',
+  ':bp <BAR> bd! #<CR>',
+  { desc = 'Force close the current buffer' }
+)
+nmap( -- Close all buffers except this one
+  '<leader>bd',
+  ':silent %bd|e#|bd#<CR>',
+  { desc = 'Close all buffers except one' }
+)
+nmap('<leader>bl', ':ls<CR>', { desc = 'List all buffers' }) -- List all buffers
 
-nnoremap('<leader>T', ':enew<CR>') -- open new buffer
-nmap('<leader>l', ':bnext<CR>') -- Move to the next buffer
-nmap('<leader>h', ':bprevious<CR>') -- Move to the previous buffer
-nmap('<leader>bq', ':bp <BAR> bd #<CR>') -- Close the current buffer and move to the previous one
-nmap('<leader>bQ', ':bp <BAR> bd! #<CR>') -- Close the current buffer and move to the previous one
-nmap('<leader>bE', ':silent %bd|e#|bd#<CR>') -- Close all buffers except this one
-nmap('<leader>bl', ':ls<CR>') -- Show all open buffers and their status
+nmap('gx', ':!open <c-r><c-a><CR>', { desc = 'Open url or file under cursor' }) -- Opens anything under cursor (url or file)
 
-nmap('gx', ':!open <c-r><c-a><CR>') -- Opens anything under cursor (url or file)
-
-nmap('cg*', '*Ncgn')
-nnoremap('g.', '/\\V<C-r>"<CR>cgn<C-a><Esc>') -- Chained with cgn, replaces the searched word with the edited one.
+nnoremap(
+  'cg*',
+  '*``Ncgn',
+  { desc = 'Change all searched words with previous edit' }
+) -- Chained with cgn, replaces the searched word with the edited one.
+nnoremap(
+  'g.',
+  '/\\V<C-r>"<CR>cgn<C-a><Esc>',
+  { desc = 'Changes one searched word with previous edit' }
+) -- Chained with cgn, replaces the searched word with the edited one.
 
 -- Edit config files
-cmap('c!!', 'e ' .. utils.config_location .. '/init.lua<CR>') -- Edit this file
-cmap('cg!!', 'e ' .. utils.config_location .. '/ginit.vim<CR>') -- Edit the gui file
-cmap('p!!', 'e ' .. utils.config_location .. '/lua/config/plugins.lua<CR>') -- the Plugins file using packer
+cmap(
+  'c!!',
+  'e ' .. utils.config_location .. '/init.lua<CR>',
+  { desc = 'Edit this file' }
+) -- Edit this file
+cmap(
+  'cg!!',
+  'e ' .. utils.config_location .. '/ginit.vim<CR>',
+  { desc = 'Edit the ginit file' }
+) -- Edit the gui file
+cmap(
+  'p!!',
+  'e ' .. utils.config_location .. '/lua/plugins/init.lua<CR>',
+  { desc = 'Edit plugins file' }
+) -- the Plugins file using packer
 
 -- Disable these plugins for faster startup
 vim.g.loaded_gzip = 1
@@ -113,9 +146,12 @@ vim.g.loaded_matchit = 1
 vim.g.loaded_matchparen = 1
 vim.g.loaded_spec = 1
 vim.g.loaded_perl_provider = 1 -- Perl provider
+vim.g.loaded_ruby_provider = 1 -- Ruby provider
+vim.g.loaded_python_provider = 1 -- Python provider
+vim.g.loaded_node_provider = 1 -- Node provider
 
 -- Distinguish between Ctrl-i and Tab when using kitty
-if vim.env.TERM == 'xterm-kitty' then
+if vim.env.TERM == 'xterm-kitty' or vim.env.TERM == 'screen-256color' then
   vim.cmd(
     [[autocmd UIEnter * if v:event.chan ==# 0 | call chansend(v:stderr, "\x1b[>1u") | endif]]
   )

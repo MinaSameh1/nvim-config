@@ -1,13 +1,29 @@
 local M = {}
-local methods = vim.lsp.protocol.Methods
+-- local methods = vim.lsp.protocol.Methods
 
 -- document_highlight
 local function lsp_highlight_document(bufnr)
-  vim.cmd([[
-      hi! LspReferenceRead cterm=underline ctermbg=red gui=underline guibg=#24283b
-      hi! LspReferenceText cterm=underline ctermbg=red guibg=#24283b
-      hi! LspReferenceWrite cterm=underline ctermbg=red  guibg=#24283b
-    ]])
+  --- Kept for backwards compatibility, will remove in the future
+  -- vim.cmd([[
+  --     hi! LspReferenceRead cterm=underline ctermbg=red gui=underline guibg=#24283b
+  --     hi! LspReferenceText cterm=underline ctermbg=red guibg=#24283b
+  --     hi! LspReferenceWrite cterm=underline ctermbg=red  guibg=#24283b
+  --   ]])
+  vim.api.nvim_set_hl(0, 'LspReferenceRead', {
+    underline = true,
+    gui = 'underline',
+    guibg = '#24283b',
+  })
+  vim.api.nvim_set_hl(0, 'LspReferenceText', {
+    underline = true,
+    gui = 'underline',
+    guibg = '#24283b',
+  })
+  vim.api.nvim_set_hl(0, 'LspReferenceWrite', {
+    underline = true,
+    gui = 'underline',
+    guibg = '#24283b',
+  })
   vim.api.nvim_create_augroup('lsp_document_highlight', {
     clear = false,
   })
@@ -42,13 +58,6 @@ M.on_attach = function(client, bufnr)
   )
 
   -- Mappings.
-  -- Mappings for Trouble
-  vim.keymap.set(
-    'n',
-    '<leader>xx',
-    '<cmd>TroubleToggle<cr>',
-    setDesc('Toggles Trouble')
-  )
   vim.keymap.set(
     'n',
     '<leader>xw',
@@ -66,12 +75,6 @@ M.on_attach = function(client, bufnr)
     '<leader>xl',
     '<cmd>Trouble loclist<cr>',
     setDesc('Opens Loclist')
-  )
-  vim.keymap.set(
-    'n',
-    '<leader>xq',
-    '<cmd>Trouble quickfix<cr>',
-    setDesc('Opens quickfix')
   )
   vim.keymap.set(
     'n',
@@ -166,9 +169,13 @@ M.on_attach = function(client, bufnr)
   vim.cmd([[
   " Lightblub for code action
   autocmd CursorHold,CursorHoldI * lua require'nvim-lightbulb'.update_lightbulb()
-  " Adds the commands to nvim
-  command! LspCodeAction execute 'lua vim.lsp.buf.code_action()'
   ]])
+
+  vim.api.nvim_create_user_command('LspCodeAction', {
+    nargs = '?',
+    cmd = 'lua vim.lsp.buf.code_action()',
+    complete = 'customlist,v:lua.vim.lsp.buf.list_code_actions()',
+  }, { nargs = 0, desc = 'Code action' })
 
   vim.api.nvim_buf_create_user_command(bufnr, 'LspFormat', function(_)
     if vim.lsp.buf.format then
@@ -184,7 +191,7 @@ M.on_attach = function(client, bufnr)
         buffer = vim.api.nvim_get_current_buf(),
         callback = function(opts)
           local bufnum = opts.buf
-          local clients = vim.lsp.buf_get_clients(bufnum)
+          local clients = vim.lsp.get_clients({ bufnr = bufnum })
           for client_id, _ in pairs(clients) do
             vim.lsp.buf_detach_client(bufnum, client_id)
           end

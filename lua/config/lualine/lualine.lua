@@ -46,10 +46,10 @@ require('lualine').setup({
           return vim.bo.buftype == 'quickfix'
         end,
       },
-      '%=',
-      require('config.utils').LSP_Name,
+      -- '%=',
     },
     lualine_x = {
+      require('config.utils').LSP_Name,
       -- 'encoding',
       'fileformat',
       'filetype',

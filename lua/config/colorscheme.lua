@@ -20,7 +20,9 @@ vim.api.nvim_set_hl(0, 'NormalFloat', { bg = '#1f2335' })
 vim.api.nvim_set_hl(0, 'FloatBorder', { fg = 'white', bg = '#1f2335' })
 
 function M.TransparentEnable()
-  M.bg = vim.api.nvim_get_hl_by_name('NormalFloat', true).background
+  M.bg = vim.api.nvim_get_hl(0, {
+    name = 'NormalFloat',
+  }).background
   vim.api.nvim_set_hl(0, 'Normal', { bg = 'none' })
   vim.api.nvim_set_hl(0, 'NormalFloat', { bg = 'none' })
   vim.api.nvim_set_hl(0, 'FloatBorder', { bg = 'none' })
