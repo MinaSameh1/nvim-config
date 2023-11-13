@@ -298,7 +298,7 @@ export class {name}Controller {{
     )
   ),
   s.s(
-    { trig = 'nestservice', dscr = 'NestJS Service' },
+    { trig = 'nestprovider', dscr = 'NestJS Provider' },
     s.fmt(
       [[
 import {{ Injectable, Logger }} from '@nestjs/common';
@@ -348,7 +348,7 @@ export class {name}Module {{}}
 import {{ Injectable, PipeTransform, ArgumentMetadata, BadRequestException }} from '@nestjs/common';
 
 @Injectable()
-export class ${PipeName} implements PipeTransform {{
+export class {PipeName}Pipe implements PipeTransform {{
   transform(value: any, metadata: ArgumentMetadata) {{
     {logic}
     return value;

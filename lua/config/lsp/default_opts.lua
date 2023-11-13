@@ -11,18 +11,18 @@ local function lsp_highlight_document(bufnr)
   --   ]])
   vim.api.nvim_set_hl(0, 'LspReferenceRead', {
     underline = true,
-    gui = 'underline',
-    guibg = '#24283b',
+    bg = '#24283b',
+    ctermbg = 'red',
   })
   vim.api.nvim_set_hl(0, 'LspReferenceText', {
     underline = true,
-    gui = 'underline',
-    guibg = '#24283b',
+    bg = '#24283b',
+    ctermbg = 'red',
   })
   vim.api.nvim_set_hl(0, 'LspReferenceWrite', {
     underline = true,
-    gui = 'underline',
-    guibg = '#24283b',
+    bg = '#24283b',
+    ctermbg = 'red',
   })
   vim.api.nvim_create_augroup('lsp_document_highlight', {
     clear = false,
@@ -173,7 +173,10 @@ M.on_attach = function(client, bufnr)
         callback = function(opts)
           local bufnum = opts.buf
           local clients = vim.lsp.get_clients({ bufnr = bufnum })
-          for client_id, _ in pairs(clients) do
+          for client_id, Client in pairs(clients) do
+            if Client.config.name == 'copilot' then
+              return
+            end
             vim.lsp.buf_detach_client(bufnum, client_id)
           end
         end,
