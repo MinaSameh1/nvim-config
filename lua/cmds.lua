@@ -20,22 +20,26 @@ vim.api.nvim_create_user_command(
   'SearchAndCdForFile',
   function()
     -- add vim.select.ui prompt
-    vim.ui.select(
-      { 'current', 'package.json', 'gradlew', 'pom.xml', 'mvnw', 'other' },
-      {
-        prompt = 'Select directory to navigate:',
-      },
-      function(choice)
-        if choice == 'other' then
-          choice = vim.fn.input('File to search for: ')
-        end
-        if choice == 'current' then
-          utils.cd_current_file()
-          return
-        end
-        utils.search_and_cd_for_file(choice)
+    vim.ui.select({
+      'current',
+      'package.json',
+      'selene.toml',
+      'gradlew',
+      'pom.xml',
+      'mvnw',
+      'other',
+    }, {
+      prompt = 'Select directory to navigate:',
+    }, function(choice)
+      if choice == 'other' then
+        choice = vim.fn.input('File to search for: ')
       end
-    )
+      if choice == 'current' then
+        utils.cd_current_file()
+        return
+      end
+      utils.search_and_cd_for_file(choice)
+    end)
   end,
   { nargs = 0, desc = 'Changes to package.json directory if found in parent' }
 )
