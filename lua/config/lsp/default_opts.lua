@@ -173,8 +173,8 @@ M.on_attach = function(client, bufnr)
         callback = function(opts)
           local bufnum = opts.buf
           local clients = vim.lsp.get_clients({ bufnr = bufnum })
-          for client_id, Client in pairs(clients) do
-            if Client.config.name == 'copilot' then
+          for client_id, attached_client in pairs(clients) do
+            if attached_client.name == 'copilot' then
               return
             end
             vim.lsp.buf_detach_client(bufnum, client_id)
