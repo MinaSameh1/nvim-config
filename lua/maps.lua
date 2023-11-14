@@ -61,6 +61,13 @@ vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist, {
   desc = 'set loclist',
 })
 
+vim.keymap.set( -- Cd to current file location
+  'n',
+  '<leader>cd',
+  '<cmd> SearchAndCdForFile<CR>',
+  { silent = true, noremap = true, desc = 'Cds to current opened file' }
+)
+
 vim.keymap.set('n', 'i', function()
   if #vim.fn.getline('.') == 0 then
     return [["_cc]]

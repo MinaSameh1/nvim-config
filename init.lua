@@ -83,11 +83,6 @@ nnoremap(
 nnoremap('<F10>', ':setlocal spell! <CR>', { desc = 'starts autocorrection' }) -- Toggles spell(Autocorrection)
 nnoremap('<leader>w', ':w<CR>', { desc = 'saves file' }) -- Saves file
 nnoremap('<leader>/', ':noh <CR>', { desc = 'stops highlighting search' }) -- Stops highlighting
-nnoremap( -- Cd to current file location
-  '<leader>cd',
-  '<Cmd>cd %:h<CR>',
-  { desc = 'Cds to current opened file' }
-)
 nnoremap('<leader>T', ':enew<CR>', { desc = 'Open a new buffer' }) -- open new buffer, normally I use it to hold a json obj to format!
 nmap('<leader>l', ':bnext<CR>', { desc = 'Move to next buffer' }) -- Move to the next buffer
 nmap('<leader>h', ':bprevious<CR>', { desc = 'Move to the prev buffer' }) -- Move to the previous buffer
