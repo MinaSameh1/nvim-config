@@ -325,19 +325,55 @@ export class {}Service {{
 import {{ Module }} from '@nestjs/common';
 
 @Module({{
-  imports: [{imports}],
-  controllers: [{controllers}],
-  providers: [{providers}],
-  exports: [{exports}]
+  {}
 }})
 export class {name}Module {{}}
 ]],
       {
-        imports = s.i(2, 'imports'),
-        controllers = s.i(3, 'controllers'),
-        providers = s.i(4, 'providers'),
-        exports = s.i(5, 'exports'),
         name = s.i(1, 'name'),
+        s.c(2, {
+          s.fmt(
+            [[
+  imports: [{imports}],
+  controllers: [{controllers}],
+  providers: [{providers}],
+  exports: [{exports}]
+          ]],
+            {
+
+              imports = s.i(1, 'imports'),
+              controllers = s.i(2, 'controllers'),
+              providers = s.i(3, 'providers'),
+              exports = s.i(4, 'exports'),
+            }
+          ),
+          s.fmt(
+            [[
+  imports: [{imports}],
+  providers: [{providers}],
+  exports: [{exports}]
+          ]],
+            {
+
+              imports = s.i(1, 'imports'),
+              providers = s.i(2, 'providers'),
+              exports = s.i(3, 'exports'),
+            }
+          ),
+          s.fmt(
+            [[
+  imports: [{imports}],
+  controllers: [{controllers}],
+  providers: [{providers}],
+          ]],
+            {
+
+              imports = s.i(1, 'imports'),
+              controllers = s.i(2, 'controllers'),
+              providers = s.i(3, 'providers'),
+            }
+          ),
+        }),
       }
     )
   ),
