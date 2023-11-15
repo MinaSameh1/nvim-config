@@ -458,7 +458,7 @@ return {
   \\draw[thick, ->] (3,0) circle(3mm) node(q0)[anchor=center]{$ q_0 $ };
   \\draw[thick, ->] (3, -0.7) -- (3,-0.3);
   \\draw[thick,->] (q1) +(80:-3mm) arc(80:-260:3mm) node[anchor=north]{b};
-\\end{tikzpicture} 
+\\end{tikzpicture}
     ]]
   ),
 }
