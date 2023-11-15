@@ -333,11 +333,11 @@ import {{ Module }} from '@nestjs/common';
 export class {name}Module {{}}
 ]],
       {
-        imports = s.i(1, 'imports'),
-        controllers = s.i(2, 'controllers'),
-        providers = s.i(3, 'providers'),
-        exports = s.i(4, 'exports'),
-        name = s.i(5, 'name'),
+        imports = s.i(2, 'imports'),
+        controllers = s.i(3, 'controllers'),
+        providers = s.i(4, 'providers'),
+        exports = s.i(5, 'exports'),
+        name = s.i(1, 'name'),
       }
     )
   ),
