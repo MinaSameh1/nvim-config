@@ -93,7 +93,7 @@ nmap( -- Close the current buffer and move to the previous one
   { desc = 'Force close the current buffer' }
 )
 nmap( -- Close all buffers except this one
-  '<leader>bd',
+  '<leader>bE',
   ':silent %bd|e#|bd#<CR>',
   { desc = 'Close all buffers except one' }
 )
