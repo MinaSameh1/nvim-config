@@ -166,23 +166,23 @@ M.on_attach = function(client, bufnr)
     end
   end, { desc = 'Format current buffer with LSP' })
 
-  vim.api.nvim_create_autocmd('LspAttach', {
-    callback = function()
-      vim.api.nvim_create_autocmd('BufDelete', {
-        buffer = vim.api.nvim_get_current_buf(),
-        callback = function(opts)
-          local bufnum = opts.buf
-          local clients = vim.lsp.get_clients({ bufnr = bufnum })
-          for client_id, attached_client in pairs(clients) do
-            if attached_client.name == 'copilot' then
-              return
-            end
-            vim.lsp.buf_detach_client(bufnum, client_id)
-          end
-        end,
-      })
-    end,
-  })
+  -- vim.api.nvim_create_autocmd('LspAttach', {
+  --   callback = function()
+  --     vim.api.nvim_create_autocmd('BufDelete', {
+  --       buffer = vim.api.nvim_get_current_buf(),
+  --       callback = function(opts)
+  --         local bufnum = opts.buf
+  --         local clients = vim.lsp.get_clients({ bufnr = bufnum })
+  --         for client_id, attached_client in pairs(clients) do
+  --           if attached_client.name == 'copilot' then
+  --             return
+  --           end
+  --           vim.lsp.buf_detach_client(bufnum, client_id)
+  --         end
+  --       end,
+  --     })
+  --   end,
+  -- })
 
   -- Highlight used words
   if client.server_capabilities.documentHighlightProvider then
