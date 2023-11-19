@@ -538,9 +538,6 @@ return {
     'catppuccin/nvim',
     name = 'catppuccin',
     event = 'VeryLazy',
-    config = function()
-      vim.cmd.colorscheme('catppuccin')
-    end,
   },
   {
     'nyoom-engineering/oxocarbon.nvim',
@@ -573,6 +570,10 @@ return {
     'rebelot/kanagawa.nvim',
     event = 'VeryLazy',
     main = 'kanagawa',
+    config = function(opts)
+      require('kanagawa').setup(opts)
+      vim.cmd('colorscheme kanagawa-wave')
+    end,
     opts = {
       transparent = false,
       dimInactive = true, -- dim inactive window `:h hl-NormalNC`

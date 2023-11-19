@@ -194,9 +194,9 @@ M.on_attach = function(client, bufnr)
   -- end
   if vim.lsp.inlay_hint then
     vim.keymap.set('n', '<leader>th', function()
-      vim.lsp.inlay_hint(bufnr, nil)
+      vim.lsp.inlay_hint.enable(bufnr, nil)
     end, { expr = true, noremap = true, desc = '[T]oggle inlay [h]ints' })
-    vim.lsp.inlay_hint(bufnr, true)
+    vim.lsp.inlay_hint.enable(bufnr, true)
   end
 
   vim.api.nvim_create_autocmd('CursorHold', {
