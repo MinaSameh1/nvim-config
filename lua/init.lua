@@ -100,3 +100,5 @@ vim.api.nvim_create_autocmd('ColorScheme', {
     ]])
   end,
 })
+
+vim.cmd([[colorscheme NeoSolarized]])
