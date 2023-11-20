@@ -69,8 +69,13 @@ nnoremap(
 
 nnoremap(
   '<leader>tw',
-  '<cmd>lua require("neotest").run.run({ jestCommand = "jest --watch " })<CR>',
-  { desc = 'Run nearest test' }
+  '<cmd>lua require("neotest").run.run({ jestCommand = "npm run test:watch --" })<CR>',
+  { desc = 'Run nearest test in watch mode' }
+)
+nnoremap(
+  '<leader>tW',
+  '<cmd>lua require("neotest").run.run({ vim.fn.expand(%), jestCommand = "npm run test:watch --" })<CR>',
+  { desc = 'Run test file in watch mode' }
 )
 
 -- Jump between test failures
@@ -83,4 +88,11 @@ nnoremap(
   '<silent>]t',
   '<cmd>lua require("neotest").jump.next({ status = "failed" })<CR>',
   { desc = 'Jump to next failed test' }
+)
+
+-- Show test outputs
+nnoremap(
+  '<leader>to',
+  '<cmd>lua require("neotest").output.open()<CR>',
+  { desc = 'Show test output' }
 )
