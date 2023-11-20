@@ -555,10 +555,10 @@ return {
     'Tsuzat/NeoSolarized.nvim',
     event = 'VeryLazy',
     main = 'NeoSolarized',
-    -- config = function(opts)
-    --   require('NeoSolarized').setup(opts)
-    --   vim.cmd.colorscheme('NeoSolarized')
-    -- end,
+    config = function(opts)
+      require('NeoSolarized').setup(opts)
+      vim.cmd.colorscheme('NeoSolarized')
+    end,
     opts = {
       style = 'dark',
       transparent = false,
@@ -576,7 +576,7 @@ return {
     main = 'kanagawa',
     config = function(opts)
       require('kanagawa').setup(opts)
-      vim.cmd('colorscheme kanagawa-wave')
+      -- vim.cmd.colorscheme('kanagawa-wave')
     end,
     opts = {
       transparent = false,
