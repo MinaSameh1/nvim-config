@@ -96,8 +96,23 @@ local Opts = { noremap = true, silent = true }
 local setDesc = require('config.utils').getDescWithMapOptsSetter(Opts)
 
 Key('n', '<leader>tH', '<Cmd>lua _HTOP_TOGGLE()<CR>', setDesc('Toggle htop'))
-Key('n', '<leader>tp', '<Cmd>lua _PYTHON_TOGGLE()<CR>', setDesc('Toggle python'))
+Key(
+  'n',
+  '<leader>tp',
+  '<Cmd>lua _PYTHON_TOGGLE()<CR>',
+  setDesc('Toggle python')
+)
 Key('n', '<leader>tn', '<Cmd>lua _NODE_TOGGLE()<CR>', setDesc('Toggle node'))
 Key('n', '<leader>tN', '<Cmd>lua _NCDU_TOGGLE()<CR>', setDesc('Toggle ncdu'))
-Key('n', '<leader>tH', '<Cmd>lua _BASHTOP_TOGGLE()<CR>', setDesc('Toggle bashtop'))
-Key('n', '<leader>td', '<Cmd>lua _DOCKER_TOGGLE()<CR>', setDesc('Toggle docker'))
+Key(
+  'n',
+  '<leader>tH',
+  '<Cmd>lua _BASHTOP_TOGGLE()<CR>',
+  setDesc('Toggle bashtop')
+)
+Key(
+  'n',
+  '<leader>td',
+  '<Cmd>lua _DOCKER_TOGGLE()<CR>',
+  setDesc('Toggle docker')
+)
