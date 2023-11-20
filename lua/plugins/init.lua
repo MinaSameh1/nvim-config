@@ -511,48 +511,41 @@ return {
 
   -- Themes
   { 'rktjmp/lush.nvim' }, -- used to create colorschemes
-  { 'savq/melange', lazy = true, priority = 1000 },
-  { 'nanotech/jellybeans.vim', lazy = true, priority = 1000 },
+  { 'savq/melange', lazy = false, priority = 1000 },
+  { 'nanotech/jellybeans.vim', lazy = false, priority = 1000 },
   {
     'dracula/vim',
     name = 'dracula',
-    priority = 1000,
-    lazy = true,
+    event = 'VeryLazy',
   },
   { 'AlexvZyl/nordic.nvim', event = 'VeryLazy' },
   {
     'folke/tokyonight.nvim',
-    lazy = true,
-    priority = 1000,
+    event = 'VeryLazy',
     config = function()
       require('config.colorscheme').setupTokyonight()
     end,
   },
   {
     'ellisonleao/gruvbox.nvim',
-    priority = 1000,
-    lazy = true,
+    event = 'VeryLazy',
   },
   {
     'shaunsingh/nord.nvim',
-    priority = 1000,
-    lazy = true,
+    event = 'VeryLazy',
   },
   {
     'catppuccin/nvim',
     name = 'catppuccin',
-    priority = 1000,
-    lazy = true,
+    event = 'VeryLazy',
   },
   {
     'nyoom-engineering/oxocarbon.nvim',
-    priority = 1000,
-    lazy = true,
+    event = 'VeryLazy',
   },
   {
     'rose-pine/neovim',
-    lazy = true,
-    priority = 1000,
+    event = 'VeryLazy',
     name = 'rose-pine',
     opts = {
       dark_variant = 'moon',
@@ -560,8 +553,7 @@ return {
   },
   {
     'Tsuzat/NeoSolarized.nvim',
-    lazy = true,
-    priority = 1000,
+    event = 'VeryLazy',
     main = 'NeoSolarized',
     opts = {
       style = 'dark',
@@ -576,9 +568,12 @@ return {
   },
   {
     'rebelot/kanagawa.nvim',
+    event = 'VeryLazy',
     main = 'kanagawa',
-    priority = 1000,
-    lazy = true,
+    config = function(opts)
+      require('kanagawa').setup(opts)
+      vim.cmd('colorscheme kanagawa-wave')
+    end,
     opts = {
       transparent = false,
       dimInactive = true, -- dim inactive window `:h hl-NormalNC`
@@ -589,19 +584,17 @@ return {
       },
     },
   },
-  { 'sainnhe/sonokai', priority = 1000, lazy = true },
+  { 'sainnhe/sonokai', event = 'VeryLazy' },
   {
     'mountain-theme/vim',
-    priority = 1000,
-    lazy = true,
+    event = 'VeryLazy',
     name = 'mountain',
     branch = 'master',
   },
   {
     'EdenEast/nightfox.nvim',
     main = 'nightfox',
-    priority = 1000,
-    lazy = true,
+    event = 'VeryLazy',
     opts = {
       transparent = false,
       terminal_colors = true,
@@ -610,8 +603,11 @@ return {
   {
     'akinsho/horizon.nvim',
     version = '*',
+    lazy = false,
     priority = 1000,
-    lazy = true,
+    -- config = function()
+    --   vim.cmd.colorscheme('horizon')
+    -- end,
   },
 
   {
@@ -627,9 +623,6 @@ return {
     -- Startup time
     'tweekmonster/startuptime.vim',
     cmd = 'StartupTime',
-    init = function()
-      vim.g.startuptime_tries = 10
-    end,
   },
 
   {
