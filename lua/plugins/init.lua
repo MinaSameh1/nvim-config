@@ -357,6 +357,7 @@ return {
       'haydenmeade/neotest-jest',
       'nvim-neotest/neotest-python',
       'sidlatau/neotest-dart',
+      'marilari88/neotest-vitest',
       'nvim-treesitter/nvim-treesitter',
     },
     config = function()
