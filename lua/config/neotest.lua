@@ -23,7 +23,7 @@ neotest.setup({
       require('neotest-dart')({
         fvm = false, -- takes priority over path, uses <workspace>/.fvm/flutter_sdk if enabled
       }),
-      require('marilari88/neotest-vitest'),
+      require('neotest-vitest'),
     },
   },
 })
