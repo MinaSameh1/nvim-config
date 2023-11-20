@@ -55,7 +55,7 @@ vim.opt.undodir = utils.config_location .. '/undodir' -- where to store undo fil
 vim.opt.undofile = true -- save undo information in a file
 vim.opt.undolevels = 5000 -- maximum number of changes that can be undone
 
-vim.opt.lazyredraw = true -- don't redraw while executing macros
+-- vim.opt.lazyredraw = true -- don't redraw while executing macros
 
 vim.opt.relativenumber = true -- show relative line number in front of each line
 vim.opt.number = true -- show relative line number in front of each line
