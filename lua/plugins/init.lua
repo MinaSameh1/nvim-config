@@ -472,7 +472,7 @@ return {
             alt = { 'FIXME', 'BUG', 'FIXIT', 'ISSUE' },
           },
           WARN = { alt = { 'WARNING', 'XXX' } },
-          NOTE = { alt = { 'INFO' } },
+          NOTE = { alt = { 'INFO', 'Note', 'note' } },
         },
       })
     end,
@@ -555,6 +555,10 @@ return {
     'Tsuzat/NeoSolarized.nvim',
     event = 'VeryLazy',
     main = 'NeoSolarized',
+    -- config = function(opts)
+    --   require('NeoSolarized').setup(opts)
+    --   vim.cmd.colorscheme('NeoSolarized')
+    -- end,
     opts = {
       style = 'dark',
       transparent = false,
