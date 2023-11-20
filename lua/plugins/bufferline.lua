@@ -2,13 +2,29 @@ local nnoremap = require('config.utils').nnoremap
 -- *******************************
 -- *         BufferLine          *
 -- *******************************
-nnoremap(']b', ':BufferLineCycleNext<CR>') -- Go right
-nnoremap('[b', ':BufferLineCyclePrev<CR>') -- Go left
-nnoremap(']B', ':BufferLineMoveNext<CR>') -- Move the buffer to the right
-nnoremap('[B', ':BufferLineMovePrev<CR>') -- Move the buffer to the left
-nnoremap('<leader>be', ':BufferLineSortByExtension<CR>') -- Sort buffer by Extension
-nnoremap('<leader>bd', ':BufferLineSortByDirectory<CR>') -- Sort buffer by Directory
-nnoremap('<leader>gb', ':BufferLinePick<CR>') -- Pick buffer
+nnoremap(']b', ':BufferLineCycleNext<CR>', { desc = 'Right buffer' }) -- Go right
+nnoremap('[b', ':BufferLineCyclePrev<CR>', { desc = 'Left buffer' }) -- Go left
+nnoremap(
+  ']B',
+  ':BufferLineMoveNext<CR>',
+  { desc = 'Move the buffer to the right' }
+) -- Move the buffer to the right
+nnoremap(
+  '[B',
+  ':BufferLineMovePrev<CR>',
+  { desc = 'Move the buffer to the left' }
+) -- Move the buffer to the left
+nnoremap(
+  '<leader>be',
+  ':BufferLineSortByExtension<CR>',
+  { desc = 'Sort by extension' }
+) -- Sort buffer by Extension
+nnoremap(
+  '<leader>bd',
+  ':BufferLineSortByDirectory<CR>',
+  { desc = 'Sort by directory' }
+) -- Sort buffer by Directory
+nnoremap('<leader>gb', ':BufferLinePick<CR>', { desc = 'Pick buffer' }) -- Pick buffer
 
 return {
   'akinsho/bufferline.nvim',
