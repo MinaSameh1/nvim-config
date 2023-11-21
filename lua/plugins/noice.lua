@@ -1,7 +1,13 @@
+-- Create highlight group NotifyBackground
+vim.cmd([[
+  hi NotifyBackground guibg=#1e222a
+]])
+
 return {
   'folke/noice.nvim',
   event = 'VeryLazy',
   opts = {
+    background_colour = '#1e222a',
     lsp = {
       -- override markdown rendering so that **cmp** and other plugins use **Treesitter**
       override = {
