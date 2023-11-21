@@ -3,6 +3,14 @@ vim.cmd([[
   hi NotifyBackground guibg=#1e222a
 ]])
 
+local nnoremap = require('config.utils').nnoremap
+
+nnoremap(
+  '<C-space>',
+  '<cmd>Noice dismiss<CR>',
+  { desc = 'Dismiss notifications' }
+)
+
 return {
   'folke/noice.nvim',
   event = 'VeryLazy',
