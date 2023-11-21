@@ -1,5 +1,9 @@
 -- mfussenegger/nvim-dap
-local dap = require('dap')
+local status_ok, dap = pcall(require, 'dap')
+if not status_ok then
+  print('Error in dap config, cannot import dap Module')
+  return
+end
 
 -- Firefox adaptor config, works
 dap.adapters.firefox = {
