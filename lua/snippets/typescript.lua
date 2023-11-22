@@ -21,8 +21,10 @@ local function_q = vim.treesitter.query.parse(
 )
 -- This only matches returns that actually return something, so early return can still be used for
 -- control flow!
-local return_q =
-  vim.treesitter.query.parse('typescript', '(return_statement) @ret')
+local return_q = vim.treesitter.query.parse(
+  'typescript',
+  '(return_statement) @ret'
+)
 
 --- Obtains list of parameter names for the next lua function and whether it returns something.
 -- @param linenr Line number at which we start searching.
@@ -423,11 +425,11 @@ export class {GuardName} implements CanActivate {{
     s.fmt(
       [[import {{ SetMetadata }} from '@nestjs/common';
 
-export const {name} = (...args: string[]) => SetMetadata('{lower}', args);
+export const {name} = (...args: string[]) => SetMetadata('{remove_space}', args);
     ]],
       {
         name = s.i(1, 'name'),
-        lower = s.l(
+        remove_space = s.l(
           s.l._1:sub(1, 1)
             .. s.l._1:sub(2, -1):gsub('%u', function(c)
               return '_' .. c:lower()
