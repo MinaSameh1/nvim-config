@@ -438,6 +438,32 @@ export const {name} = (...args: string[]) => SetMetadata('{remove_space}', args)
     )
   ),
   s.s(
+    { trig = 'nesttypeormrepository', dscr = 'NestJS TypeORM Repository' },
+    s.fmt(
+      [[import {{ Injectable }} from '@nestjs/common';
+import {{ Repository, DataSource }} from 'typeorm';
+import {{ {copy} }} from '../entity/{lower}.entity';
+
+@Injectable()
+export class {copy}Repository extends Repository<{copy}> {{
+
+  constructor(private dataSource: DataSource) {{
+    super({entity}, dataSource.createEntityManager());
+  }}
+
+  findByentity(name: string) {{
+    return this.findOne({{ where: {{ name }} }});
+  }}
+}}
+]],
+      {
+        entity = s.i(1, 'entity'),
+        lower = s.l(s.l._1:lower(), 1),
+        copy = s.f(s.copy, 1),
+      }
+    )
+  ),
+  s.s(
     { trig = 'nestparamdecorator', dscr = 'NestJS Param Decorator' },
     s.fmt(
       [[import {{ ExecutionContext, createParamDecorator }} from '@nestjs/common'
