@@ -92,44 +92,50 @@ mason_lspconfig.setup_handlers({
       ':g/console.lo/d<cr>',
       { desc = 'Remove console.log' }
     )
+
     local opts = default_opts
     opts.format = false
-    require('typescript-tools').setup({
-      flags = { allow_incremental_sync = true, debounce_text_changes = 225 },
-      go_to_source_definition = {
-        fallback = true, -- fall back to standard LSP definition on failure
+    opts.settings = {
+      publish_diagnostic_on = 'insert_leave',
+      -- WARNING: Experimental feature also in VSCode, because it might hit performance of server.
+      -- possible values: ("off"|"all"|"implementations_only"|"references_only")
+      code_lens = 'all',
+      tsserver_file_preferences = {
+        --[[ * If enabled, completions for class members (e.g. methods and properties) will include ]]
+        --[[ * a whole declaration for the member. ]]
+        --[[ * E.g., `class A { f| }` could be completed to `class A { foo(): number {} }`, instead of ]]
+        --[[ * `class A { foo }`. ]]
+        includeCompletionsWithClassMemberSnippets = true,
+        --[[ * If enabled, object literal methods will have a method declaration completion entry in addition ]]
+        --[[ * to the regular completion entry containing just the method name. ]]
+        --[[ * E.g., `const objectLiteral: T = { f| }` could be completed to `const objectLiteral: T = { foo(): void {} }`, ]]
+        --[[ * in addition to `const objectLiteral: T = { foo }`. ]]
+        includeCompletionsWithObjectLiteralMethodSnippets = true,
+        --[[ * Enables auto-import-style completions on partially-typed import statements. E.g., allows ]]
+        --[[ * `import write|` to be completed to `import { writeFile } from "fs"`. ]]
+        includeCompletionsForImportStatements = true,
+        generateReturnInDocTemplate = true,
+        -- inlay hints
+        includeInlayParameterNameHints = 'literal',
+        includeInlayParameterNameHintsWhenArgumentMatchesName = false,
+        includeInlayFunctionParameterTypeHints = true,
+        includeInlayVariableTypeHints = true,
+        includeInlayVariableTypeHintsWhenTypeMatchesName = false,
+        includeInlayPropertyDeclarationTypeHints = true,
+        includeInlayFunctionLikeReturnTypeHints = true,
+        includeInlayEnumMemberValueHints = true,
       },
-      autoSetHints = true,
-      format = false,
-      noremap = true,
-      silent = true,
-      handlers = handlers,
-      on_attach,
-      capabilities = vim.lsp.protocol.make_client_capabilities(),
-      commands = {
-        -- Renamefile = {
-        --   utils.rename_file,
-        --   description = 'Rename file',
-        -- },
-      },
-      settings = {
-        publish_diagnostic_on = 'insert_leave',
-        -- WARNING: Experimental feature also in VSCode, because it might hit performance of server.
-        -- possible values: ("off"|"all"|"implementations_only"|"references_only")
-        code_lens = 'all',
-        tsserver_file_preferences = {
-          -- Inlay Hints
-          includeInlayParameterNameHints = 'all',
-          includeInlayParameterNameHintsWhenArgumentMatchesName = true,
-          includeInlayFunctionParameterTypeHints = true,
-          includeInlayVariableTypeHints = true,
-          includeInlayVariableTypeHintsWhenTypeMatchesName = true,
-          includeInlayPropertyDeclarationTypeHints = true,
-          includeInlayFunctionLikeReturnTypeHints = true,
-          includeInlayEnumMemberValueHints = true,
-        },
-      },
-    })
+    }
+
+    opts.flags = {
+      allow_incremental_sync = true,
+      debounce_text_changes = 225,
+    }
+    opts.go_to_source_definition = {
+      fallback = true, -- fall back to standard LSP definition on failure
+    }
+
+    require('typescript-tools').setup(opts)
   end,
   ['rust_analyzer'] = function()
     -- Initialize the LSP via rust-tools instead

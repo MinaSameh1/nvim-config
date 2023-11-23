@@ -43,6 +43,8 @@ local function lsp_highlight_document(bufnr)
   })
 end
 
+local beforeFormat = nil
+
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
 M.on_attach = function(client, bufnr)
@@ -217,6 +219,17 @@ M.on_attach = function(client, bufnr)
       vim.diagnostic.open_float(nil, opts)
     end,
   })
+
+  if client.name == 'typescript-tools' or client.name == 'tsserver' then
+    beforeFormat = function()
+      vim.cmd.TSToolsRemoveUnusedImports()
+      vim.cmd.TSToolsAddMissingImports()
+      vim.cmd.TSToolsSortImports()
+      vim.cmd.TSToolsOrganizeImports()
+      vim.cmd.TSToolsFixAll()
+    end
+  end
+
   -- For formatting
   if client.supports_method('textDocument/formatting') then
     local augroup = vim.api.nvim_create_augroup('LspFormatting', {})
@@ -225,14 +238,23 @@ M.on_attach = function(client, bufnr)
       group = augroup,
       buffer = bufnr,
       callback = function()
-        vim.lsp.buf.format({
-          -- async = true,
-          bufnr = bufnr,
-          filter = function(client_format)
-            -- Use only null_ls for now.
-            return client_format.name == 'null-ls'
-          end,
-        })
+        if beforeFormat then
+          beforeFormat()
+        end
+        -- Wait 400ms for the above commands to finish
+        vim.defer_fn(function()
+          vim.lsp.buf.format({
+            -- async = true,
+            bufnr = bufnr,
+            filter = function(client_format)
+              if client_format.name == 'efm' then
+                return true
+              end
+              -- Use only null_ls for now.
+              return client_format.name == 'null-ls'
+            end,
+          })
+        end, 400)
       end,
     })
   end
@@ -302,6 +324,7 @@ M.handlers = {
 M.default_opts = {
   autoSetHints = true,
   handlers = M.handlers,
+  inlay_hints = { enabled = true },
   noremap = true,
   silent = true,
   on_attach = M.on_attach,
