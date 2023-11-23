@@ -539,8 +539,19 @@ return {
     'folke/tokyonight.nvim',
     event = 'VeryLazy',
     config = function()
-      require('config.colorscheme').setupTokyonight()
+      vim.g.tokyonight_style = 'storm' -- Can be storm, night or day
+      vim.g.tokyonight_sidebars = {
+        'TelescopePrompt',
+        'NvimTree',
+        'terminal',
+      }
+      -- Change the "hint" color to the "orange" color, and make the "error" color bright red
+      vim.g.tokyonight_colors = { hint = 'orange', error = '#ff0000' }
     end,
+  },
+  {
+    'ayu-theme/ayu-vim',
+    event = 'VeryLazy',
   },
   {
     'ellisonleao/gruvbox.nvim',

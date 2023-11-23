@@ -1,20 +1,6 @@
 -- This file is for customizing color schemes!
 local M = {}
 
-function M.setupTokyonight()
-  vim.g.tokyonight_style = 'storm' -- Can be storm, night or day
-  vim.g.tokyonight_sidebars = {
-    'TelescopePrompt',
-    'NvimTree',
-    'terminal',
-    'packer',
-    'tagbar',
-    'dap-repl',
-  }
-  -- Change the "hint" color to the "orange" color, and make the "error" color bright red
-  vim.g.tokyonight_colors = { hint = 'orange', error = '#ff0000' }
-end
-
 -- Border for floaty stuff :P
 vim.api.nvim_set_hl(0, 'NormalFloat', { bg = '#1f2335' })
 vim.api.nvim_set_hl(0, 'FloatBorder', { fg = 'white', bg = '#1f2335' })
