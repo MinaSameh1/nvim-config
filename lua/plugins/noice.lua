@@ -1,7 +1,5 @@
 -- Create highlight group NotifyBackground
-vim.cmd([[
-  hi NotifyBackground guibg=#1e222a
-]])
+vim.cmd('hi NotifyBackground guibg=#1e222a')
 
 local nnoremap = require('config.utils').nnoremap
 
