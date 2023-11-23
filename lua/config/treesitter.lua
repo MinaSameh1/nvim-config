@@ -5,6 +5,19 @@ end
 
 require('nvim-treesitter.install').compilers = { 'clang' }
 
+local status_comment_ok, comment_string_context = pcall(
+  require,
+  'ts_context_commentstring'
+)
+if not status_comment_ok then
+  print('Error in comment_string_context Treesitter config')
+end
+
+comment_string_context.setup({
+  enable = true,
+  enable_autocmd = false,
+})
+
 configs.setup({
   ensure_installed = 'all', -- one of "all" or table of parsers.
   sync_install = false, -- install languages synchronously (only applied to `ensure_installed`)
@@ -13,10 +26,6 @@ configs.setup({
     enable = true, -- false will disable the whole extension
     disable = { '' }, -- list of language that will be disabled
     additional_vim_regex_highlighting = false,
-  },
-  context_commentstring = {
-    enable = true,
-    enable_autocmd = false,
   },
   indent = {
     enable = true,

@@ -154,4 +154,28 @@ function utils.search_and_cd_for_file(filename)
   end
 end
 
+function utils.jumps_to_qf()
+  local jumplist, _ = unpack(vim.fn.getjumplist())
+  local qf_list = {}
+  if #jumplist == 0 then
+    print('No jumps found')
+    return
+  end
+  if type(jumplist) == 'integer' then
+    return
+  end
+  for _, v in pairs(jumplist) do
+    if vim.fn.bufloaded(v.bufnr) == 1 then
+      table.insert(qf_list, {
+        bufnr = v.bufnr,
+        lnum = v.lnum,
+        col = v.col,
+        text = vim.api.nvim_buf_get_lines(v.bufnr, v.lnum - 1, v.lnum, false)[1],
+      })
+    end
+  end
+  vim.fn.setqflist(qf_list, ' ')
+  vim.cmd('copen')
+end
+
 return utils

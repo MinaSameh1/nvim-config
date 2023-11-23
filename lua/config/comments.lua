@@ -3,6 +3,15 @@ if not status_ok then
   return
 end
 
+local status_comment_ok, comment_string_context = pcall(
+  require,
+  'ts_context_commentstring'
+)
+if not status_comment_ok then
+  print('Error in comment_string_context Comments.nvim config')
+  return
+end
+
 comment.setup({
   -- Add a space b/w comment and the line
   -- @type boolean
@@ -21,6 +30,10 @@ comment.setup({
     -- Block-comment keymap
     block = 'gb',
   },
+
+  hook = function()
+    comment_string_context.update_commentstring()
+  end,
 
   pre_hook = function(ctx)
     local U = require('Comment.utils')

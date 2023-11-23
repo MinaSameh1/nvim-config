@@ -43,3 +43,7 @@ vim.api.nvim_create_user_command(
   end,
   { nargs = 0, desc = 'Changes to package.json directory if found in parent' }
 )
+
+vim.api.nvim_create_user_command('JumpsToQf', function()
+  utils.jumps_to_qf()
+end, { nargs = 0, desc = 'Jumps to quickfix list' })
