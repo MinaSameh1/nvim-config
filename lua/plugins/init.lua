@@ -33,16 +33,7 @@ return {
     version = 'legacy',
     dependencies = 'lualine.nvim',
     event = 'LspAttach',
-    opts = {
-      sources = {
-        ['null-ls'] = {
-          ignore = true,
-        },
-        ['ltex'] = {
-          ignore = true,
-        },
-      },
-    },
+    opts = {},
   },
   {
     'anuvyklack/pretty-fold.nvim',
