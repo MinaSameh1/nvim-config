@@ -103,6 +103,7 @@ endif
 if exists('neovide')
   " NOTE: check out multigrid its been removed cuz of issues for now 
 
+  let g:neovide_transparency = 0.8
   " Increases the font size with `amount`
   function! Zoom(amount) abort
     call ZoomSet(matchstr(&guifont, '\d\+$') + a:amount)
