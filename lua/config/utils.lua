@@ -175,7 +175,7 @@ function utils.jumps_to_qf()
     end
   end
   vim.fn.setqflist(qf_list, ' ')
-  vim.cmd('copen')
+  vim.cmd('Trouble quickfix')
 end
 
 return utils
