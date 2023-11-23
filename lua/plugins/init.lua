@@ -421,6 +421,21 @@ return {
     event = 'VeryLazy',
   },
   {
+    'nvim-treesitter/nvim-treesitter-context',
+    event = 'BufReadPre',
+    opts = {
+      enable = true,
+    },
+    keys = {
+      {
+        '<leader>gtc',
+        function()
+          require('treesitter-context').go_to_context()
+        end,
+      },
+    },
+  },
+  {
     -- Auto close versions
     'windwp/nvim-autopairs',
     dependencies = 'nvim-treesitter/nvim-treesitter',
