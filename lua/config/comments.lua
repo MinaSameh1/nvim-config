@@ -3,10 +3,8 @@ if not status_ok then
   return
 end
 
-local status_comment_ok, comment_string_context = pcall(
-  require,
-  'ts_context_commentstring'
-)
+local status_comment_ok, comment_string_context =
+  pcall(require, 'ts_context_commentstring')
 if not status_comment_ok then
   print('Error in comment_string_context Comments.nvim config')
   return
