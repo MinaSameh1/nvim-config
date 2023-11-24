@@ -106,3 +106,5 @@ end
 --[[ initHighlights() ]]
 
 vim.cmd.colorscheme('solarized-osaka')
+-- Original is #268bd3 , use #000 for transparent
+vim.cmd('hi LspInlayHint guibg=#3a90f0 guifg=#123')
