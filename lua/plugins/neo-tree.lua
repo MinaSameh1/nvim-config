@@ -32,7 +32,7 @@ vim.g.neo_tree_remove_legacy_commands = 1
 
 vim.keymap.set(
   'n',
-  '<leader>pv',
+  'sf',
   '<Cmd>Neotree float toggle reveal_force_cwd<CR>',
   { silent = true, noremap = true, desc = 'Open File map' }
 )
