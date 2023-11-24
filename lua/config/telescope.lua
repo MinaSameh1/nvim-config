@@ -180,7 +180,7 @@ local Key = vim.keymap.set
 local Opts = { noremap = true, silent = true }
 local setDesc = require('config.utils').getDescWithMapOptsSetter(Opts)
 
-Key('n', ';s', function()
+Key('n', '<leader>fS', function()
   local builtin = require('telescope.builtin')
   builtin.treesitter({
     prompt_title = 'Treesitter',
