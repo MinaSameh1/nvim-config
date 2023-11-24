@@ -188,6 +188,8 @@ mason_lspconfig.setup_handlers({
   end,
   ['lua_ls'] = function()
     local opts = default_opts
+    opts.single_file_support = true
+
     opts.settings = {
       Lua = {
         runtime = {
@@ -203,13 +205,36 @@ mason_lspconfig.setup_handlers({
           library = vim.api.nvim_get_runtime_file('', true),
           checkThirdParty = false,
         },
+        completion = {
+          workspaceWord = true,
+          callSnippet = 'Both',
+        },
+        misc = {
+          parameters = {
+            -- "--log-level=trace",
+          },
+        },
         -- Do not send telemetry data containing a randomized but unique identifier
         telemetry = {
           enable = false,
         },
-        hint = { enable = true },
+        hint = {
+          enable = true,
+          setType = false,
+          paramType = true,
+          --[[ paramName = 'Disable', ]]
+          semicolon = 'Disable',
+          --[[ arrayIndex = 'Disable', ]]
+        },
       },
-      format = false, -- use stylua
+      format = {
+        enable = false, -- use stylua
+        defaultConfig = {
+          indent_style = 'space',
+          indent_size = '2',
+          continuation_indent_size = '2',
+        },
+      },
     }
     lspconfig['lua_ls'].setup(opts)
   end,
