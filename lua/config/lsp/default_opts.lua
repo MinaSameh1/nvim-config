@@ -196,7 +196,11 @@ M.on_attach = function(client, bufnr)
   -- end
   if vim.lsp.inlay_hint then
     vim.keymap.set('n', '<leader>th', function()
-      vim.lsp.inlay_hint.enable(bufnr, false)
+      if vim.lsp.inlay_hint.is_enabled(bufnr) then
+        vim.lsp.inlay_hint.enable(bufnr, false)
+      else
+        vim.lsp.inlay_hint.enable(bufnr, true)
+      end
     end, { expr = true, noremap = true, desc = '[T]oggle inlay [h]ints' })
     vim.lsp.inlay_hint.enable(bufnr, true)
   end
