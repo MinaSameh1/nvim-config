@@ -100,13 +100,13 @@ mason_lspconfig.setup_handlers({
     local opts = default_opts
     opts.format = false
 
-    vim.tbl_deep_extend('force', opts.handlers, {
-      ['textDocument/publishDiagnostics'] = api.filter_diagnostics(
-        -- Ignore 'This may be converted to an async function' diagnostics.
-        -- Ignore 'JSDoc Types can be moved to TypeScript types' diagnostics.
-        { 80006, 80004 }
-      ),
-    })
+    --[[ opts.handlers = vim.tbl_deep_extend('force', opts.handlers, {
+        ['textDocument/publishDiagnostics'] = api.filter_diagnostics(
+          -- Ignore 'This may be converted to an async function' diagnostics.
+          -- Ignore 'JSDoc Types can be moved to TypeScript types' diagnostics.
+          { 80006, 80004 }
+        ),
+    }) ]]
 
     opts.settings = {
       publish_diagnostic_on = 'insert_leave',
