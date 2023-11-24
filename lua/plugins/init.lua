@@ -534,13 +534,13 @@ return {
     'dracula/vim',
     name = 'dracula',
     lazy = false,
-    piority = 1000,
+    priority = 1000,
   },
-  { 'AlexvZyl/nordic.nvim', lazy = false, piority = 1000 },
+  { 'AlexvZyl/nordic.nvim', lazy = false, priority = 1000 },
   {
     'folke/tokyonight.nvim',
     lazy = false,
-    piority = 1000,
+    priority = 1000,
     config = function()
       vim.g.tokyonight_style = 'storm' -- Can be storm, night or day
       vim.g.tokyonight_sidebars = {
@@ -555,33 +555,33 @@ return {
   {
     'ayu-theme/ayu-vim',
     lazy = false,
-    piority = 1000,
+    priority = 1000,
   },
   {
     'ellisonleao/gruvbox.nvim',
     lazy = false,
-    piority = 1000,
+    priority = 1000,
   },
   {
     'shaunsingh/nord.nvim',
     lazy = false,
-    piority = 1000,
+    priority = 1000,
   },
   {
     'catppuccin/nvim',
     name = 'catppuccin',
     lazy = false,
-    piority = 1000,
+    priority = 1000,
   },
   {
     'nyoom-engineering/oxocarbon.nvim',
     lazy = false,
-    piority = 1000,
+    priority = 1000,
   },
   {
     'rose-pine/neovim',
     lazy = false,
-    piority = 1000,
+    priority = 1000,
     name = 'rose-pine',
     opts = {
       dark_variant = 'moon',
@@ -590,7 +590,7 @@ return {
   {
     'Tsuzat/NeoSolarized.nvim',
     lazy = false,
-    piority = 1000,
+    priority = 1000,
     main = 'NeoSolarized',
     --[[ config = function(opts) ]]
     --[[   require('NeoSolarized').setup(opts) ]]
@@ -618,7 +618,7 @@ return {
   {
     'rebelot/kanagawa.nvim',
     lazy = false,
-    piority = 1000,
+    priority = 1000,
     main = 'kanagawa',
     config = function(opts)
       require('kanagawa').setup(opts)
@@ -634,11 +634,11 @@ return {
       },
     },
   },
-  { 'sainnhe/sonokai', lazy = false, piority = 1000 },
+  { 'sainnhe/sonokai', lazy = false, priority = 1000 },
   {
     'mountain-theme/vim',
     lazy = false,
-    piority = 1000,
+    priority = 1000,
     name = 'mountain',
     branch = 'master',
   },
