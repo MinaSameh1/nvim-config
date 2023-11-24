@@ -241,23 +241,20 @@ M.on_attach = function(client, bufnr)
       group = augroup,
       buffer = bufnr,
       callback = function()
+        vim.lsp.buf.format({
+          -- async = true,
+          bufnr = bufnr,
+          filter = function(client_format)
+            if client_format.name == 'efm' then
+              return true
+            end
+            -- Use only null_ls for now.
+            return client_format.name == 'null-ls'
+          end,
+        })
         if beforeFormat then
           beforeFormat()
         end
-        -- Wait 400ms for the above commands to finish
-        vim.defer_fn(function()
-          vim.lsp.buf.format({
-            -- async = true,
-            bufnr = bufnr,
-            filter = function(client_format)
-              if client_format.name == 'efm' then
-                return true
-              end
-              -- Use only null_ls for now.
-              return client_format.name == 'null-ls'
-            end,
-          })
-        end, 400)
       end,
     })
   end

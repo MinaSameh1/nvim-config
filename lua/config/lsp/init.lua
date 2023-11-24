@@ -1,9 +1,11 @@
+---@diagnostic disable-next-line: param-type-mismatch
 local status_ok_lsp, lspconfig = pcall(require, 'lspconfig')
 if not status_ok_lsp then
   vim.notify('Problem with lsp!')
   return
 end
 
+---@diagnostic disable-next-line: param-type-mismatch
 local status_ok_mason, mason = pcall(require, 'mason')
 if not status_ok_mason then
   vim.notify('Problem with mason!')
@@ -19,6 +21,7 @@ mason.setup({
   },
 })
 
+---@diagnostic disable-next-line: param-type-mismatch
 local status_ok_mason_lsp, mason_lspconfig = pcall(require, 'mason-lspconfig')
 if not status_ok_mason_lsp then
   vim.notify('Problem with mason-lspconfig!')
@@ -49,7 +52,7 @@ mason_lspconfig.setup({
 })
 
 local default_opts = require('config.lsp.default_opts').default_opts
-local utils = require('config.lsp.utils')
+--[[ local utils = require('config.lsp.utils') ]]
 local on_attach = require('config.lsp.default_opts').on_attach
 local handlers = require('config.lsp.default_opts').handlers
 local words = require('config.lsp.default_opts').words
@@ -93,26 +96,37 @@ mason_lspconfig.setup_handlers({
       { desc = 'Remove console.log' }
     )
 
+    local api = require('typescript-tools.api')
     local opts = default_opts
     opts.format = false
+
+    vim.tbl_deep_extend('force', opts.handlers, {
+      ['textDocument/publishDiagnostics'] = api.filter_diagnostics(
+        -- Ignore 'This may be converted to an async function' diagnostics.
+        -- Ignore 'JSDoc Types can be moved to TypeScript types' diagnostics.
+        { 80006, 80004 }
+      ),
+    })
+
     opts.settings = {
       publish_diagnostic_on = 'insert_leave',
       -- WARNING: Experimental feature also in VSCode, because it might hit performance of server.
       -- possible values: ("off"|"all"|"implementations_only"|"references_only")
       code_lens = 'all',
       tsserver_file_preferences = {
-        --[[ * If enabled, completions for class members (e.g. methods and properties) will include ]]
-        --[[ * a whole declaration for the member. ]]
-        --[[ * E.g., `class A { f| }` could be completed to `class A { foo(): number {} }`, instead of ]]
-        --[[ * `class A { foo }`. ]]
+        -- * If enabled, completions for class members (e.g. methods and properties) will include
+        -- * a whole declaration for the member.
+        -- * E.g., `class A { f| }` could be completed to `class A { foo(): number {} }`, instead of
+        -- * `class A { foo }`.
         includeCompletionsWithClassMemberSnippets = true,
-        --[[ * If enabled, object literal methods will have a method declaration completion entry in addition ]]
-        --[[ * to the regular completion entry containing just the method name. ]]
-        --[[ * E.g., `const objectLiteral: T = { f| }` could be completed to `const objectLiteral: T = { foo(): void {} }`, ]]
-        --[[ * in addition to `const objectLiteral: T = { foo }`. ]]
+        -- * If enabled, object literal methods will have a method declaration completion entry in addition
+        -- * to the regular completion entry containing just the method name.
+        -- * E.g.,
+        -- `const objectLiteral: T = { f| }` could be completed to `const objectLiteral: T = { foo(): void {} }`,
+        -- * in addition to `const objectLiteral: T = { foo }`.
         includeCompletionsWithObjectLiteralMethodSnippets = true,
-        --[[ * Enables auto-import-style completions on partially-typed import statements. E.g., allows ]]
-        --[[ * `import write|` to be completed to `import { writeFile } from "fs"`. ]]
+        -- * Enables auto-import-style completions on partially-typed import statements. E.g., allows
+        -- * `import write|` to be completed to `import { writeFile } from "fs"`.
         includeCompletionsForImportStatements = true,
         generateReturnInDocTemplate = true,
         -- inlay hints
