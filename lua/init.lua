@@ -81,11 +81,12 @@ for newgroup, oldgroup in pairs(links) do
   vim.api.nvim_set_hl(0, newgroup, { link = oldgroup, default = true })
 end
 
-vim.api.nvim_create_autocmd('ColorScheme', {
-  -- Colors: Purple
-  callback = function()
-    vim.api.nvim_set_hl(0, '@lsp.mod.readonly', { italic = true })
-    vim.cmd([[
+local function initHighlights()
+  vim.api.nvim_create_autocmd('ColorScheme', {
+    -- Colors: Purple
+    callback = function()
+      vim.api.nvim_set_hl(0, '@lsp.mod.readonly', { italic = true })
+      vim.cmd([[
     " hi @lsp.type.class      guifg=Aqua
     " hi @lsp.type.function   guifg=Yellow
     hi @lsp.type.method     guifg=Orange
@@ -98,7 +99,10 @@ vim.api.nvim_create_autocmd('ColorScheme', {
     " hi @lsp.typemod.variable.fileScope   guifg=Orange
     hi @lsp.typemod.variable.globalScope guifg=Red
     ]])
-  end,
-})
+    end,
+  })
+end
 
-vim.cmd.colorscheme('NeoSolarized')
+--[[ initHighlights() ]]
+
+vim.cmd.colorscheme('solarized-osaka')
