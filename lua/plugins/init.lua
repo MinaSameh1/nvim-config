@@ -128,9 +128,7 @@ return {
       'nvim-lua/plenary.nvim',
       'nvim-neo-tree/neo-tree.nvim',
     },
-    config = function()
-      require('lsp-file-operations').setup()
-    end,
+    opts = {},
   },
   -- better matchit plug
   {
@@ -217,7 +215,7 @@ return {
     'neovim/nvim-lspconfig',
     lazy = false,
     config = function()
-      require('config.lsp.NeovimLSP')
+      require('config.lsp')
     end,
     dependencies = {
       { 'hrsh7th/cmp-nvim-lsp' },
