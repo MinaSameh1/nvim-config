@@ -469,20 +469,32 @@ return {
     'folke/todo-comments.nvim',
     dependencies = 'nvim-lua/plenary.nvim',
     event = 'BufRead',
-    config = function()
-      require('todo-comments').setup({
-        keywords = {
-          TODO = {
-            'todo',
-          },
-          FIX = {
-            alt = { 'FIXME', 'BUG', 'FIXIT', 'ISSUE' },
-          },
-          WARN = { alt = { 'WARNING', 'XXX' } },
-          NOTE = { alt = { 'INFO', 'Note', 'note' } },
+    keys = {
+      {
+        ']t',
+        function()
+          require('todo-comments').jump_next()
+        end,
+      },
+      {
+        '[t',
+        function()
+          require('todo-comments').jump_prev()
+        end,
+      },
+    },
+    opts = {
+      keywords = {
+        TODO = {
+          'todo',
         },
-      })
-    end,
+        FIX = {
+          alt = { 'FIXME', 'BUG', 'FIXIT', 'ISSUE' },
+        },
+        WARN = { alt = { 'WARNING', 'XXX' } },
+        NOTE = { alt = { 'INFO', 'Note', 'note' } },
+      },
+    },
   },
 
   -- Icons

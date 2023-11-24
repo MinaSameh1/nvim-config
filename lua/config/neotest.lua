@@ -80,12 +80,12 @@ nnoremap(
 
 -- Jump between test failures
 nnoremap(
-  '<silent>[t',
+  '<leader>[t',
   '<cmd>lua require("neotest").jump.prev({ status = "failed" })<CR>',
   { desc = 'Jump to previous failed test' }
 )
 nnoremap(
-  '<silent>]t',
+  '<leader>]t',
   '<cmd>lua require("neotest").jump.next({ status = "failed" })<CR>',
   { desc = 'Jump to next failed test' }
 )
