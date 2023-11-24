@@ -149,6 +149,7 @@ local default = {
       preview_width = 0.7,
     },
     live_grep = {
+      initial_mode = 'insert',
       preview = true,
       layout = 'horizontal',
       layout_config = {
@@ -175,9 +176,19 @@ local default = {
 
 telescope.setup(default)
 
-local Key = vim.api.nvim_set_keymap
+local Key = vim.keymap.set
 local Opts = { noremap = true, silent = true }
 local setDesc = require('config.utils').getDescWithMapOptsSetter(Opts)
+
+Key('n', ';s', function()
+  local builtin = require('telescope.builtin')
+  builtin.treesitter({
+    prompt_title = 'Treesitter',
+    initial_mode = 'normal',
+  })
+end, {
+  desc = 'Lists Function names, variables, from Treesitter',
+})
 
 -- Find files using Telescope command-line sugar.
 Key('n', '<leader>fr', '<Cmd>Telescope resume<CR>', setDesc('Resume'))
