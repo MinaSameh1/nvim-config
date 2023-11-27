@@ -262,13 +262,13 @@ export const {}Repository = {{
     query: FilterQuery<{upper}Document>,
     options: QueryOptions<{upper}Document> | undefined = {{}}
   ) =>
-    {upper}Model.findOne(query, options).lean().exec(),
+    {upper}Model.findOne<{upper}>(query, options).lean().exec(),
 
   findById: (
     id: string,
     options: QueryOptions<{upper}Document> | undefined = {{}}
   ) =>
-    {upper}Model.findById(id, options).lean().exec(),
+    {upper}Model.findById<{upper}>(id, options).lean().exec(),
 
   Create: (item: {upper}) => {upper}Model.create(item),
 
@@ -279,7 +279,7 @@ export const {}Repository = {{
     options: QueryOptions<{upper}Document> | undefined = {{}},
     select: ProjectionType<{upper}Document> = {{}}
   ) =>
-    {upper}Model.find(query, select, options)
+    {upper}Model.find<{upper}>(query, select, options)
       .limit(limit)
       .skip(skip)
       .sort({{ createdAt: -1 }})
@@ -287,14 +287,14 @@ export const {}Repository = {{
       .exec(),
 
   updateOne: (query: FilterQuery<{upper}Document>, update: Partial<{upper}>) =>
-    {upper}Model.findOneAndUpdate(query, update, {{ new: true }}),
+    {upper}Model.findOneAndUpdate<{upper}>(query, update, {{ new: true }}).exec(),
 
   updateById: (id: string, update: Partial<{upper}>) =>
-    {upper}Model.findByIdAndUpdate(id, update, {{ new: true }}),
+    {upper}Model.findByIdAndUpdate<{upper}>(id, update, {{ new: true }}).exec(),
 
-  deleteOne: (query: FilterQuery<{upper}Document>) => {upper}Model.findOneAndDelete(query),
+  deleteOne: (query: FilterQuery<{upper}Document>) => {upper}Model.findOneAndDelete<{upper}>(query).exec(),
 
-  deleteById: (id: string) => {upper}Model.findByIdAndDelete(id)
+  deleteById: (id: string) => {upper}Model.findByIdAndDelete<{upper}>(id).exec()
 }};
       ]],
       {
@@ -307,22 +307,24 @@ export const {}Repository = {{
     { trig = 'expmongorepo', dscr = 'Express Mongoose Repository' },
     s.fmt(
       [[import {{ FilterQuery, QueryOptions, ProjectionType }} from "mongoose";
-import {{ {upper}, {upper}Model, {upper} }} from "../models";
+import {{ {upper}, {upper}Model }} from "../models";
+import {{ ObjectId }} from "../../../utils";
 
 export const {}Repository = {{
   findOne: (
     query: FilterQuery<{upper}>,
     options: QueryOptions<{upper}> | undefined = {{}}
   ) =>
-    {upper}Model.findOne(query, options).lean().exec(),
+    {upper}Model.findOne<{upper}>(query, options).lean().exec(),
 
   findById: (
     id: string,
-    options: QueryOptions<{upper}> | undefined = {{}}
+    options: QueryOptions<{upper}> | undefined = {{}},
+    select: ProjectionType<{upper}> = {{}}
   ) =>
-    {upper}Model.findById(id, options).lean().exec(),
+    {upper}Model.findById(id, select, options).lean().exec(),
 
-  Create: (item: {upper}) => {upper}Model.create(item),
+  Create: (item: Partial<Omit<{upper}, '_id' | 'createdAt' | 'updatedAt'>>) => {upper}Model.create(item),
 
   find: (
     query: FilterQuery<{upper}>,
@@ -331,7 +333,7 @@ export const {}Repository = {{
     options: QueryOptions<{upper}> | undefined = {{}},
     select: ProjectionType<{upper}> = {{}}
   ) =>
-    {upper}Model.find(query, select, options)
+    {upper}Model.find<{upper}>(query, select, options)
       .limit(limit)
       .skip(skip)
       .sort({{ createdAt: -1 }})
@@ -339,19 +341,190 @@ export const {}Repository = {{
       .exec(),
 
   updateOne: (query: FilterQuery<{upper}>, update: Partial<{upper}>) =>
-    {upper}Model.findOneAndUpdate(query, update, {{ new: true }}),
+    {upper}Model.findOneAndUpdate<{upper}>(query, update, {{ new: true }}).exec(),
 
-  updateById: (id: string, update: Partial<{upper}>) =>
-    {upper}Model.findByIdAndUpdate(id, update, {{ new: true }}),
+  updateById: (id: string, update: Partial<{upper}>, select: ProjectionType<{upper}> = {{}}) =>
+    {upper}Model.findByIdAndUpdate<{upper}>(id, update, {{ new: true, lean: true }}).select(select).exec(),
 
-  deleteOne: (query: FilterQuery<{upper}>) => {upper}Model.findOneAndDelete(query),
+  deleteOne: (query: FilterQuery<{upper}>) => {upper}Model.findOneAndDelete<{upper}>(query).exec(),
 
-  deleteById: (id: string) => {upper}Model.findByIdAndDelete(id)
+  deleteById: (id: string) => {upper}Model.findByIdAndDelete<{upper}>(id).exec(),
+
+  filterSearch: (query: object) => {{
+    const filter: FilterQuery<{upper}> = {{}}
+
+    if("_id" in query) {{
+      filter['_id'] = ObjectId(String(query._id).replace(/$|\\/, ''))
+    }}
+
+    return filter
+  }}
 }};
       ]],
       {
         s.i(1, 'name'),
         upper = s.l(s.l._1:sub(1, 1):upper() .. l._1:sub(2, -1), 1),
+      }
+    )
+  ),
+  s.s(
+    { trig = 'expcrudcont', dscr = 'Express Crud Controller' },
+    s.fmt(
+      [[import {{ NextFunction, Request, Response }} from "express";
+import {{ ErrorMessage }} from "../../../../assets/errors";
+import {{ HttpStatus }} from "../../../../assets/httpCodes";
+import {{ {repo} }} from "../../repositories";
+
+export async function Create(req: Request, res: Response, next: NextFunction) {{
+  try {{
+    const data = await {repo}.Create(req.body);
+
+    if (!data)
+      return res
+        .status(HttpStatus.CONFLICT)
+        .json({{ message:  ErrorMessage.SOMETHING_WENT_WRONG }});
+    return res.status(HttpStatus.CREATED).json({{ data }});
+  }} catch (err) {{
+    next(err);
+  }}
+}}
+
+export async function List(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {{
+  try {{
+    const data = await {}.find(
+      {repo}.filterSearch(req.query),
+      req.limit,
+      req.skip,
+      undefined,
+      {{}}
+    );
+    if (!data) {{
+      res
+        .status(HttpStatus.NO_CONTENT)
+        .json({{ message: ErrorMessage.NO_CONTENT }});
+    }}
+    res.send({{ data, length: data.length }});
+  }} catch (error) {{
+    next(error);
+  }}
+}};
+
+export async function One(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {{
+  try {{
+    const Id = req.params.id;
+    const data = await {repo}.findById(Id);
+
+    if (!data)
+      res
+        .status(HttpStatus.NO_CONTENT)
+        .json({{ message: ErrorMessage.NO_CONTENT }});
+    res.send({{ data }});
+  }} catch (error) {{
+    next(error);
+  }}
+}};
+
+export async function Update (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {{
+  try {{
+    const Id = req.params.id;
+    const data = await {repo}.updateById(
+      Id,
+      req.body
+    );
+    if (!data)
+      return res
+        .status(HttpStatus.BAD_REQUEST)
+        .json({{ message: ErrorMessage.NO_RESOURCE_FOUND }});
+    return res
+      .status(HttpStatus.OK)
+      .json({{ data }});
+  }} catch (error) {{
+    next(error);
+  }}
+}};
+
+export async function Delete(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {{
+  try {{
+    const Id = req.params.id;
+    const data = await {repo}.deleteById(Id);
+    if (!data) {{
+      return res
+        .status(HttpStatus.NOT_FOUND)
+        .json({{ message: ErrorMessage.NO_RESOURCE_FOUND }});
+    }}
+    return res
+      .status(HttpStatus.OK)
+      .send({{ message: ErrorMessage.SUCCESS_ACTION }});
+  }} catch (error) {{
+    next(error);
+  }}
+}};
+    ]],
+      {
+        s.i(1, 'name'),
+        repo = s.f(s.copy, 1),
+      }
+    )
+  ),
+  s.s(
+    { trig = 'expcrudrouter', dscr = 'ExpressJS crud Router' },
+    s.fmt(
+      [[
+import * as Controller from '../controllers/{cont}'
+import {{ Router }} from "express";
+import {{ isObjectId }} from "../../../../utils";
+import {{
+  Log,
+  LogEverything,
+  verifyAdminOnly,
+  verifyParams
+}} from "../../../../middlewares";
+
+const {router}Router = Router();
+
+{name}Router.get("/", Controller.List);
+{name}Router.get("/:id", verifyParams(["id"], isObjectId), Controller.One);
+
+{name}Router.patch(
+  "/:id",
+  LogEverything,
+  verifyAdminOnly,
+  verifyParams(["id"], isObjectId),
+  Controller.Update
+);
+
+{name}Router.post("/", Log, Controller.Create);
+
+{name}Router.delete(
+  "/:id",
+  Log,
+  verifyAdminOnly,
+  verifyParams(["id"], isObjectId),
+  Controller.Delete
+);
+
+export default {name}Router;
+]],
+      {
+        router = s.i(),
+        const = s.i(),
+        name = s.f(s.copy, 1),
       }
     )
   ),
