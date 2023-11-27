@@ -522,8 +522,8 @@ const {router}Router = Router();
 export default {name}Router;
 ]],
       {
-        router = s.i(),
-        const = s.i(),
+        router = s.i(1),
+        cont = s.i(2),
         name = s.f(s.copy, 1),
       }
     )
