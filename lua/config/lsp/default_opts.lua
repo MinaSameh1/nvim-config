@@ -223,15 +223,15 @@ M.on_attach = function(client, bufnr)
     end,
   })
 
-  if client.name == 'typescript-tools' or client.name == 'tsserver' then
-    beforeFormat = function()
-      vim.cmd.TSToolsRemoveUnusedImports()
-      vim.cmd.TSToolsAddMissingImports()
-      vim.cmd.TSToolsSortImports()
-      vim.cmd.TSToolsOrganizeImports()
-      vim.cmd.TSToolsFixAll()
-    end
-  end
+  --[[ if client.name == 'typescript-tools' or client.name == 'tsserver' then ]]
+  --[[   beforeFormat = function() ]]
+  --[[     vim.cmd.TSToolsRemoveUnusedImports() ]]
+  --[[     vim.cmd.TSToolsAddMissingImports() ]]
+  --[[     vim.cmd.TSToolsSortImports() ]]
+  --[[     vim.cmd.TSToolsOrganizeImports() ]]
+  --[[     vim.cmd.TSToolsFixAll() ]]
+  --[[   end ]]
+  --[[ end ]]
 
   -- For formatting
   if client.supports_method('textDocument/formatting') then
