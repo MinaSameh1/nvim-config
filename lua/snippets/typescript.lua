@@ -196,7 +196,7 @@ return {
     )
   ),
   s.s(
-    { trig = 'expmongomodel', dscr = 'Express Mongoose Model' },
+    { trig = 'expoldmongomodel', dscr = 'Express Mongoose Model' },
     s.fmt(
       [[import mongoose from "mongoose";
 
@@ -225,7 +225,34 @@ export default {upper}Model;
     )
   ),
   s.s(
-    { trig = 'expmongorepo', dscr = 'Express Mongoose Repository' },
+    { trig = 'expmongomodel', dscr = 'Express Mongoose Model' },
+    s.fmt(
+      [[import mongoose from "mongoose";
+
+export interface {} {{
+  _id: mongoose.Types.ObjectId;
+  createdAt: Date;
+  updatedAt: Date;
+}}
+
+const {upper}Schema = new mongoose.Schema<{upper}>({{}}, {{ timestamps: true }});
+
+export const {upper}Model = mongoose.model<{upper}>("{lower}", {upper}Schema);
+
+// Just in case, but why would we need this type?
+// export type {upper}Document = ReturnType<(typeof {upper}Model)["hydrate"]>;
+
+export default {upper}Model;
+]],
+      {
+        s.i(1, 'name'),
+        lower = s.l(s.l._1:lower(), 1),
+        upper = s.l(s.l._1:sub(1, 1):upper() .. l._1:sub(2, -1), 1),
+      }
+    )
+  ),
+  s.s(
+    { trig = 'expoldmongorepo', dscr = 'Express Mongoose Repository' },
     s.fmt(
       [[import {{ FilterQuery, QueryOptions, ProjectionType }} from "mongoose";
 import {{ {upper}Document, {upper}Model, {upper} }} from "../models";
@@ -266,6 +293,58 @@ export const {}Repository = {{
     {upper}Model.findByIdAndUpdate(id, update, {{ new: true }}),
 
   deleteOne: (query: FilterQuery<{upper}Document>) => {upper}Model.findOneAndDelete(query),
+
+  deleteById: (id: string) => {upper}Model.findByIdAndDelete(id)
+}};
+      ]],
+      {
+        s.i(1, 'name'),
+        upper = s.l(s.l._1:sub(1, 1):upper() .. l._1:sub(2, -1), 1),
+      }
+    )
+  ),
+  s.s(
+    { trig = 'expmongorepo', dscr = 'Express Mongoose Repository' },
+    s.fmt(
+      [[import {{ FilterQuery, QueryOptions, ProjectionType }} from "mongoose";
+import {{ {upper}, {upper}Model, {upper} }} from "../models";
+
+export const {}Repository = {{
+  findOne: (
+    query: FilterQuery<{upper}>,
+    options: QueryOptions<{upper}> | undefined = {{}}
+  ) =>
+    {upper}Model.findOne(query, options).lean().exec(),
+
+  findById: (
+    id: string,
+    options: QueryOptions<{upper}> | undefined = {{}}
+  ) =>
+    {upper}Model.findById(id, options).lean().exec(),
+
+  Create: (item: {upper}) => {upper}Model.create(item),
+
+  find: (
+    query: FilterQuery<{upper}>,
+    limit = 10,
+    skip = 0,
+    options: QueryOptions<{upper}> | undefined = {{}},
+    select: ProjectionType<{upper}> = {{}}
+  ) =>
+    {upper}Model.find(query, select, options)
+      .limit(limit)
+      .skip(skip)
+      .sort({{ createdAt: -1 }})
+      .lean()
+      .exec(),
+
+  updateOne: (query: FilterQuery<{upper}>, update: Partial<{upper}>) =>
+    {upper}Model.findOneAndUpdate(query, update, {{ new: true }}),
+
+  updateById: (id: string, update: Partial<{upper}>) =>
+    {upper}Model.findByIdAndUpdate(id, update, {{ new: true }}),
+
+  deleteOne: (query: FilterQuery<{upper}>) => {upper}Model.findOneAndDelete(query),
 
   deleteById: (id: string) => {upper}Model.findByIdAndDelete(id)
 }};
