@@ -5,6 +5,15 @@ if not status_ok then
   return
 end
 
+local js_based_languages = {
+  "typescript",
+  "javascript",
+  "typescriptreact",
+  "javascriptreact",
+  "vue",
+  "astro"
+}
+
 -- Firefox adaptor config, works
 dap.adapters.firefox = {
   type = 'executable',
@@ -533,6 +542,26 @@ command! DapStart lua require'dap'.continue()
 
 map('n', '<leader>ds', ':Telescope dap frames<CR>')
 map('n', '<leader>dc', ':Telescope dap commands<CR>')
+
+vim.keymap.set(
+  'n',
+  '<leader>dc',
+  function()
+          if vim.fn.filereadable(".vscode/launch.json") then
+            local dap_vscode = require("dap.ext.vscode")
+            dap_vscode.load_launchjs(nil, {
+              ["pwa-node"] = js_based_languages,
+              ["node"] = js_based_languages,
+              ["chrome"] = js_based_languages,
+              ["pwa-chrome"] = js_based_languages,
+            })
+          end
+          require("dap").continue()
+  end,
+  {
+    desc = 'Dap commands'
+  }
+)
 map('n', '<leader>db', ':Telescope dap list_breakpoints<CR>')
 map('n', '<leader>dlc', ':lua require"telescope".extensions.dap.commands{}<CR>')
 map('n', '<leader>dLC', '<Cmd>DapEditLocalConfig<CR>')
