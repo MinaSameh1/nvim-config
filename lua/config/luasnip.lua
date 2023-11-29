@@ -59,9 +59,8 @@ require('luasnip.loaders.from_lua').lazy_load({
 })
 
 -- Luasnip popups
-local current_nsid = vim.api.nvim_create_namespace(
-  'LuaSnipChoiceListSelections'
-)
+local current_nsid =
+  vim.api.nvim_create_namespace('LuaSnipChoiceListSelections')
 local current_win = nil
 
 local function window_for_choiceNode(choiceNode)
