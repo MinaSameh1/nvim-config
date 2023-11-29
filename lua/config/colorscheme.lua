@@ -7,8 +7,8 @@ vim.api.nvim_set_hl(0, 'FloatBorder', { fg = 'white', bg = '#1f2335' })
 
 function M.TransparentEnable()
   M.bg = vim.api.nvim_get_hl(0, {
-    name = 'NormalFloat',
-  }).background
+    name = 'Normal',
+  }).bg
   vim.api.nvim_set_hl(0, 'Normal', { bg = 'none' })
   vim.api.nvim_set_hl(0, 'NormalFloat', { bg = 'none' })
   vim.api.nvim_set_hl(0, 'FloatBorder', { bg = 'none' })
@@ -23,6 +23,7 @@ function M.TransparentEnable()
 end
 
 function M.TransparentDisable()
+  M.bg = nil
   vim.api.nvim_set_hl(0, 'Normal', { bg = M.bg or 'none' })
   vim.api.nvim_set_hl(0, 'NormalFloat', { bg = M.bg or 'none' })
   vim.api.nvim_set_hl(0, 'EndOfBuffer', { bg = M.bg or 'none' })

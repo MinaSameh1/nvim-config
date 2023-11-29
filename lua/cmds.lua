@@ -6,6 +6,10 @@ vim.api.nvim_create_user_command('TransparentDisable', function()
   require('config.colorscheme').TransparentDisable()
 end, { nargs = 0, desc = 'Disables transparent background' })
 
+vim.api.nvim_create_user_command('TransparentToggle', function()
+  require('config.colorscheme').TransparentToggle()
+end, { nargs = 0, desc = 'Disables transparent background' })
+
 local utils = require('config.utils')
 
 vim.api.nvim_create_user_command('CdCurrentFile', function()

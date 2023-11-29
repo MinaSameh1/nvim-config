@@ -15,7 +15,6 @@ vim.opt.conceallevel = 1
 -- Fuigitive
 nnoremap('<leader>gg', '<Cmd>Git<CR>') -- fugitive Git window
 nnoremap('<leader>gc', '<Cmd>Git commit<CR>') -- Commit
-
 -- Easy Align
 xmap('ga', '<Plug>(EasyAlign)') -- Start interactive EasyAlign in visual mode (e.g. vipga)
 nnoremap('ga', '<Plug>(EasyAlign)') -- Start interactive EasyAlign for a motion/text object (e.g. gaip)
@@ -118,6 +117,7 @@ end
 
 initHighlights()
 
+vim.opt.fillchars = { eob = ' ' }
 vim.cmd.colorscheme('solarized-osaka')
 -- Original is #268bd3 , use #000 for transparent
 vim.cmd('hi LspInlayHint guibg=#3a90f0 guifg=#123')
