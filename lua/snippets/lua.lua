@@ -20,8 +20,10 @@ local function_q = vim.treesitter.query.parse(
 )
 -- This only matches returns that actually return something, so early return can still be used for
 -- control flow!
-local return_q =
-  vim.treesitter.query.parse('lua', '(return_statement (expression_list)) @ret')
+local return_q = vim.treesitter.query.parse(
+  'lua',
+  '(return_statement (expression_list)) @ret'
+)
 
 --- Obtains list of parameter names for the next lua function and whether it returns something.
 -- @param linenr Line number at which we start searching.
@@ -64,6 +66,8 @@ return {
   s.parse('ipairs', 'for ${1:i}, ${2:value} in ipairs($3) do\n\t$0\nend'),
   s.parse('if', 'if ${1:cond} then\n\t$0\nend'),
   s.parse('ifn', 'if not ${1:cond} then\n\t$0\nend'),
+  s.parse('lf', 'local function ${1:name}(${2})\n  $0\nend'),
+  s.parse('mf', 'function ${1:M}.${2:name}(${3})\n  $0\nend'),
   s.s(
     'req',
     s.fmt('local {} = require("{}")', {
