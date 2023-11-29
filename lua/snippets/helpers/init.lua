@@ -9,7 +9,6 @@ Snip.f = Snip.ls.function_node
 Snip.c = Snip.ls.choice_node
 Snip.d = Snip.ls.dynamic_node
 Snip.r = Snip.ls.restore_node
-Snip.copy = Snip.ls.copy
 Snip.parse = Snip.ls.parser.parse_snippet
 Snip.sn = Snip.ls.snippet_node
 Snip.l = require('luasnip.extras').lambda
@@ -25,9 +24,9 @@ Snip.conds = require('luasnip.extras.expand_conditions')
 Snip.add_snippets = Snip.ls.add_snippets
 Snip.postfix = require('luasnip.extras.postfix')
 
---[[ function Snip.copy(args)
+function Snip.copy(args)
   return args[1]
-end ]]
+end
 
 function Snip.get_visual(_args, parent, _) -- third argument is old_state, which we don't use
   if #parent.snippet.env.SELECT_RAW > 0 then
