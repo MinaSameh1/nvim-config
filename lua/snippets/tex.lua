@@ -51,6 +51,35 @@ tex_utils.in_itemize = function()
   return tex_utils.in_env('itemize')
 end
 
+function tex_utils.table_node(args)
+  local tabs = {}
+  local count
+  local table = args[1][1]:gsub('%s', ''):gsub('|', '')
+  count = table:len()
+  for j = 1, count do
+    local iNode
+    iNode = i(j)
+    tabs[2 * j - 1] = iNode
+    if j ~= count then
+      tabs[2 * j] = t(' & ')
+    end
+  end
+  return sn(nil, tabs)
+end
+
+function tex_utils.rec_table()
+  return sn(nil, {
+    s.c(1, {
+      s.t({ '' }),
+      sn(nil, {
+        s.t({ '\\\\', '' }),
+        s.d(1, s.table_node, { s.ai[1] }),
+        s.d(2, s.rec_table, { s.ai[1] }),
+      }),
+    }),
+  })
+end
+
 return {
   -- rec_ls is self-referencing. That makes this snippet 'infinite' eg. have as many
   -- \item as necessary by utilizing a choiceNode.
@@ -65,6 +94,14 @@ return {
     s.i(1),
     s.d(2, rec_ls, {}),
     s.t({ '', '\\end{enumerate}' }),
+  }),
+  s('table', {
+    s.t('\\begin{tabular}{'),
+    s.i(1, '0'),
+    s.t({ '}', '' }),
+    s.d(2, tex_utils.table_node, { 1 }, {}),
+    s.d(3, tex_utils.rec_table, { 1 }),
+    s.t({ '', '\\end{tabular}' }),
   }),
   s.s(
     'gather',

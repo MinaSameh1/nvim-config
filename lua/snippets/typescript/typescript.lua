@@ -1,7 +1,7 @@
 local s = require('snippets.helpers')
 local get_node_text = require('config.utils').get_node_text
 
-require('snippets.javascript') -- Load js snippets
+--[[ require('snippets.javascript') -- Load js snippets ]]
 
 -- Needed for fancy snippets
 local ts_utils_ok, ts_utils = pcall(require, 'nvim-treesitter.ts_utils')
@@ -63,6 +63,15 @@ end
 return {
   -- TODO: Fix this, needs better queries
   s.s('doc', {
+    s.s(
+      'todo',
+      s.fmt([[ // TODO: {date} {}]], {
+        date = s.f(function()
+          return os.date('%D - %H:%M')
+        end),
+        s.i(1),
+      })
+    ),
     s.t({ '', '/**' }),
     s.t({ '', ' *' }),
     s.i(1, ' Function description.'),
@@ -115,7 +124,8 @@ return {
         ret = s.f(s.copy, 5),
         doc = s.f(s.copy, 2),
       }
-    )
+    ),
+    { condition = s.conds.line_begin }
   ),
   s.parse({
     trig = 'errimpl',
@@ -123,4 +133,26 @@ return {
   }, 'throw new Error("${1:Not Implemented}");'),
   s.parse('clgv', 'console.log("${1:value} >>", ${2:value});'),
   s.parse('clg', 'console.log("${1:value}");'),
+  s.s(
+    { trig = 'time', dscr = 'Time code execution' },
+    s.fmta(
+      [[
+        const start = new Date().getTime();
+        <>
+        const end = new Date().getTime() - start;
+        console.log(">>#Execution time of <>: " + end + "ms");
+      ]],
+      {
+        s.d(1, s.get_visual),
+        s.i(2, 'name'),
+      }
+    )
+  ),
+  s.s(
+    { trig = 'cl', snippetType = 'autosnippet' },
+    s.fmta([[console.log(<>)]], {
+      s.d(1, s.get_visual),
+    }),
+    { condition = s.conds.line_begin }
+  ),
 }
