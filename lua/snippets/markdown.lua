@@ -1,7 +1,7 @@
-local s = require('snippets.shorthands').s
-local i = require('snippets.shorthands').i
-local t = require('snippets.shorthands').t
-local f = require('snippets.shorthands').f
+local s = require('snippets.helpers').s
+local i = require('snippets.helpers').i
+local t = require('snippets.helpers').t
+local f = require('snippets.helpers').f
 
 local date = function()
   return os.date('%D - %H:%M')

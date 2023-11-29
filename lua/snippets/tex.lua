@@ -1,4 +1,4 @@
-local s = require('snippets.shorthands')
+local s = require('snippets.helpers')
 local d = s.d
 local i = s.i
 local parse = s.parse

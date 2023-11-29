@@ -1,4 +1,4 @@
-local s = require('snippets.shorthands')
+local s = require('snippets.helpers')
 local get_node_text = require('config.utils').get_node_text
 
 -- See https://github.com/t-troebst/config.nvim/blob/master/lua/user/snippets/lua.lua
@@ -20,8 +20,10 @@ local function_q = vim.treesitter.query.parse(
 )
 -- This only matches returns that actually return something, so early return can still be used for
 -- control flow!
-local return_q =
-  vim.treesitter.query.parse('lua', '(return_statement (expression_list)) @ret')
+local return_q = vim.treesitter.query.parse(
+  'lua',
+  '(return_statement (expression_list)) @ret'
+)
 
 --- Obtains list of parameter names for the next lua function and whether it returns something.
 -- @param linenr Line number at which we start searching.

@@ -1,14 +1,15 @@
 -- Snippet from https://gist.github.com/davidatsurge/9873d9cb1781f1a37c0f25d24cb1b3ab
 -- local ls = require("luasnip")
 local fmt = require('luasnip.extras.fmt').fmt
-local ls = require('luasnip')
-local s = ls.snippet
-local i = ls.insert_node
-local f = ls.function_node
-local d = ls.dynamic_node
-local sn = ls.snippet_node
-local l = require('luasnip.extras').l
-local rep = require('luasnip.extras').rep
+local ls = require('snippets.helpers')
+local s = ls.s
+local i = ls.i
+local f = ls.f
+local d = ls.f
+local sn = ls.sn
+local l = ls.l
+local rep = ls.rep
+
 local get_node_text = require('config.utils').get_node_text
 
 -- Get a list of  the property names given an `interface_declaration`

@@ -1,4 +1,4 @@
-local s = require('snippets.shorthands')
+local s = require('snippets.helpers')
 local l = require('luasnip.extras').l
 
 return {

@@ -1,4 +1,4 @@
-local s = require('snippets.shorthands')
+local s = require('snippets.helpers')
 local l = require('luasnip.extras').l
 local get_node_text = require('config.utils').get_node_text
 
@@ -21,8 +21,10 @@ local function_q = vim.treesitter.query.parse(
 )
 -- This only matches returns that actually return something, so early return can still be used for
 -- control flow!
-local return_q =
-  vim.treesitter.query.parse('typescript', '(return_statement) @ret')
+local return_q = vim.treesitter.query.parse(
+  'typescript',
+  '(return_statement) @ret'
+)
 
 --- Obtains list of parameter names for the next lua function and whether it returns something.
 -- @param linenr Line number at which we start searching.

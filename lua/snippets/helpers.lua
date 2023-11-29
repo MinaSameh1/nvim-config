@@ -10,7 +10,6 @@ Snip.c = Snip.ls.choice_node
 Snip.d = Snip.ls.dynamic_node
 Snip.r = Snip.ls.restore_node
 Snip.parse = Snip.ls.parser.parse_snippet
-Snip.add_snippets = Snip.ls.add_snippets
 Snip.sn = Snip.ls.snippet_node
 Snip.l = require('luasnip.extras').lambda
 Snip.rep = require('luasnip.extras').rep
@@ -22,6 +21,7 @@ Snip.fmt = require('luasnip.extras.fmt').fmt
 Snip.fmta = require('luasnip.extras.fmt').fmta
 Snip.types = require('luasnip.util.types')
 Snip.conds = require('luasnip.extras.expand_conditions')
+Snip.add_snippets = Snip.ls.add_snippets
 Snip.copy = Snip.ls.copy
 
 function Snip.copy(args)
