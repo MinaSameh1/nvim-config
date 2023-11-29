@@ -27,4 +27,13 @@ Snip.copy = Snip.ls.copy
 function Snip.copy(args)
   return args[1]
 end
+
+function Snip.get_visual(_args, parent, _) -- third argument is old_state, which we don't use
+  if #parent.snippet.env.SELECT_RAW > 0 then
+    return Snip.sn(nil, Snip.i(1, parent.snippet.env.SELECT_RAW))
+  else -- If SELECT_RAW is empty, return a blank insert node
+    return Snip.sn(nil, Snip.i(1, ''))
+  end
+end
+
 return Snip

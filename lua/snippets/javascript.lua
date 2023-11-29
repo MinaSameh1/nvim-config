@@ -1,5 +1,4 @@
 local s = require('snippets.helpers')
-local l = require('luasnip.extras').l
 
 return {
   s.s(
@@ -83,6 +82,31 @@ return {
 it("should ${1:do something}", () => {
   ${2:expect(true).toBe(true)};
 });
-    ]]
+    ]],
+    { condition = s.conds.line_begin }
+  ),
+  s.s(
+    { trig = 'aa', snippetType = 'autosnippet' },
+    s.fmta(
+      [[
+        alert(<>);
+        ]],
+      {
+        s.d(1, s.get_visual),
+      }
+    ),
+    { condition = s.conds.line_begin }
+  ),
+  s.s(
+    { trig = 'pp', dscr = 'Console logs', snippetType = 'autosnippet' },
+    s.fmta(
+      [[
+        console.log(<>);
+        ]],
+      {
+        s.d(1, s.get_visual),
+      }
+    ),
+    { condition = s.conds.line_begin }
   ),
 }
