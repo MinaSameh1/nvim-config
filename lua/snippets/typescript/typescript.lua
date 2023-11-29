@@ -20,8 +20,10 @@ local function_q = vim.treesitter.query.parse(
 )
 -- This only matches returns that actually return something, so early return can still be used for
 -- control flow!
-local return_q =
-  vim.treesitter.query.parse('typescript', '(return_statement) @ret')
+local return_q = vim.treesitter.query.parse(
+  'typescript',
+  '(return_statement) @ret'
+)
 
 --- Obtains list of parameter names for the next lua function and whether it returns something.
 -- @param linenr Line number at which we start searching.
@@ -153,4 +155,9 @@ return {
     }),
     { condition = s.conds.line_begin }
   ),
+  s.postfix('.br', {
+    s.f(function(_, parent)
+      return '[' .. parent.snippet.env.POSTFIX_MATCH .. ']'
+    end, {}),
+  }),
 }
