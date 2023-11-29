@@ -23,6 +23,7 @@ Snip.fmta = require('luasnip.extras.fmt').fmta
 Snip.types = require('luasnip.util.types')
 Snip.conds = require('luasnip.extras.expand_conditions')
 Snip.add_snippets = Snip.ls.add_snippets
+Snip.postfix = require('luasnip.extras.postfix')
 
 --[[ function Snip.copy(args)
   return args[1]
