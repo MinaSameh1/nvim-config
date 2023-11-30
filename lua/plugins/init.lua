@@ -401,6 +401,7 @@ return {
   },
   {
     'nvim-treesitter/playground',
+    opts = {},
     cmd = 'TSPlaygroundToggle',
     dependencies = 'nvim-treesitter/nvim-treesitter',
   },
