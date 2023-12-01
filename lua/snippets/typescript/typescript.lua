@@ -41,6 +41,9 @@ local function next_fun_parms(linenr)
   end
 
   for _, captures, _ in function_q:iter_matches(root, bufnr) do
+    if not getmetatable(captures) and not getmetatable(captures[1]) then
+      return
+    end
     local sline = captures[1]:range()
 
     if sline >= linenr - 1 then
