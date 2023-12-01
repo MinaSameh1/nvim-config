@@ -61,22 +61,13 @@ end
 return {
   -- TODO: Fix this, needs better queries
   s.s('doc', {
-    s.s(
-      'todo',
-      s.fmt([[ // TODO: {date} {}]], {
-        date = s.f(function()
-          return os.date('%D - %H:%M')
-        end),
-        s.i(1),
-      })
-    ),
     s.t({ '', '/**' }),
     s.t({ '', ' *' }),
     s.i(1, ' Function description.'),
     s.d(2, function(_, snip)
       local parms, ret = next_fun_parms(tonumber(snip.env.TM_LINE_NUMBER))
       -- checks if table is empty
-      assert(parms or next(parms), 'Did not find a function!')
+      assert(parms and next(parms), 'Did not find a function!')
 
       local parm_nodes = {}
       for j, parm in ipairs(parms) do
