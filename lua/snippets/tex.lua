@@ -61,7 +61,7 @@ function tex_utils.table_node(args)
     iNode = i(j)
     tabs[2 * j - 1] = iNode
     if j ~= count then
-      tabs[2 * j] = t(' & ')
+      tabs[2 * j] = s.t(' & ')
     end
   end
   return sn(nil, tabs)
@@ -95,7 +95,7 @@ return {
     s.d(2, rec_ls, {}),
     s.t({ '', '\\end{enumerate}' }),
   }),
-  s('table', {
+  s.s('table', {
     s.t('\\begin{tabular}{'),
     s.i(1, '0'),
     s.t({ '}', '' }),
