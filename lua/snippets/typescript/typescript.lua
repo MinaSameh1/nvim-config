@@ -11,17 +11,22 @@ end
 
 local function_q = vim.treesitter.query.parse(
   'typescript',
-  -- (function_definition parameters: (parameters) @parms)
   [[
     [
-        (function_declaration parameters: (formal_parameters) @parms)
-    ] @fn
+(function_declaration parameters: (formal_parameters)) @fun
+(method_definition) @method_decleration
+(arrow_function (formal_parameters)) @fun
+    ]
 ]]
 )
 -- This only matches returns that actually return something, so early return can still be used for
 -- control flow!
-local return_q =
-  vim.treesitter.query.parse('typescript', '(return_statement) @ret')
+local return_q = vim.treesitter.query.parse(
+  'typescript',
+  [[
+(return_statement) @returns
+]]
+)
 
 --- Obtains list of parameter names for the next lua function and whether it returns something.
 -- @param linenr Line number at which we start searching.
@@ -65,8 +70,8 @@ return {
   -- TODO: Fix this, needs better queries
   s.s('doc', {
     s.t({ '', '/**' }),
-    s.t({ '', ' *' }),
-    s.i(1, ' Function description.'),
+    s.t({ '', ' * @description ' }),
+    s.i(1, 'Function description.'),
     s.d(2, function(_, snip)
       local parms, ret = next_fun_parms(tonumber(snip.env.TM_LINE_NUMBER))
       -- checks if table is empty
