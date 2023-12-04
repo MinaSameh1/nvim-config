@@ -98,7 +98,22 @@ it("should ${1:do something}", () => {
     { condition = s.conds.line_begin }
   ),
   s.s(
-    { trig = 'pp', dscr = 'Console logs', snippetType = 'autosnippet' },
+    { trig = 'time', dscr = 'Time code execution' },
+    s.fmta(
+      [[
+        const start = new Date().getTime();
+        <>
+        const end = new Date().getTime() - start;
+        console.log(">>#Execution time of <>: " + end * 0.001 + "s");
+      ]],
+      {
+        s.d(1, s.get_visual),
+        s.i(2, 'name'),
+      }
+    )
+  ),
+  s.s(
+    { trig = 'pp', dscr = 'Console logs' },
     s.fmta(
       [[
         console.log(<>);

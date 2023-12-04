@@ -1,7 +1,7 @@
 local s = require('snippets.helpers')
 local get_node_text = require('config.utils').get_node_text
 
---[[ require('snippets.javascript') -- Load js snippets ]]
+require('snippets.javascript') -- Load js snippets
 
 -- Needed for fancy snippets
 local ts_utils_ok, ts_utils = pcall(require, 'nvim-treesitter.ts_utils')
