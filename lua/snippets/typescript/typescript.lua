@@ -137,7 +137,7 @@ return {
         const start = new Date().getTime();
         <>
         const end = new Date().getTime() - start;
-        console.log(">>#Execution time of <>: " + end + "ms");
+        console.log(">>#Execution time of <>: " + end * 0.001 + "s");
       ]],
       {
         s.d(1, s.get_visual),
