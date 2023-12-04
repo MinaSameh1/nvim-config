@@ -28,11 +28,13 @@ function Snip.copy(args)
   return args[1]
 end
 
-function Snip.get_visual(_args, parent, _) -- third argument is old_state, which we don't use
-  if #parent.snippet.env.SELECT_RAW > 0 then
-    return Snip.sn(nil, Snip.i(1, parent.snippet.env.SELECT_RAW))
-  else -- If SELECT_RAW is empty, return a blank insert node
-    return Snip.sn(nil, Snip.i(1, ''))
+---@diagnostic disable-next-line: unused-local
+function Snip.get_visual(_args, parent, _) -- Third argument is the old state
+  -- https://github.com/L3MON4D3/LuaSnip/issues/81#issuecomment-1235595467
+  if #parent.snippet.env.LS_SELECT_RAW > 0 then
+    return Snip.sn(nil, Snip.i(1, parent.snippet.env.LS_SELECT_RAW))
+  else -- If LS_SELECT_RAW is empty, return a blank insert node
+    return Snip.sn(nil, Snip.i(1))
   end
 end
 
