@@ -146,7 +146,7 @@ return {
     )
   ),
   s.s(
-    { trig = 'cl', snippetType = 'autosnippet' },
+    { trig = 'cl', dscr = 'Console.log' },
     s.fmta([[console.log(<>)]], {
       s.d(1, s.get_visual),
     }),
