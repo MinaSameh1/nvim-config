@@ -146,6 +146,21 @@ return {
     )
   ),
   s.s(
+    { trig = 'ttime', dscr = 'Time code execution using process.hrtime' },
+    s.fmta(
+      [[
+        const start = process.hrtime.bigint();
+        <>
+        const end = process.hrtime.bigint() - start;
+        console.log(">>#Execution time <> took: " + end / 1e9 + "s and " + end + "ns");
+      ]],
+      {
+        s.d(1, s.get_visual),
+        s.i(2, 'name'),
+      }
+    )
+  ),
+  s.s(
     { trig = 'cl', dscr = 'Console.log' },
     s.fmta([[console.log(<>)]], {
       s.d(1, s.get_visual),
@@ -156,5 +171,21 @@ return {
     s.f(function(_, parent)
       return '[' .. parent.snippet.env.POSTFIX_MATCH .. ']'
     end, {}),
+  }),
+  s.s({
+    trig = 'it',
+    dscr = 'It case',
+  }, {
+    s.t('it("should ${1:do something}", () => {'),
+    s.i(0),
+    s.t('});'),
+  }),
+  s.s({
+    trig = 'describe',
+    dscr = 'Describe case',
+  }, {
+    s.t('describe("${1:basic cases}", () => {'),
+    s.i(0),
+    s.t('});'),
   }),
 }
