@@ -152,7 +152,7 @@ return {
         const start = process.hrtime.bigint();
         <>
         const end = process.hrtime.bigint() - start;
-        console.log(">>#Execution time <> took: " + end / 1e9 + "s and " + end + "ns");
+        console.log(">>#Execution time <> took: " + end / BigInt(1e9) + "s and " + end + "ns");
       ]],
       {
         s.d(1, s.get_visual),
