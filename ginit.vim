@@ -15,7 +15,8 @@ if exists('g:GuiLoaded')
   " GuiFont! Inconsolata\ Nerd\ Font:h13:l
   " GuiFont! iMWritingMonoS\ Nerd\ Font:h12
   " GuiFont! FiraCode NF:h9
-  GuiFont! Iosevka\ Light:h10
+  " GuiFont! Iosevka\ Light:h10
+  GuiFont! Fantasque\ Sans\ Mono:h16
   
   " Right Click Context Menu (Copy-Cut-Paste)
   nnoremap <silent><RightMouse> :call GuiShowContextMenu()<CR>
@@ -101,9 +102,7 @@ if exists('g:fvim_loaded')
 endif
 
 if exists('neovide')
-  " NOTE: check out multigrid its been removed cuz of issues for now 
-
-  let g:neovide_transparency = 0.8
+  " let g:neovide_transparency = 0.8
   " Increases the font size with `amount`
   function! Zoom(amount) abort
     call ZoomSet(matchstr(&guifont, '\d\+$') + a:amount)
