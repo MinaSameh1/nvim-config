@@ -71,6 +71,8 @@ vim.opt.swapfile = false -- whether to use a swapfile for a buffer
 vim.opt.hlsearch = true --  highlight matches with last search pattern
 vim.opt.laststatus = 3 -- global status line
 
+vim.opt.mousemodel = 'extend'
+
 vim.opt.clipboard = 'unnamedplus'
 
 ---- Keybindings
