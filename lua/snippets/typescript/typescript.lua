@@ -176,7 +176,9 @@ return {
     trig = 'it',
     dscr = 'It case',
   }, {
-    s.t('it("should ${1:do something}", () => {'),
+    s.t('it("'),
+    s.i(1, 'should do something'),
+    s.t('", () => {'),
     s.i(0),
     s.t('});'),
   }),
@@ -184,7 +186,9 @@ return {
     trig = 'describe',
     dscr = 'Describe case',
   }, {
-    s.t('describe("${1:basic cases}", () => {'),
+    s.t('describe("'),
+    s.i(1, 'Describe case'),
+    s.t('", () => {'),
     s.i(0),
     s.t('});'),
   }),
