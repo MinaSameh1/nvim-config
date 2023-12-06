@@ -210,4 +210,32 @@ export const {name} = createParamDecorator(
       }
     )
   ),
+  s.s(
+    { trig = 'nesttest', dscr = 'NestJS Basic Test structure' },
+    s.fmt(
+      [[import {{ Test, TestingModule }} from '@nestjs/testing'
+
+describe('{test}', () => {{
+  let service: {service};
+
+  beforeEach(async () => {{
+    const module: TestingModule = await Test.createTestingModule({{
+      imports: [],
+      providers: [{servicename}],
+    }}).compile();
+
+    service = module.get<{service}>({service});
+  }});
+
+  it('should be defined', () => {{
+    expect(service).toBeDefined()
+  }});
+}})]],
+      {
+        test = s.i(1, 'test'),
+        servicename = s.i(2, 'servicename'),
+        service = s.f(s.copy, 2),
+      }
+    )
+  ),
 }
