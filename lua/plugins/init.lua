@@ -30,10 +30,19 @@ return {
   {
     -- Shows LSP progress
     'j-hui/fidget.nvim',
-    version = 'legacy',
-    dependencies = 'lualine.nvim',
+    branch = 'main',
     event = 'LspAttach',
-    opts = {},
+    opts = {
+      progress = {
+        ignore_empty_message = true, -- Ignore new tasks that don't contain a message
+        suppress_on_insert = true,
+        ignore = { -- List of LSP servers to ignore
+          'efm',
+          'null-ls',
+          'ltex',
+        },
+      },
+    },
   },
   {
     'anuvyklack/pretty-fold.nvim',
