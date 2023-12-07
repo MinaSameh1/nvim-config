@@ -1,6 +1,8 @@
 -- Do not include maps that require plugins here (Ex: require('config.lsp').maps)
 vim.g.mapleader = ' ' -- Set leader to space
 
+local utils = require('config.utils')
+
 vim.keymap.set(
   'x',
   '<leader>p',
@@ -66,6 +68,13 @@ vim.keymap.set( -- Cd to current file location
   '<leader>cd',
   '<cmd> SearchAndCdForFile<CR>',
   { silent = true, noremap = true, desc = 'Cds to current opened file' }
+)
+
+vim.keymap.set(
+  'n',
+  '<leader>yp',
+  utils.insertFullPath,
+  { noremap = true, silent = true }
 )
 
 vim.keymap.set('n', 'i', function()

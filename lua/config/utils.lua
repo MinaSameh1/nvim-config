@@ -178,4 +178,10 @@ function utils.jumps_to_qf()
   vim.cmd('Trouble quickfix')
 end
 
+function utils.insertFullPath()
+  local filepath = vim.fn.expand('%')
+  vim.fn.setreg('+', filepath) -- write to clippoard
+  return filepath
+end
+
 return utils
