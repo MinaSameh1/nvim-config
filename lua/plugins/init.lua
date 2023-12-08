@@ -47,9 +47,7 @@ return {
   {
     'anuvyklack/pretty-fold.nvim',
     lazy = false,
-    config = function()
-      require('pretty-fold').setup()
-    end,
+    opts = {},
   },
   {
     -- Split screen management
@@ -445,19 +443,17 @@ return {
     'JoosepAlviste/nvim-ts-context-commentstring',
     dependencies = { 'nvim-treesitter/nvim-treesitter' },
     ft = { 'typescript', 'typescriptreact', 'javascript', 'javascriptreact' },
-    config = function()
-      require('config.comments')
-    end,
+    opts = {},
   },
-
   {
     -- comments using gc
     'numToStr/Comment.nvim',
+    dependencies = { 'JoosepAlviste/nvim-ts-context-commentstring' },
     name = 'Comment',
     event = 'BufRead',
-    lazy = false,
     config = function()
-      require('Comment').setup()
+      vim.g.skip_ts_context_commentstring_module = true
+      require('config.comments')
     end,
   },
 

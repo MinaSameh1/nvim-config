@@ -3,13 +3,6 @@ if not status_ok then
   return
 end
 
-local status_comment_ok, comment_string_context =
-  pcall(require, 'ts_context_commentstring')
-if not status_comment_ok then
-  print('Error in comment_string_context Comments.nvim config')
-  return
-end
-
 comment.setup({
   -- Add a space b/w comment and the line
   -- @type boolean
@@ -28,25 +21,12 @@ comment.setup({
     -- Block-comment keymap
     block = 'gb',
   },
+  toggler = {
+    ---Line-comment toggle keymap
+    line = 'gcc',
+    ---Block-comment toggle keymap
+    block = 'gbc',
+  },
 
-  hook = function()
-    comment_string_context.update_commentstring()
-  end,
-
-  pre_hook = function(ctx)
-    local U = require('Comment.utils')
-
-    local location = nil
-    if ctx.ctype == U.ctype.block then
-      location = require('ts_context_commentstring.utils').get_cursor_location()
-    elseif ctx.cmotion == U.cmotion.v or ctx.cmotion == U.cmotion.V then
-      location =
-        require('ts_context_commentstring.utils').get_visual_start_location()
-    end
-
-    return require('ts_context_commentstring.internal').calculate_commentstring({
-      key = ctx.ctype == U.ctype.line and '__default' or '__multiline',
-      location = location,
-    })
-  end,
+  pre_hook = require('ts_context_commentstring.integrations.comment_nvim').create_pre_hook(),
 })
