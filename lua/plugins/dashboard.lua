@@ -281,7 +281,7 @@ return {
         label = 'Projects',
         action = function(path)
           vim.cmd('cd ' .. path)
-          return vim.cmd('Telescope find_files cwd=' .. path)
+          return vim.cmd('Neotree float dir=' .. path)
         end,
         key = '<leader>fp',
       },
