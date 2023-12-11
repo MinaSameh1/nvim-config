@@ -96,12 +96,12 @@ nnoremap(
 
 nnoremap(
   '<leader>tw',
-  '<cmd>lua require("neotest").run.run({ jestCommand = "npm run test:watch --" })<CR>',
+  '<cmd>lua require("neotest").watch.toggle({ jestCommand = "npm run test:watch --" })<CR>',
   { desc = 'Run nearest test in watch mode' }
 )
 nnoremap(
   '<leader>tW',
-  '<cmd>lua require("neotest").run.run({ vim.fn.expand(%), jestCommand = "npm run test:watch --" })<CR>',
+  '<cmd>lua require("neotest").watch.toggle({ vim.fn.expand(%), jestCommand = "npm run test:watch --" })<CR>',
   { desc = 'Run test file in watch mode' }
 )
 
