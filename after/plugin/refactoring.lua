@@ -8,19 +8,19 @@ local setDesc = require('config.utils').getDescWithMapOptsSetter(opts)
 -- Remaps for the refactoring operations currently offered by the plugin
 vim.api.nvim_set_keymap(
   'v',
-  '<leader>re',
+  '<leader>rf',
   [[ <Esc><Cmd>lua require('refactoring').refactor('Extract Function')<CR>]],
   setDesc('Extract function')
 )
 vim.api.nvim_set_keymap(
   'v',
-  '<leader>rf',
+  '<leader>rF',
   [[ <Esc><Cmd>lua require('refactoring').refactor('Extract Function To File')<CR>]],
   setDesc('Extract function to a new file')
 )
 vim.api.nvim_set_keymap(
   'v',
-  '<leader>rv',
+  '<leader>re',
   [[ <Esc><Cmd>lua require('refactoring').refactor('Extract Variable')<CR>]],
   setDesc('Extract variable')
 )
@@ -40,7 +40,7 @@ vim.api.nvim_set_keymap(
 )
 vim.api.nvim_set_keymap(
   'n',
-  '<leader>rbf',
+  '<leader>rB',
   [[ <Cmd>lua require('refactoring').refactor('Extract Block To File')<CR>]],
   setDesc('Extract block to a new file')
 )
