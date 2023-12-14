@@ -43,9 +43,9 @@ return {
       ['core.dirman'] = { -- Manage your directories with Neorg
         config = {
           workspaces = {
-            notes = '~/Documents/stuff/notes/notes',
-            home = '~/Documents/stuff/notes',
-            work = '~/Documents/stuff/notes/work',
+            notes = '~/Stuff/notes/notes',
+            home = '~/Stuff/notes',
+            work = '~/Stuff/notes/work',
           },
           default_workspace = 'notes',
         },
