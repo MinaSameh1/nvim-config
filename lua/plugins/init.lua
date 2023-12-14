@@ -689,4 +689,9 @@ return {
     cmd = 'Copilot',
     event = 'InsertEnter',
   },
+  {
+    'folke/zen-mode.nvim',
+    cmd = 'ZenMode',
+    opts = {},
+  },
 }
