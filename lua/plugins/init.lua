@@ -689,13 +689,4 @@ return {
     cmd = 'Copilot',
     event = 'InsertEnter',
   },
-  {
-    'nvim-neorg/neorg',
-    build = ':Neorg sync-parsers',
-    cmd = 'Neorg',
-    ft = 'norg',
-    config = function()
-      require('config.neorg')
-    end,
-  },
 }
