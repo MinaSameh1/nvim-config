@@ -72,8 +72,7 @@ return {
     enable_git_status = true,
     enable_diagnostics = true,
     sort_case_insensitive = false, -- used when sorting files and directories in the tree
-    sort_function = nil, -- use a custom function for sorting files and directories in the tree
-    -- sort_function = function (a,b)
+    -- sort_function = function (a,b) -- use a custom function for sorting files and directories in the tree
     --       if a.type == b.type then
     --           return a.path > b.path
     --       else
@@ -200,17 +199,17 @@ return {
         hide_gitignored = true,
         hide_hidden = true, -- only works on Windows for hidden files/directories
         hide_by_name = {
-          --"node_modules"
+          'node_modules',
         },
         hide_by_pattern = { -- uses glob style patterns
           --"*.meta",
           --"*/src/*/tsconfig.json",
         },
         always_show = { -- remains visible even if other settings would normally hide it
-          --".gitignored",
+          '.gitignored',
         },
         never_show = { -- remains hidden even if visible is toggled to true, this overrides always_show
-          --".DS_Store",
+          -- '.DS_Store',
           --"thumbs.db"
         },
         never_show_by_pattern = { -- uses glob style patterns
@@ -243,6 +242,14 @@ return {
           ['<c-x>'] = 'clear_filter',
           ['[g'] = 'prev_git_modified',
           [']g'] = 'next_git_modified',
+        },
+        fuzzy_finder_mappings = { -- define keymaps for filter popup window in fuzzy_finder_mode
+          ['<down>'] = 'move_cursor_down',
+          ['<C-n>'] = 'move_cursor_down',
+          ['<up>'] = 'move_cursor_up',
+          ['<C-p>'] = 'move_cursor_up',
+          ['<C-j>'] = 'move_cursor_down',
+          ['<C-k>'] = 'move_cursor_up',
         },
       },
       commands = {
@@ -301,7 +308,7 @@ return {
       },
     },
     source_selector = {
-      winbar = false,
+      winbar = true,
       statusline = false,
     },
   },
