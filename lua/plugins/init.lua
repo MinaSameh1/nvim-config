@@ -34,7 +34,6 @@ return {
     event = 'LspAttach',
     opts = {
       progress = {
-        ignore_empty_message = true, -- Ignore new tasks that don't contain a message
         suppress_on_insert = true,
         ignore = { -- List of LSP servers to ignore
           'efm',

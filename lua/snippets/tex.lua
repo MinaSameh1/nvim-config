@@ -300,7 +300,7 @@ return {
     {
       trig = 'it',
       wordTrig = false,
-      snippetType = 'autosnippet',
+      --[[ snippetType = 'autosnippet', ]]
       dscr = '\\item',
     },
     fmta('\\item <>', { i(0) }),
