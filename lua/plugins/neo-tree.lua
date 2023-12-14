@@ -36,20 +36,6 @@ vim.keymap.set(
   '<Cmd>Neotree float toggle reveal_force_cwd<CR>',
   { silent = true, noremap = true, desc = 'Open File map' }
 )
--- open neotree
--- vim.api.nvim_set_keymap('n', '<F2>', '<Cmd>Neotree left toggle<CR>', {
---   noremap = true,
---   silent = true,
---   desc = 'Open neotree',
--- })
-
--- open neotree
--- vim.api.nvim_set_keymap(
---   'n',
---   '<leader>G',
---   '<Cmd>Neotree float toggle git_status<CR>',
---   { noremap = true, silent = true, desc = 'Open neotree git status' }
--- )
 
 return {
   'nvim-neo-tree/neo-tree.nvim',
