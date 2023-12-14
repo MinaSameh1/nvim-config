@@ -20,6 +20,9 @@ return {
       ['core.neorgcmd'] = {},
       ['core.concealer'] = {},
       ['core.upgrade'] = {},
+      ['core.pivot'] = {},
+      ['core.itero'] = {},
+      ['core.promo'] = {},
       ['core.fs'] = {},
       ['core.ui'] = {},
       ['core.ui.calendar'] = {},
@@ -29,6 +32,7 @@ return {
       ['core.integrations.treesitter'] = {},
       ['core.looking-glass'] = {},
       ['core.qol.toc'] = {},
+      ['core.summary'] = {},
       ['core.completion'] = {
         config = {
           engine = 'nvim-cmp',
