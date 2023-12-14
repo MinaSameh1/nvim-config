@@ -68,7 +68,14 @@ require('lualine').setup({
   tabline = {},
   extensions = {
     'fugitive',
-    'nvim-tree',
+    'man',
+    'trouble',
+    'nvim-dap-ui',
+    'mason',
+    'lazy',
+    'quickfix',
+    'neo-tree',
     'toggleterm',
+    'symbols-outline',
   },
 })
