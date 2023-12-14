@@ -96,14 +96,6 @@ return {
     end,
   },
 
-  -- use({
-  --   'kyazdani42/nvim-tree.lua',
-  --   -- cmd = { 'NvimTreeToggle' },
-  --   config = function()
-  --     require('config.nvimtree')
-  --   end,
-  -- })
-
   {
     's1n7ax/nvim-window-picker',
     version = 'v1.*',
