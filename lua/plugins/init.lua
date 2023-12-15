@@ -263,7 +263,7 @@ return {
     'hrsh7th/nvim-cmp',
     event = 'InsertEnter',
     config = function()
-      require('config.cmp.cmp')
+      require('config.cmp')
     end,
     dependencies = {
       {
