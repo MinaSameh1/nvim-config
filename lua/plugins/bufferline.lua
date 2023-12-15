@@ -44,12 +44,12 @@ return {
       right_mouse_command = 'vertical sbuffer %d',
       offsets = {
         {
-          filetype = 'NvimTree',
+          filetype = 'neo-tree',
           text = 'File Explorer',
           highlight = 'Directory',
         },
         {
-          filetype = 'aerial',
+          filetype = 'Outline',
           text = 'Symbols',
           highlight = 'Directory',
         },
@@ -57,8 +57,15 @@ return {
       -- show_buffer_close_icons = false,
       -- show_close_icon = false,
       -- Filter out the buffers that shouldn't be shown
-      custom_filter = function(buf, buf_nums)
-        return vim.bo[buf].filetype ~= 'fugitive'
+      ---@diagnostic disable-next-line: unused-local
+      custom_filter = function(buf, _buf_nums)
+        -- create a lookup table for all filetypes that shouldn't be shown
+        local hideBufTypes = {
+          ['fugitive'] = true,
+          ['Outline'] = true,
+          ['neo-tree'] = true,
+        }
+        return not hideBufTypes[vim.bo[buf].filetype]
       end,
     },
   },

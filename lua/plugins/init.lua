@@ -24,7 +24,7 @@ return {
     event = 'BufEnter',
     dependencies = { 'kyazdani42/nvim-web-devicons' },
     config = function()
-      require('config.lualine.lualine')
+      require('config.lualine.evil')
     end,
   },
   {
@@ -304,7 +304,7 @@ return {
       { 'n', '<leader>d' },
     },
     config = function()
-      require('config.dap.dap')
+      require('config.dap')
     end,
   },
   {
@@ -542,7 +542,7 @@ return {
       vim.g.tokyonight_style = 'storm' -- Can be storm, night or day
       vim.g.tokyonight_sidebars = {
         'TelescopePrompt',
-        'NvimTree',
+        'neo-tree',
         'terminal',
       }
       -- Change the "hint" color to the "orange" color, and make the "error" color bright red

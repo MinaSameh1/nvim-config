@@ -266,6 +266,7 @@ local custom_header = {
 return {
   'glepnir/dashboard-nvim',
   event = { 'VimEnter', 'GuiEnter' },
+  priority = 100,
   opts = {
     theme = 'hyper', -- 'doom' or 'hyper'
     config = {

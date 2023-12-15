@@ -5,7 +5,13 @@ if not status_ok then
 end
 
 autopairs.setup({
-  disable_filetype = { 'TelescopePrompt', 'dap-repl', 'NvimTree' },
+  disable_filetype = {
+    'TelescopePrompt',
+    'dap-repl',
+    'neo-tree',
+    'Trouble',
+    'lazy',
+  },
   disable_in_macro = false, -- disable when recording or executing a macro
   disable_in_visualblock = false, -- disable when insert after visual block mode
   ignored_next_char = string.gsub([[ [%w%%%'%[%"%.] ]], '%s+', ''),
