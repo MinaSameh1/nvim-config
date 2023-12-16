@@ -424,15 +424,6 @@ return {
     },
   },
   {
-    -- Auto close versions
-    'windwp/nvim-autopairs',
-    dependencies = 'nvim-treesitter/nvim-treesitter',
-    event = 'InsertEnter',
-    opts = {
-      disable_filetype = { 'TelescopePrompt', 'neo-tree' },
-    },
-  },
-  {
     'JoosepAlviste/nvim-ts-context-commentstring',
     dependencies = { 'nvim-treesitter/nvim-treesitter' },
     ft = { 'typescript', 'typescriptreact', 'javascript', 'javascriptreact' },
