@@ -43,11 +43,14 @@ return {
       },
     },
   },
+
+  -- for folds
   {
     'anuvyklack/pretty-fold.nvim',
-    lazy = false,
+    event = 'BufRead',
     opts = {},
   },
+
   {
     -- Split screen management
     'beauwilliams/focus.nvim',
@@ -337,6 +340,7 @@ return {
     'mfussenegger/nvim-jdtls',
   },
 
+  -- Great test framework
   {
     'nvim-neotest/neotest',
     event = 'BufRead',

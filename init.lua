@@ -71,6 +71,12 @@ vim.opt.swapfile = false -- whether to use a swapfile for a buffer
 vim.opt.hlsearch = true --  highlight matches with last search pattern
 vim.opt.laststatus = 3 -- global status line
 
+-- Fold stuff
+vim.o.foldcolumn = '1'
+vim.o.foldlevel = 99
+vim.o.foldlevelstart = 99
+vim.o.foldenable = true
+
 vim.opt.mousemodel = 'extend'
 
 vim.opt.clipboard = 'unnamedplus'

@@ -306,6 +306,7 @@ vim.diagnostic.config({
   severity_sort = true,
   virtual_text = {
     spacing = 2,
+    source = 'always',
     prefix = '',
   },
 })
