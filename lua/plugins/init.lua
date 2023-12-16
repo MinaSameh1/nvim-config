@@ -291,14 +291,14 @@ return {
           border = 'rounded',
         },
         floating_window = true,
-        hint_enable = false, -- disable virtual text hint
+        hint_enable = true, -- enable virtual text hint
         hi_parameter = 'IncSearch', -- highlight group used to highlight the current parameter
       })
     end,
   },
 
-  -- Debugger
   {
+    -- Debugger
     'mfussenegger/nvim-dap',
     key = {
       { 'n', '<leader>d' },
@@ -378,7 +378,7 @@ return {
   {
     'jbyuki/nabla.nvim',
     event = 'BufRead',
-    ft = { 'tex', 'latex' },
+    ft = { 'tex', 'latex', 'markdown', 'neorg' },
     dependencies = { 'nvim-treesitter/nvim-treesitter' },
     config = function()
       vim.cmd(
@@ -428,7 +428,9 @@ return {
     'windwp/nvim-autopairs',
     dependencies = 'nvim-treesitter/nvim-treesitter',
     event = 'InsertEnter',
-    opts = {},
+    opts = {
+      disable_filetype = { 'TelescopePrompt', 'neo-tree' },
+    },
   },
   {
     'JoosepAlviste/nvim-ts-context-commentstring',
@@ -508,10 +510,16 @@ return {
     end,
   },
 
-  -- Dims lights xd
   {
+    -- Dims lights xd
     'folke/twilight.nvim',
     cmd = 'Twilight',
+  },
+  {
+    -- Zen mode
+    'folke/zen-mode.nvim',
+    cmd = 'ZenMode',
+    opts = {},
   },
 
   -- Takes beautiful screenshots of code
@@ -679,10 +687,5 @@ return {
     'github/copilot.vim',
     cmd = 'Copilot',
     event = 'InsertEnter',
-  },
-  {
-    'folke/zen-mode.nvim',
-    cmd = 'ZenMode',
-    opts = {},
   },
 }
