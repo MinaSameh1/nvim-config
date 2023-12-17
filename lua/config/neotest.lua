@@ -66,7 +66,7 @@ nnoremap(
 -- Run the test file
 nnoremap(
   '<leader>tT',
-  '<cmd>lua require("neotest").run.run(vim.fn.expand(%))<CR>',
+  '<cmd>lua require("neotest").run.run(vim.fn.expand("%"))<CR>',
   { desc = 'Run test file' }
 )
 -- Debug the test
@@ -101,7 +101,7 @@ nnoremap(
 )
 nnoremap(
   '<leader>tW',
-  '<cmd>lua require("neotest").watch.toggle({ vim.fn.expand(%), jestCommand = "npm run test:watch --" })<CR>',
+  '<cmd>lua require("neotest").watch.toggle({ vim.fn.expand("%"), jestCommand = "npm run test:watch --" })<CR>',
   { desc = 'Run test file in watch mode' }
 )
 
