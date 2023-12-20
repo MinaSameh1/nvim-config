@@ -49,6 +49,7 @@ local signs = {
 }
 
 cmp.setup({
+  -- view = 'wildmenu',
   snippet = {
     -- REQUIRED - you must specify a snippet engine
     expand = function(args)
@@ -164,8 +165,11 @@ cmp.setup({
         path = '🖫',
       }
       -- Kind icons
-      vim_item.kind =
-        string.format('%s %s', kindIcons[vim_item.kind], vim_item.kind) -- This concatonates the icons with the name of the item kind
+      vim_item.kind = string.format(
+        '%s %s',
+        kindIcons[vim_item.kind],
+        vim_item.kind
+      ) -- This concatonates the icons with the name of the item kind
 
       --  I like to know my lsp names :v
       if entry.source.name == 'nvim_lsp' then
@@ -195,14 +199,11 @@ cmp.setup({
 -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
 cmp.setup.cmdline(':', {
   mapping = cmp.mapping.preset.cmdline(),
-  sources = cmp.config.sources(
-    -- {
-    --   { name = 'path' },
-    -- },
-    {
-      { name = 'cmdline' },
-    }
-  ),
+  sources = cmp.config.sources({
+    { name = 'path' },
+  }, {
+    { name = 'cmdline' },
+  }),
 })
 
 -- Use buffer source for `/` (if you enabled `native_menu`, this won't work anymore).
