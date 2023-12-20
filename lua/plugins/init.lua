@@ -646,7 +646,7 @@ return {
     'EdenEast/nightfox.nvim',
     main = 'nightfox',
     lazy = false,
-    pirority = 1000,
+    priority = 1000,
     opts = {
       transparent = false,
       terminal_colors = true,
