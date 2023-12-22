@@ -49,7 +49,7 @@ local signs = {
 }
 
 cmp.setup({
-  -- view = 'wildmenu',
+  completion = { completeopt = 'menu,menuone,noselect' },
   snippet = {
     -- REQUIRED - you must specify a snippet engine
     expand = function(args)
@@ -81,6 +81,7 @@ cmp.setup({
         fallback()
       end
     end, { 'i', 's' }),
+    -- Expand or confirm
     ['<C-Space>'] = cmp.mapping(function(fallback)
       if luasnip.expand_or_jumpable() then
         return luasnip.expand_or_jump()
@@ -93,6 +94,7 @@ cmp.setup({
         fallback()
       end
     end, { 'i', 's' }),
+    -- select next or jump snippet
     ['<Tab>'] = cmp.mapping(function(fallback)
       if cmp.visible() then
         cmp.select_next_item()
@@ -112,6 +114,7 @@ cmp.setup({
         fallback()
       end
     end, { 'i', 's' }),
+    -- select prev or jump snippet
     ['<S-Tab>'] = cmp.mapping(function(fallback)
       if cmp.visible() then
         cmp.select_prev_item()
@@ -126,7 +129,7 @@ cmp.setup({
     { name = 'nvim_lsp' },
     { name = 'luasnip' },
     { name = 'buffer', max_item_count = 10 },
-    { name = 'path', max_item_count = 10 },
+    { name = 'path', max_item_count = 5 },
   },
   signs = {
     active = signs,
@@ -165,8 +168,11 @@ cmp.setup({
         path = '🖫',
       }
       -- Kind icons
-      vim_item.kind =
-        string.format('%s %s', kindIcons[vim_item.kind], vim_item.kind) -- This concatonates the icons with the name of the item kind
+      vim_item.kind = string.format(
+        '%s %s',
+        kindIcons[vim_item.kind],
+        vim_item.kind
+      ) -- This concatonates the icons with the name of the item kind
 
       --  I like to know my lsp names :v
       if entry.source.name == 'nvim_lsp' then
@@ -196,6 +202,7 @@ cmp.setup({
 -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
 cmp.setup.cmdline(':', {
   mapping = cmp.mapping.preset.cmdline(),
+  completion = { completeopt = 'menu,menuone,noselect' },
   sources = cmp.config.sources({
     { name = 'path' },
   }, {
@@ -204,10 +211,17 @@ cmp.setup.cmdline(':', {
 })
 
 -- Use buffer source for `/` (if you enabled `native_menu`, this won't work anymore).
-cmp.setup.cmdline('/', {
+cmp.setup.cmdline({ '/', '?' }, {
+  completion = { completeopt = 'menu,menuone,noselect' },
   sources = {
     { name = 'buffer' },
   },
+})
+
+vim.api.nvim_create_autocmd('CmdWinEnter', {
+  callback = function()
+    require('cmp').close()
+  end,
 })
 
 cmp.setup.filetype({ 'markdown', 'pandoc', 'text', 'latex' }, {
@@ -216,7 +230,7 @@ cmp.setup.filetype({ 'markdown', 'pandoc', 'text', 'latex' }, {
       name = 'nvim_lsp',
       keyword_length = 8,
       group_index = 1,
-      max_item_count = 30,
+      max_item_count = 20,
     },
     { name = 'luasnip' },
     { name = 'path' },
