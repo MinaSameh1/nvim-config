@@ -101,10 +101,10 @@ it("should ${1:do something}", () => {
     { trig = 'time', dscr = 'Time code execution' },
     s.fmta(
       [[
-        const start = new Date().getTime();
+        const start = performance.now();
         <>
-        const end = new Date().getTime() - start;
-        console.log(">>#Execution time of <>: " + end * 0.001 + "s");
+        const end = performance.now() - start;
+        console.log(">>#Execution time of <>: " + end + "ms");
       ]],
       {
         s.d(1, s.get_visual),
