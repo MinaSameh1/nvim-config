@@ -212,7 +212,6 @@ local custom_shortcuts = {
 -- }
 
 local custom_header = {
-
   [[                                                         .=.... ..                                  ]],
   [[                                                        .@@@@%%##%###                               ]],
   [[                                              ..-## . ..@@@@@@@%%%###%%.                            ]],
@@ -286,6 +285,19 @@ return {
         end,
         key = '<leader>fp',
       },
+      footer = function()
+        local stats = require('lazy').stats()
+        local ms = (math.floor(stats.startuptime * 100 + 0.5) / 100)
+        return {
+          '⚡ Neovim loaded '
+            .. stats.loaded
+            .. '/'
+            .. stats.count
+            .. ' plugins in '
+            .. ms
+            .. 'ms',
+        }
+      end,
       mru = { limit = 4, icon = ' ', label = 'Recent Files' },
       hide = { -- Hide stuff
         statusline = { enable = false },
