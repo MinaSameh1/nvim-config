@@ -10,6 +10,9 @@ neotest.setup({
       jestCommand = 'npm test --',
     }),
     adapters = {
+      require('neotest-java')({
+        ignore_wrapper = false, -- Ignore gradle/maven
+      }),
       require('neotest-python')({
         -- Extra arguments for nvim-dap configuration
         dap = { justMyCode = true },

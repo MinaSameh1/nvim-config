@@ -348,6 +348,7 @@ return {
     event = 'BufRead',
     dependencies = {
       'haydenmeade/neotest-jest',
+      'rcasia/neotest-java',
       'nvim-neotest/neotest-python',
       'sidlatau/neotest-dart',
       'marilari88/neotest-vitest',

@@ -40,6 +40,7 @@
   "neoscroll": { "branch": "master", "commit": "e85740d1a54ab0f10127b08c67a291053bc3acfa" },
   "neotest": { "branch": "master", "commit": "d424d262d01bccc1e0b038c9a7220a755afd2a1f" },
   "neotest-dart": { "branch": "main", "commit": "178c62282d5fa82f3d564b3c256b4d316804da67" },
+  "neotest-java": { "branch": "main", "commit": "2234bfa8044dc39a8baf90470747c65e4623a222" },
   "neotest-jest": { "branch": "main", "commit": "d8b00a91e440474da20a8e9acdb0d72051078b8b" },
   "neotest-python": { "branch": "master", "commit": "c969a5b0073f2b5c8eaf017d1652f9251d761a15" },
   "neotest-vitest": { "branch": "main", "commit": "15972c4791b3d47df82311047835803a072c1da6" },
