@@ -1,15 +1,10 @@
 local s = require('snippets.helpers')
 
 return {
-  s.s(
-    {
-      trig = 'sout',
-      dsrc = 'System.out.println'
-    },
-    s.t('System.out.println("'),
-    s.i(1),
-    s.t('");')
-  ),
+  s.s({
+    trig = 'sout',
+    dsrc = 'System.out.println',
+  }, s.t('System.out.println("'), s.i(1), s.t('");')),
   s.s(
     { trig = 'time', dscr = 'Time code execution' },
     s.fmta(
