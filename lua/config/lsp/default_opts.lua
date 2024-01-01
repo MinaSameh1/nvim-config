@@ -225,11 +225,11 @@ M.on_attach = function(client, bufnr)
 
   if client.name == 'typescript-tools' or client.name == 'tsserver' then
     beforeFormat = function()
-      vim.cmd('TSToolsRemoveUnusedImports sync')
       vim.cmd('TSToolsAddMissingImports sync')
-      vim.cmd('TSToolsSortImports sync')
-      vim.cmd('TSToolsOrganizeImports sync')
-      vim.cmd('TSToolsFixAll sync')
+      -- vim.cmd('TSToolsSortImports sync')
+      -- vim.cmd('TSToolsRemoveUnusedImports sync')
+      vim.cmd('TSToolsOrganizeImports sync') -- Does both sort and remove
+      -- vim.cmd('TSToolsFixAll sync')
     end
   end
 
