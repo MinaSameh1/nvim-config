@@ -9,7 +9,7 @@ return {
       desc = 'Makes it rain',
     },
     {
-      '<leader>fml',
+      '<leader>fmL',
       '<cmd>CellularAutomaton game_of_life<CR>',
       desc = 'Lets play',
     },
