@@ -118,7 +118,7 @@ end
 initHighlights()
 
 vim.opt.fillchars = { eob = ' ' }
---[[ vim.cmd.colorscheme('solarized-osaka') ]]
-vim.cmd.colorscheme('tokyonight')
+--[[ vim.cmd.colorscheme('solarized-osaka-storm') ]]
+vim.cmd.colorscheme('rose-pine')
 -- Original is #268bd3 , use #000 for transparent
 vim.cmd('hi LspInlayHint guibg=#3a90f0 guifg=#123')
