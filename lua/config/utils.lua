@@ -184,4 +184,31 @@ function utils.insertFullPath()
   return filepath
 end
 
+function utils.getfsize(bufnr)
+  local file = nil
+  if bufnr == nil then
+    file = vim.fn.expand('%:p')
+  else
+    file = vim.api.nvim_buf_get_name(bufnr)
+  end
+
+  local size = vim.fn.getfsize(file)
+
+  return size <= 0 and 0 or size
+end
+
+function utils.is_big_file(buf, opts)
+  opts = opts or {}
+  local size = opts.size or (1024 * 1000)
+  local lines = opts.lines or 10000
+
+  if utils.getfsize(buf) > size then
+    return true
+  end
+  if vim.api.nvim_buf_line_count(buf) > lines then
+    return true
+  end
+  return false
+end
+
 return utils

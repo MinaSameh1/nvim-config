@@ -48,6 +48,10 @@ local beforeFormat = nil
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
 M.on_attach = function(client, bufnr)
+  if vim.b[bufnr].is_big_file then
+    return
+  end
+
   local mapOpts = { noremap = true, silent = true, buffer = bufnr }
   local setDesc = require('config.utils').getDescWithMapOptsSetter(mapOpts)
 

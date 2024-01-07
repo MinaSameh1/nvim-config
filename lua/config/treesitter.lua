@@ -5,8 +5,10 @@ end
 
 require('nvim-treesitter.install').compilers = { 'clang' }
 
-local status_comment_ok, comment_string_context =
-  pcall(require, 'ts_context_commentstring')
+local status_comment_ok, comment_string_context = pcall(
+  require,
+  'ts_context_commentstring'
+)
 if not status_comment_ok then
   print('Error in comment_string_context Treesitter config')
 end
@@ -18,6 +20,10 @@ comment_string_context.setup({
 
 configs.setup({
   ensure_installed = 'all', -- one of "all" or table of parsers.
+  ---@diagnostic disable-next-line: unused-local
+  disable = function(_lang, bufnr) -- Disable in files with more than 5K
+    return vim.b[bufnr].is_big_file
+  end,
   sync_install = false, -- install languages synchronously (only applied to `ensure_installed`)
   ignore_install = { '' }, -- List of parsers to ignore installing
   highlight = {

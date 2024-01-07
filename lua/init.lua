@@ -117,6 +117,8 @@ end
 
 initHighlights()
 
+require('config.autocmds').setup({ resize_kitty = false })
+
 vim.opt.fillchars = { eob = ' ' }
 --[[ vim.cmd.colorscheme('solarized-osaka-storm') ]]
 vim.cmd.colorscheme('rose-pine')
