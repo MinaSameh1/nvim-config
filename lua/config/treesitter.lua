@@ -5,10 +5,8 @@ end
 
 require('nvim-treesitter.install').compilers = { 'clang' }
 
-local status_comment_ok, comment_string_context = pcall(
-  require,
-  'ts_context_commentstring'
-)
+local status_comment_ok, comment_string_context =
+  pcall(require, 'ts_context_commentstring')
 if not status_comment_ok then
   print('Error in comment_string_context Treesitter config')
 end
