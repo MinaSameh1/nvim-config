@@ -104,9 +104,7 @@ return {
           local path = utils.get_relative_path()
 
           -- get package name
-          local package = path
-            :gsub('src/main/java/', '')
-            :gsub('/', '.')
+          local package = path:gsub('src/main/java/', ''):gsub('/', '.')
           return package
         end),
       }
