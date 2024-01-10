@@ -211,4 +211,14 @@ function utils.is_big_file(buf, opts)
   return false
 end
 
+function utils.get_relative_path()
+  local current_file = vim.fn.expand('%:p')
+  local root_dir = vim.fn.getcwd()
+
+  local path = vim.fn.fnamemodify(current_file, ':~:.')
+  local relative_path = vim.fn.fnamemodify(path, ':h')
+
+  return relative_path
+end
+
 return utils
