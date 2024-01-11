@@ -212,7 +212,7 @@ Key(
 )
 Key(
   'n',
-  '<leader>tc',
+  '<leader>fC',
   '<Cmd>lua require("colors.colorpicker").ChooseColors()<CR>',
   setDesc('Change ColorScheme')
 )

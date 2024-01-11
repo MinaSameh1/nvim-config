@@ -77,6 +77,20 @@ vim.keymap.set(
   { noremap = true, silent = true }
 )
 
+vim.keymap.set(
+  'n',
+  ']b',
+  '<cmd>bnext<CR>',
+  { silent = true, noremap = true, desc = 'Next buffer' }
+)
+
+vim.keymap.set(
+  'n',
+  '[b',
+  '<cmd>bprevious<CR>',
+  { silent = true, noremap = true, desc = 'Previous buffer' }
+)
+
 vim.keymap.set('n', 'i', function()
   if #vim.fn.getline('.') == 0 then
     return [["_cc]]
