@@ -1,36 +1,58 @@
-local nnoremap = require('config.utils').nnoremap
 -- *******************************
 -- *         BufferLine          *
 -- *******************************
-nnoremap(']b', ':BufferLineCycleNext<CR>', { desc = 'Right buffer' }) -- Go right
-nnoremap('[b', ':BufferLineCyclePrev<CR>', { desc = 'Left buffer' }) -- Go left
-nnoremap(
-  ']B',
-  ':BufferLineMoveNext<CR>',
-  { desc = 'Move the buffer to the right' }
-) -- Move the buffer to the right
-nnoremap(
-  '[B',
-  ':BufferLineMovePrev<CR>',
-  { desc = 'Move the buffer to the left' }
-) -- Move the buffer to the left
-nnoremap(
-  '<leader>be',
-  ':BufferLineSortByExtension<CR>',
-  { desc = 'Sort by extension' }
-) -- Sort buffer by Extension
-nnoremap(
-  '<leader>bd',
-  ':BufferLineSortByDirectory<CR>',
-  { desc = 'Sort by directory' }
-) -- Sort buffer by Directory
-nnoremap('<leader>gb', ':BufferLinePick<CR>', { desc = 'Pick buffer' }) -- Pick buffer
 
 return {
   'akinsho/bufferline.nvim',
+  cond = false,
   event = 'BufWinEnter',
   version = '*',
   dependencies = { 'nvim-web-devicons' },
+  --- @type LazyKeysSpec[]
+  keys = {
+    {
+      ']B',
+      ':BufferLineMoveNext<CR>',
+      noremap = true,
+      desc = 'Move the buffer to the right',
+    },
+    {
+      '[B',
+      ':BufferLineMovePrev<CR>',
+      noremap = true,
+      desc = 'Move the buffer to the left',
+    },
+    {
+      ']b',
+      ':BufferLineCycleNext<CR>',
+      noremap = true,
+      desc = 'Right buffer',
+    },
+    {
+      '[b',
+      ':BufferLineCyclePrev<CR>',
+      noremap = true,
+      desc = 'Left buffer',
+    },
+    {
+      '<leader>be',
+      ':BufferLineSortByExtension<CR>',
+      noremap = true,
+      desc = 'Sort by extension',
+    },
+    {
+      '<leader>bd',
+      ':BufferLineSortByDirectory<CR>',
+      noremap = true,
+      desc = 'Sort by directory',
+    },
+    {
+      '<leader>gb',
+      ':BufferLinePick<CR>',
+      noremap = true,
+      desc = 'Pick buffer',
+    },
+  },
   opts = {
     options = {
       -- numbers = 'buffer_id',
