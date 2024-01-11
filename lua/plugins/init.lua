@@ -588,6 +588,7 @@ return {
     name = 'rose-pine',
     opts = {
       dark_variant = 'moon',
+      -- disable_background = true,
     },
   },
   {
