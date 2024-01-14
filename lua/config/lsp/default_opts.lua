@@ -245,6 +245,9 @@ M.on_attach = function(client, bufnr)
       group = augroup,
       buffer = bufnr,
       callback = function()
+        if beforeFormat then
+          beforeFormat()
+        end
         vim.lsp.buf.format({
           -- async = true,
           bufnr = bufnr,
@@ -256,9 +259,6 @@ M.on_attach = function(client, bufnr)
             return client_format.name == 'null-ls'
           end,
         })
-        if beforeFormat then
-          beforeFormat()
-        end
       end,
     })
   end
