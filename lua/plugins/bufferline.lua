@@ -4,7 +4,6 @@
 
 return {
   'akinsho/bufferline.nvim',
-  cond = false,
   event = 'BufWinEnter',
   version = '*',
   dependencies = { 'nvim-web-devicons' },
@@ -45,6 +44,12 @@ return {
       ':BufferLineSortByDirectory<CR>',
       noremap = true,
       desc = 'Sort by directory',
+    },
+    {
+      '<leader>bp',
+      ':BufferLineTogglePin<CR>',
+      noremap = true,
+      desc = 'Pin current Buffer',
     },
     {
       '<leader>gb',
