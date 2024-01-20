@@ -71,7 +71,7 @@ local buffer_option = {
       -- Don't index giant files
       if
         vim.api.nvim_buf_is_loaded(bufnr)
-        and vim.api.nvim_buf_line_count(bufnr) < MAX_INDEX_FILE_SIZE
+        and vim.api.nvim_buf_line_count(bufnr) < 10000
       then
         table.insert(bufs, bufnr)
       end

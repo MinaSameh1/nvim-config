@@ -264,7 +264,8 @@ return {
 
   {
     'hrsh7th/nvim-cmp',
-    event = { 'InsertEnter', 'VeryLazy' },
+    -- event = { 'InsertEnter' },
+    lazy = false,
     config = function()
       require('config.cmp')
     end,
@@ -274,6 +275,7 @@ return {
         config = function()
           require('config.luasnip')
         end,
+        event = 'VeryLazy',
         dependencies = {
           { 'rafamadriz/friendly-snippets', event = 'VeryLazy' },
         },
