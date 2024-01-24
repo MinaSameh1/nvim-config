@@ -92,7 +92,12 @@ local buffer_option = {
 
 cmp.setup({
   enabled = function()
-    return not vim.b.is_big_file
+    if vim.b.is_big_file then
+      return false
+    end
+    local buftype = vim.api.nvim_get_option_value("buftype", { buf = 0 })
+    if buftype == 'prompt' or buftype == 'neo-tree' then return false end
+    return true
   end,
   -- https://github.com/hrsh7th/nvim-cmp/issues/1271
   preselect = cmp.PreselectMode.None,
@@ -177,7 +182,7 @@ cmp.setup({
   },
   sources = {
     { name = 'nvim_lsp', priority = 10, max_item_count = 20 },
-    { name = 'luasnip', priority = 6 },
+    { name = 'luasnip',  priority = 6 },
     {
       name = 'buffer',
       max_item_count = 4,
@@ -225,7 +230,7 @@ cmp.setup({
       }
       -- Kind icons
       vim_item.kind =
-        string.format('%s %s', kindIcons[vim_item.kind], vim_item.kind) -- This concatonates the icons with the name of the item kind
+          string.format('%s %s', kindIcons[vim_item.kind], vim_item.kind) -- This concatonates the icons with the name of the item kind
 
       --  I like to know my lsp names :v
       if entry.source.name == 'nvim_lsp' then
@@ -315,7 +320,7 @@ cmp.setup.filetype({ 'markdown', 'pandoc', 'text', 'latex' }, {
     { name = 'luasnip' },
     { name = 'path' },
     { name = 'buffer' },
-    { name = 'dictionary', keyword_length = 2 },
+    { name = 'dictionary',   keyword_length = 2 },
     { name = 'latex_symbols' },
   },
 })
