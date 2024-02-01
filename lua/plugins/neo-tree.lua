@@ -50,7 +50,7 @@ return {
   keys = {
     {
       '<F2>',
-      '<Cmd>Neotree left toggle<CR>',
+      '<Cmd>Neotree right toggle<CR>',
       mode = 'n',
       noremap = true,
       silent = true,
