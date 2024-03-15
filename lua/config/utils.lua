@@ -221,4 +221,10 @@ function utils.get_relative_path()
   return relative_path
 end
 
+--- Returns the filename of the current buffer.
+-- @return {string} the filename of the current buffer
+function utils.get_filename()
+  return vim.fn.expand('%:t')
+end
+
 return utils

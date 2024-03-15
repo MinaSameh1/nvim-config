@@ -88,6 +88,14 @@ local function jdocsnip(args, _, old_state)
   return snip
 end
 
+local get_package_name = function(_, _)
+  local path = utils.get_relative_path()
+
+  -- get package name
+  local package = path:gsub('src/main/java/', ''):gsub('/', '.')
+  return package
+end
+
 return {
   s.s({
     trig = 'sout',
@@ -100,16 +108,31 @@ return {
     package <>;
     ]],
       {
-        s.f(function(_, _)
-          local path = utils.get_relative_path()
-
-          -- get package name
-          local package = path:gsub('src/main/java/', ''):gsub('/', '.')
-          return package
-        end),
+        s.f(get_package_name),
       }
     )
   ),
+  --   s.s(
+  --     { trig = 'class', name = 'class', dscr = 'Class with packagename' },
+  --     s.fmta(
+  --       [[
+  --     package <>;
+  --
+  -- <> class <> {}
+  --     ]],
+  --       {
+  --         s.f(get_package_name),
+  --         s.c({
+  --           s.t('public '),
+  --           s.t('private '),
+  --           s.t('protected '),
+  --         }),
+  --         s.f(function(_, _)
+  --           return utils.get_filename():gsub('.java', '')
+  --         end),
+  --       }
+  --     )
+  --   ),
   s.s(
     { trig = 'time', dscr = 'Time code execution' },
     s.fmta(
