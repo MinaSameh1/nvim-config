@@ -3,6 +3,8 @@ if not status_ok then
   return
 end
 
+local direction = 'float'
+
 toggleterm.setup({
   size = 20,
   open_mapping = [[<c-`>]],
@@ -13,7 +15,7 @@ toggleterm.setup({
   start_in_insert = true,
   insert_mappings = true,
   persist_size = true,
-  direction = 'float', --'vertical' | 'horizontal' | 'window' | 'float',
+  direction = direction, --'vertical' | 'horizontal' | 'window' | 'float',
   close_on_exit = true,
   shell = vim.o.shell,
   float_opts = {
@@ -45,26 +47,38 @@ local Terminal = require('toggleterm.terminal').Terminal
 local bashtop = Terminal:new({
   cmd = 'bashtop',
   hidden = true,
-  direction = 'float',
+  direction = direction,
 })
 
 function _BASHTOP_TOGGLE()
   bashtop:toggle()
 end
 
-local node = Terminal:new({ cmd = 'node', hidden = true, direction = 'float' })
+local node = Terminal:new({
+  cmd = 'node',
+  hidden = true,
+  direction = direction,
+})
 
 function _NODE_TOGGLE()
   node:toggle()
 end
 
-local ncdu = Terminal:new({ cmd = 'ncdu', hidden = true, direction = 'float' })
+local ncdu = Terminal:new({
+  cmd = 'ncdu',
+  hidden = true,
+  direction = direction,
+})
 
 function _NCDU_TOGGLE()
   ncdu:toggle()
 end
 
-local htop = Terminal:new({ cmd = 'htop', hidden = true, direction = 'float' })
+local htop = Terminal:new({
+  cmd = 'htop',
+  hidden = true,
+  direction = direction,
+})
 
 function _HTOP_TOGGLE()
   htop:toggle()
@@ -73,7 +87,7 @@ end
 local python = Terminal:new({
   cmd = 'ipython',
   hidden = true,
-  direction = 'float',
+  direction = direction,
 })
 
 function _PYTHON_TOGGLE()
@@ -83,7 +97,7 @@ end
 local lazydocker = Terminal:new({
   cmd = 'lazydocker',
   hidden = true,
-  direction = 'float',
+  direction = direction,
 })
 
 function _DOCKER_TOGGLE()
