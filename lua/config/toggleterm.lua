@@ -126,7 +126,7 @@ Key(
 )
 Key(
   'n',
-  '<leader>td',
+  '<leader>tD',
   '<Cmd>lua _DOCKER_TOGGLE()<CR>',
   setDesc('Toggle docker')
 )
