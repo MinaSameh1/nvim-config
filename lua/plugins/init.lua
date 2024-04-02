@@ -5,6 +5,9 @@ return {
   },
 
   {
+    'nvim-neotest/nvim-nio',
+  },
+  {
     -- Allows us to implement enamey popups
     'nvim-lua/popup.nvim',
     module = 'popup',
