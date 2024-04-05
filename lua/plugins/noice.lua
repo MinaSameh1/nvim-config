@@ -5,7 +5,7 @@ local nnoremap = require('config.utils').nnoremap
 
 nnoremap(
   '<C-space>',
-  '<cmd>Noice dismiss<CR>',
+  '<cmd>Noice dismiss<CR><cmd>lua require("fidget.notification").clear()<CR>',
   { desc = 'Dismiss notifications' }
 )
 
