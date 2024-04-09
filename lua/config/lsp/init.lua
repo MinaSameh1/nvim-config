@@ -236,9 +236,9 @@ mason_lspconfig.setup_handlers({
           enable = true,
           setType = false,
           paramType = true,
-          --[[ paramName = 'Disable', ]]
+          -- paramName = 'Disable',
           semicolon = 'Disable',
-          --[[ arrayIndex = 'Disable', ]]
+          arrayIndex = 'Disable',
         },
       },
       format = {
