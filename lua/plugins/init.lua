@@ -30,23 +30,6 @@ return {
       require('config.lualine.evil')
     end,
   },
-  {
-    -- Shows LSP progress
-    'j-hui/fidget.nvim',
-    branch = 'main',
-    event = 'LspAttach',
-    opts = {
-      progress = {
-        suppress_on_insert = true,
-        ignore = { -- List of LSP servers to ignore
-          'efm',
-          'null-ls',
-          'ltex',
-        },
-      },
-    },
-  },
-
   -- for folds
   {
     'anuvyklack/pretty-fold.nvim',
