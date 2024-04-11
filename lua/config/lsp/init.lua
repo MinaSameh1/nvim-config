@@ -179,6 +179,10 @@ mason_lspconfig.setup_handlers({
   ['intelephense'] = function()
     local opts = default_opts
     opts.settings = {
+      -- [[
+      -- dont forget to install stubs. EX:
+      -- composer global require php-stubs/wordpress-globals php-stubs/wordpress-stubs php-stubs/woocommerce-stubs
+      -- ]]
       intelephense = {
         stubs = {
           'acf-pro',
