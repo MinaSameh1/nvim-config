@@ -12,6 +12,8 @@ if not status_ok_mason then
   return
 end
 
+local home = os.getenv('HOME')
+
 mason.setup({
   log_level = vim.log.levels.INFO,
   max_concurrent_installers = 2,
@@ -203,6 +205,9 @@ mason_lspconfig.setup_handlers({
           'wp-cli',
           'zip',
           'zlib',
+        },
+        environment = {
+          includePaths = home .. '/.config/composer/vendor/php-stubs/',
         },
       },
     }
