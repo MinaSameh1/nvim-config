@@ -305,6 +305,11 @@ return {
   --- Syntax and languages
   -- Syntax highlighting
   {
+    'phpactor/phpactor',
+    ft = { 'php' },
+    build = 'composer install',
+  },
+  {
     'nvim-treesitter/nvim-treesitter',
     build = ':TSUpdate',
     config = function()
