@@ -7,5 +7,5 @@ return {
       ls.i(1),
     }),
     { condition = ls.conds.line_begin }
-  )
+  ),
 }
