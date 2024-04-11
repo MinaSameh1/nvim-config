@@ -10,16 +10,15 @@ vim.api.nvim_set_keymap(
 
 return {
   'nvim-neorg/neorg',
-  build = ':Neorg sync-parsers',
   cmd = 'Neorg',
   ft = 'norg',
+  dependencies = { 'luarocks.nvim' },
   opts = {
     load = {
       ['core.defaults'] = {},
       ['core.keybinds'] = {},
       ['core.neorgcmd'] = {},
       ['core.concealer'] = {},
-      ['core.upgrade'] = {},
       ['core.pivot'] = {},
       ['core.itero'] = {},
       ['core.promo'] = {},

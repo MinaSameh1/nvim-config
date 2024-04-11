@@ -8,6 +8,11 @@ return {
     'nvim-neotest/nvim-nio',
   },
   {
+    'vhyrro/luarocks.nvim',
+    priority = 1000,
+    config = true,
+  },
+  {
     -- Allows us to implement enamey popups
     'nvim-lua/popup.nvim',
     module = 'popup',
@@ -30,35 +35,6 @@ return {
       require('config.lualine.evil')
     end,
   },
-  -- for folds
-  {
-    'anuvyklack/pretty-fold.nvim',
-    event = 'BufRead',
-    opts = {},
-  },
-
-  {
-    -- Split screen management
-    'beauwilliams/focus.nvim',
-    module = 'focus',
-    cmd = { 'FocusSplitNicely', 'FocusSplitCycle' },
-    -- event = { 'BufRead', 'BufNewFile', 'WinEnter', 'BufWinEnter' },
-    config = function()
-      require('focus').setup({
-        excludeded_filetypes = {
-          'toggleterm',
-          'term',
-          'fterm',
-          'diffviewfiles',
-          'dap-repl',
-        },
-        excludeded_buftypes = { 'help', 'nofile', 'prompt', 'popup' },
-        hybridnumber = true,
-        treewith = 30,
-        minwidth = 20,
-      })
-    end,
-  },
 
   {
     -- Smooth scrolling
@@ -74,36 +50,6 @@ return {
     event = 'CursorHold',
     config = function()
       require('config.toggleterm')
-    end,
-  },
-
-  {
-    'jbyuki/venn.nvim',
-    event = 'VeryLazy',
-    config = function()
-      require('config.venn')
-    end,
-  },
-
-  {
-    's1n7ax/nvim-window-picker',
-    version = 'v1.*',
-    config = function()
-      require('window-picker').setup({
-        use_winbar = 'never',
-        autoselect_one = true,
-        include_current_win = false,
-        filter_rules = {
-          -- filter using buffer options
-          bo = {
-            -- if the file type is one of following, the window will be ignored
-            filetype = { 'neo-tree', 'neo-tree-popup', 'notify' },
-            -- if the buffer type is one of following, the window will be ignored
-            buftype = { 'terminal', 'quickfix' },
-          },
-        },
-        other_win_hl_color = '#e35e4f',
-      })
     end,
   },
 
@@ -256,16 +202,6 @@ return {
       require('config.cmp')
     end,
     dependencies = {
-      {
-        'L3MON4D3/Luasnip',
-        config = function()
-          require('config.luasnip')
-        end,
-        event = 'VeryLazy',
-        dependencies = {
-          { 'rafamadriz/friendly-snippets', event = 'VeryLazy' },
-        },
-      },
       { 'hrsh7th/cmp-buffer' },
       { 'hrsh7th/cmp-path' },
       { 'hrsh7th/cmp-cmdline' },
@@ -330,23 +266,6 @@ return {
     'mfussenegger/nvim-jdtls',
   },
 
-  -- Great test framework
-  {
-    'nvim-neotest/neotest',
-    event = 'BufRead',
-    dependencies = {
-      'haydenmeade/neotest-jest',
-      'rcasia/neotest-java',
-      'nvim-neotest/neotest-python',
-      'sidlatau/neotest-dart',
-      'marilari88/neotest-vitest',
-      'nvim-treesitter/nvim-treesitter',
-    },
-    config = function()
-      require('config.neotest')
-    end,
-  },
-
   -- Git integration
   {
     'lewis6991/gitsigns.nvim',
@@ -378,7 +297,7 @@ return {
     config = function()
       vim.cmd(
         -- `single` (default), `double`, `rounded`
-        'nnoremap <leader>p :lua require("nabla").popup({ border = "rounded" })<CR>'
+        'nnoremap <leader>P :lua require("nabla").popup({ border = "rounded" })<CR>'
       )
     end,
   },
