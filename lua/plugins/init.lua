@@ -432,6 +432,10 @@ return {
     cmd = 'ZenMode',
     opts = {},
   },
+  {
+    'Makaze/watch.nvim',
+    cmd = { 'WatchStart', 'WatchStop', 'WatchFile' },
+  },
 
   -- Takes beautiful screenshots of code
   -- use({
@@ -577,6 +581,18 @@ return {
     -- config = function()
     --   vim.cmd.colorscheme('horizon')
     -- end,
+  },
+  {
+    'scottmckendry/cyberdream.nvim',
+    lazy = false,
+    priority = 1000,
+    opts = {
+      transparent = true,
+      italic_comments = true,
+      hide_fillchars = true,
+      borderless_telescope = true,
+      terminal_colors = true,
+    },
   },
 
   {
