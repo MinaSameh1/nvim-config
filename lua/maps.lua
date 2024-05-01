@@ -42,21 +42,23 @@ vim.keymap.set(
 )
 
 -- Suggested global maps
-vim.keymap.set('n', '<space>e', vim.diagnostic.open_float, {
-  silent = true,
-  noremap = true,
-  desc = 'Open diagnostic float',
-})
-vim.keymap.set('n', '[c', vim.diagnostic.goto_prev, {
-  silent = true,
-  noremap = true,
-  desc = 'goto prev diagnostic',
-})
-vim.keymap.set('n', ']c', vim.diagnostic.goto_next, {
-  silent = true,
-  noremap = true,
-  desc = 'goto next diagnostic',
-})
+--- Overriden by <C-W>d -> vim.diagnostic.open_float()
+-- vim.keymap.set('n', '<space>e', vim.diagnostic.open_float, {
+--   silent = true,
+--   noremap = true,
+--   desc = 'Open diagnostic float',
+-- })
+--- Overriden by ]d and [d -> vim.diagnostic.goto_next()
+-- vim.keymap.set('n', '[c', vim.diagnostic.goto_prev, {
+--   silent = true,
+--   noremap = true,
+--   desc = 'goto prev diagnostic',
+-- })
+-- vim.keymap.set('n', ']c', vim.diagnostic.goto_next, {
+--   silent = true,
+--   noremap = true,
+--   desc = 'goto next diagnostic',
+-- })
 vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist, {
   silent = true,
   noremap = true,

@@ -62,7 +62,26 @@ M.on_attach = function(client, bufnr)
     { buf = bufnr }
   )
 
-  --- Mappings.
+  ----- Mappings.
+  ---- Deprecated
+  --- CTRL-S -> vim.lsp.buf.signature\_help()
+  vim.keymap.set(
+    'n',
+    '<C-k>',
+    vim.lsp.buf.signature_help,
+    setDesc('Opens signature help')
+  )
+  --- crr -> vim.lsp.buf.code_action()
+  -- For visual CTRL-R CTRL-R (also CTRL-R r) -> vim.lsp.buf.code_action()
+  -- vim.keymap.set(
+  --   { 'n', 'v' },
+  --   '<leader>ca',
+  --   vim.lsp.buf.code_action,
+  --   setDesc('Code action')
+  -- )
+  --- overriden by crn -> vim.lsp.buf.rename()
+  -- vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, setDesc('Rename'))
+
   -- Info
   vim.keymap.set(
     'n',
@@ -76,6 +95,8 @@ M.on_attach = function(client, bufnr)
     '<cmd>Trouble document_diagnostics<cr>',
     setDesc('Opens document diagnostics')
   )
+
+  -- Overrides gr -> vim.lsp.buf.references()
   vim.keymap.set(
     'n',
     'gr',
@@ -91,12 +112,6 @@ M.on_attach = function(client, bufnr)
 
   -- Docs
   vim.keymap.set('n', 'K', vim.lsp.buf.hover, setDesc('Opens hover doc'))
-  vim.keymap.set(
-    'n',
-    '<C-k>',
-    vim.lsp.buf.signature_help,
-    setDesc('Opens signature help')
-  )
 
   -- Go To
   vim.keymap.set('n', 'gd', vim.lsp.buf.definition, setDesc('Go to definition'))
@@ -137,13 +152,6 @@ M.on_attach = function(client, bufnr)
   end, setDesc('Lists workspace folders'))
 
   -- Actions
-  vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, setDesc('Rename'))
-  vim.keymap.set(
-    { 'n', 'v' },
-    '<leader>ca',
-    vim.lsp.buf.code_action,
-    setDesc('Code action')
-  )
   vim.keymap.set('n', '<leader>F', function()
     vim.lsp.buf.format({ async = true })
   end, setDesc('Formats file'))
