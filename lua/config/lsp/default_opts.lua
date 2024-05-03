@@ -206,14 +206,14 @@ M.on_attach = function(client, bufnr)
   -- if client.supports_method(methods.textDocument_inlayHint) then
   -- end
   if vim.lsp.inlay_hint then
+    local hintFilter = { bufnr = bufnr }
+    -- Toggle inlay hints
     vim.keymap.set('n', '<leader>th', function()
-      if vim.lsp.inlay_hint.is_enabled(bufnr) then
-        vim.lsp.inlay_hint.enable(bufnr, false)
-      else
-        vim.lsp.inlay_hint.enable(bufnr, true)
-      end
+      vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled(hintFilter), hintFilter)
     end, { expr = true, noremap = true, desc = '[T]oggle inlay [h]ints' })
-    vim.lsp.inlay_hint.enable(bufnr, true)
+
+    -- Enable them by default.
+    vim.lsp.inlay_hint.enable(true, hintFilter)
   end
 
   vim.api.nvim_create_autocmd('CursorHold', {
