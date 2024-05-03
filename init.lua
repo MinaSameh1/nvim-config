@@ -18,7 +18,7 @@ local nmap = utils.nmap
 local cmap = utils.cmap
 local nnoremap = utils.nnoremap
 -- local inoremap = utils.inoremap
-local vnoremap = utils.vnoremap
+-- local vnoremap = utils.vnoremap
 -- Test emote support: should be white skull 💀
 
 -- Vim options
