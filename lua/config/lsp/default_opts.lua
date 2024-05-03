@@ -209,7 +209,10 @@ M.on_attach = function(client, bufnr)
     local hintFilter = { bufnr = bufnr }
     -- Toggle inlay hints
     vim.keymap.set('n', '<leader>th', function()
-      vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled(hintFilter), hintFilter)
+      vim.lsp.inlay_hint.enable(
+        not vim.lsp.inlay_hint.is_enabled(hintFilter),
+        hintFilter
+      )
     end, { expr = true, noremap = true, desc = '[T]oggle inlay [h]ints' })
 
     -- Enable them by default.
