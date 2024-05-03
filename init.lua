@@ -80,7 +80,7 @@ vim.o.foldmethod = 'indent'
 
 vim.opt.mousemodel = 'extend'
 
-vim.opt.clipboard = 'unnamedplus'
+-- vim.opt.clipboard = 'unnamedplus'
 
 ---- Keybindings
 require('maps')
