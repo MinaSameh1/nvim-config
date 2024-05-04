@@ -5,7 +5,6 @@
 return {
   'akinsho/bufferline.nvim',
   event = 'BufWinEnter',
-  version = '*',
   dependencies = { 'nvim-web-devicons' },
   --- @type LazyKeysSpec[]
   keys = {
