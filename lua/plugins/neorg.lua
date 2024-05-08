@@ -1,5 +1,3 @@
-
-
 -- Map local leader to <Space>
 vim.g.maplocalleader = ','
 
@@ -11,7 +9,7 @@ return {
   keys = {
     {
       '<leader>N',
-  '<cmd>Neorg<CR>',
+      '<cmd>Neorg<CR>',
       mode = 'n',
       noremap = true,
       silent = true,
