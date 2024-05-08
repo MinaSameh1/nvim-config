@@ -1,18 +1,23 @@
-local opts = { noremap = true, silent = true, expr = false }
-local setDesc = require('config.utils').getDescWithMapOptsSetter(opts)
 
-vim.api.nvim_set_keymap(
-  'n',
-  '<leader>N',
-  '<cmd>Neorg<CR>',
-  setDesc('Opens Neorg')
-)
+
+-- Map local leader to <Space>
+vim.g.maplocalleader = ','
 
 return {
   'nvim-neorg/neorg',
   cmd = 'Neorg',
   ft = 'norg',
   dependencies = { 'luarocks.nvim' },
+  keys = {
+    {
+      '<leader>N',
+  '<cmd>Neorg<CR>',
+      mode = 'n',
+      noremap = true,
+      silent = true,
+      desc = 'Open Neorg',
+    },
+  },
   opts = {
     load = {
       ['core.defaults'] = {},
