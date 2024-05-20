@@ -9,6 +9,11 @@ local function lsp_highlight_document(bufnr)
   --     hi! LspReferenceText cterm=underline ctermbg=red guibg=#24283b
   --     hi! LspReferenceWrite cterm=underline ctermbg=red  guibg=#24283b
   --   ]])
+  -- Check if client supports documentHighlight
+  if not vim.lsp.buf.document_highlight then
+    return
+  end
+
   vim.api.nvim_set_hl(0, 'LspReferenceRead', {
     underline = true,
     bg = '#24283b',
