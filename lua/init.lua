@@ -23,33 +23,6 @@ vim.opt.completeopt = { 'menu', 'menuone', 'noselect' }
 
 vim.g.dashboard_default_executive = 'telescope' -- Use telescope
 
--- Mappings for Trouble
-vim.keymap.set(
-  'n',
-  '<leader>xx',
-  '<cmd>TroubleToggle<cr>',
-  { silent = true, noremap = true, desc = 'Toggle Trouble' }
-)
-vim.keymap.set(
-  'n',
-  '<leader>xl',
-  '<cmd>Trouble loclist<cr>',
-  { silent = true, noremap = true, desc = 'Loclist' }
-)
-vim.keymap.set(
-  'n',
-  '<leader>xq',
-  '<cmd>Trouble quickfix<cr>',
-  { silent = true, noremap = true, desc = 'Quickfix' }
-)
--- Focus
-vim.api.nvim_set_keymap(
-  'n',
-  '<leader>S',
-  ':FocusSplitNicely<CR>',
-  { silent = true, noremap = true, desc = 'Focus Split Nicely' }
-)
-
 require('config')
 require('config.colorscheme')
 require('colors.colors')

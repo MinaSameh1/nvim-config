@@ -5,7 +5,7 @@ if not status_ok then
 end
 
 local actions = require('telescope.actions')
-local trouble = require('trouble.providers.telescope')
+local trouble = require('trouble.sources.telescope')
 
 local default = {
   defaults = {
@@ -91,8 +91,8 @@ local default = {
         ['<PageUp>'] = actions.results_scrolling_up,
         ['<PageDown>'] = actions.results_scrolling_down,
 
-        ['<C-i>'] = trouble.open_with_trouble,
-        ['<M-i>'] = trouble.open_with_trouble, -- In case of tmux
+        ['<C-i>'] = trouble.open,
+        ['<M-i>'] = trouble.open, -- In case of tmux
         ['<Tab>'] = actions.toggle_selection + actions.move_selection_worse,
         ['<S-Tab>'] = actions.toggle_selection + actions.move_selection_better,
         ['<C-q>'] = actions.send_to_qflist + actions.open_qflist,
@@ -107,8 +107,8 @@ local default = {
         ['<C-v>'] = actions.select_vertical,
         ['<C-t>'] = actions.select_tab,
 
-        ['<C-i>'] = trouble.open_with_trouble,
-        ['<M-i>'] = trouble.open_with_trouble, -- In case of tmux
+        ['<C-i>'] = trouble.open,
+        ['<M-i>'] = trouble.open, -- In case of tmux
         ['<Tab>'] = actions.toggle_selection + actions.move_selection_worse,
         ['<S-Tab>'] = actions.toggle_selection + actions.move_selection_better,
         ['<C-q>'] = actions.send_to_qflist + actions.open_qflist,
@@ -194,6 +194,7 @@ end, {
 Key('n', '<leader>fr', '<Cmd>Telescope resume<CR>', setDesc('Resume'))
 Key('n', '<leader>ff', '<Cmd>Telescope find_files<CR>', setDesc('Find Files'))
 Key('n', '<leader>fg', '<Cmd>Telescope live_grep<CR>', setDesc('Grep Files'))
+Key('n', '<leader>fG', '<Cmd>Telescope grep_string<CR>', setDesc('Grep Word'))
 Key('n', '<leader>fb', '<Cmd>Telescope buffers<CR>', setDesc('Open Buffers'))
 Key('n', '<leader>fm', '<Cmd>Telescope marks<CR>', setDesc('Open Marks'))
 Key('n', '<leader>fH', '<Cmd>Telescope help_tags<CR>', setDesc('help Tags'))
@@ -210,6 +211,23 @@ Key(
   '<Cmd>Telescope commands<CR>',
   setDesc('telescope commands')
 )
+Key({ 'n', 'v' }, '<leader>fw', function()
+  local mode = vim.api.nvim_get_mode().mode
+  local word
+
+  if mode == 'v' or mode == 'V' or mode == '' then
+    -- In visual mode
+    vim.cmd('normal! "vy') -- Yank the selected text to the unnamed register
+    word = vim.fn.escape(vim.fn.getreg('"'), '\\/.*$^~[]')
+  else
+    -- In normal mode
+    word = vim.fn.expand('<cword>')
+  end
+
+  local builtin = require('telescope.builtin')
+  builtin.live_grep({ default_text = word, initial_mode = 'normal' })
+end, setDesc('open telescope with word undercursor'))
+
 Key(
   'n',
   '<leader>fC',
