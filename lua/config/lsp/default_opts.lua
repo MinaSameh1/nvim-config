@@ -50,6 +50,47 @@ end
 
 local beforeFormat = nil
 
+function M.has_capability(capability, filter)
+  for _, client in ipairs(vim.lsp.get_clients(filter)) do
+    if client.supports_method(capability) then
+      return true
+    end
+  end
+  return false
+end
+
+local function add_buffer_autocmd(augroup, bufnr, autocmds)
+  if not vim.tbl_islist(autocmds) then
+    autocmds = { autocmds }
+  end
+  local cmds_found, cmds = pcall(
+    vim.api.nvim_get_autocmds,
+    { group = augroup, buffer = bufnr }
+  )
+  if not cmds_found or vim.tbl_isempty(cmds) then
+    vim.api.nvim_create_augroup(augroup, { clear = false })
+    for _, autocmd in ipairs(autocmds) do
+      local events = autocmd.events
+      autocmd.events = nil
+      autocmd.group = augroup
+      autocmd.buffer = bufnr
+      vim.api.nvim_create_autocmd(events, autocmd)
+    end
+  end
+end
+
+local function del_buffer_autocmd(augroup, bufnr)
+  local cmds_found, cmds = pcall(
+    vim.api.nvim_get_autocmds,
+    { group = augroup, buffer = bufnr }
+  )
+  if cmds_found then
+    vim.tbl_map(function(cmd)
+      vim.api.nvim_del_autocmd(cmd.id)
+    end, cmds)
+  end
+end
+
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
 M.on_attach = function(client, bufnr)
@@ -78,14 +119,14 @@ M.on_attach = function(client, bufnr)
   )
   --- crr -> vim.lsp.buf.code_action()
   -- For visual CTRL-R CTRL-R (also CTRL-R r) -> vim.lsp.buf.code_action()
-  -- vim.keymap.set(
-  --   { 'n', 'v' },
-  --   '<leader>ca',
-  --   vim.lsp.buf.code_action,
-  --   setDesc('Code action')
-  -- )
+  vim.keymap.set(
+    { 'n', 'v' },
+    '<leader>ca',
+    vim.lsp.buf.code_action,
+    setDesc('Code action')
+  )
   --- overriden by crn -> vim.lsp.buf.rename()
-  -- vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, setDesc('Rename'))
+  vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, setDesc('Rename'))
 
   -- Info
   vim.keymap.set(
@@ -173,23 +214,23 @@ M.on_attach = function(client, bufnr)
     vim.lsp.buf.code_action()
   end, { nargs = 0, desc = 'Code action' })
 
-  vim.api.nvim_create_autocmd('LspAttach', {
-    callback = function()
-      vim.api.nvim_create_autocmd('BufDelete', {
-        buffer = vim.api.nvim_get_current_buf(),
-        callback = function(opts)
-          local bufnum = opts.buf
-          local clients = vim.lsp.get_clients({ bufnr = bufnum })
-          for client_id, attached_client in pairs(clients) do
-            if attached_client.name == 'copilot' then
-              return
-            end
-            vim.lsp.buf_detach_client(bufnum, client_id)
-          end
-        end,
-      })
-    end,
-  })
+  -- vim.api.nvim_create_autocmd('LspAttach', {
+  --   callback = function()
+  --     vim.api.nvim_create_autocmd('BufDelete', {
+  --       buffer = vim.api.nvim_get_current_buf(),
+  --       callback = function(opts)
+  --         local bufnum = opts.buf
+  --         local clients = vim.lsp.get_clients({ bufnr = bufnum })
+  --         for client_id, attached_client in pairs(clients) do
+  --           if attached_client.name == 'copilot' then
+  --             return
+  --           end
+  --           vim.lsp.buf_detach_client(bufnum, client_id)
+  --         end
+  --       end,
+  --     })
+  --   end,
+  -- })
 
   -- Highlight used words
   if client.server_capabilities.documentHighlightProvider then
@@ -211,6 +252,45 @@ M.on_attach = function(client, bufnr)
 
     -- Enable them by default.
     vim.lsp.inlay_hint.enable(true, hintFilter)
+  end
+
+  if client.supports_method('textDocument/codeLens') then
+    local silent_refresh = function()
+      local _notify = vim.notify
+      vim.notify = function()
+        -- say nothing
+      end
+      pcall(vim.lsp.codelens.refresh)
+      vim.notify = _notify
+    end
+
+    add_buffer_autocmd('lsp_codelens_refresh', bufnr, {
+      events = { 'InsertLeave', 'BufEnter' },
+      desc = 'Refresh codelens',
+      callback = function()
+        if not M.has_capability('textDocument/codeLens', { bufnr = bufnr }) then
+          del_buffer_autocmd('lsp_codelens_refresh', bufnr)
+          return
+        end
+        -- if vim.g.codelens_enabled then vim.lsp.codelens.refresh() end
+        if vim.g.codelens_enabled then
+          silent_refresh()
+        end
+      end,
+    })
+    -- if vim.g.codelens_enabled then vim.lsp.codelens.refresh() end
+    if vim.g.codelens_enabled then
+      silent_refresh()
+    end
+    vim.keymap.set('n', '<leader>ll', function()
+      vim.lsp.codelens.refresh()
+    end, {
+      noremap = true,
+      desc = 'LSP CodeLens refresh',
+    })
+    vim.keymap.set('n', '<leader>lL', function()
+      vim.lsp.codelens.run()
+    end, { noremap = true, desc = 'LSP CodeLens run' })
   end
 
   vim.api.nvim_create_autocmd('CursorHold', {
@@ -327,7 +407,7 @@ end
 
 vim.diagnostic.config({
   float = {
-    source = 'always',
+    source = true,
     focusable = true,
     style = 'minimal',
     border = 'rounded',
@@ -337,7 +417,7 @@ vim.diagnostic.config({
   severity_sort = true,
   virtual_text = {
     spacing = 2,
-    source = 'always',
+    source = true,
     prefix = '',
   },
 })
