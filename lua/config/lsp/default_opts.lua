@@ -63,10 +63,8 @@ local function add_buffer_autocmd(augroup, bufnr, autocmds)
   if not vim.tbl_islist(autocmds) then
     autocmds = { autocmds }
   end
-  local cmds_found, cmds = pcall(
-    vim.api.nvim_get_autocmds,
-    { group = augroup, buffer = bufnr }
-  )
+  local cmds_found, cmds =
+    pcall(vim.api.nvim_get_autocmds, { group = augroup, buffer = bufnr })
   if not cmds_found or vim.tbl_isempty(cmds) then
     vim.api.nvim_create_augroup(augroup, { clear = false })
     for _, autocmd in ipairs(autocmds) do
@@ -80,10 +78,8 @@ local function add_buffer_autocmd(augroup, bufnr, autocmds)
 end
 
 local function del_buffer_autocmd(augroup, bufnr)
-  local cmds_found, cmds = pcall(
-    vim.api.nvim_get_autocmds,
-    { group = augroup, buffer = bufnr }
-  )
+  local cmds_found, cmds =
+    pcall(vim.api.nvim_get_autocmds, { group = augroup, buffer = bufnr })
   if cmds_found then
     vim.tbl_map(function(cmd)
       vim.api.nvim_del_autocmd(cmd.id)
