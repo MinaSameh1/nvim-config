@@ -70,7 +70,8 @@ local terminals = {
   encode = false,
   prepopulate = function()
     local bufs = vim.api.nvim_list_bufs()
-    return vim.iter(bufs)
+    return vim
+      .iter(bufs)
       :filter(function(buf)
         return vim.bo[buf].buftype == 'terminal'
       end)
