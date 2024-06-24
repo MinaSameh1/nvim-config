@@ -8,11 +8,6 @@ return {
     'nvim-neotest/nvim-nio',
   },
   {
-    'vhyrro/luarocks.nvim',
-    priority = 1000,
-    config = true,
-  },
-  {
     -- Allows us to implement enamey popups
     'nvim-lua/popup.nvim',
     module = 'popup',

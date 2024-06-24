@@ -5,7 +5,6 @@ return {
   'nvim-neorg/neorg',
   cmd = 'Neorg',
   ft = 'norg',
-  dependencies = { 'luarocks.nvim' },
   keys = {
     {
       '<leader>N',
