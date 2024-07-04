@@ -59,34 +59,6 @@ function M.has_capability(capability, filter)
   return false
 end
 
-local function add_buffer_autocmd(augroup, bufnr, autocmds)
-  if not vim.tbl_islist(autocmds) then
-    autocmds = { autocmds }
-  end
-  local cmds_found, cmds =
-    pcall(vim.api.nvim_get_autocmds, { group = augroup, buffer = bufnr })
-  if not cmds_found or vim.tbl_isempty(cmds) then
-    vim.api.nvim_create_augroup(augroup, { clear = false })
-    for _, autocmd in ipairs(autocmds) do
-      local events = autocmd.events
-      autocmd.events = nil
-      autocmd.group = augroup
-      autocmd.buffer = bufnr
-      vim.api.nvim_create_autocmd(events, autocmd)
-    end
-  end
-end
-
-local function del_buffer_autocmd(augroup, bufnr)
-  local cmds_found, cmds =
-    pcall(vim.api.nvim_get_autocmds, { group = augroup, buffer = bufnr })
-  if cmds_found then
-    vim.tbl_map(function(cmd)
-      vim.api.nvim_del_autocmd(cmd.id)
-    end, cmds)
-  end
-end
-
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
 M.on_attach = function(client, bufnr)
@@ -251,33 +223,6 @@ M.on_attach = function(client, bufnr)
   end
 
   if client.supports_method('textDocument/codeLens') then
-    local silent_refresh = function()
-      local _notify = vim.notify
-      vim.notify = function()
-        -- say nothing
-      end
-      pcall(vim.lsp.codelens.refresh)
-      vim.notify = _notify
-    end
-
-    add_buffer_autocmd('lsp_codelens_refresh', bufnr, {
-      events = { 'InsertLeave', 'BufEnter' },
-      desc = 'Refresh codelens',
-      callback = function()
-        if not M.has_capability('textDocument/codeLens', { bufnr = bufnr }) then
-          del_buffer_autocmd('lsp_codelens_refresh', bufnr)
-          return
-        end
-        -- if vim.g.codelens_enabled then vim.lsp.codelens.refresh() end
-        if vim.g.codelens_enabled then
-          silent_refresh()
-        end
-      end,
-    })
-    -- if vim.g.codelens_enabled then vim.lsp.codelens.refresh() end
-    if vim.g.codelens_enabled then
-      silent_refresh()
-    end
     vim.keymap.set('n', '<leader>ll', function()
       vim.lsp.codelens.refresh()
     end, {
@@ -445,5 +390,27 @@ M.default_opts = {
 
 M.default_opts.capabilities.textDocument.completion.completionItem.snippetSupport =
   true
+
+local autocmd = function(event, opts)
+  if not opts.disable then
+    vim.api.nvim_create_autocmd(event, opts)
+  end
+end
+local augroup = function(group)
+  vim.api.nvim_create_augroup(group, { clear = true })
+end
+
+M.default_opts.capabilities.code_lens = {
+  name = 'textDocument/codeLens',
+  callback = function(_, bufnr)
+    autocmd({ 'BufEnter', 'InsertLeave', 'BufWritePost', 'CursorHold' }, {
+      group = augroup('lsp_codelens_refresh'),
+      buffer = bufnr,
+      callback = function()
+        vim.lsp.codelens.refresh({ bufnr = bufnr })
+      end,
+    })
+  end,
+}
 
 return M
