@@ -216,7 +216,12 @@ M.on_attach = function(client, bufnr)
         not vim.lsp.inlay_hint.is_enabled(hintFilter),
         hintFilter
       )
-    end, { expr = true, noremap = true, desc = '[T]oggle inlay [h]ints' })
+    end, {
+      expr = true,
+      noremap = true,
+      desc = '[T]oggle inlay [h]ints',
+      buffer = bufnr,
+    })
 
     -- Enable them by default.
     vim.lsp.inlay_hint.enable(true, hintFilter)
