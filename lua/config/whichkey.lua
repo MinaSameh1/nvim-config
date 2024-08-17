@@ -5,14 +5,18 @@ if not ok then
 end
 
 wk.setup({
-  window = {
-    position = 'bottom', -- 'bottom', 'top'
+  win = {
     border = 'single', -- none, single, double, shadow
-    margin = { 2, 2, 2, 2 }, -- extra window margin [top, right, bottom, left]
-  },
-  layout = {
+    -- don't allow the popup to overlap with the cursor
+    no_overlap = true,
     height = { min = 4, max = 80 }, -- min and max height of the columns
     width = { min = 20, max = 120 }, -- min and max width of the columns
+    -- col = 0,
+    -- row = math.huge,
+    -- border = "none",
+    padding = { 1, 2 }, -- extra window padding [top/bottom, right/left]
+  },
+  layout = {
     spacing = 3, -- spacing between columns
     align = 'center', -- align columns left, center or right
   },

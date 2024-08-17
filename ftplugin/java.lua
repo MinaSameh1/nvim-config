@@ -53,14 +53,13 @@ local config = {
     '-Dosgi.bundles.defaultStartLevel=4',
     '-Declipse.product=org.eclipse.jdt.ls.core.product',
     '-Dlog.level=ALL',
-    '-noverify',
     '-Xmx1G',
     '-Xmx2G',
     '--add-modules=ALL-SYSTEM',
-    '--add-opens',
-    'java.base/java.util=ALL-UNNAMED',
-    '--add-opens',
-    'java.base/java.lang=ALL-UNNAMED',
+    -- '--add-opens',
+    -- 'java.base/java.util=ALL-UNNAMED',
+    -- '--add-opens',
+    -- 'java.base/java.lang=ALL-UNNAMED',
     -- location of jdtls
     '-jar',
     vim.fn.glob(
@@ -188,27 +187,23 @@ local config = {
   },
   capabilities = opts.capabilities,
   init_options = {
-    extendedClientCapabilities = vim.tbl_deep_extend(
-      'keep',
-      opts.capabilities,
-      {
-        resolveAdditionalTextEditsSupport = true,
-        classFileContentsSupport = true,
-        generateToStringPromptSupport = true,
-        hashCodeEqualsPromptSupport = true,
-        advancedExtractRefactoringSupport = true,
-        advancedOrganizeImportsSupport = true,
-        generateConstructorsPromptSupport = true,
-        generateDelegateMethodsPromptSupport = true,
-        moveRefactoringSupport = true,
-        overrideMethodsPromptSupport = true,
-        inferSelectionSupport = {
-          'extractMethod',
-          'extractVariable',
-          'extractConstant',
-        },
-      }
-    ),
+    extendedClientCapabilities = vim.tbl_deep_extend('keep', opts.capabilities, {
+      resolveAdditionalTextEditsSupport = true,
+      classFileContentsSupport = true,
+      generateToStringPromptSupport = true,
+      hashCodeEqualsPromptSupport = true,
+      advancedExtractRefactoringSupport = true,
+      advancedOrganizeImportsSupport = true,
+      generateConstructorsPromptSupport = true,
+      generateDelegateMethodsPromptSupport = true,
+      moveRefactoringSupport = true,
+      overrideMethodsPromptSupport = true,
+      inferSelectionSupport = {
+        'extractMethod',
+        'extractVariable',
+        'extractConstant',
+      },
+    }),
     bundles = bundles,
   },
 }

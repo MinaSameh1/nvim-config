@@ -30,6 +30,8 @@ return {
       require('config.lualine.evil')
     end,
   },
+  -- Syntax highlighting for certain things.
+  { 'sheerun/vim-polyglot' },
 
   {
     -- Smooth scrolling
