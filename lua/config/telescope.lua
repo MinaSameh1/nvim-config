@@ -193,7 +193,22 @@ end, {
 -- Find files using Telescope command-line sugar.
 Key('n', '<leader>fr', '<Cmd>Telescope resume<CR>', setDesc('Resume'))
 Key('n', '<leader>ff', '<Cmd>Telescope find_files<CR>', setDesc('Find Files'))
-Key('n', '<leader>fg', '<Cmd>Telescope live_grep<CR>', setDesc('Grep Files'))
+Key({ 'v', 'n' }, '<leader>fg', function()
+  local mode = vim.api.nvim_get_mode().mode
+  local word
+
+  if mode == 'v' or mode == 'V' or mode == '' then
+    -- In visual mode
+    vim.cmd('normal! "vy') -- Yank the selected text to the unnamed register
+    word = vim.fn.escape(vim.fn.getreg('"'), '\\/.*$^~[]')
+  else
+    -- In normal mode
+    word = vim.fn.expand('<cword>')
+  end
+
+  local builtin = require('telescope.builtin')
+  builtin.live_grep({ default_text = word, initial_mode = 'normal' })
+end, setDesc('Grep Files'))
 Key('n', '<leader>fG', '<Cmd>Telescope grep_string<CR>', setDesc('Grep Word'))
 Key('n', '<leader>fb', '<Cmd>Telescope buffers<CR>', setDesc('Open Buffers'))
 Key('n', '<leader>fm', '<Cmd>Telescope marks<CR>', setDesc('Open Marks'))
