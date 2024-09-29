@@ -24,7 +24,7 @@ local nnoremap = utils.nnoremap
 -- Vim options
 vim.opt.background = 'dark' -- "\"dark\" or \"light\", used for highlight colors"
 
-vim.opt.shell = "/bin/bash"
+vim.opt.shell = '/bin/bash'
 
 vim.opt.splitbelow = true -- new window from split is below the current one
 vim.opt.splitright = true -- new window is put right of the current one
