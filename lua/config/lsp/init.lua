@@ -32,7 +32,7 @@ end
 
 mason_lspconfig.setup({
   ensure_installed = {
-    'tsserver',
+    'typescript-language-server',
     'kotlin_language_server',
     'jsonls',
     'dockerls',
@@ -90,7 +90,7 @@ mason_lspconfig.setup_handlers({
     }
     lspconfig['eslint'].setup(opts)
   end,
-  ['tsserver'] = function()
+  ['ts_ls'] = function()
     vim.api.nvim_set_keymap(
       'n',
       '<Leader>xc',
@@ -151,6 +151,7 @@ mason_lspconfig.setup_handlers({
       fallback = true, -- fall back to standard LSP definition on failure
     }
 
+    opts.plugin_name = 'ts_ls'
     require('typescript-tools').setup(opts)
   end,
   ['rust_analyzer'] = function()
