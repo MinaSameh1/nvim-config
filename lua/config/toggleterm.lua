@@ -17,7 +17,7 @@ toggleterm.setup({
   persist_size = true,
   direction = direction, --'vertical' | 'horizontal' | 'window' | 'float',
   close_on_exit = true,
-  shell = vim.o.shell,
+  shell = 'fish -il',
   float_opts = {
     border = 'curved',
     winblend = 0,
