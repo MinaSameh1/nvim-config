@@ -4,7 +4,7 @@ vim.cmd('hi NotifyBackground guibg=#1e222a')
 local nnoremap = require('config.utils').nnoremap
 
 nnoremap(
-  '<A-space>',
+  '<M-space>',
   '<cmd>Noice dismiss<CR><cmd>lua require("fidget.notification").clear()<CR>',
   { desc = 'Dismiss notifications' }
 )
