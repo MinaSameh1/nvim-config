@@ -20,6 +20,7 @@ function M.setup()
           keep = function()
             return count >= 10
           end,
+          icon = '🤠',
         })
         if not ok then
           id = nil
