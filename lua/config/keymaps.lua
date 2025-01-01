@@ -45,16 +45,36 @@ vim.keymap.set(
 -- Navigate quickfix list
 vim.keymap.set(
   'n',
-  '<a-j>',
+  '<M-j>',
   '<cmd>cnext<cr>',
   { silent = true, noremap = true, desc = 'next quickfix' }
 )
 vim.keymap.set(
   'n',
-  '<a-k>',
+  '<M-k>',
   '<cmd>cprev<cr>',
   { silent = true, noremap = true, desc = 'next quickfix' }
 )
 
 -- Select All
 vim.keymap.set('n', '<leader><C-a>', 'gg<S-v>G')
+
+vim.keymap.set('n', '<space>cq', '<Cmd>Trouble quickfix<CR>', {
+  silent = true,
+  noremap = true,
+  desc = 'Open quickfix',
+})
+
+vim.keymap.set( -- Cd to current file location
+  'n',
+  '<leader>cD',
+  '<cmd> SearchAndCdForFile<CR>',
+  { silent = true, noremap = true, desc = 'Cds to current opened file' }
+)
+
+vim.keymap.set(
+  'n',
+  '<leader>yp',
+  utils.insertFullPath,
+  { noremap = true, silent = true }
+)
