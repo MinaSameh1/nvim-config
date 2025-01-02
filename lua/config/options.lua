@@ -14,32 +14,22 @@ local function initHighlights()
     -- Colors: Purple
     callback = function()
       vim.api.nvim_set_hl(0, '@lsp.mod.readonly', { italic = true })
-      -- vim.api.nvim_set_hl(0, '@lsp.type.class', { fg = 'Aqua' })
-      -- vim.api.nvim_set_hl(0, '@lsp.type.function', { fg = 'Yellow' })
-      vim.api.nvim_set_hl(0, '@lsp.type.method', { fg = 'Orange' })
-      -- vim.api.nvim_set_hl(0, '@lsp.type.parameter', { fg = 'Purple' })
-      vim.api.nvim_set_hl(0, '@lsp.type.variable', { fg = 'Yellow' })
-      -- vim.api.nvim_set_hl(0, '@lsp.type.property', { fg = 'Green' })
-      --[[ vim.api.nvim_set_hl(
+      vim.api.nvim_set_hl(0, '@lsp.type.class', { fg = '#7aa2f7' }) -- Blue
+      vim.api.nvim_set_hl(0, '@lsp.type.function', { fg = '#bb9af7' }) -- Purple
+      vim.api.nvim_set_hl(0, '@lsp.type.method', { fg = '#ff9e64' }) -- Orange
+      vim.api.nvim_set_hl(0, '@lsp.type.parameter', { fg = '#9ece6a' }) -- Green
+      vim.api.nvim_set_hl(0, '@lsp.type.variable', { fg = '#e0af68' }) -- Yellow
+      vim.api.nvim_set_hl(0, '@lsp.type.property', { fg = '#73daca' }) -- Cyan
+      vim.api.nvim_set_hl(
         0,
         '@lsp.typemod.function.classScope',
-        { fg = 'Orange' }
-      )
-      vim.api.nvim_set_hl(
-        0,
-        '@lsp.typemod.variable.classScope',
-        { fg = 'Orange' }
-      )
-      vim.api.nvim_set_hl(
-        0,
-        '@lsp.typemod.variable.fileScope',
-        { fg = 'Orange' }
-      ) ]]
+        { fg = '#ff9e64' }
+      ) -- Orange
       vim.api.nvim_set_hl(
         0,
         '@lsp.typemod.variable.globalScope',
-        { fg = 'Red' }
-      )
+        { fg = '#f7768e' }
+      ) -- Red
     end,
   })
 end
