@@ -72,3 +72,7 @@ vim.keymap.set(
   utils.insertFullPath,
   { noremap = true, silent = true }
 )
+
+vim.keymap.set('n', '<leader>mw', function()
+  vim.g.root_spec = { 'cwd' }
+end, { noremap = true, silent = true })
