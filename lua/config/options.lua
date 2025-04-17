@@ -3,7 +3,7 @@
 local utils = require('config.utils')
 
 -- open lazyvim in current directory and ignore lsp and .git
-vim.g.root_spec = { 'cwd' }
+-- vim.g.root_spec = { 'cwd' }
 
 vim.opt.expandtab = true -- use spaces when <Tab> is inserted
 vim.opt.shiftwidth = 2 -- number of spaces to use for (auto)indent step
