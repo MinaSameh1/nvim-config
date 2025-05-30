@@ -16,6 +16,17 @@ return {
       'rust',
       'sql',
     },
+    textobjects = {
+      swap = {
+        enable = true,
+        swap_next = {
+          ['<leader>a'] = '@parameter.inner',
+        },
+        swap_previous = {
+          ['<leader>A'] = '@parameter.inner',
+        },
+      },
+    },
   },
   config = function(opts)
     require('nvim-treesitter.configs').setup(opts)
