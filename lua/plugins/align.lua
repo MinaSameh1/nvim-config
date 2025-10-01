@@ -1,1 +1,1 @@
-return { 'echasnovski/mini.align', version = false, opts = {} }
+return { 'nvim-mini/mini.align', version = false, opts = {} }
